@@ -1,0 +1,2 @@
+This module is for higher level plotting functions intended to be used with Scenario objects as an input. This
+is disctinct from the core plotting utilities that expect dataframes of a certain format along with color maps.

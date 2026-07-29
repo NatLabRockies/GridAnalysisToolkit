@@ -1,0 +1,99 @@
+name: Sphinx build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+jobs:
+  # The example gallery (docs/gat_examples/*.py) executes scripts that
+  # construct a SiennaScenario from example_data/sienna/v4/{sys.json,
+  # simulation_store.h5} — sphinx-gallery runs them for real during the
+  # build. Mirrors the tests.yml `sienna-fixture` job (kept as a separate
+  # copy since GitHub Actions can't share a job definition across workflow
+  # files without a reusable-workflow refactor); see that file for the
+  # cache-first / build-on-miss rationale.
+  sienna-fixture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore sienna v4 fixture cache
+        id: fixture-cache
+        uses: actions/cache@v4
+        with:
+          path: example_data/sienna/v4
+          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+
+      - name: Set up Docker Buildx
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build sienna Docker image (with layer cache)
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: docker/sienna
+          build-args: SIENNA_VERSION=4
+          tags: gat-sienna:v4
+          load: true
+          cache-from: type=gha,scope=sienna-docker-v4
+          cache-to: type=gha,mode=max,scope=sienna-docker-v4
+
+      - name: Generate sienna v4 fixture data
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p example_data/sienna/v4
+          docker run --rm \
+            -v "${{ github.workspace }}/example_data/sienna/v4:/output" \
+            gat-sienna:v4
+
+      - name: Upload sienna v4 fixture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sienna-v4-fixture-docs
+          path: example_data/sienna/v4/
+          retention-days: 1
+
+  build:
+    needs: sienna-fixture
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[doc,reports]"
+
+      - name: Download sienna v4 fixture artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sienna-v4-fixture-docs
+          path: example_data/sienna/v4
+
+      - name: Build HTML
+        run: sphinx-build -b html docs/source docs/build/html
+
+      - name: Add .nojekyll file
+        run: touch docs/build/html/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' || github.ref_type == 'tag'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build/html

@@ -1,0 +1,159 @@
+name: Sienna fixture refresh
+
+# Deliberately (re)builds a Sienna fixture and refreshes its actions/cache
+# entry under the *same* key scheme tests.yml's automatic "changes" /
+# "sienna-fixture" / "pytest" jobs already use:
+#
+#     sienna-<version>-${{ hashFiles('docker/sienna/**') }}
+#
+# Sienna's UC solve isn't perfectly reproducible run-to-run (MIP tie-breaking
+# among equally-optimal dispatch solutions -- much improved by pinning solver
+# behavior, but not guaranteed airtight forever across HDF5/solver version
+# bumps). Letting the fixture cache regenerate *implicitly* -- e.g. on a
+# 7-day cache eviction, a repo-wide cache-size eviction, or a race between
+# two concurrent PR runs that both hit a cache miss at once -- means
+# whichever build happens to "win" silently becomes the fixture every future
+# run tests against, with no guarantee it matches the committed regression
+# CSV baselines (tests/handlers/test_sienna_regression/*.csv). That mismatch
+# is what caused CI failures on PR #8, unrelated to what that PR changed.
+#
+# This workflow turns fixture regeneration into a deliberate, reviewable,
+# human-triggered act instead. Run it:
+#   - before merging a PR that touches docker/sienna/**, once you're happy
+#     with the fixture it produced
+#   - periodically as a safety refresh (e.g. if you suspect the cached
+#     fixture was silently evicted, or was built by a losing racer in a
+#     concurrent-PR cache-miss)
+#
+# IMPORTANT: after running this, the committed regression baselines will NOT
+# match the newly-cached fixture until you regenerate and commit them -- see
+# the job summary this workflow prints, or docker/sienna/README.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: >-
+          Sienna fixture version to refresh. Only v4 is wired into tests.yml
+          today; v5 (Manifest.v5.toml + `make sienna-fixture-v5` already
+          exist) is offered here so it can reuse this same workflow once
+          test_sienna_regression.py's v5 support and tests.yml's v5 wiring
+          land -- no redesign of this workflow needed then.
+        required: true
+        default: v4
+        type: choice
+        options:
+          - v4
+          - v5
+
+permissions:
+  contents: read
+  actions: write # required for `gh cache delete`
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # GitHub Actions caches are scoped to the branch they're written from:
+      # visible to that branch, PRs based on it, and the default branch --
+      # but NOT to unrelated branches/PRs. workflow_dispatch lets you pick
+      # any ref to run from, so running this from a feature branch would
+      # silently populate a cache invisible to the PRs this workflow exists
+      # to protect. Restrict to main so a refresh is always globally visible.
+      - name: Require running from main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::This workflow must be run from 'main' (got '${{ github.ref }}'). GitHub Actions cache entries are scoped to the branch they're written from, so refreshing from a feature branch would silently produce a cache invisible to unrelated PRs -- defeating the point. Switch the 'Use workflow from' branch selector to 'main' and re-run."
+          exit 1
+
+      - name: Resolve version number and cache key
+        id: vars
+        run: |
+          version="${{ inputs.version }}"
+          number="${version#v}"
+          key="sienna-${version}-${{ hashFiles('docker/sienna/**') }}"
+          {
+            echo "number=${number}"
+            echo "key=${key}"
+            echo "out_dir=example_data/sienna/${version}"
+          } >> "$GITHUB_OUTPUT"
+
+      # actions/cache does NOT overwrite an existing key -- a save to an
+      # already-populated key is silently skipped (with just a warning in
+      # the log). To force a genuinely fresh build+cache-write under the
+      # *same* key the automatic tests.yml jobs look up (so the very next PR
+      # run picks up the refresh automatically, no further changes needed),
+      # delete any existing entry for this key first. `gh cache delete`
+      # exits non-zero if no entry exists yet (e.g. first-ever build for
+      # this content hash) -- that's expected, not a failure of this job.
+      - name: Delete existing cache entry for this key (if any)
+        continue-on-error: true
+        run: gh cache delete "${{ steps.vars.outputs.key }}" --repo "${{ github.repository }}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build sienna Docker image (with layer cache)
+        uses: docker/build-push-action@v6
+        with:
+          context: docker/sienna
+          build-args: SIENNA_VERSION=${{ steps.vars.outputs.number }}
+          tags: gat-sienna:${{ inputs.version }}
+          load: true
+          cache-from: type=gha,scope=sienna-docker-${{ inputs.version }}
+          cache-to: type=gha,mode=max,scope=sienna-docker-${{ inputs.version }}
+
+      - name: Generate sienna fixture data
+        run: |
+          mkdir -p "${{ steps.vars.outputs.out_dir }}"
+          docker run --rm \
+            -v "${{ github.workspace }}/${{ steps.vars.outputs.out_dir }}:/output" \
+            gat-sienna:${{ inputs.version }}
+
+      # Writes a fresh entry under the same key tests.yml's "changes" /
+      # "sienna-fixture" / "pytest" jobs already use -- since we deleted any
+      # prior entry above, the actions/cache action's implicit post-step
+      # save now has a clear key to write to instead of silently no-op'ing.
+      - name: Write refreshed fixture to actions/cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.vars.outputs.out_dir }}
+          key: ${{ steps.vars.outputs.key }}
+
+      - name: Upload refreshed fixture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sienna-${{ inputs.version }}-fixture-refreshed
+          path: ${{ steps.vars.outputs.out_dir }}/
+          retention-days: 7
+
+      - name: Print required follow-up
+        env:
+          FIXTURE_ENV_VAR: GAT_SIENNA_${{ inputs.version == 'v5' && 'V5' || 'V4' }}_FIXTURE
+        run: |
+          {
+            echo "## Sienna ${{ inputs.version }} fixture refreshed"
+            echo
+            echo "The \`actions/cache\` entry for key \`${{ steps.vars.outputs.key }}\` has been rebuilt and re-populated."
+            echo "The next automatic CI run (for any PR, as long as \`docker/sienna/**\` doesn't change again) will restore **this** fixture."
+            echo
+            echo "**This does NOT update the committed regression baselines.**"
+            echo "\`tests/handlers/test_sienna_regression.py\` snapshots (\`tests/handlers/test_sienna_regression/*.csv\`) still reflect the *previous* fixture until you regenerate and commit them:"
+            echo
+            echo "1. Download the \`sienna-${{ inputs.version }}-fixture-refreshed\` artifact from this workflow run."
+            echo "2. Extract it locally to \`example_data/sienna/${{ inputs.version }}\`."
+            echo "3. Run:"
+            echo '   ```bash'
+            echo "   ${FIXTURE_ENV_VAR}=\$(pwd)/example_data/sienna/${{ inputs.version }} \\"
+            echo "     pytest tests/handlers/test_sienna_regression.py --force-regen"
+            echo '   ```'
+            echo "4. Review the resulting CSV diffs and commit them, noting why the fixture was refreshed."
+            echo
+            echo "Skipping step 3-4 means CI's regression tests will start failing against the newly-cached fixture on the very next PR that restores it from cache."
+          } >> "$GITHUB_STEP_SUMMARY"

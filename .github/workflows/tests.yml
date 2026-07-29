@@ -1,0 +1,191 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      sienna: ${{ steps.filter.outputs.sienna }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect sienna-relevant changes
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            sienna:
+              - 'docker/sienna/**'
+
+      # Fixture content is fully determined by docker/sienna/** (Dockerfile,
+      # Manifests, generate.jl), matching the cache key below — a lookup-only
+      # check tells us if a previous build is still available without paying
+      # for a download.
+      - name: Check for existing sienna v4 fixture cache
+        id: fixture-cache-check
+        uses: actions/cache/restore@v4
+        with:
+          path: example_data/sienna/v4
+          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          lookup-only: true
+
+      # Deliberately NOT an automatic rebuild-on-cache-miss fallback. Sienna's
+      # UC solve isn't bit-deterministic, so an implicit rebuild here (e.g.
+      # after the 7-day cache eviction, or a repo cache-size eviction, or two
+      # concurrent PR runs racing on the same cache-miss) would silently pick
+      # whichever build "wins" as the fixture every future run tests against,
+      # with no guarantee it matches the committed regression CSV baselines.
+      # That's exactly what caused the CI failures on PR #8. Fail fast and
+      # loudly instead, and point at the deliberate, human-triggered fix.
+      #
+      # Also fires on ANY push event with no cache hit, regardless of whether
+      # docker/sienna/** changed -- GitHub Actions caches are scoped per
+      # branch (a cache written on a feature branch is invisible to a
+      # separate push-triggered run on main), so sienna-fixture below no
+      # longer auto-rebuilds on push at all (see its own comment). Without
+      # this, merging a docker/sienna/**-touching PR would make main's own
+      # push-triggered run silently rebuild AGAIN on main's cache scope --
+      # an independent, equally-nondeterministic build that doesn't match
+      # whatever baselines the PR itself regenerated and merged. That's
+      # exactly what happened after PR #8 merged (see PR #9's history).
+      - name: Fail fast if the fixture cache is missing and nothing here will rebuild it
+        if: steps.fixture-cache-check.outputs.cache-hit != 'true' && (github.event_name != 'pull_request' || steps.filter.outputs.sienna != 'true')
+        run: |
+          echo "::error::No cached sienna v4 fixture found for key 'sienna-v4-${{ hashFiles('docker/sienna/**') }}', and nothing in this run will rebuild it (push events never auto-rebuild -- see the sienna-fixture job's condition -- and docker/sienna/** wasn't changed in this PR). This is deliberate: an automatic rebuild-on-cache-miss fallback previously caused silent fixture drift (whichever concurrent build 'won' a cache-miss race became the fixture every future run tested against, with no guarantee it matched the committed regression baselines -- see PR #8/#9). Fix: have someone with write access run the 'Sienna fixture refresh' workflow (.github/workflows/sienna-fixture-refresh.yml) via workflow_dispatch to deliberately rebuild the fixture and refresh the cache, then regenerate + commit the regression baselines per its job summary / docker/sienna/README.md."
+          exit 1
+
+  sienna-fixture:
+    needs: changes
+    # Only pay for the Docker build pipeline on a pull_request that actually
+    # changed sienna-relevant files -- deliberate cache refreshes for
+    # cold-start/eviction cases go through the separate
+    # sienna-fixture-refresh.yml workflow (see the "changes" job's fail-fast
+    # step above).
+    #
+    # Deliberately excludes push events (i.e. merges to main), even when
+    # docker/sienna/** changed in that push: GitHub Actions cache scoping
+    # means a cache written here, on main's own push-triggered run, would be
+    # an entirely independent (and, given the solve's nondeterminism,
+    # near-certainly different) build from whatever the merged PR's own
+    # branch-scoped run already built and regenerated baselines against --
+    # not a "second confirmation," just fresh drift. Let it fail fast
+    # instead (see above) and require the same deliberate manual refresh
+    # every other cold-start case does.
+    if: needs.changes.outputs.sienna == 'true' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore sienna v4 fixture cache
+        id: fixture-cache
+        uses: actions/cache@v4
+        with:
+          path: example_data/sienna/v4
+          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+
+      - name: Set up Docker Buildx
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build sienna Docker image (with layer cache)
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: docker/sienna
+          build-args: SIENNA_VERSION=4
+          tags: gat-sienna:v4
+          load: true
+          cache-from: type=gha,scope=sienna-docker-v4
+          cache-to: type=gha,mode=max,scope=sienna-docker-v4
+
+      - name: Generate sienna v4 fixture data
+        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p example_data/sienna/v4
+          docker run --rm \
+            -v "${{ github.workspace }}/example_data/sienna/v4:/output" \
+            gat-sienna:v4
+
+      - name: Upload sienna v4 fixture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sienna-v4-fixture
+          path: example_data/sienna/v4/
+          retention-days: 7
+
+  pytest:
+    needs: [changes, sienna-fixture]
+    # sienna-fixture is intentionally skipped when nothing sienna-relevant
+    # changed and a cached fixture already exists — that's not a failure.
+    # Require changes to have actually succeeded too: if its fail-fast step
+    # tripped (no cache and no rebuild queued), sienna-fixture is skipped as
+    # a normal consequence of its failed dependency, which would otherwise
+    # let this job slip through the `always()` and fail later/more expensively
+    # (mid-matrix, on the cache restore's fail-on-cache-miss) instead of fast.
+    if: always() && needs.changes.result == 'success' && (needs.sienna-fixture.result == 'success' || needs.sienna-fixture.result == 'skipped')
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,reports]"
+
+      - name: Download sienna v4 fixture artifact
+        if: needs.sienna-fixture.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: sienna-v4-fixture
+          path: example_data/sienna/v4
+
+      - name: Restore sienna v4 fixture from cache
+        if: needs.sienna-fixture.result == 'skipped'
+        uses: actions/cache/restore@v4
+        with:
+          path: example_data/sienna/v4
+          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          fail-on-cache-miss: true
+
+      # Sienna's UC solve isn't bit-deterministic run-to-run (MIP tie-
+      # breaking among equally-optimal dispatch solutions), so a fresh
+      # local `make sienna-fixture-v4` won't reproduce the exact fixture
+      # CI is testing against. Uploading it here (whichever path produced
+      # it) makes the exact bytes CI used downloadable for regenerating
+      # regression snapshot baselines locally — only from Python 3.10 to
+      # avoid a redundant duplicate upload from the matrix's other leg.
+      - name: Upload sienna v4 fixture actually used by this run
+        if: matrix.python-version == '3.10'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sienna-v4-fixture-used
+          path: example_data/sienna/v4/
+          retention-days: 7
+
+      - name: Run pytest
+        env:
+          GAT_PLEXOS_FIXTURE: ${{ github.workspace }}/example_data/plexos
+          GAT_SIENNA_V4_FIXTURE: ${{ github.workspace }}/example_data/sienna/v4
+          GAT_SIENNA_V5_FIXTURE: ${{ github.workspace }}/example_data/sienna/v5
+        run: pytest tests/ -v
