@@ -101,4 +101,4 @@ incrementally, validated against the regression snapshots in
 3. **v2.0:** Legacy classes removed. `gat.load()` and the v1 architecture
    are the only path.
 
-[migration-poc]: https://github.com/NatLabRockies/GAT/blob/main/tests/handlers/test_plexos_v1_migration.py
+[migration-poc]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/tests/handlers/test_plexos_v1_migration.py

@@ -235,7 +235,7 @@ The discovery mechanism is in
 [`gat.registry.discover_external_plots`][external-discovery]. No further
 setup is required.
 
-[external-discovery]: https://github.com/NatLabRockies/GAT/blob/main/gat/registry/__init__.py
+[external-discovery]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/registry/__init__.py
 
 ## Notes
 

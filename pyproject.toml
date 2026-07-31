@@ -41,9 +41,9 @@ classifiers = [
 gat="gat.cli:cli"
 
 [project.urls]
-"Homepage" = "https://github.com/NatLabRockies/GAT"
-"Bug Tracker" = "https://github.com/NatLabRockies/GAT/issues"
-"Documentation" = "https://natlabrockies.github.io/GAT/"
+"Homepage" = "https://github.com/NatLabRockies/GridAnalysisToolkit"
+"Bug Tracker" = "https://github.com/NatLabRockies/GridAnalysisToolkit/issues"
+"Documentation" = "https://natlabrockies.github.io/GridAnalysisToolkit/"
 
 
 [tool.setuptools]

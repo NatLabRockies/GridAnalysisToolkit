@@ -35,18 +35,18 @@ Install the latest release from PyPI:
 
 Or install from GitHub — the latest, a specific release, or a branch:
 
-`pip install git+https://github.com/NatLabRockies/GAT`
+`pip install git+https://github.com/NatLabRockies/GridAnalysisToolkit`
 
-`pip install git+https://github.com/NatLabRockies/GAT@v0.1.0`
+`pip install git+https://github.com/NatLabRockies/GridAnalysisToolkit@v0.1.0`
 
-`pip install git+https://github.com/NatLabRockies/GAT@{branch_name}`
+`pip install git+https://github.com/NatLabRockies/GridAnalysisToolkit@{branch_name}`
 
 ## Documentation
 
 The latest stable documentation lives at
-[natlabrockies.github.io/GAT](https://natlabrockies.github.io/GAT/).
+[natlabrockies.github.io/GridAnalysisToolkit](https://natlabrockies.github.io/GridAnalysisToolkit/).
 The example
-[gallery](https://natlabrockies.github.io/GAT/gat_plot_examples/index.html)
+[gallery](https://natlabrockies.github.io/GridAnalysisToolkit/gat_plot_examples/index.html)
 is a good starting point for visual capability.
 
 Highest-traffic doc pages (also readable directly in the repo):
@@ -74,7 +74,7 @@ backend (`pip install nlr-gat[plexos-duckdb]`), point
 
 If you wish to contribute to the development of GAT, please clone the repo and install the dev dependencies as follows.
 
-`git clone https://github.com/NatLabRockies/GAT.git`
+`git clone https://github.com/NatLabRockies/GridAnalysisToolkit.git`
 
 `cd GAT`
 

@@ -43,8 +43,9 @@ jobs:
   # Publishes via PyPI Trusted Publishing (OIDC) — no API token is stored
   # in the repo. One-time setup on PyPI is required before the first run:
   # add a "pending publisher" for the project name `nlr-gat` with
-  # owner NatLabRockies, repository GAT, workflow release.yml, and
-  # environment pypi (https://pypi.org/manage/account/publishing/).
+  # owner NatLabRockies, repository GridAnalysisToolkit, workflow
+  # release.yml, and environment pypi
+  # (https://pypi.org/manage/account/publishing/).
   # The `pypi` GitHub environment is created automatically on first use;
   # protection rules (required reviewers) can be added to it in repo
   # Settings → Environments to gate publishes.

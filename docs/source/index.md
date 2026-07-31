@@ -15,9 +15,9 @@ unrelated genomics package; the import package and CLI are still `gat`.)
 
 Or from GitHub, optionally pinning a release:
 
-`pip install git+https://github.com/NatLabRockies/GAT`
+`pip install git+https://github.com/NatLabRockies/GridAnalysisToolkit`
 
-`pip install git+https://github.com/NatLabRockies/GAT@v0.1.0`
+`pip install git+https://github.com/NatLabRockies/GridAnalysisToolkit@v0.1.0`
 
 
 ## Motivation
