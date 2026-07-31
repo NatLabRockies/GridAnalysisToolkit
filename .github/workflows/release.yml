@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -24,11 +24,45 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Build GAT wheel
-        run: uv build --wheel
+      - name: Build sdist and wheel
+        run: uv build
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/nlr_gat-*.whl
+            dist/nlr_gat-*.tar.gz
+
+      - name: Store dist for the publish job
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-dist
+          path: dist/
+
+  # Publishes via PyPI Trusted Publishing (OIDC) — no API token is stored
+  # in the repo. One-time setup on PyPI is required before the first run:
+  # add a "pending publisher" for the project name `nlr-gat` with
+  # owner NatLabRockies, repository GAT, workflow release.yml, and
+  # environment pypi (https://pypi.org/manage/account/publishing/).
+  # The `pypi` GitHub environment is created automatically on first use;
+  # protection rules (required reviewers) can be added to it in repo
+  # Settings → Environments to gate publishes.
+  publish-pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/nlr-gat
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: python-dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
