@@ -74,7 +74,7 @@ let
 end
 
 @info "Configuring UC template"
-template_uc = ProblemTemplate(NetworkModel(DCPPowerModel))
+template_uc = ProblemTemplate(NetworkModel(DCPPowerModel; use_slacks = true))
 set_device_model!(template_uc, ThermalStandard, ThermalStandardUnitCommitment)
 set_device_model!(template_uc, RenewableDispatch, RenewableFullDispatch)
 set_device_model!(template_uc, RenewableNonDispatch, FixedOutput)
@@ -91,7 +91,7 @@ set_service_model!(template_uc, VariableReserve{ReserveDown}, RangeReserve)
 #   * The cross-decision-model UC→ED feedforward (commitments propagate
 #     from UC into ED via SemiContinuousFeedforward).
 @info "Configuring ED template"
-template_ed = ProblemTemplate(NetworkModel(DCPPowerModel))
+template_ed = ProblemTemplate(NetworkModel(DCPPowerModel; use_slacks = true))
 set_device_model!(template_ed, ThermalStandard, ThermalStandardDispatch)
 set_device_model!(template_ed, RenewableDispatch, RenewableFullDispatch)
 set_device_model!(template_ed, RenewableNonDispatch, FixedOutput)
