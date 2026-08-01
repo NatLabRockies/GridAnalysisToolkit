@@ -43,33 +43,33 @@ Curtailment is computed as the difference between renewable
 
  .. code-block:: none
 
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
+    ACBus
     PowerLoad
-    TwoTerminalHVDCLine
-    Line
-    Area
-    VariableReserve
-    FixedAdmittance
-    ThermalStandard
     RenewableDispatch
-    TapTransformer
     LoadZone
     Arc
-    ACBus
+    TwoTerminalHVDCLine
+    FixedAdmittance
+    TapTransformer
     RenewableNonDispatch
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
+    ThermalStandard
+    VariableReserve
+    Area
+    Line
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:515: UserWarning: No matching datasets found for ['ActivePowerInVariable*'], consider updating the configuration.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:515: UserWarning: No matching datasets found for ['ActivePowerInVariable*'], consider updating the configuration.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:698: UserWarning: Unable to create storage load timeseries data, additional calculated loads may not be available.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:698: UserWarning: Unable to create storage load timeseries data, additional calculated loads may not be available.
       warnings.warn(
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerOutVariable*, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerOutVariable*, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
 
 
@@ -110,7 +110,7 @@ Curtailment is computed as the difference between renewable
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.193 seconds)
+   **Total running time of the script:** (0 minutes 0.422 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_06_curtailment_annual.py:

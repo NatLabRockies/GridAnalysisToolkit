@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>v1 migration pattern: wrapping a tool for GATDatabase &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+    <title>v1 migration pattern: wrapping a tool for GATDatabase &#8212; Grid Analysis Toolkit 0.0.post8+gec32c5f61 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../_static/documentation_options.js?v=60166ff5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="BaseSystem Architecture" href="base_system.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  <meta name="docsearch:version" content="0.0.post8+gec32c5f61" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post8+gec32c5f61 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -486,12 +486,12 @@
 GAT’s v1 duckdb-backed pipeline (<code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>). Use it when adding support
 for a new tool, or when migrating an existing legacy scenario handler from
 the pandas/h5py path to the v1 path.</p>
-<p>The Plexos POC (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos.py</span></code></a>,
-<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_v1.py</span></code></a>,
+<p>The Plexos POC (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos.py</span></code></a>,
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/plexos_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_v1.py</span></code></a>,
 <a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/tests/handlers/test_plexos_v1_migration.py"><code class="docutils literal notranslate"><span class="pre">tests/handlers/test_plexos_v1_migration.py</span></code></a>) is the worked
 example. The Sienna implementation
-(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/sienna.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/sienna.py</span></code></a>,
-<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/sienna_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/sienna_v1.py</span></code></a>) is the second reference point;
+(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/sienna.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/sienna.py</span></code></a>,
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/sienna_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/sienna_v1.py</span></code></a>) is the second reference point;
 read both if you’re adding a third tool.</p>
 <section id="the-contract">
 <h2>The contract<a class="headerlink" href="#the-contract" title="Link to this heading">#</a></h2>
@@ -646,8 +646,8 @@ implementation to use duckdb.</p>
 </section>
 <section id="a-third-tool-and-a-shortcut-for-already-relational-sources">
 <h2>A third tool, and a shortcut for already-relational sources<a class="headerlink" href="#a-third-tool-and-a-shortcut-for-already-relational-sources" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos_duckdb.py</span></code></a> /
-<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_duckdb.py</span></code></a> is a second Plexos
+<p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos_duckdb.py</span></code></a> /
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_duckdb.py</span></code></a> is a second Plexos
 backend, alongside the H5-based POC above. It ingests native PLEXOS
 <code class="docutils literal notranslate"><span class="pre">Solution.zip</span></code> files (not h5plexos-converted <code class="docutils literal notranslate"><span class="pre">.h5</span></code>) by shelling out to the
 optional <a class="reference external" href="https://github.com/epri-dev/plexos2duckdb"><code class="docutils literal notranslate"><span class="pre">plexos2duckdb</span></code></a> tool
@@ -673,7 +673,7 @@ its name (real example: PLEXOS’s “Start &amp; Shutdown Cost”).</p>
 value columns. So instead of parsing into pandas and letting
 <code class="docutils literal notranslate"><span class="pre">GATDatabase.ingest_simulation</span></code> do the transpose, <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code> runs a
 <code class="docutils literal notranslate"><span class="pre">PIVOT</span></code> directly against the source connection
-(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/datahelpers/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/datahelpers/plexos_duckdb.py</span></code></a>) and only
+(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/datahelpers/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/datahelpers/plexos_duckdb.py</span></code></a>) and only
 crosses into pandas at the very end via <code class="docutils literal notranslate"><span class="pre">.fetchdf()</span></code>. Same
 <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code>/<code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code> contract as every other backend — the
 shortcut is internal to <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code>, not a new interface.</p>
@@ -707,7 +707,7 @@ each time.</p>
 </section>
 <section id="a-legacy-handler-that-speaks-both-formats">
 <h2>A legacy handler that speaks both formats<a class="headerlink" href="#a-legacy-handler-that-speaks-both-formats" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">PlexosScenario</span></code> (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/scenariohandlers/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/scenariohandlers/plexos.py</span></code></a>) now
+<p><code class="docutils literal notranslate"><span class="pre">PlexosScenario</span></code> (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/scenariohandlers/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/scenariohandlers/plexos.py</span></code></a>) now
 detects its input format and routes internally to one of two engines —
 the legacy pandas/h5py <code class="docutils literal notranslate"><span class="pre">PlexosParser</span></code> for h5plexos-converted <code class="docutils literal notranslate"><span class="pre">.h5</span></code> files
 (unchanged), or <code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSystem</span></code>/<code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSimulation</span></code> for native
@@ -809,9 +809,9 @@ needs to fit it.</p></li>
 <code class="docutils literal notranslate"><span class="pre">base_power</span></code> is resolved across the legacy and v1 paths.</p></li>
 <li><p><a class="reference internal" href="../legacy_handler_deprecation.html"><span class="std std-doc">Legacy scenario handler deprecation</span></a>
 — the user-facing migration story.</p></li>
-<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/interfaces.py"><code class="docutils literal notranslate"><span class="pre">gat.interfaces</span></code></a> — the <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> / <code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code>
+<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/interfaces.py"><code class="docutils literal notranslate"><span class="pre">gat.interfaces</span></code></a> — the <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> / <code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code>
 abstract classes with full docstrings.</p></li>
-<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/backends/duckdb_backend.py"><code class="docutils literal notranslate"><span class="pre">gat.backends.GATDatabase</span></code></a> — the duckdb engine.</p></li>
+<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/backends/duckdb_backend.py"><code class="docutils literal notranslate"><span class="pre">gat.backends.GATDatabase</span></code></a> — the duckdb engine.</p></li>
 </ul>
 </section>
 </section>

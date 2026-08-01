@@ -325,14 +325,14 @@ transfers.
   abstract classes with full docstrings.
 - [`gat.backends.GATDatabase`][backend] — the duckdb engine.
 
-[plexos-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos.py
-[plexos-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_v1.py
+[plexos-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/plexos.py
+[plexos-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/plexos_v1.py
 [plexos-test]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/tests/handlers/test_plexos_v1_migration.py
-[sienna-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/sienna.py
-[sienna-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/sienna_v1.py
-[interfaces]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/interfaces.py
-[backend]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/backends/duckdb_backend.py
-[plexos-duckdb-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos_duckdb.py
-[plexos-duckdb-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_duckdb.py
-[plexos-duckdb-source]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/datahelpers/plexos_duckdb.py
-[plexos-legacy]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/scenariohandlers/plexos.py
+[sienna-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/sienna.py
+[sienna-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/sienna_v1.py
+[interfaces]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/interfaces.py
+[backend]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/backends/duckdb_backend.py
+[plexos-duckdb-system]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/systems/plexos_duckdb.py
+[plexos-duckdb-sim]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/simulations/plexos_duckdb.py
+[plexos-duckdb-source]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/datahelpers/plexos_duckdb.py
+[plexos-legacy]: https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/src/gat/scenariohandlers/plexos.py
