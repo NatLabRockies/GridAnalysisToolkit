@@ -158,7 +158,7 @@ dmypy.json
 !docs/source/diagrams/*.png
 
 # version file
-gat/_version.py
+src/gat/_version.py
 
 # Example data — too large to track. Regenerate Sienna fixtures via
 # `make sienna-fixture-v4`; bring your own Plexos h5 files and set

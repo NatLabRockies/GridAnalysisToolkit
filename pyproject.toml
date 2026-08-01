@@ -47,6 +47,7 @@ gat="gat.cli:cli"
 
 
 [tool.setuptools]
+package-dir = {"" = "src"}
 packages = [
     "gat",
     "gat.backends",
@@ -69,7 +70,7 @@ packages = [
 "*" = ["*.json", "*.yaml"]
 
 [tool.setuptools_scm]
-write_to = "gat/_version.py"
+write_to = "src/gat/_version.py"
 version_scheme = "post-release"
 local_scheme = "node-and-date"
 
