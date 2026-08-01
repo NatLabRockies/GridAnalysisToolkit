@@ -43,102 +43,102 @@ further analysis.
 
  .. code-block:: none
 
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: HydroDispatch was not found. Use one of the following components
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroDispatch was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: HydroPumpedStorage was not found. Use one of the following components
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroPumpedStorage was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: ThermalMultiStart was not found. Use one of the following components
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: ThermalMultiStart was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
     PowerLoad
-    TapTransformer
-    Arc
-    ThermalStandard
-    Line
-    Area
     FixedAdmittance
+    Arc
     VariableReserve
-    ACBus
-    TwoTerminalHVDCLine
-    RenewableDispatch
-    RenewableNonDispatch
+    Area
     LoadZone
+    ThermalStandard
+    TwoTerminalHVDCLine
+    RenewableNonDispatch
+    RenewableDispatch
+    Line
+    TapTransformer
+    ACBus
     generation capacity — 3 rows of capacity data
     Technology         Coal       Gas-CC  ...     Nuclear       PV
     Area                                  ...                     
@@ -180,7 +180,7 @@ further analysis.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.212 seconds)
+   **Total running time of the script:** (0 minutes 0.200 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_07_capacity_overview.py:
