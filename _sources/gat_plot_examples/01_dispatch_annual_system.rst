@@ -45,19 +45,19 @@ Wind, etc.) and stacked from the bottom up; the line on top is the load.
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
-    TapTransformer
-    RenewableDispatch
-    LoadZone
-    VariableReserve
-    Area
-    PowerLoad
-    Line
-    ThermalStandard
+    TwoTerminalHVDCLine
     Arc
     RenewableNonDispatch
-    TwoTerminalHVDCLine
-    ACBus
+    ThermalStandard
+    RenewableDispatch
     FixedAdmittance
+    TapTransformer
+    VariableReserve
+    LoadZone
+    ACBus
+    PowerLoad
+    Area
+    Line
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
@@ -107,7 +107,7 @@ Wind, etc.) and stacked from the bottom up; the line on top is the load.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.275 seconds)
+   **Total running time of the script:** (0 minutes 0.260 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_01_dispatch_annual_system.py:
