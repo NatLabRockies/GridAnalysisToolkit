@@ -49,19 +49,19 @@ labelled ``"Native Demand"`` by default — set
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
-    PowerLoad
-    FixedAdmittance
-    Arc
-    VariableReserve
-    Area
-    LoadZone
-    ThermalStandard
-    TwoTerminalHVDCLine
     RenewableNonDispatch
+    LoadZone
     RenewableDispatch
-    Line
-    TapTransformer
+    FixedAdmittance
     ACBus
+    Area
+    VariableReserve
+    TwoTerminalHVDCLine
+    ThermalStandard
+    Arc
+    PowerLoad
+    TapTransformer
+    Line
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
@@ -111,7 +111,7 @@ labelled ``"Native Demand"`` by default — set
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.606 seconds)
+   **Total running time of the script:** (0 minutes 0.645 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_04_dispatch_window_peak_min.py:

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Transmission Line Loading and Utilization (Plexos) &#8212; Grid Analysis Toolkit 0.1.0.post2+g2158ccf05 documentation</title>
+    <title>Transmission Line Loading and Utilization &#8212; Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=aab59d35"></script>
+    <script src="../_static/documentation_options.js?v=aaa5af38"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -55,11 +55,11 @@
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="GAT Command Line Interface" href="../api/cli/commands.html" />
-    <link rel="prev" title="Load Heatmap and Duration Curve" href="08_load_heatmap.html" />
+    <link rel="next" title="Load Heatmap and Duration Curve" href="08_load_heatmap.html" />
+    <link rel="prev" title="Annual System Dispatch Stack" href="01_dispatch_annual_system.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.0.post2+g2158ccf05" />
+  <meta name="docsearch:version" content="0.1.0.post6+gea77ec293" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -180,7 +180,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post2+g2158ccf05 documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -228,8 +228,8 @@
 <li class="toctree-l1"><a class="reference internal" href="04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Transmission Line Loading and Utilization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Transmission Line Loading and Utilization (Plexos)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
 <ul class="nav bd-sidenav">
@@ -440,7 +440,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Transmission Line Loading and Utilization (Plexos)</h1>
+    <h1>Transmission Line Loading and Utilization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -459,8 +459,8 @@
 <p><a class="reference internal" href="#sphx-glr-download-gat-plot-examples-09-transmission-loading-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="transmission-line-loading-and-utilization-plexos">
-<span id="sphx-glr-gat-plot-examples-09-transmission-loading-py"></span><h1>Transmission Line Loading and Utilization (Plexos)<a class="headerlink" href="#transmission-line-loading-and-utilization-plexos" title="Link to this heading">#</a></h1>
+<section class="sphx-glr-example-title" id="transmission-line-loading-and-utilization">
+<span id="sphx-glr-gat-plot-examples-09-transmission-loading-py"></span><h1>Transmission Line Loading and Utilization<a class="headerlink" href="#transmission-line-loading-and-utilization" title="Link to this heading">#</a></h1>
 <p>Two transmission views:</p>
 <ol class="arabic simple">
 <li><p><strong>Loading ranked</strong> — line loading (% of rating) sorted descending,
@@ -468,58 +468,69 @@ showing which lines hit the highest utilization across the horizon.</p></li>
 <li><p><strong>Utilization</strong> — distribution of hours each line operates above
 threshold percentiles (90/95/99% of rating).</p></li>
 </ol>
-<p>This is the only example in the gallery using a Plexos fixture rather
-than the Sienna RTS-GMLC fixture. Sienna’s fixture is built with
-<code class="docutils literal notranslate"><span class="pre">CopperPlatePowerModel</span></code> so the simulation file has no
-<code class="docutils literal notranslate"><span class="pre">FlowActivePowerVariable__Line</span></code> data; switching the Sienna fixture’s
-generate.jl to <code class="docutils literal notranslate"><span class="pre">DCPPowerModel</span></code> would unlock these plots there too.</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Plexos fixture not available — set GAT_PLEXOS_FIXTURE to a directory of PLEXOS .h5 solution files to run this example.
+<p>The Sienna RTS-GMLC fixture is solved with <code class="docutils literal notranslate"><span class="pre">DCPPowerModel</span></code>, so the
+simulation store carries <code class="docutils literal notranslate"><span class="pre">FlowActivePowerVariable__Line</span></code> data and
+these plots work out of the box. The same calls work against a Plexos
+scenario (<code class="docutils literal notranslate"><span class="pre">PlexosScenario(simulation_files=...)</span></code>) — the transmission
+API is shared across scenario types.</p>
+<img src="../_images/sphx_glr_09_transmission_loading_001.png" srcset="../_images/sphx_glr_09_transmission_loading_001.png" alt="Line Loading — Ranked, Line Utilization Distribution" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
+  warnings.warn(message, UserWarning)
+----- Available Components -----
+RenewableNonDispatch
+LoadZone
+RenewableDispatch
+FixedAdmittance
+ACBus
+Area
+VariableReserve
+TwoTerminalHVDCLine
+ThermalStandard
+Arc
+PowerLoad
+TapTransformer
+Line
+calculating loading
+calculating loading
+formatting dataframe
 </pre></div>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="c1"># PLEXOS solution files are proprietary and not distributed with GAT,</span>
-<span class="c1"># so unlike the Sienna examples this one only executes when you point</span>
-<span class="c1"># it at your own solution directory (GAT_PLEXOS_FIXTURE, or drop .h5</span>
-<span class="c1"># files in example_data/plexos). The docs build renders the code</span>
-<span class="c1"># without figures when no fixture is available.</span>
-<span class="n">plexos_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GAT_PLEXOS_FIXTURE&quot;</span><span class="p">,</span> <span class="s2">&quot;../../example_data/plexos&quot;</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gat.quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plexos_dir</span><span class="p">,</span> <span class="s2">&quot;*.h5&quot;</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span>
-        <span class="s2">&quot;Plexos fixture not available — set GAT_PLEXOS_FIXTURE to a &quot;</span>
-        <span class="s2">&quot;directory of PLEXOS .h5 solution files to run this example.&quot;</span>
-    <span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlexosScenario</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">gat.quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
+<span class="c1"># These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via</span>
+<span class="c1"># `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`</span>
+<span class="c1"># instead — see docs/source/python_api_load.md.</span>
+<span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">&quot;../../example_data/sienna/v4&quot;</span>
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
+    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5&quot;</span><span class="p">,</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
-    <span class="n">scenario</span> <span class="o">=</span> <span class="n">PlexosScenario</span><span class="p">(</span><span class="n">simulation_files</span><span class="o">=</span><span class="n">plexos_dir</span><span class="p">)</span>
+<span class="n">loading</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_loading</span><span class="p">()</span>
+<span class="n">utilization</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_utilization</span><span class="p">()</span>
 
-    <span class="n">loading</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_loading</span><span class="p">()</span>
-    <span class="n">utilization</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_utilization</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">qp</span><span class="o">.</span><span class="n">plot_loading_ranked</span><span class="p">(</span><span class="n">loading</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Line Loading — Ranked&quot;</span><span class="p">)</span>
 
-    <span class="n">qp</span><span class="o">.</span><span class="n">plot_loading_ranked</span><span class="p">(</span><span class="n">loading</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Line Loading — Ranked&quot;</span><span class="p">)</span>
+<span class="n">qp</span><span class="o">.</span><span class="n">plot_lines_utilization</span><span class="p">(</span><span class="n">utilization</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Line Utilization Distribution&quot;</span><span class="p">)</span>
 
-    <span class="n">qp</span><span class="o">.</span><span class="n">plot_lines_utilization</span><span class="p">(</span><span class="n">utilization</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Line Utilization Distribution&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.001 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.348 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gat-plot-examples-09-transmission-loading-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b723b8f8c28f089c68d3f18f512e916b/09_transmission_loading.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">09_transmission_loading.ipynb</span></code></a></p>
@@ -546,20 +557,20 @@ generate.jl to <code class="docutils literal notranslate"><span class="pre">DCPP
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="08_load_heatmap.html"
+       href="01_dispatch_annual_system.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Load Heatmap and Duration Curve</p>
+        <p class="prev-next-title">Annual System Dispatch Stack</p>
       </div>
     </a>
     <a class="right-next"
-       href="../api/cli/commands.html"
+       href="08_load_heatmap.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">GAT Command Line Interface</p>
+        <p class="prev-next-title">Load Heatmap and Duration Curve</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

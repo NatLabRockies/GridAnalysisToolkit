@@ -173,6 +173,23 @@ Scenarios](../python_api_load.md).
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Two transmission views:">
+
+.. only:: html
+
+  .. image:: /gat_plot_examples/images/thumb/sphx_glr_09_transmission_loading_thumb.png
+    :alt:
+
+  :doc:`/gat_plot_examples/09_transmission_loading`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Transmission Line Loading and Utilization</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Two complementary views of the load shape:">
 
 .. only:: html
@@ -185,23 +202,6 @@ Scenarios](../python_api_load.md).
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Load Heatmap and Duration Curve</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Two transmission views:">
-
-.. only:: html
-
-  .. image:: /gat_plot_examples/images/thumb/sphx_glr_09_transmission_loading_thumb.png
-    :alt:
-
-  :doc:`/gat_plot_examples/09_transmission_loading`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Transmission Line Loading and Utilization (Plexos)</div>
     </div>
 
 
@@ -222,8 +222,8 @@ Scenarios](../python_api_load.md).
    /gat_plot_examples/04_dispatch_window_peak_min
    /gat_plot_examples/06_curtailment_annual
    /gat_plot_examples/01_dispatch_annual_system
-   /gat_plot_examples/08_load_heatmap
    /gat_plot_examples/09_transmission_loading
+   /gat_plot_examples/08_load_heatmap
 
 
 .. only:: html
