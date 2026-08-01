@@ -68,9 +68,6 @@ def test_v4_get_area_unserved_contract(sienna_v4_scenario):
     assert sienna_v4_scenario.get_area_unserved() is NotImplemented
 
 
-@pytest.mark.skip(
-    reason="v4 fixture uses CopperPlatePowerModel — no line flows produced. Switch generate.jl to DCPPowerModel/PTDF to enable."
-)
 def test_v4_get_line_loading_summary(sienna_v4_scenario, dataframe_regression):
     df = sienna_v4_scenario.get_line_loading()
     dataframe_regression.check(
