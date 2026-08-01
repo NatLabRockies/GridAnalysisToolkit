@@ -176,9 +176,7 @@ class PlexosDuckDBSource:
     # Category maps
     # ------------------------------------------------------------------ #
 
-    def membership_map(
-        self, parent_class: str, child_class: str
-    ) -> dict[str, str]:
+    def membership_map(self, parent_class: str, child_class: str) -> dict[str, str]:
         """Build a ``{child_name: parent_name}`` map from ``processed.
         memberships`` (e.g. generator -> region), unioned across attached
         files."""
@@ -197,7 +195,9 @@ class PlexosDuckDBSource:
     # Timeseries
     # ------------------------------------------------------------------ #
 
-    def _pivot_one_file(self, alias: str, table: str, property_col: str) -> pd.DataFrame:
+    def _pivot_one_file(
+        self, alias: str, table: str, property_col: str
+    ) -> pd.DataFrame:
         """PIVOT a single attached file's report view into timestamp-rows x
         entity-columns — the "parse one file" half of the standard
         multi-file contract (see ``pivot_wide``)."""
@@ -227,8 +227,7 @@ class PlexosDuckDBSource:
         from ..simulations.utils import combine_overlapping_frames
 
         frames = [
-            self._pivot_one_file(alias, table, property_col)
-            for alias in self._aliases
+            self._pivot_one_file(alias, table, property_col) for alias in self._aliases
         ]
         frames = [f for f in frames if len(f) > 0]
         if not frames:

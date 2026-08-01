@@ -145,8 +145,11 @@ class Scenario:
         system = PlexosDuckDBSystem(solution_paths, force_convert=force_convert)
         simulation = PlexosDuckDBSimulation(solution_paths, force_convert=force_convert)
         scenario = cls(
-            system=system, simulation=simulation, db=db or _GATDatabase(),
-            project=project, name=name,
+            system=system,
+            simulation=simulation,
+            db=db or _GATDatabase(),
+            project=project,
+            name=name,
         )
 
         dataset_filter = None
@@ -184,16 +187,21 @@ class Scenario:
         included. None = everything.
         """
         import time as _time
+
         logger.info(
             "Ingesting scenario '{}/{}' into schema '{}'",
-            self.project, self.name, self._schema,
+            self.project,
+            self.name,
+            self._schema,
         )
 
         _t0 = _time.perf_counter()
         if include_system:
             self.db.ingest_system(self._schema, self.system)
         _t1 = _time.perf_counter()
-        self.db.ingest_simulation(self._schema, self.simulation, dataset_filter=dataset_filter)
+        self.db.ingest_simulation(
+            self._schema, self.simulation, dataset_filter=dataset_filter
+        )
         _t2 = _time.perf_counter()
 
         # Register default category maps
@@ -221,15 +229,20 @@ class Scenario:
 
         if branch_ratings or gen_ratings:
             import pandas as pd
+
             branch_df = (
-                pd.DataFrame([
-                    {"name": k, "rating_mw": v} for k, v in branch_ratings.items()
-                ]) if branch_ratings else None
+                pd.DataFrame(
+                    [{"name": k, "rating_mw": v} for k, v in branch_ratings.items()]
+                )
+                if branch_ratings
+                else None
             )
             gen_df = (
-                pd.DataFrame([
-                    {"name": k, "rating_mw": v} for k, v in gen_ratings.items()
-                ]) if gen_ratings else None
+                pd.DataFrame(
+                    [{"name": k, "rating_mw": v} for k, v in gen_ratings.items()]
+                )
+                if gen_ratings
+                else None
             )
 
             def _write_ratings(conn):
@@ -238,13 +251,17 @@ class Scenario:
                     conn.execute(
                         f"CREATE OR REPLACE TABLE {tn} AS SELECT * FROM branch_df"
                     )
-                    logger.info("Stored {} branch ratings (MW) in {}", len(branch_df), tn)
+                    logger.info(
+                        "Stored {} branch ratings (MW) in {}", len(branch_df), tn
+                    )
                 if gen_df is not None:
                     tn = f"{self._schema}.generator_ratings"
                     conn.execute(
                         f"CREATE OR REPLACE TABLE {tn} AS SELECT * FROM gen_df"
                     )
-                    logger.info("Stored {} generator ratings (MW) in {}", len(gen_df), tn)
+                    logger.info(
+                        "Stored {} generator ratings (MW) in {}", len(gen_df), tn
+                    )
 
             try:
                 self.db.with_write_conn(_write_ratings)
@@ -256,7 +273,11 @@ class Scenario:
         logger.info(
             "[ingest-timing] system={:.1f}s sim={:.1f}s catmaps={:.1f}s "
             "ratings={:.1f}s total={:.1f}s",
-            _t1 - _t0, _t2 - _t1, _t3 - _t2, _t4 - _t3, _t4 - _t0,
+            _t1 - _t0,
+            _t2 - _t1,
+            _t3 - _t2,
+            _t4 - _t3,
+            _t4 - _t0,
         )
         logger.info("Ingestion complete for '{}/{}'", self.project, self.name)
 
@@ -576,12 +597,14 @@ class Scenario:
         if missing.any():
             logger.warning(
                 "{} of {} flow entities have no rating — loading will be NaN",
-                int(missing.sum()), len(ratings),
+                int(missing.sum()),
+                len(ratings),
             )
         if zero.any():
             logger.warning(
                 "{} of {} flow entities have zero rating — loading will be NaN",
-                int(zero.sum()), len(ratings),
+                int(zero.sum()),
+                len(ratings),
             )
 
         # Vectorized loading computation (same as compute.calc_loading)
@@ -641,9 +664,7 @@ class Scenario:
                 pd.DataFrame(congestion, columns=cols, index=entity_ids.index)
             )
 
-        result = pd.concat(
-            [entity_ids.reset_index(drop=True)] + frames, axis=1
-        )
+        result = pd.concat([entity_ids.reset_index(drop=True)] + frames, axis=1)
         return result
 
     # ------------------------------------------------------------------ #
@@ -714,9 +735,7 @@ class Scenario:
         ts_cols = [c for c in raw.columns if c != group_col]
 
         # Map each row's category to a display name (unmapped → keep original)
-        raw[group_col] = raw[group_col].map(
-            lambda x: agg_map.get(x, x)
-        )
+        raw[group_col] = raw[group_col].map(lambda x: agg_map.get(x, x))
 
         # Sum rows that now share the same display category
         result = raw.groupby(group_col, as_index=False)[ts_cols].sum()

@@ -233,8 +233,7 @@ class Palette(BaseModel):
             Dict mapping simulation category name → display category name.
         """
         return {
-            m.simulation_category: m.display_category
-            for m in self.category_mappings
+            m.simulation_category: m.display_category for m in self.category_mappings
         }
 
     def get_ordered_display_names(self) -> List[str]:

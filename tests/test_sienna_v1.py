@@ -15,7 +15,6 @@ from gat.scenario import Scenario
 from gat.systems.sienna import SiennaSystem
 from gat.simulations.sienna_v1 import SiennaSimulation
 
-
 DATA_DIR = Path(__file__).parent.parent / "data" / "ExtremeEvents"
 SYSTEM_PATH = DATA_DIR / "sys.json"
 SIM_PATH = DATA_DIR / "simulation_store.h5"
@@ -217,9 +216,7 @@ class TestScenarioIntegration:
             assert not area.startswith("{")
 
     def test_multi_group(self, scenario):
-        result = scenario.query(
-            "generation", group_by=["native_area", "fuel"]
-        )
+        result = scenario.query("generation", group_by=["native_area", "fuel"])
         assert "native_area" in result.columns
         assert "fuel" in result.columns
         # Multiple area×fuel combinations
@@ -242,12 +239,15 @@ class TestScenarioIntegration:
         gen = scenario.query("generation")
         entities = list(gen["entity_id"][:10])
 
-        scenario.add_category_map(CategoryMap(
-            name="test_group",
-            description="Test grouping",
-            mapping={e: "GroupA" if i < 5 else "GroupB"
-                     for i, e in enumerate(entities)},
-        ))
+        scenario.add_category_map(
+            CategoryMap(
+                name="test_group",
+                description="Test grouping",
+                mapping={
+                    e: "GroupA" if i < 5 else "GroupB" for i, e in enumerate(entities)
+                },
+            )
+        )
         assert "test_group" in scenario.list_category_maps()
 
 

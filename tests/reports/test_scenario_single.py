@@ -9,6 +9,7 @@ We don't assert on plot correctness (that's what the gallery + snapshots
 do); we just confirm the run produces output files and doesn't raise on
 the discovery / execute / save flow.
 """
+
 import os
 import warnings
 from pathlib import Path
@@ -24,7 +25,9 @@ def report_output_dir(tmp_path):
     return out
 
 
-def test_scenario_single_run_produces_output_files(plexos_fixture_root, report_output_dir):
+def test_scenario_single_run_produces_output_files(
+    plexos_fixture_root, report_output_dir
+):
     """Drive `gat.reports.scenario_single.run` end-to-end with the plexos
     fixture. Verify it discovers plots, executes some of them, and writes
     PNG files. Catches regressions in:
@@ -67,7 +70,9 @@ def test_scenario_single_run_produces_output_files(plexos_fixture_root, report_o
     )
 
 
-def test_scenario_single_run_with_explicit_plot_list(plexos_fixture_root, report_output_dir):
+def test_scenario_single_run_with_explicit_plot_list(
+    plexos_fixture_root, report_output_dir
+):
     """`run` with `output_plots` explicitly populated runs only the named
     plots — avoids the discovery+filter path. Useful for pinning a known
     subset of plots when the auto-discovery is broken."""
@@ -97,9 +102,9 @@ def test_scenario_single_run_with_explicit_plot_list(plexos_fixture_root, report
     # At least one of the two named plots should produce output. (If both
     # blow up internally, run() doesn't raise — but no PNGs land.)
     pngs = list(report_output_dir.rglob("*.png"))
-    assert len(pngs) > 0, (
-        f"explicit-plot-list run produced no PNGs in {report_output_dir}"
-    )
+    assert (
+        len(pngs) > 0
+    ), f"explicit-plot-list run produced no PNGs in {report_output_dir}"
 
 
 def test_scenario_from_config_returns_handler(plexos_fixture_root):
@@ -118,6 +123,7 @@ def test_scenario_from_config_returns_handler(plexos_fixture_root):
     # The factory returns a concrete BaseScenario subclass; verify the type
     # routing worked (model_type="Plexos" → PlexosScenario).
     from gat.scenariohandlers import PlexosScenario
+
     assert isinstance(scenario, PlexosScenario)
     # And the scenario actually loaded the data — quick sanity check.
     assert scenario.parser is not None

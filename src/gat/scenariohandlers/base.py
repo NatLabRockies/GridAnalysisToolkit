@@ -29,27 +29,37 @@ except ImportError:
     __version__ = "unknown"
 
 
-
 def calc_curtailment(gen_tech, avail_tech):
     """Calculates the curtailment for generator technologies that fall under gc.config.curtailable_tech"""
 
-    avail_curt_tech = [val for val in avail_tech.columns.get_level_values(level='Technology').unique() if val in gc.config.curtailable_tech]
-    gen_curt_tech = [val for val in gen_tech.columns.get_level_values(level='Technology').unique() if val in gc.config.curtailable_tech]
+    avail_curt_tech = [
+        val
+        for val in avail_tech.columns.get_level_values(level="Technology").unique()
+        if val in gc.config.curtailable_tech
+    ]
+    gen_curt_tech = [
+        val
+        for val in gen_tech.columns.get_level_values(level="Technology").unique()
+        if val in gc.config.curtailable_tech
+    ]
 
+    curt_gen = (
+        pd.concat([avail_tech[avail_curt_tech], -1.0 * gen_tech[gen_curt_tech]])
+        .groupby(level=0)
+        .sum()
+    )
 
-    curt_gen = pd.concat([avail_tech[avail_curt_tech], -1.0*gen_tech[gen_curt_tech]]).groupby(level=0).sum()
+    return curt_gen.map(lambda x: x if x >= 0.0 else 0.0)
 
-    return curt_gen.map(lambda x: x if x>=0.0 else 0.0)
 
 def load_map(map):
-
     """Loads a dictionary/mapping from a JSON file or dictionary."""
     if type(map) == dict:
         return map
     elif type(map) == str:
         if os.path.exists(map):
             try:
-                with open(map, 'r') as f:
+                with open(map, "r") as f:
                     return json.loads(f.read())
             except Exception as e:
                 print(f"failed to load json file {map}")
@@ -62,21 +72,23 @@ def load_map(map):
         return None
 
 
-def fill_missing_loads(dispatch: pd.DataFrame, charging: pd.DataFrame, load_includes_charging=False):
+def fill_missing_loads(
+    dispatch: pd.DataFrame, charging: pd.DataFrame, load_includes_charging=False
+):
+    """Calculates missing load values of a dispatch dataframe if only Native Load or Total Load are present."""
 
-    """ Calculates missing load values of a dispatch dataframe if only Native Load or Total Load are present."""
-
-    dispatch_areas = dispatch.columns.get_level_values(level='Area').unique()
+    dispatch_areas = dispatch.columns.get_level_values(level="Area").unique()
 
     if charging is not None:
-        charging_areas = charging.columns.get_level_values(level='Area').unique()
+        charging_areas = charging.columns.get_level_values(level="Area").unique()
 
-        area_charging = charging.T.groupby(level='Area').sum().T
-        area_charging.columns = pd.MultiIndex.from_tuples([(col, gc.config.storage_load_alias) for col in area_charging.columns])
+        area_charging = charging.T.groupby(level="Area").sum().T
+        area_charging.columns = pd.MultiIndex.from_tuples(
+            [(col, gc.config.storage_load_alias) for col in area_charging.columns]
+        )
     else:
         charging_areas = []
         print("no charging areas")
-
 
     new_data = {}
 
@@ -86,22 +98,31 @@ def fill_missing_loads(dispatch: pd.DataFrame, charging: pd.DataFrame, load_incl
             # If load includes charging, we have total load, else we have native load
             if load_includes_charging:
                 if (area, gc.config.total_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.native_load_alias)] = dispatch[(area, gc.config.total_load_alias)] - area_charging[(area, gc.config.storage_load_alias)]
+                    new_data[(area, gc.config.native_load_alias)] = (
+                        dispatch[(area, gc.config.total_load_alias)]
+                        - area_charging[(area, gc.config.storage_load_alias)]
+                    )
 
             # Load doesn't include charging. Total load = native load + pump/charging load
             else:
                 if (area, gc.config.native_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.total_load_alias)] = dispatch[(area, gc.config.native_load_alias)] + area_charging[(area, gc.config.storage_load_alias)]
+                    new_data[(area, gc.config.total_load_alias)] = (
+                        dispatch[(area, gc.config.native_load_alias)]
+                        + area_charging[(area, gc.config.storage_load_alias)]
+                    )
 
         else:
             # No pump/charging load in area, Native load = total load
             if load_includes_charging:
                 if (area, gc.config.total_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.native_load_alias)] = dispatch[(area, gc.config.total_load_alias)]
+                    new_data[(area, gc.config.native_load_alias)] = dispatch[
+                        (area, gc.config.total_load_alias)
+                    ]
             else:
                 if (area, gc.config.native_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.total_load_alias)] = dispatch[(area, gc.config.native_load_alias)]
-
+                    new_data[(area, gc.config.total_load_alias)] = dispatch[
+                        (area, gc.config.native_load_alias)
+                    ]
 
     filled_loads = pd.DataFrame(new_data, index=dispatch.index)
     dispatch = pd.concat([dispatch, filled_loads], axis=1)
@@ -109,23 +130,29 @@ def fill_missing_loads(dispatch: pd.DataFrame, charging: pd.DataFrame, load_incl
     new_data = {}
     for area in dispatch_areas:
         if gc.config.total_load_alias in dispatch[area].columns:
-            area_vre = [col for col in dispatch[area].columns if col in gc.config.curtailable_tech]
+            area_vre = [
+                col
+                for col in dispatch[area].columns
+                if col in gc.config.curtailable_tech
+            ]
             if len(area_vre) > 0:
                 if (area, gc.config.total_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.net_load_alias)] = dispatch[area][gc.config.total_load_alias] - dispatch[area][area_vre].sum(axis=1)
+                    new_data[(area, gc.config.net_load_alias)] = dispatch[area][
+                        gc.config.total_load_alias
+                    ] - dispatch[area][area_vre].sum(axis=1)
             else:
                 if (area, gc.config.native_load_alias) in dispatch.columns:
-                    new_data[(area, gc.config.net_load_alias)] = dispatch[area][gc.config.total_load_alias]
+                    new_data[(area, gc.config.net_load_alias)] = dispatch[area][
+                        gc.config.total_load_alias
+                    ]
 
     filled_loads = pd.DataFrame(new_data, index=dispatch.index)
     filled_dispatch = pd.concat([dispatch, filled_loads], axis=1)
-    filled_dispatch.columns.names = ['Area', 'Technology']
+    filled_dispatch.columns.names = ["Area", "Technology"]
     return filled_dispatch.sort_index(axis=1)
 
 
-
-def get_peak_stats(dispatch, winter_months=[1,2,12])->pd.DataFrame:
-
+def get_peak_stats(dispatch, winter_months=[1, 2, 12]) -> pd.DataFrame:
     """
 
     Calculates the peak/min total and net load, split by winter and summer months
@@ -144,36 +171,36 @@ def get_peak_stats(dispatch, winter_months=[1,2,12])->pd.DataFrame:
     total_vre = dispatch[vre_cols].sum(axis=1)
     total_net_load = total_demand - total_vre
 
-    seasons = ['winter', 'summer']
-    peak_types = ['min', 'peak']
-    load_types = ['net', 'total']
+    seasons = ["winter", "summer"]
+    peak_types = ["min", "peak"]
+    load_types = ["net", "total"]
 
     data = {
-    'peak_type': [],
-    'load_type':[],
-    'season': [],
-    'timestamp': [],
-    'vre': [],
-    'demand': [],
-    'net load': [],
+        "peak_type": [],
+        "load_type": [],
+        "season": [],
+        "timestamp": [],
+        "vre": [],
+        "demand": [],
+        "net load": [],
     }
 
     for season in seasons:
         mask = winter_mask | summer_mask
-        if season == 'winter':
+        if season == "winter":
             mask = winter_mask
-        elif season =='summer':
+        elif season == "summer":
             mask = summer_mask
 
         for load in load_types:
             load_df = total_demand[mask]
             if load_df.empty == False:
-                if load == 'net':
+                if load == "net":
                     load_df = total_net_load[mask]
 
                 for t in peak_types:
 
-                    if t == 'min':
+                    if t == "min":
                         timestamp = load_df.idxmin()
                     else:
                         timestamp = load_df.idxmax()
@@ -182,17 +209,24 @@ def get_peak_stats(dispatch, winter_months=[1,2,12])->pd.DataFrame:
                     vre_val = total_vre.loc[timestamp]
                     net_load_val = total_net_load.loc[timestamp]
 
-                    data['peak_type'].append(t)
-                    data['load_type'].append(load)
-                    data['season'].append(season)
-                    data['timestamp'].append(timestamp)
-                    data['vre'].append(vre_val)
-                    data['demand'].append(demand_val)
-                    data['net load'].append(net_load_val)
+                    data["peak_type"].append(t)
+                    data["load_type"].append(load)
+                    data["season"].append(season)
+                    data["timestamp"].append(timestamp)
+                    data["vre"].append(vre_val)
+                    data["demand"].append(demand_val)
+                    data["net load"].append(net_load_val)
 
     df = pd.DataFrame(data)
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    df['description'] = df['season'].str.capitalize() + ' '+ df['peak_type'].str.capitalize() +' ' + df['load_type'].str.capitalize() +' Load'
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df["description"] = (
+        df["season"].str.capitalize()
+        + " "
+        + df["peak_type"].str.capitalize()
+        + " "
+        + df["load_type"].str.capitalize()
+        + " Load"
+    )
     return df
 
 
@@ -221,8 +255,6 @@ def _resolve_simulation_files(
 
 
 class BaseScenario(ABC):
-
-
     """
     Initialize a scenario object with configuration, system data, and solution data.
 
@@ -242,12 +274,14 @@ class BaseScenario(ABC):
     config : ScenarioConfig, optional
         Configuration object for the scenario.
     system_data : str, optional
-        Path to system data file (e.g., Sienna JSON or Plexos XML).    """
+        Path to system data file (e.g., Sienna JSON or Plexos XML)."""
 
     _expected_model_type = None
-    _solution_file_pattern = "*.h5" # works for both Sienna and Plexos
+    _solution_file_pattern = "*.h5"  # works for both Sienna and Plexos
 
-    def _find_solution_files(self, solution_data: Union[str, List[str]], pattern: str = "*.h5") -> List[str]:
+    def _find_solution_files(
+        self, solution_data: Union[str, List[str]], pattern: str = "*.h5"
+    ) -> List[str]:
         """
         Default implementation to find solution files based on pattern.
         Subclasses can override this to provide model-specific file discovery logic.
@@ -273,7 +307,7 @@ class BaseScenario(ABC):
                 files.sort()
             elif os.path.isfile(solution_data):
                 files = [os.path.normpath(solution_data)]
-            elif '*' in solution_data:
+            elif "*" in solution_data:
                 # If solution_data itself is a glob pattern
                 files = [file for file in glob(solution_data)]
                 files.sort()
@@ -283,30 +317,33 @@ class BaseScenario(ABC):
             for item in solution_data:
                 if os.path.isfile(item):
                     expanded_files.append(os.path.normpath(item))
-                elif '*' in item:
+                elif "*" in item:
                     expanded_files.extend([file for file in glob(item)])
             files = expanded_files
 
         return files
 
-    def __init__(self,
-                simulation_files: Optional[Union[str, List[str]]] = None,
-                tech_map: Optional[dict] = None,
-                gen_area_map: Optional[dict] = None,
-                load_area_map: Optional[dict] = None,
-                line_rating_map: Optional[dict] = None,
-                config: Optional[ScenarioConfig] = None,
-                system_data: Optional[str] = None,
-                pattern: str = "*.h5",
-                # Deprecated alias — use simulation_files instead
-                solution_data: Optional[Union[str, List[str]]] = None,
-                ) -> None:
+    def __init__(
+        self,
+        simulation_files: Optional[Union[str, List[str]]] = None,
+        tech_map: Optional[dict] = None,
+        gen_area_map: Optional[dict] = None,
+        load_area_map: Optional[dict] = None,
+        line_rating_map: Optional[dict] = None,
+        config: Optional[ScenarioConfig] = None,
+        system_data: Optional[str] = None,
+        pattern: str = "*.h5",
+        # Deprecated alias — use simulation_files instead
+        solution_data: Optional[Union[str, List[str]]] = None,
+    ) -> None:
 
         simulation_files = _resolve_simulation_files(simulation_files, solution_data)
 
         # Create a default config if none provided
         if config is None:
-            self.config = ScenarioConfig(model_type=self._expected_model_type or "unknown")
+            self.config = ScenarioConfig(
+                model_type=self._expected_model_type or "unknown"
+            )
         else:
             self.config = config
 
@@ -323,7 +360,7 @@ class BaseScenario(ABC):
 
             # If files were found, calculate hash and update config
             if solution_files:
-                self.solution_hash = hash('_'.join(solution_files))
+                self.solution_hash = hash("_".join(solution_files))
                 self.config.simulation_paths = solution_files
 
         # Initialize maps, handled by reading simulation files directly.
@@ -333,19 +370,23 @@ class BaseScenario(ABC):
         self._line_rating_map = load_map(line_rating_map)
         self._line_rating_multiplier = 1
 
-
         if self.config and len(self.config.technology_mappings) > 0:
             # initialize
 
-            self._tech_simple = {model_tech: config.display_group
-                    for model_tech, config in self.config.technology_mappings.items()}
+            self._tech_simple = {
+                model_tech: config.display_group
+                for model_tech, config in self.config.technology_mappings.items()
+            }
 
         else:
             self.config.init_technologies(self._tech_simple)
 
-
         # Any remaining technologies will map from model_technology->model_technology
-        remaining_model_tech = {tech:tech for tech in set(self._tech_map.values()) if tech not in self._tech_simple}
+        remaining_model_tech = {
+            tech: tech
+            for tech in set(self._tech_map.values())
+            if tech not in self._tech_simple
+        }
 
         if len(remaining_model_tech) > 0:
             logger.debug("Attempting to map technologies to standard technology names")
@@ -365,13 +406,12 @@ class BaseScenario(ABC):
         )
 
         # Internal Plotting Object
-        self._plotter=None
+        self._plotter = None
         # initialize the plotter.
         self.plot
 
         # Aggregation levels for how to group generators into "Areas"
-        self._aggregation_level=None
-
+        self._aggregation_level = None
 
     @property
     def aggregation_level(self):
@@ -386,16 +426,17 @@ class BaseScenario(ABC):
         # if lookup type is geospatial, use the geolookup method and concrete impl of get_generator_gis to get new value.
         pass
 
-    def list_aggregation_levels(self)->Optional[Dict[str,str]]:
+    def list_aggregation_levels(self) -> Optional[Dict[str, str]]:
         from gat.models.lookups import GeoAreaLookup
-        available_area_maps={}
+
+        available_area_maps = {}
 
         for k, lookup in self.config.area_lookups.items():
 
             if type(lookup) == GeoAreaLookup:
                 for v in lookup.available_values:
 
-                    lookup_key = f'{k}.{v}'
+                    lookup_key = f"{k}.{v}"
                     if v not in available_area_maps:
                         available_area_maps[v] = (k, v)
                     else:
@@ -406,38 +447,34 @@ class BaseScenario(ABC):
         else:
             return None
 
-
-
     @property
     def plot(self):
         if self._plotter is None:
             from gat.quickplots.scenario_plotter import ScenarioPlotter
+
             self._plotter = ScenarioPlotter(self)
             return self._plotter
         else:
             return self._plotter
 
-
     @property
     @abstractmethod
-    def generator_technology_map()->Dict[str, str]:
+    def generator_technology_map() -> Dict[str, str]:
         """Abstract property representing the generation id to the technology name found in the underlying model.
         This property function should make no attempt to translate technology names into display names.
         """
         pass
 
-
-
     @property
-    def line_rating_map(self)->dict:
+    def line_rating_map(self) -> dict:
         """
         A dictionary/map of Transmission Line capacity
         """
 
         return {
-            key: val*self._line_rating_multiplier for key, val in self._line_rating_map.items()
+            key: val * self._line_rating_multiplier
+            for key, val in self._line_rating_map.items()
         }
-
 
     @property
     def tech_simple(self):
@@ -448,8 +485,7 @@ class BaseScenario(ABC):
 
     @tech_simple.setter
     def tech_simple(self, value):
-
-        """ checks the coverage of the tech map and warns the users of any unmapped technologies."""
+        """checks the coverage of the tech map and warns the users of any unmapped technologies."""
 
         solution_tech = {val for key, val in self._tech_map.items()}
 
@@ -457,7 +493,10 @@ class BaseScenario(ABC):
 
         missing_tech = {key for key in solution_tech if key not in mapped_tech}
         if len(missing_tech) > 0:
-            warnings.warn("warning: the following technologies don't have a simplified mapping.", UserWarning)
+            warnings.warn(
+                "warning: the following technologies don't have a simplified mapping.",
+                UserWarning,
+            )
             print(missing_tech)
 
         self._tech_simple = load_map(value)
@@ -516,7 +555,9 @@ class BaseScenario(ABC):
     def area(self, value: str) -> None:
         self._area = str(value)
 
-    def _find_solution_files(self, solution_data: Union[str, List[str]], pattern: str = "*.h5") -> List[str]:
+    def _find_solution_files(
+        self, solution_data: Union[str, List[str]], pattern: str = "*.h5"
+    ) -> List[str]:
         """
         Default implementation to find solution files based on pattern.
 
@@ -541,7 +582,7 @@ class BaseScenario(ABC):
                 files.sort()
             elif os.path.isfile(solution_data):
                 files = [os.path.normpath(solution_data)]
-            elif '*' in solution_data:
+            elif "*" in solution_data:
                 # If solution_data itself is a glob pattern
                 files = [file for file in glob(solution_data)]
                 files.sort()
@@ -551,51 +592,55 @@ class BaseScenario(ABC):
             for item in solution_data:
                 if os.path.isfile(item):
                     expanded_files.append(os.path.normpath(item))
-                elif '*' in item:
+                elif "*" in item:
                     expanded_files.extend([file for file in glob(item)])
             files = expanded_files
 
         return files
 
-
-
-    #Implement abstract classes below to gain access to others.
+    # Implement abstract classes below to gain access to others.
     @abstractmethod
     def get_generation(self):
-        """ Abstract Method to be implemented by model specific classes to return generation by generator."""
+        """Abstract Method to be implemented by model specific classes to return generation by generator."""
 
         return NotImplemented
 
     def get_generators(self):
-        warnings.warn("The function get_generators has been renamed to get_generation()", DeprecationWarning)
+        warnings.warn(
+            "The function get_generators has been renamed to get_generation()",
+            DeprecationWarning,
+        )
         return self.get_generation()
 
     @abstractmethod
     def get_availability(self):
-        """ Abstract Method to be implemented by model specific classes to return VRE availability by generator."""
+        """Abstract Method to be implemented by model specific classes to return VRE availability by generator."""
 
         return NotImplemented
 
     @abstractmethod
     def get_load(self):
-        """ Abstract Method to be implemented by model specific classes to return load by node or area."""
+        """Abstract Method to be implemented by model specific classes to return load by node or area."""
 
         return NotImplemented
 
     @abstractmethod
     def get_unserved(self):
-        """ Abstract Method to be implemented by model specific classes to return unserved energy by node or area."""
+        """Abstract Method to be implemented by model specific classes to return unserved energy by node or area."""
 
         return NotImplemented
 
     @abstractmethod
     def get_generation_capacity(self):
-        """ Abstract Method to be implemented by model specific classes to return generation capacity."""
+        """Abstract Method to be implemented by model specific classes to return generation capacity."""
         return NotImplemented
 
     def get_flow(self):
         """Deprecated: Use Line flow instead."""
-        warnings.warn("get_flow() is deprecated and will be removed in a future version, use get_line_flow() instead.", DeprecationWarning)
+        warnings.warn(
+            "get_flow() is deprecated and will be removed in a future version, use get_line_flow() instead.",
+            DeprecationWarning,
+        )
         return self.get_line_flow()
 
     @abstractmethod
@@ -638,10 +683,10 @@ class BaseScenario(ABC):
             tech_mappings[tech_name] = TechnologyMapping(
                 display_group=display_group,
                 display_color=display_color,
-                display_order = i,
-                curtailable=curtailable
+                display_order=i,
+                curtailable=curtailable,
             )
-            i+=1
+            i += 1
 
         self.config.technology_mappings = tech_mappings
 
@@ -650,24 +695,26 @@ class BaseScenario(ABC):
 
         return self.config
 
-    def save_config(self, filepath: Optional[str]=None) -> None:
+    def save_config(self, filepath: Optional[str] = None) -> None:
         """Save current configuration to a file"""
 
         config = self.to_config()
         if filepath is None and config.display_name is not None:
-            config.save(output_path=f'{config.display_name}.yaml')
+            config.save(output_path=f"{config.display_name}.yaml")
         elif filepath is not None:
             config.save(output_path=filepath)
         else:
             raise ValueError("No filepath or display_name given")
 
     @classmethod
-    def from_config(cls, config_path: Union[str, ScenarioConfig],
-                    system_path: Optional[str] = None,
-                    simulation_paths: Optional[Union[str, List[str]]] = None,
-                    display_name: Optional[str] = None,
-                    pattern: str = "*.h5"
-                    ):
+    def from_config(
+        cls,
+        config_path: Union[str, ScenarioConfig],
+        system_path: Optional[str] = None,
+        simulation_paths: Optional[Union[str, List[str]]] = None,
+        display_name: Optional[str] = None,
+        pattern: str = "*.h5",
+    ):
         """
         Create a scenario from a configuration file or object.
 
@@ -692,13 +739,19 @@ class BaseScenario(ABC):
         # Load config if string path provided
         if isinstance(config_path, str):
             from gat.models.scenario import load_config
+
             config = load_config(config_path)
         else:
             config = config_path
 
         # Validate config is for the expected model type
-        if cls._expected_model_type and config.model_type.lower() != cls._expected_model_type:
-            warnings.warn(f"Config is for {config.model_type}, but creating a {cls.__name__}")
+        if (
+            cls._expected_model_type
+            and config.model_type.lower() != cls._expected_model_type
+        ):
+            warnings.warn(
+                f"Config is for {config.model_type}, but creating a {cls.__name__}"
+            )
 
         # Use override paths if provided
         sim_files = simulation_paths or config.simulation_paths
@@ -710,7 +763,9 @@ class BaseScenario(ABC):
             raise ValueError("No simulation files provided in config or as override")
 
         if display_name is None and simulation_paths != config.simulation_paths:
-            warnings.warn(f"Overriding config simulation paths without new display name.")
+            warnings.warn(
+                f"Overriding config simulation paths without new display name."
+            )
         elif display_name is not None:
             config.display_name = display_name
 
@@ -718,7 +773,7 @@ class BaseScenario(ABC):
         return cls(simulation_files=sim_files, config=config, pattern=pattern)
 
     def __simplify_technology(self, tech):
-        """ Internal function that simplifies the technology provided by the model to a simplified technology for aggregation and plotting."""
+        """Internal function that simplifies the technology provided by the model to a simplified technology for aggregation and plotting."""
         if tech in self._tech_simple:
             return self._tech_simple[tech]
         else:
@@ -743,44 +798,51 @@ class BaseScenario(ABC):
         """
 
         if self._gen_area_map is None:
-            return 'SYSTEM'
+            return "SYSTEM"
         else:
             return self._gen_area_map.get(generator_id, "Other")
 
-
-
-
     # Organized Data Functions
     def get_generators_tech(self) -> pd.DataFrame:
-
         """Returns a Dataframe with a column for each generator along with technology category"""
 
         gen_df = self.get_generation()
 
         # TODO replace simple tech map with standard EIA tech map
         if self._tech_simple != None:
-            gen_df.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_tech(col), col) for col in gen_df.columns], names=['Technology', 'Generator'])
+            gen_df.columns = pd.MultiIndex.from_tuples(
+                [(self._map_gen_to_tech(col), col) for col in gen_df.columns],
+                names=["Technology", "Generator"],
+            )
         else:
-            gen_df.columns = pd.MultiIndex.from_tuples([(self._tech_map[col], col) for col in gen_df.columns], names=['Technology', 'Generator'])
+            gen_df.columns = pd.MultiIndex.from_tuples(
+                [(self._tech_map[col], col) for col in gen_df.columns],
+                names=["Technology", "Generator"],
+            )
 
         gen_df.attrs["Units"] = "MW"
         return gen_df
 
     def get_availability_tech(self, simplify=True) -> pd.DataFrame:
-
         """Gets the availability for each generator and includes the technology type"""
         avail_df = self.get_availability()
         # TODO replace simple tech map with standard EIA tech map
 
         if self._tech_simple != None:
-            avail_df.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_tech(col), col) for col in avail_df.columns],names=['Technology', 'Generator'])
+            avail_df.columns = pd.MultiIndex.from_tuples(
+                [(self._map_gen_to_tech(col), col) for col in avail_df.columns],
+                names=["Technology", "Generator"],
+            )
         else:
-            avail_df.columns = pd.MultiIndex.from_tuples([(self._tech_map[col], col) for col in avail_df.columns],names=['Technology', 'Generator'])
+            avail_df.columns = pd.MultiIndex.from_tuples(
+                [(self._tech_map[col], col) for col in avail_df.columns],
+                names=["Technology", "Generator"],
+            )
 
         avail_df.attrs["Units"] = "MW"
         return avail_df
 
-    def get_production_cost_tech(self) ->pd.DataFrame:
+    def get_production_cost_tech(self) -> pd.DataFrame:
         """
         Gets the production cost aggregated by technology.
 
@@ -790,16 +852,20 @@ class BaseScenario(ABC):
         prod_cost = self.get_production_cost()
 
         if self._tech_simple is not None:
-            prod_cost.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_tech(col), col) for col in prod_cost.columns], names=['Technology','Generator'])
+            prod_cost.columns = pd.MultiIndex.from_tuples(
+                [(self._map_gen_to_tech(col), col) for col in prod_cost.columns],
+                names=["Technology", "Generator"],
+            )
         else:
-            prod_cost.columns = pd.MultiIndex.from_tuples([(self._tech_map[col], col) for col in prod_cost.columns],names=['Technology', 'Generator'])
-
+            prod_cost.columns = pd.MultiIndex.from_tuples(
+                [(self._tech_map[col], col) for col in prod_cost.columns],
+                names=["Technology", "Generator"],
+            )
 
         return prod_cost.sort_index(axis=1)
 
     def get_curtailment(self) -> pd.DataFrame:
-
-        """ Calculates the curtailment for each generator based on which technologies are configured as curtailable
+        """Calculates the curtailment for each generator based on which technologies are configured as curtailable
 
         :returns: Timeseries Dataframe of curtailment for each generator.
         """
@@ -819,12 +885,16 @@ class BaseScenario(ABC):
 
         curt_tech = calc_curtailment(gen_tech, avail_tech)
 
-        curt_tech.columns = pd.MultiIndex.from_tuples([("Curtailment", col[1]) for col in curt_tech.columns], names=['Technology','Generator'])
+        curt_tech.columns = pd.MultiIndex.from_tuples(
+            [("Curtailment", col[1]) for col in curt_tech.columns],
+            names=["Technology", "Generator"],
+        )
 
         return pd.merge(gen_tech, curt_tech, left_index=True, right_index=True)
 
-
-    def get_system_dispatch(self, include_load=True, include_use=True, include_charging=True) -> pd.DataFrame:
+    def get_system_dispatch(
+        self, include_load=True, include_use=True, include_charging=True
+    ) -> pd.DataFrame:
         """
 
         Gets interval generation, load, charging and unserved energy aggregated by technology for the entire system.
@@ -840,7 +910,6 @@ class BaseScenario(ABC):
         :returns: Timeseries DataFrame of generation, load, unserved energy and charging aggregated by technology and area.
         """
 
-
         area_dispatch = self.get_area_dispatch(
             include_load=include_load,
             include_use=include_use,
@@ -850,7 +919,6 @@ class BaseScenario(ABC):
         system_dispatch = area_dispatch.T.groupby(level="Technology").sum().T
 
         return system_dispatch
-
 
     def get_system_charging(self) -> Union[pd.DataFrame, None]:
         """
@@ -867,12 +935,14 @@ class BaseScenario(ABC):
 
         # Aggregate by technology across all areas
         system_charging = area_charging.T.groupby(level="Technology").sum().T
-        system_charging.attrs['units'] = 'MW'
+        system_charging.attrs["units"] = "MW"
 
         return system_charging
 
     # TODO, this needs to be reset every time the _gen_area_map changes or the _gen_tech_map changes.
-    def get_area_dispatch(self, include_load=True,include_use=True, include_charging=True) -> pd.DataFrame:
+    def get_area_dispatch(
+        self, include_load=True, include_use=True, include_charging=True
+    ) -> pd.DataFrame:
         """
 
         Gets interval generation, load, charging and unserved energy aggregated by technology and area
@@ -905,13 +975,17 @@ class BaseScenario(ABC):
             logger.debug("Charging data not available")
             include_charging = False
 
-
         gen_curt_tech = self.get_gen_and_curtailment()
 
+        gen_curt_tech.columns = pd.MultiIndex.from_tuples(
+            [
+                (self._map_gen_to_area(col[1]), col[0], col[1])
+                for col in gen_curt_tech.columns
+            ],
+            names=["Area", "Technology", "Generator"],
+        )
 
-        gen_curt_tech.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_area(col[1]), col[0],col[1]) for col in gen_curt_tech.columns], names=['Area','Technology','Generator'])
-
-        gen_curt_tech = gen_curt_tech.T.groupby(level=['Area','Technology']).sum().T
+        gen_curt_tech = gen_curt_tech.T.groupby(level=["Area", "Technology"]).sum().T
 
         if include_load:
             regional_load = self.get_area_load()
@@ -920,105 +994,143 @@ class BaseScenario(ABC):
                 if self._load_includes_charging:
                     load_alias = gc.config.total_load_alias
                 regional_load_agg = regional_load.T.groupby(level=0).sum().T
-                regional_load_agg.columns = pd.MultiIndex.from_tuples([(col, load_alias) for col in regional_load_agg.columns], names=['Area', 'Technology'])
+                regional_load_agg.columns = pd.MultiIndex.from_tuples(
+                    [(col, load_alias) for col in regional_load_agg.columns],
+                    names=["Area", "Technology"],
+                )
 
-                gen_curt_tech = gen_curt_tech.merge(regional_load_agg, left_index=True, right_index=True).sort_index(axis=1)
+                gen_curt_tech = gen_curt_tech.merge(
+                    regional_load_agg, left_index=True, right_index=True
+                ).sort_index(axis=1)
 
         if include_use:
             regional_use = self.get_area_unserved()
             regional_use_agg = regional_use.T.groupby(level=0).sum().T
-            regional_use_agg.columns = pd.MultiIndex.from_tuples([(col, gc.config.unserved_energy_alias) for col in regional_use_agg.columns], names=['Area', 'Technology'])
+            regional_use_agg.columns = pd.MultiIndex.from_tuples(
+                [
+                    (col, gc.config.unserved_energy_alias)
+                    for col in regional_use_agg.columns
+                ],
+                names=["Area", "Technology"],
+            )
 
-            gen_curt_tech = gen_curt_tech.merge(regional_use_agg, left_index=True, right_index=True).sort_index(axis=1)
+            gen_curt_tech = gen_curt_tech.merge(
+                regional_use_agg, left_index=True, right_index=True
+            ).sort_index(axis=1)
 
         if include_charging:
             area_charging = self.get_area_charging()
 
-            gen_curt_tech = fill_missing_loads(gen_curt_tech, area_charging, load_includes_charging=self._load_includes_charging)
+            gen_curt_tech = fill_missing_loads(
+                gen_curt_tech,
+                area_charging,
+                load_includes_charging=self._load_includes_charging,
+            )
 
-
-        gen_curt_tech.attrs['units'] = 'MW'
+        gen_curt_tech.attrs["units"] = "MW"
         gen_curt_tech = gen_curt_tech.sort_index()
 
         return gen_curt_tech
 
     # aggregates across generators
-    def get_area_tech_aggregates(self) -> pd.DataFrame: # TODO this does not do any aggregations
+    def get_area_tech_aggregates(
+        self,
+    ) -> pd.DataFrame:  # TODO this does not do any aggregations
         """Gets the aggregated interval generation and curtailment by each area and technology"""
 
         gen_curt_tech = self.get_gen_and_curtailment()
 
-        gen_curt_tech.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_area(col[1]), col[0],col[1]) for col in gen_curt_tech.columns], names=['Area','Technology','Generator'])
+        gen_curt_tech.columns = pd.MultiIndex.from_tuples(
+            [
+                (self._map_gen_to_area(col[1]), col[0], col[1])
+                for col in gen_curt_tech.columns
+            ],
+            names=["Area", "Technology", "Generator"],
+        )
 
         return gen_curt_tech
 
     def get_area_load(self) -> Union[pd.DataFrame, None]:
-        """ Gets the aggregated interval Load by Area"""
+        """Gets the aggregated interval Load by Area"""
         df = self.get_load()
         if df is None:
             return None
         if self._load_area_map is None:
-            warnings.warn("No load-area mapping available. Load data cannot be grouped by area.", UserWarning)
+            warnings.warn(
+                "No load-area mapping available. Load data cannot be grouped by area.",
+                UserWarning,
+            )
             return None
-        df.columns = pd.MultiIndex.from_tuples([
-            (self._load_area_map.get(str(col), "other"), str(col)) for col in df.columns
-        ], names=['Area','Node'])
+        df.columns = pd.MultiIndex.from_tuples(
+            [
+                (self._load_area_map.get(str(col), "other"), str(col))
+                for col in df.columns
+            ],
+            names=["Area", "Node"],
+        )
         return df.sort_index(axis=1)
 
     def get_area_unserved(self) -> pd.DataFrame:
-        """ Gets the Unserved Energy Aggregated by Area"""
+        """Gets the Unserved Energy Aggregated by Area"""
         df = self.get_unserved()
         if df is NotImplemented:
             return NotImplemented
 
-        df.columns = pd.MultiIndex.from_tuples([
-            (self._load_area_map.get(str(col), "other"), str(col)) for col in df.columns
-        ])
+        df.columns = pd.MultiIndex.from_tuples(
+            [
+                (self._load_area_map.get(str(col), "other"), str(col))
+                for col in df.columns
+            ]
+        )
 
         return df
 
     def get_area_charging(self) -> Union[pd.DataFrame, NotImplementedError]:
-
         """Aggregates the Energy Storage Charging by Area for each storage type (Pump Load, Battery Charging)"""
 
         df = self.get_storage_charging()
 
         if df is not None:
-            df.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_area(col), self._map_gen_to_tech(col) ,col) for col in df.columns], names=['Area','Technology','Generator'])
+            df.columns = pd.MultiIndex.from_tuples(
+                [
+                    (self._map_gen_to_area(col), self._map_gen_to_tech(col), col)
+                    for col in df.columns
+                ],
+                names=["Area", "Technology", "Generator"],
+            )
             return df
         else:
             return None
-
-
-
-
 
     def get_area_curtailment_aggregates(self) -> pd.DataFrame:
         """Gets the curtailment aggregated for each available technology category and area"""
 
         curt_area = self.get_curtailment()
-        curt_area.columns = pd.MultiIndex.from_tuples([(self._map_gen_to_area(col[1]), col[0],col[1]) for col in curt_area.columns], names=['Area', 'Technology','Generator'])
+        curt_area.columns = pd.MultiIndex.from_tuples(
+            [
+                (self._map_gen_to_area(col[1]), col[0], col[1])
+                for col in curt_area.columns
+            ],
+            names=["Area", "Technology", "Generator"],
+        )
 
-        return curt_area.T.groupby(level=['Area', 'Technology']).sum().T
+        return curt_area.T.groupby(level=["Area", "Technology"]).sum().T
 
-
-    def get_peak_stats(self, winter_months=[1,2,12]) -> dict:
+    def get_peak_stats(self, winter_months=[1, 2, 12]) -> dict:
         """Gets the timestamp for winter and summer peaks for Net Load and Total Load.
 
 
-            :param winter_months: The months defined as winter months to separate winter and summer peaks.
+        :param winter_months: The months defined as winter months to separate winter and summer peaks.
 
-            :returns: A dataframe of winter summer peak/min load stats.
+        :returns: A dataframe of winter summer peak/min load stats.
 
         """
 
         dispatch = self.get_system_dispatch()
         return get_peak_stats(dispatch, winter_months=winter_months)
 
-
     # Flow APIs
-    def get_line_loading(self)->pd.DataFrame:
-
+    def get_line_loading(self) -> pd.DataFrame:
         """
         Gets the line loading as a % of the lines capacity.
         Line Capacity is stored in based on _line_rating_map
@@ -1032,12 +1144,13 @@ class BaseScenario(ABC):
 
         loading_matrix = calc_loading(flow.values, ratings)
 
-        loading = pd.DataFrame(data=loading_matrix, columns=flow.columns, index=flow.index)
+        loading = pd.DataFrame(
+            data=loading_matrix, columns=flow.columns, index=flow.index
+        )
 
         return loading
 
-
-    def get_line_utilization(self, threshold=[99,95,90,75])->pd.DataFrame:
+    def get_line_utilization(self, threshold=[99, 95, 90, 75]) -> pd.DataFrame:
         """
         Calculates a flag for each hour on whether the line is overloaded by 75, 90, 95, or 99 percent
 
@@ -1053,20 +1166,24 @@ class BaseScenario(ABC):
 
         for t in threshold:
             ut_m = calc_congestion(loading.values, threshold=t)
-            new_columns = pd.MultiIndex.from_tuples([(f'U{t}', col) for col in loading.columns], names=['Utilization', 'Line'])
+            new_columns = pd.MultiIndex.from_tuples(
+                [(f"U{t}", col) for col in loading.columns],
+                names=["Utilization", "Line"],
+            )
             ut_i = pd.DataFrame(data=ut_m, columns=new_columns, index=loading.index)
             frames.append(ut_i)
 
         utilization = pd.concat(frames, axis=1)
         return utilization
 
-
-    def get_line_congestion_hours(self, threshold=100.0)->pd.DataFrame:
+    def get_line_congestion_hours(self, threshold=100.0) -> pd.DataFrame:
         """Calculates a boolean flag for each hour and line congested"""
         loading = self.get_line_loading()
 
         congestion_matrix = calc_congestion(loading.values, threshold=threshold)
-        congestion = pd.DataFrame(data=congestion_matrix, columns=loading.columns, index=loading.index)
+        congestion = pd.DataFrame(
+            data=congestion_matrix, columns=loading.columns, index=loading.index
+        )
 
         return congestion
 
@@ -1094,8 +1211,4 @@ class BaseScenario(ABC):
             raise ValueError("Cannot add scenario: right operand has no display_name")
 
         # Create MultiScenario with both scenarios
-        return MultiScenario({
-            self.display_name: self,
-            other.display_name: other
-        })
-
+        return MultiScenario({self.display_name: self, other.display_name: other})

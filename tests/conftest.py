@@ -1,4 +1,5 @@
 """Shared pytest fixtures for the GAT test suite."""
+
 import os
 import warnings
 from pathlib import Path
@@ -23,6 +24,7 @@ def _silence_legacy_handler_deprecation():
         warnings.simplefilter("ignore", DeprecationWarning)
         yield
 
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 HOME = Path(os.path.expanduser("~"))
 
@@ -39,11 +41,13 @@ def _resolve_plexos_root() -> Optional[Path]:
     env = os.environ.get("GAT_PLEXOS_FIXTURE")
     if env:
         candidates.append(Path(env))
-    candidates.extend([
-        REPO_ROOT / "tests" / "fixtures" / "plexos",
-        HOME / ".gat-test-data" / "plexos",
-        REPO_ROOT / "example_data" / "plexos",
-    ])
+    candidates.extend(
+        [
+            REPO_ROOT / "tests" / "fixtures" / "plexos",
+            HOME / ".gat-test-data" / "plexos",
+            REPO_ROOT / "example_data" / "plexos",
+        ]
+    )
     for p in candidates:
         if p.is_dir() and any(p.glob("*.h5")):
             return p
@@ -58,11 +62,13 @@ def _resolve_plexos_zip_root() -> Optional[Path]:
     env = os.environ.get("GAT_PLEXOS_ZIP_FIXTURE")
     if env:
         candidates.append(Path(env))
-    candidates.extend([
-        REPO_ROOT / "tests" / "fixtures" / "plexos_zip",
-        HOME / ".gat-test-data" / "plexos_zip",
-        REPO_ROOT / "example_data" / "plexos_zip",
-    ])
+    candidates.extend(
+        [
+            REPO_ROOT / "tests" / "fixtures" / "plexos_zip",
+            HOME / ".gat-test-data" / "plexos_zip",
+            REPO_ROOT / "example_data" / "plexos_zip",
+        ]
+    )
     for p in candidates:
         if p.is_dir() and any(p.glob("*.zip")):
             return p
@@ -77,10 +83,12 @@ def _resolve_sienna_root() -> Optional[Path]:
     candidates = []
     if env:
         candidates.append(Path(env))
-    candidates.extend([
-        REPO_ROOT / "tests" / "fixtures" / "sienna",
-        HOME / ".gat-test-data" / "sienna",
-    ])
+    candidates.extend(
+        [
+            REPO_ROOT / "tests" / "fixtures" / "sienna",
+            HOME / ".gat-test-data" / "sienna",
+        ]
+    )
     for p in candidates:
         if (p / "metadata.json").is_file():
             return p
@@ -122,7 +130,9 @@ def _resolve_sienna_multifile_root() -> Optional[Path]:
 def plexos_fixture_root() -> Path:
     root = _resolve_plexos_root()
     if root is None:
-        pytest.skip("plexos fixture not available (set GAT_PLEXOS_FIXTURE or populate ~/.gat-test-data/plexos)")
+        pytest.skip(
+            "plexos fixture not available (set GAT_PLEXOS_FIXTURE or populate ~/.gat-test-data/plexos)"
+        )
     return root
 
 
@@ -143,13 +153,16 @@ def plexos_zip_fixture_root() -> Path:
 def sienna_fixture_root() -> Path:
     root = _resolve_sienna_root()
     if root is None:
-        pytest.skip("sienna fixture not available (Phase 3 — set GAT_SIENNA_FIXTURE or populate ~/.gat-test-data/sienna)")
+        pytest.skip(
+            "sienna fixture not available (Phase 3 — set GAT_SIENNA_FIXTURE or populate ~/.gat-test-data/sienna)"
+        )
     return root
 
 
 @pytest.fixture(scope="session")
 def plexos_scenario(plexos_fixture_root):
     from gat.scenariohandlers import PlexosScenario
+
     s = PlexosScenario(str(plexos_fixture_root))
     s._use_cache = False
     return s
@@ -158,6 +171,7 @@ def plexos_scenario(plexos_fixture_root):
 @pytest.fixture(scope="session")
 def sienna_scenario(sienna_fixture_root):
     from gat.scenariohandlers import FileScenario
+
     s = FileScenario(str(sienna_fixture_root))
     s._load_file = "regional_load.pq.gz"
     s._use_cache = False
@@ -183,6 +197,7 @@ def sienna_v5_fixture_root() -> Path:
 @pytest.fixture(scope="session")
 def sienna_v4_scenario(sienna_v4_fixture_root):
     from gat.scenariohandlers import SiennaScenario
+
     root = sienna_v4_fixture_root
     s = SiennaScenario(
         solution_data=str(root / "simulation_store.h5"),
@@ -195,6 +210,7 @@ def sienna_v4_scenario(sienna_v4_fixture_root):
 @pytest.fixture(scope="session")
 def sienna_v5_scenario(sienna_v5_fixture_root):
     from gat.scenariohandlers import SiennaScenario
+
     root = sienna_v5_fixture_root
     s = SiennaScenario(
         solution_data=str(root / "simulation_store.h5"),
@@ -223,6 +239,7 @@ def sienna_v4_multifile_scenario(sienna_v4_multifile_root):
     """`SiennaScenario` constructed from the two-file fixture, exercising
     the `SimulationAggregator` path."""
     from gat.scenariohandlers import SiennaScenario
+
     root = sienna_v4_multifile_root
     s = SiennaScenario(
         simulation_files=[

@@ -24,9 +24,7 @@ class RemoteScenario:
 
     def _ensure_info(self) -> dict:
         if self._info is None:
-            self._info = self._conn.get_json(
-                f"/scenarios/{self.project}/{self.name}"
-            )
+            self._info = self._conn.get_json(f"/scenarios/{self.project}/{self.name}")
         return self._info
 
     # ------------------------------------------------------------------ #
@@ -64,23 +62,29 @@ class RemoteScenario:
             Wide DataFrame from the server.
         """
         if group_by:
-            return self._conn.post_arrow("/query/grouped", {
-                "project": self.project,
-                "scenario": self.name,
-                "dataset": dataset,
-                "group_by": group_by,
-            })
+            return self._conn.post_arrow(
+                "/query/grouped",
+                {
+                    "project": self.project,
+                    "scenario": self.name,
+                    "dataset": dataset,
+                    "group_by": group_by,
+                },
+            )
 
         # Unqualified table name — server auto-prefixes via search_path
         return self.sql(f"SELECT * FROM {dataset}")
 
     def sql(self, query: str) -> pd.DataFrame:
         """Execute SQL against the server."""
-        return self._conn.post_arrow("/query", {
-            "project": self.project,
-            "scenario": self.name,
-            "sql": query,
-        })
+        return self._conn.post_arrow(
+            "/query",
+            {
+                "project": self.project,
+                "scenario": self.name,
+                "sql": query,
+            },
+        )
 
     # ------------------------------------------------------------------ #
     # Level 3: Analytics
@@ -207,9 +211,12 @@ class RemoteScenario:
         out = np.full_like(flow_matrix, np.nan, dtype=np.float32)
         loading = np.abs(
             np.divide(
-                flow_matrix, ratings[:, np.newaxis],
-                out=out, where=(~invalid)[:, np.newaxis],
-            ) * 100.0
+                flow_matrix,
+                ratings[:, np.newaxis],
+                out=out,
+                where=(~invalid)[:, np.newaxis],
+            )
+            * 100.0
         ).astype(np.float32)
 
         result = pd.DataFrame({"entity_id": entity_ids})

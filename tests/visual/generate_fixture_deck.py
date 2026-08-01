@@ -24,6 +24,7 @@ Fixture resolution (mirrors tests/conftest.py's search order) — override with
 
 Output is written to tests/visual/output/<model-type>/ (gitignored).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -118,19 +119,39 @@ def _run_sienna(system_path: Path, simulation_path: Path, output: Path) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--model-type", choices=["plexos", "sienna"], default="plexos",
-                        help="which fixture deck to build (ignored if --all)")
-    parser.add_argument("--all", action="store_true",
-                        help="build both plexos and sienna decks")
-    parser.add_argument("--fixture", type=Path, default=None,
-                        help="plexos fixture directory (directory of .h5 solution files)")
-    parser.add_argument("--system-path", type=Path, default=None,
-                        help="sienna system file (.json)")
-    parser.add_argument("--simulation-path", type=Path, default=None,
-                        help="sienna simulation file (.h5)")
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT_ROOT,
-                        help=f"output root directory (default: {DEFAULT_OUTPUT_ROOT})")
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        "--model-type",
+        choices=["plexos", "sienna"],
+        default="plexos",
+        help="which fixture deck to build (ignored if --all)",
+    )
+    parser.add_argument(
+        "--all", action="store_true", help="build both plexos and sienna decks"
+    )
+    parser.add_argument(
+        "--fixture",
+        type=Path,
+        default=None,
+        help="plexos fixture directory (directory of .h5 solution files)",
+    )
+    parser.add_argument(
+        "--system-path", type=Path, default=None, help="sienna system file (.json)"
+    )
+    parser.add_argument(
+        "--simulation-path",
+        type=Path,
+        default=None,
+        help="sienna simulation file (.h5)",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT_ROOT,
+        help=f"output root directory (default: {DEFAULT_OUTPUT_ROOT})",
+    )
     args = parser.parse_args(argv)
 
     model_types = ["plexos", "sienna"] if args.all else [args.model_type]

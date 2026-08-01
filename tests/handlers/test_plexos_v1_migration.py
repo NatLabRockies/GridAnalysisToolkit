@@ -16,6 +16,7 @@ ported through the same shape:
 
 Snapshots remain pinned to the legacy path; v1 must match.
 """
+
 import pandas as pd
 import pytest
 
@@ -63,27 +64,24 @@ def test_v1_area_aggregation_matches_legacy(plexos_v1_db, plexos_scenario):
     # (raw dispatch — no curtailment math) for an apples-to-apples compare.
     legacy = plexos_scenario.get_generation().copy()
     legacy.columns = [
-        str(plexos_scenario._gen_area_map.get(str(c), "other"))
-        for c in legacy.columns
+        str(plexos_scenario._gen_area_map.get(str(c), "other")) for c in legacy.columns
     ]
     legacy_by_area = legacy.T.groupby(level=0).sum().T  # timestamp × area
     legacy_areas = sorted(legacy_by_area.columns.astype(str).tolist())
 
-    assert sorted(v1_areas) == legacy_areas, (
-        f"area sets differ: v1={v1_areas} legacy={legacy_areas}"
-    )
+    assert (
+        sorted(v1_areas) == legacy_areas
+    ), f"area sets differ: v1={v1_areas} legacy={legacy_areas}"
 
     # Compare per-area totals across the whole horizon (duckdb summed all
     # timestamp columns into row sums; legacy sums via pandas).
     v1_totals = {
-        str(area): float(v1_wide.iloc[i, 1:].sum())
-        for i, area in enumerate(v1_areas)
+        str(area): float(v1_wide.iloc[i, 1:].sum()) for i, area in enumerate(v1_areas)
     }
     legacy_totals = {
-        str(area): float(legacy_by_area[area].sum())
-        for area in legacy_by_area.columns
+        str(area): float(legacy_by_area[area].sum()) for area in legacy_by_area.columns
     }
     for area in v1_totals:
-        assert v1_totals[area] == pytest.approx(legacy_totals[area], rel=1e-4), (
-            f"area {area}: v1={v1_totals[area]} legacy={legacy_totals[area]}"
-        )
+        assert v1_totals[area] == pytest.approx(
+            legacy_totals[area], rel=1e-4
+        ), f"area {area}: v1={v1_totals[area]} legacy={legacy_totals[area]}"

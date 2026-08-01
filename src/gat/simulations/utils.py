@@ -31,7 +31,7 @@ if TYPE_CHECKING:
     import polars as pl
 
 
-block_combination_strategy = Literal['left', 'right']
+block_combination_strategy = Literal["left", "right"]
 
 
 def resolve_compositions(
@@ -66,8 +66,7 @@ def resolve_compositions(
 
 
 def dedup_slices(
-    blocks: Union[list[pl.Series], list[pd.Series]],
-    ignore_previous: bool = False
+    blocks: Union[list[pl.Series], list[pd.Series]], ignore_previous: bool = False
 ) -> list[tuple[int, int]]:
     """
     Determine non-overlapping slices for datetime blocks.
@@ -106,7 +105,9 @@ def dedup_slices(
                 # Find where next block starts in current block
                 try:
                     overlap_idx = current_block.search_sorted(next_start_time)
-                    end_idx = overlap_idx - 1 if overlap_idx > 0 else len(current_block) - 1
+                    end_idx = (
+                        overlap_idx - 1 if overlap_idx > 0 else len(current_block) - 1
+                    )
                 except:
                     # Fallback if search_sorted not available
                     overlap_idx = None
@@ -114,7 +115,11 @@ def dedup_slices(
                         if dt >= next_start_time:
                             overlap_idx = idx
                             break
-                    end_idx = overlap_idx - 1 if overlap_idx is not None and overlap_idx > 0 else len(current_block) - 1
+                    end_idx = (
+                        overlap_idx - 1
+                        if overlap_idx is not None and overlap_idx > 0
+                        else len(current_block) - 1
+                    )
 
                 result[original_idx] = (0, end_idx)
             else:
@@ -131,7 +136,7 @@ def dedup_slices(
 
                 # Find where previous block ends in current block
                 try:
-                    start_idx = current_block.search_sorted(prev_end_time, side='right')
+                    start_idx = current_block.search_sorted(prev_end_time, side="right")
                 except:
                     # Fallback if search_sorted not available
                     start_idx = 0
@@ -199,7 +204,7 @@ def combine_overlapping_frames(
         blocks = [pd.Series(df.index) for df in sorted_frames]
         slices = dedup_slices(blocks, ignore_previous=ignore_previous)
         kept = [
-            sorted_frames[i].iloc[start_idx:end_idx + 1]
+            sorted_frames[i].iloc[start_idx : end_idx + 1]
             for i, (start_idx, end_idx) in enumerate(slices)
             if start_idx is not None and end_idx is not None
         ]
@@ -209,5 +214,3 @@ def combine_overlapping_frames(
         combined = combined[~combined.index.duplicated(keep="first")]
 
     return combined.sort_index()
-
-

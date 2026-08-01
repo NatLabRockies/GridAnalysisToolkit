@@ -18,7 +18,6 @@ from ..datasets import DatasetComposition, DatasetInfo, DatasetKind
 from ..interfaces import BaseSimulation
 from .utils import resolve_compositions
 
-
 # Default compositions mapping composed dataset names to H5 dataset name patterns.
 # These are glob patterns matched against raw dataset names.
 _DEFAULT_COMPOSITIONS: dict[str, list[str]] = {
@@ -118,7 +117,8 @@ class SiennaSimulation(BaseSimulation):
             if comp_name not in resolved:
                 logger.debug(
                     "No raw datasets matched patterns for '{}': {}",
-                    comp_name, patterns,
+                    comp_name,
+                    patterns,
                 )
 
         self._resolved_compositions = resolved
@@ -129,22 +129,26 @@ class SiennaSimulation(BaseSimulation):
 
         # Raw simulation datasets
         for ds_name in sorted(self._get_raw_datasets().keys()):
-            result.append(DatasetInfo(
-                name=ds_name,
-                description=f"Sienna simulation dataset",
-                kind=DatasetKind.RAW_SIMULATION,
-                entity_column="entity_id",
-            ))
+            result.append(
+                DatasetInfo(
+                    name=ds_name,
+                    description=f"Sienna simulation dataset",
+                    kind=DatasetKind.RAW_SIMULATION,
+                    entity_column="entity_id",
+                )
+            )
 
         # Composed datasets
         for comp_name, source_datasets in self._resolve_compositions().items():
-            result.append(DatasetInfo(
-                name=comp_name,
-                description=f"Composed dataset ({len(source_datasets)} sources)",
-                kind=DatasetKind.COMPOSED,
-                entity_column="entity_id",
-                source_datasets=source_datasets,
-            ))
+            result.append(
+                DatasetInfo(
+                    name=comp_name,
+                    description=f"Composed dataset ({len(source_datasets)} sources)",
+                    kind=DatasetKind.COMPOSED,
+                    entity_column="entity_id",
+                    source_datasets=source_datasets,
+                )
+            )
 
         return result
 

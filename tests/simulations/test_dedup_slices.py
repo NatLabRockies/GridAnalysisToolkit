@@ -11,6 +11,7 @@ Strategy semantics:
 - `ignore_previous=False` ("right"): keep the later block's data;
   truncate any block that overlaps its predecessor's end.
 """
+
 import polars as pl
 import pytest
 

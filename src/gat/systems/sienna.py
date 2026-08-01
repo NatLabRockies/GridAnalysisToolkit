@@ -16,7 +16,6 @@ from ..categories import CategoryMap
 from ..datasets import DatasetComposition, DatasetInfo, DatasetKind
 from ..interfaces import BaseSystem
 
-
 # Component types that represent generators (for the "generators" composition)
 _GENERATOR_TYPES = {
     "ThermalStandard",
@@ -73,7 +72,9 @@ class SiennaSystem(BaseSystem):
         self._parser = SiennaSystemParser(str(system_path))
         self._component_types: set[str] = self._parser.list_components()
 
-        self._generator_types = generator_types or (_GENERATOR_TYPES & self._component_types)
+        self._generator_types = generator_types or (
+            _GENERATOR_TYPES & self._component_types
+        )
         self._load_types = load_types or (_LOAD_TYPES & self._component_types)
         self._branch_types = branch_types or (_BRANCH_TYPES & self._component_types)
 
@@ -97,40 +98,48 @@ class SiennaSystem(BaseSystem):
 
         # Raw component datasets
         for ct in sorted(self._component_types):
-            result.append(DatasetInfo(
-                name=ct,
-                description=f"Sienna {ct} components",
-                kind=DatasetKind.RAW_SYSTEM,
-                entity_column="name",
-            ))
+            result.append(
+                DatasetInfo(
+                    name=ct,
+                    description=f"Sienna {ct} components",
+                    kind=DatasetKind.RAW_SYSTEM,
+                    entity_column="name",
+                )
+            )
 
         # Composed datasets
         if self._generator_types:
-            result.append(DatasetInfo(
-                name="generators",
-                description="All generator components",
-                kind=DatasetKind.COMPOSED,
-                entity_column="name",
-                source_datasets=sorted(self._generator_types),
-            ))
+            result.append(
+                DatasetInfo(
+                    name="generators",
+                    description="All generator components",
+                    kind=DatasetKind.COMPOSED,
+                    entity_column="name",
+                    source_datasets=sorted(self._generator_types),
+                )
+            )
 
         if self._load_types:
-            result.append(DatasetInfo(
-                name="loads",
-                description="All load components",
-                kind=DatasetKind.COMPOSED,
-                entity_column="name",
-                source_datasets=sorted(self._load_types),
-            ))
+            result.append(
+                DatasetInfo(
+                    name="loads",
+                    description="All load components",
+                    kind=DatasetKind.COMPOSED,
+                    entity_column="name",
+                    source_datasets=sorted(self._load_types),
+                )
+            )
 
         if self._branch_types:
-            result.append(DatasetInfo(
-                name="branches",
-                description="All branch/line components",
-                kind=DatasetKind.COMPOSED,
-                entity_column="name",
-                source_datasets=sorted(self._branch_types),
-            ))
+            result.append(
+                DatasetInfo(
+                    name="branches",
+                    description="All branch/line components",
+                    kind=DatasetKind.COMPOSED,
+                    entity_column="name",
+                    source_datasets=sorted(self._branch_types),
+                )
+            )
 
         return result
 
@@ -139,14 +148,18 @@ class SiennaSystem(BaseSystem):
             return self._cache[name]
 
         # Check composed datasets
-        composed_names = {"generators": self._generator_types,
-                          "loads": self._load_types,
-                          "branches": self._branch_types}
+        composed_names = {
+            "generators": self._generator_types,
+            "loads": self._load_types,
+            "branches": self._branch_types,
+        }
 
         if name in composed_names:
             source_types = composed_names[name]
             if not source_types:
-                raise KeyError(f"No component types found for composed dataset '{name}'")
+                raise KeyError(
+                    f"No component types found for composed dataset '{name}'"
+                )
             frames = []
             for ct in sorted(source_types):
                 try:
@@ -178,11 +191,13 @@ class SiennaSystem(BaseSystem):
         try:
             area_mapping = self._build_area_mapping()
             if area_mapping:
-                maps.append(CategoryMap(
-                    name="native_area",
-                    description="Native model area from bus topology",
-                    mapping=area_mapping,
-                ))
+                maps.append(
+                    CategoryMap(
+                        name="native_area",
+                        description="Native model area from bus topology",
+                        mapping=area_mapping,
+                    )
+                )
         except Exception as e:
             logger.warning("Could not build native_area category map: {}", e)
 
@@ -190,12 +205,14 @@ class SiennaSystem(BaseSystem):
         try:
             fuel_mapping = self._build_fuel_mapping()
             if fuel_mapping:
-                maps.append(CategoryMap(
-                    name="fuel",
-                    description="Fuel type from system data",
-                    mapping=fuel_mapping,
-                    applies_to=["generation"],
-                ))
+                maps.append(
+                    CategoryMap(
+                        name="fuel",
+                        description="Fuel type from system data",
+                        mapping=fuel_mapping,
+                        applies_to=["generation"],
+                    )
+                )
         except Exception as e:
             logger.warning("Could not build fuel category map: {}", e)
 
@@ -203,12 +220,14 @@ class SiennaSystem(BaseSystem):
         try:
             pm_mapping = self._build_prime_mover_mapping()
             if pm_mapping:
-                maps.append(CategoryMap(
-                    name="prime_mover",
-                    description="Prime mover type from system data",
-                    mapping=pm_mapping,
-                    applies_to=["generation"],
-                ))
+                maps.append(
+                    CategoryMap(
+                        name="prime_mover",
+                        description="Prime mover type from system data",
+                        mapping=pm_mapping,
+                        applies_to=["generation"],
+                    )
+                )
         except Exception as e:
             logger.warning("Could not build prime_mover category map: {}", e)
 
@@ -263,7 +282,9 @@ class SiennaSystem(BaseSystem):
                         mapping[str(name)] = rating_pu * bp_val
 
             except Exception as e:
-                logger.debug("Could not get generator ratings for '{}': {}", comp_type, e)
+                logger.debug(
+                    "Could not get generator ratings for '{}': {}", comp_type, e
+                )
 
         return mapping
 
@@ -315,14 +336,17 @@ class SiennaSystem(BaseSystem):
                 If None, ratings are returned in their raw (per-unit) form.
         """
         # Component types whose ratings are in per-unit (need scaling)
-        _PER_UNIT_TYPES = {"Line", "MonitoredLine", "TapTransformer",
-                           "Transformer2W", "PhaseShiftingTransformer"}
+        _PER_UNIT_TYPES = {
+            "Line",
+            "MonitoredLine",
+            "TapTransformer",
+            "Transformer2W",
+            "PhaseShiftingTransformer",
+        }
         mapping: dict[str, float] = {}
 
         # All component types that might carry flow data
-        flow_types = (
-            self._branch_types | {"AreaInterchange"}
-        ) & self._component_types
+        flow_types = (self._branch_types | {"AreaInterchange"}) & self._component_types
 
         for comp_type in flow_types:
             try:
@@ -331,7 +355,9 @@ class SiennaSystem(BaseSystem):
                     continue
                 raw = raw.reset_index()
 
-                scale = base_power if (base_power and comp_type in _PER_UNIT_TYPES) else 1.0
+                scale = (
+                    base_power if (base_power and comp_type in _PER_UNIT_TYPES) else 1.0
+                )
 
                 for _, row in raw.iterrows():
                     name = row.get("name")
@@ -405,11 +431,19 @@ class SiennaSystem(BaseSystem):
                     # For bus references, extract the UUID value
                     if col == "bus":
                         df[col] = df[col].apply(
-                            lambda x: x.get("value", str(x)) if isinstance(x, dict) else str(x)
+                            lambda x: (
+                                x.get("value", str(x))
+                                if isinstance(x, dict)
+                                else str(x)
+                            )
                         )
                     elif col == "area":
                         df[col] = df[col].apply(
-                            lambda x: x.get("value", str(x)) if isinstance(x, dict) else str(x)
+                            lambda x: (
+                                x.get("value", str(x))
+                                if isinstance(x, dict)
+                                else str(x)
+                            )
                         )
                     else:
                         cols_to_drop.append(col)
@@ -492,12 +526,14 @@ class SiennaSystem(BaseSystem):
         try:
             bus_geo = self._parser._get_bus_geo()
             # bus_geo is a GeoDataFrame with geometry column + bus properties
-            result = pd.DataFrame({
-                "name": bus_geo["name"].values,
-                "UUID": bus_geo["UUID"].values,
-                "latitude": bus_geo.geometry.y.values,
-                "longitude": bus_geo.geometry.x.values,
-            })
+            result = pd.DataFrame(
+                {
+                    "name": bus_geo["name"].values,
+                    "UUID": bus_geo["UUID"].values,
+                    "latitude": bus_geo.geometry.y.values,
+                    "longitude": bus_geo.geometry.x.values,
+                }
+            )
             logger.info("Extracted {} bus coordinates from system JSON", len(result))
             return result
         except Exception as e:
@@ -516,7 +552,9 @@ class SiennaSystem(BaseSystem):
 
         Returns columns: name, UUID, type, from_bus_uuid, to_bus_uuid.
         """
-        empty = pd.DataFrame(columns=["name", "UUID", "type", "from_bus_uuid", "to_bus_uuid"])
+        empty = pd.DataFrame(
+            columns=["name", "UUID", "type", "from_bus_uuid", "to_bus_uuid"]
+        )
 
         if "Arc" not in self._component_types:
             logger.warning("No Arc components — cannot derive branch endpoints")
@@ -542,12 +580,17 @@ class SiennaSystem(BaseSystem):
             uuid_val = row.get("UUID")
             if not uuid_val:
                 continue
-            arc_endpoints[str(uuid_val)] = (_ref_uuid(row.get("from")), _ref_uuid(row.get("to")))
+            arc_endpoints[str(uuid_val)] = (
+                _ref_uuid(row.get("from")),
+                _ref_uuid(row.get("to")),
+            )
 
         records: list[dict[str, str]] = []
         # Include AreaInterchange even though it's not in _branch_types — it
         # has an arc and renders as a line in some scenarios.
-        candidate_types = (self._branch_types | {"AreaInterchange"}) & self._component_types
+        candidate_types = (
+            self._branch_types | {"AreaInterchange"}
+        ) & self._component_types
         for ctype in candidate_types:
             try:
                 df = self._parser.get_component(ctype, expand_ext=True)
@@ -565,17 +608,20 @@ class SiennaSystem(BaseSystem):
                 from_uuid, to_uuid = endpoints
                 if not from_uuid or not to_uuid:
                     continue
-                records.append({
-                    "name": str(row.get("name", "")),
-                    "UUID": str(row.get("UUID", "")),
-                    "type": ctype,
-                    "from_bus_uuid": from_uuid,
-                    "to_bus_uuid": to_uuid,
-                })
+                records.append(
+                    {
+                        "name": str(row.get("name", "")),
+                        "UUID": str(row.get("UUID", "")),
+                        "type": ctype,
+                        "from_bus_uuid": from_uuid,
+                        "to_bus_uuid": to_uuid,
+                    }
+                )
 
         result = pd.DataFrame.from_records(records, columns=empty.columns)
         logger.info(
             "Extracted {} branch endpoints across {} component types",
-            len(result), result["type"].nunique() if len(result) else 0,
+            len(result),
+            result["type"].nunique() if len(result) else 0,
         )
         return result

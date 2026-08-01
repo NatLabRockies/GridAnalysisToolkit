@@ -6,6 +6,7 @@ routes native PLEXOS Solution.zip/.duckdb input to "duckdb" and
 h5plexos-converted .h5 input to "h5", without ever changing resolution for
 existing h5 call sites (directories, file lists, globs).
 """
+
 from pathlib import Path
 
 import pytest
@@ -73,7 +74,9 @@ class TestResolvePlexosBackendAndFiles:
     def test_directory_of_h5_files_default_pattern(self, tmp_path):
         _touch(tmp_path / "a.h5")
         _touch(tmp_path / "b.h5")
-        backend, files = _resolve_plexos_backend_and_files(_finder, str(tmp_path), "*.h5")
+        backend, files = _resolve_plexos_backend_and_files(
+            _finder, str(tmp_path), "*.h5"
+        )
         assert backend == "h5"
         assert len(files) == 2
 
@@ -83,13 +86,17 @@ class TestResolvePlexosBackendAndFiles:
         be detected as duckdb via the *.zip/*.duckdb fallback."""
         _touch(tmp_path / "sol1.zip")
         _touch(tmp_path / "sol2.zip")
-        backend, files = _resolve_plexos_backend_and_files(_finder, str(tmp_path), "*.h5")
+        backend, files = _resolve_plexos_backend_and_files(
+            _finder, str(tmp_path), "*.h5"
+        )
         assert backend == "duckdb"
         assert len(files) == 2
 
     def test_directory_of_zip_files_explicit_pattern(self, tmp_path):
         _touch(tmp_path / "sol1.zip")
-        backend, files = _resolve_plexos_backend_and_files(_finder, str(tmp_path), "*.zip")
+        backend, files = _resolve_plexos_backend_and_files(
+            _finder, str(tmp_path), "*.zip"
+        )
         assert backend == "duckdb"
         assert len(files) == 1
 
@@ -116,6 +123,8 @@ class TestResolvePlexosBackendAndFiles:
         also happen to exist in the same directory under a different
         explicit pattern — the retry only fires on zero h5 results."""
         _touch(tmp_path / "a.h5")
-        backend, files = _resolve_plexos_backend_and_files(_finder, str(tmp_path), "*.h5")
+        backend, files = _resolve_plexos_backend_and_files(
+            _finder, str(tmp_path), "*.h5"
+        )
         assert backend == "h5"
         assert len(files) == 1

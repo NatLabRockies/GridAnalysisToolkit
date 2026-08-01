@@ -1,6 +1,8 @@
 # GAT - Grid Analysis Toolkit
 
 [![tests](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/tests.yml)
+[![lint](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/lint.yml/badge.svg)](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/lint.yml)
+[![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![docs](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/sphinx.yml/badge.svg)](https://natlabrockies.github.io/GridAnalysisToolkit/)
 [![PyPI](https://img.shields.io/pypi/v/nlr-gat)](https://pypi.org/project/nlr-gat/)
 [![Python](https://img.shields.io/pypi/pyversions/nlr-gat)](https://pypi.org/project/nlr-gat/)

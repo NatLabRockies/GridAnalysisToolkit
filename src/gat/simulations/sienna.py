@@ -87,9 +87,9 @@ class SiennaSimulationConfig(BaseModel):
                 itime = sim_attrs.get("initial_time")
                 # Extract core simulation attributes
                 config_data = {
-                    "initial_time": itime.decode()
-                    if isinstance(itime, bytes)
-                    else itime,
+                    "initial_time": (
+                        itime.decode() if isinstance(itime, bytes) else itime
+                    ),
                     "num_steps": int(sim_attrs["num_steps"]),
                     "step_resolution_ms": int(sim_attrs["step_resolution_ms"]),
                 }

@@ -4,6 +4,7 @@ Promoted configuration that used to require private-attribute mutation
 (e.g. `scenario._load_includes_charging = True`) is now exposed as
 public properties. These tests pin the contract.
 """
+
 import pandas as pd
 import pytest
 
@@ -60,6 +61,7 @@ def test_load_includes_charging_from_config():
     """Construction-time setting via `ScenarioConfig.load_includes_charging`
     flows through to `BaseScenario._load_includes_charging`."""
     from gat.models.scenario import ScenarioConfig
+
     cfg = ScenarioConfig(
         model_type="Plexos",
         load_includes_charging=True,

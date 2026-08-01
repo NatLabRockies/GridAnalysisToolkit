@@ -12,6 +12,7 @@ needed to support generator area aggregation (Generator, Region) are
 exposed as raw datasets today. Full system metadata (lines, loads, buses)
 will follow in the broader migration.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -66,9 +67,7 @@ class PlexosDuckDBSystem(BaseSystem):
     ) -> None:
         self._source = PlexosDuckDBSource(solution_paths, force_convert=force_convert)
         self._classes = classes or list(_DEFAULT_CLASSES)
-        logger.info(
-            "PlexosDuckDBSystem loaded, exposing classes: {}", self._classes
-        )
+        logger.info("PlexosDuckDBSystem loaded, exposing classes: {}", self._classes)
 
     @property
     def source(self) -> PlexosDuckDBSource:
@@ -88,9 +87,7 @@ class PlexosDuckDBSystem(BaseSystem):
 
     def get_dataset(self, name: str) -> pd.DataFrame:
         if name not in self._classes:
-            raise KeyError(
-                f"Dataset '{name}' not found. Available: {self._classes}"
-            )
+            raise KeyError(f"Dataset '{name}' not found. Available: {self._classes}")
         return self._source.objects(name)
 
     def get_default_category_maps(self) -> list[CategoryMap]:
@@ -101,11 +98,13 @@ class PlexosDuckDBSystem(BaseSystem):
                 parent_class="Region", child_class="Generator"
             )
             if gen_area:
-                maps.append(CategoryMap(
-                    name="gen_area",
-                    description="Generator -> region/area mapping (from plexos2duckdb memberships)",
-                    mapping=gen_area,
-                ))
+                maps.append(
+                    CategoryMap(
+                        name="gen_area",
+                        description="Generator -> region/area mapping (from plexos2duckdb memberships)",
+                        mapping=gen_area,
+                    )
+                )
         except Exception as e:
             logger.debug("Could not extract Region/Generator memberships: {}", e)
         return maps
@@ -134,7 +133,9 @@ class PlexosDuckDBSystem(BaseSystem):
             "ST__Year__Generators__Installed_Capacity", "Installed_Capacity"
         )
 
-    def get_branch_ratings(self, base_power: Optional[float] = None) -> dict[str, float]:
+    def get_branch_ratings(
+        self, base_power: Optional[float] = None
+    ) -> dict[str, float]:
         """Return a mapping of branch/line entity names to MW ratings.
 
         ``base_power`` is accepted for interface parity with

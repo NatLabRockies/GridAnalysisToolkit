@@ -1,4 +1,5 @@
 """Shared deprecation helper for legacy scenario handler classes."""
+
 import warnings
 
 LEGACY_HANDLER_DEPRECATION_MSG = (

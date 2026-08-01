@@ -8,22 +8,22 @@ like graph, geospatial representations. The System also includes apis for calcul
 
 """
 
-
 from pydantic import BaseModel
 from typing import List, Optional, Union, Dict, Any
 
 
 class Region(BaseModel):
-    id: Union[str,int]
+    id: Union[str, int]
     name: str
 
 
 class Node(BaseModel):
     id: Union[str, int]
     # a single area or a lookup of areas e.g. keys=interconnect, MMWG, ISO, etc
-    area: Union[Region, Dict[str,Region]]
+    area: Union[Region, Dict[str, Region]]
     latitude: Optional[float]
     longitude: Optional[float]
+
 
 class Arc(BaseModel):
     id: Union[str, int]
@@ -31,13 +31,12 @@ class Arc(BaseModel):
     to_node: Node
 
 
-
 class TransmissionLine(BaseModel):
     id: Union[str, int]
     name: Union[str, int]
-    arc: Optional[Arc] # Might not have the network representation
+    arc: Optional[Arc]  # Might not have the network representation
     capacity: Optional[float] = None
-    type: Optional[str] = None # AC or DC
+    type: Optional[str] = None  # AC or DC
     voltage: Optional[float] = None
 
 
@@ -50,17 +49,17 @@ class Transformer(BaseModel):
     low_voltage: Optional[float] = None
 
 
-
 class Load(BaseModel):
     id: Union[str, int]
     name: Union[str, int]
     flexible: bool = False
     storage: bool = False
 
+
 class GenerationTechnology(BaseModel):
     name: str
     curtailable: bool = False
-    dispatchable: bool = False # determines the net load calculation
+    dispatchable: bool = False  # determines the net load calculation
 
 
 class Generator(BaseModel):
@@ -78,7 +77,7 @@ class System(BaseModel):
 
     generators: Dict[Union[int, str], Generator]
     loads: Dict[Union[int, str], Load]
-    transmission: Optional[Dict[Union[int,str], TransmissionLine]] = None
+    transmission: Optional[Dict[Union[int, str], TransmissionLine]] = None
     transformers: Optional[Dict[Union[int, str], Transformer]] = None
 
     nodes: Optional[Dict[Union[int, str], Node]] = None
@@ -120,17 +119,21 @@ class System(BaseModel):
             if not coords:
                 continue
             lat, lon = coords
-            rows.append({
-                "id": gid,
-                "name": gen.name,
-                "technology": gen.technology.name if gen.technology else None,
-                "capacity": gen.capacity,
-                "node_id": gen.node.id,
-                "geometry": Point(lon, lat),
-            })
+            rows.append(
+                {
+                    "id": gid,
+                    "name": gen.name,
+                    "technology": gen.technology.name if gen.technology else None,
+                    "capacity": gen.capacity,
+                    "node_id": gen.node.id,
+                    "geometry": Point(lon, lat),
+                }
+            )
         if not rows:
             return None
-        return gpd.GeoDataFrame(pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326")
+        return gpd.GeoDataFrame(
+            pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326"
+        )
 
     def geo_lines(self):
         """Build a GeoDataFrame of transmission lines as LineString features.
@@ -163,17 +166,21 @@ class System(BaseModel):
             b = node_coords.get(line.arc.to_node.id)
             if not a or not b:
                 continue
-            rows.append({
-                "id": lid,
-                "name": line.name,
-                "type": line.type,
-                "voltage": line.voltage,
-                "capacity": line.capacity,
-                "geometry": LineString([(a[1], a[0]), (b[1], b[0])]),
-            })
+            rows.append(
+                {
+                    "id": lid,
+                    "name": line.name,
+                    "type": line.type,
+                    "voltage": line.voltage,
+                    "capacity": line.capacity,
+                    "geometry": LineString([(a[1], a[0]), (b[1], b[0])]),
+                }
+            )
         if not rows:
             return None
-        return gpd.GeoDataFrame(pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326")
+        return gpd.GeoDataFrame(
+            pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326"
+        )
 
     def geo_transformers(self):
         """Point GeoDataFrame for transformers, positioned at their arc midpoints.
@@ -207,7 +214,10 @@ class System(BaseModel):
             lat2, lon2 = math.radians(b[0]), math.radians(b[1])
             dlat = lat2 - lat1
             dlon = lon2 - lon1
-            h = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+            h = (
+                math.sin(dlat / 2) ** 2
+                + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+            )
             return 2 * 6_371_000 * math.asin(math.sqrt(h))
 
         rows = []
@@ -226,38 +236,39 @@ class System(BaseModel):
                 )
             mid_lat = (a[0] + b[0]) / 2
             mid_lon = (a[1] + b[1]) / 2
-            rows.append({
-                "id": tid,
-                "name": xfmr.name,
-                "capacity": xfmr.capacity,
-                "high_voltage": xfmr.high_voltage,
-                "low_voltage": xfmr.low_voltage,
-                "geometry": Point(mid_lon, mid_lat),
-            })
+            rows.append(
+                {
+                    "id": tid,
+                    "name": xfmr.name,
+                    "capacity": xfmr.capacity,
+                    "high_voltage": xfmr.high_voltage,
+                    "low_voltage": xfmr.low_voltage,
+                    "geometry": Point(mid_lon, mid_lat),
+                }
+            )
         if not rows:
             return None
-        return gpd.GeoDataFrame(pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326")
-
+        return gpd.GeoDataFrame(
+            pd.DataFrame.from_records(rows), geometry="geometry", crs="EPSG:4326"
+        )
 
     def network(self):
         """Returns the networkx representation of the system"""
         return NotImplemented
 
-
-    def generation_capacity(self) ->Dict[str, float]:
+    def generation_capacity(self) -> Dict[str, float]:
         """
         Gets the aggregates system capacity by GenerationTechnology and Area as a dataframe, series or dictionary.
         """
         pass
 
-    def transformer_capacity(self)-> Dict[str, float]:
-
+    def transformer_capacity(self) -> Dict[str, float]:
         """
         Gets the aggregate transformer capacity by High/Low Voltage and Area
         """
         pass
 
-    def transmission_capacity(self)->Dict[str, float]:
+    def transmission_capacity(self) -> Dict[str, float]:
         """
         Gets the transmission capacity be Voltage, and Area or Area->Area
 
@@ -265,14 +276,13 @@ class System(BaseModel):
         """
         pass
 
-
-    def transmission_intraregional(self)->List[TransmissionLine]:
+    def transmission_intraregional(self) -> List[TransmissionLine]:
         """
         Gets the subset transmission lines that lie soley within an area or region.
         """
         pass
 
-    def transmission_interregional(self)->List[TransmissionLine]:
+    def transmission_interregional(self) -> List[TransmissionLine]:
         """
         Gets the subset of transmission lines that connect two regions
         """

@@ -49,15 +49,19 @@ def _build_synthetic_solution(
     gen_df = pd.DataFrame(
         rows,
         columns=[
-            "band", "sample_name", "name", "category",
-            "timestamp", "interval_length", "Generation", "unit",
+            "band",
+            "sample_name",
+            "name",
+            "category",
+            "timestamp",
+            "interval_length",
+            "Generation",
+            "unit",
         ],
     )
     # Real plexos2duckdb report views store a native TIMESTAMP column.
     gen_df["timestamp"] = pd.to_datetime(gen_df["timestamp"])
-    conn.execute(
-        f'CREATE TABLE report."{GEN_TABLE}" AS SELECT * FROM gen_df'
-    )
+    conn.execute(f'CREATE TABLE report."{GEN_TABLE}" AS SELECT * FROM gen_df')
 
     objects_rows = []
     for i, (gen_name, region) in enumerate(generators.items()):
@@ -71,21 +75,40 @@ def _build_synthetic_solution(
 
     membership_rows = []
     for i, (gen_name, region) in enumerate(generators.items()):
-        membership_rows.append((
-            i, region, "Generators", region, "Region", "Region", "Region",
-            gen_name, "Generator", "Generator", "Gas", "Generator",
-        ))
+        membership_rows.append(
+            (
+                i,
+                region,
+                "Generators",
+                region,
+                "Region",
+                "Region",
+                "Region",
+                gen_name,
+                "Generator",
+                "Generator",
+                "Gas",
+                "Generator",
+            )
+        )
     membership_df = pd.DataFrame(
         membership_rows,
         columns=[
-            "membership_id", "parent_id", "collection", "parent_name",
-            "parent_class", "parent_group", "parent_category",
-            "child_name", "child_class", "child_group", "child_category", "kind",
+            "membership_id",
+            "parent_id",
+            "collection",
+            "parent_name",
+            "parent_class",
+            "parent_group",
+            "parent_category",
+            "child_name",
+            "child_class",
+            "child_group",
+            "child_category",
+            "kind",
         ],
     )
-    conn.execute(
-        "CREATE TABLE processed.memberships AS SELECT * FROM membership_df"
-    )
+    conn.execute("CREATE TABLE processed.memberships AS SELECT * FROM membership_df")
     conn.close()
 
 
@@ -95,7 +118,11 @@ def single_solution(tmp_path) -> Path:
     _build_synthetic_solution(
         path,
         generators={"Gen1": "North", "Gen2": "South"},
-        timestamps=["2030-01-01T00:00:00", "2030-01-01T01:00:00", "2030-01-01T02:00:00"],
+        timestamps=[
+            "2030-01-01T00:00:00",
+            "2030-01-01T01:00:00",
+            "2030-01-01T02:00:00",
+        ],
         values={"Gen1": [10.0, 20.0, 30.0], "Gen2": [1.0, 2.0, 3.0]},
     )
     return path
@@ -110,8 +137,10 @@ def two_solutions(tmp_path) -> list[Path]:
         p0,
         generators={"Gen1": "North"},
         timestamps=[
-            "2030-01-01T00:00:00", "2030-01-01T01:00:00",
-            "2030-01-01T02:00:00", "2030-01-01T03:00:00",
+            "2030-01-01T00:00:00",
+            "2030-01-01T01:00:00",
+            "2030-01-01T02:00:00",
+            "2030-01-01T03:00:00",
         ],
         values={"Gen1": [1.0, 2.0, 3.0, 4.0]},
     )
@@ -120,8 +149,10 @@ def two_solutions(tmp_path) -> list[Path]:
         p1,
         generators={"Gen1": "North"},
         timestamps=[
-            "2030-01-01T02:00:00", "2030-01-01T03:00:00",
-            "2030-01-01T04:00:00", "2030-01-01T05:00:00",
+            "2030-01-01T02:00:00",
+            "2030-01-01T03:00:00",
+            "2030-01-01T04:00:00",
+            "2030-01-01T05:00:00",
         ],
         values={"Gen1": [999.0, 999.0, 5.0, 6.0]},
     )
@@ -143,56 +174,127 @@ def _add_full_dataset_tables(path: Path, timestamps: list[str]) -> None:
 
     # Storage: Gen1_head mirrors Gen1's own Generation exactly (real-data
     # convention); Gen1_tail is always 0. Same for Pump_Load (charging).
-    storage_objects = pd.DataFrame([
-        (200, "Gen1_head", "-", "Electric", "Storage"),
-        (201, "Gen1_tail", "-", "Electric", "Storage"),
-    ], columns=["id", "name", "category", "class_group", "class"])
+    storage_objects = pd.DataFrame(
+        [
+            (200, "Gen1_head", "-", "Electric", "Storage"),
+            (201, "Gen1_tail", "-", "Electric", "Storage"),
+        ],
+        columns=["id", "name", "category", "class_group", "class"],
+    )
     conn.execute("INSERT INTO processed.objects SELECT * FROM storage_objects")
 
-    line_objects = pd.DataFrame([(300, "Line1", "-", "Electric", "Line")],
-                                 columns=["id", "name", "category", "class_group", "class"])
+    line_objects = pd.DataFrame(
+        [(300, "Line1", "-", "Electric", "Line")],
+        columns=["id", "name", "category", "class_group", "class"],
+    )
     conn.execute("INSERT INTO processed.objects SELECT * FROM line_objects")
 
-    storage_memberships = pd.DataFrame([
-        (100, "Gen1", "Head Storage", "Gen1", "Generator", "Generator", "Gas",
-         "Gen1_head", "Storage", "Storage", "-", "Generator"),
-        (101, "Gen1", "Tail Storage", "Gen1", "Generator", "Generator", "Gas",
-         "Gen1_tail", "Storage", "Storage", "-", "Generator"),
-    ], columns=[
-        "membership_id", "parent_id", "collection", "parent_name",
-        "parent_class", "parent_group", "parent_category",
-        "child_name", "child_class", "child_group", "child_category", "kind",
-    ])
+    storage_memberships = pd.DataFrame(
+        [
+            (
+                100,
+                "Gen1",
+                "Head Storage",
+                "Gen1",
+                "Generator",
+                "Generator",
+                "Gas",
+                "Gen1_head",
+                "Storage",
+                "Storage",
+                "-",
+                "Generator",
+            ),
+            (
+                101,
+                "Gen1",
+                "Tail Storage",
+                "Gen1",
+                "Generator",
+                "Generator",
+                "Gas",
+                "Gen1_tail",
+                "Storage",
+                "Storage",
+                "-",
+                "Generator",
+            ),
+        ],
+        columns=[
+            "membership_id",
+            "parent_id",
+            "collection",
+            "parent_name",
+            "parent_class",
+            "parent_group",
+            "parent_category",
+            "child_name",
+            "child_class",
+            "child_group",
+            "child_category",
+            "kind",
+        ],
+    )
     conn.execute("INSERT INTO processed.memberships SELECT * FROM storage_memberships")
 
-    def _report_table(table: str, prop: str, entity_values: dict[str, list[float]]) -> None:
+    def _report_table(
+        table: str, prop: str, entity_values: dict[str, list[float]]
+    ) -> None:
         rows = []
         for name, vals in entity_values.items():
             for t, v in zip(ts, vals):
                 rows.append((0, "base", name, "cat", t, 60, v, "MW"))
-        df = pd.DataFrame(rows, columns=[
-            "band", "sample_name", "name", "category",
-            "timestamp", "interval_length", prop, "unit",
-        ])
+        df = pd.DataFrame(
+            rows,
+            columns=[
+                "band",
+                "sample_name",
+                "name",
+                "category",
+                "timestamp",
+                "interval_length",
+                prop,
+                "unit",
+            ],
+        )
         conn.execute(f'CREATE TABLE report."{table}" AS SELECT * FROM df')
 
-    _report_table("ST__Interval__Generators__Available_Capacity", "Available_Capacity",
-                   {"Gen1": [100.0] * n, "Gen2": [50.0] * n})
-    _report_table("ST__Interval__Regions__Load", "Load",
-                   {"North": [15.0] * n, "South": [8.0] * n})
-    _report_table("ST__Interval__Regions__Unserved_Energy", "Unserved_Energy",
-                   {"North": [0.0] * n, "South": [0.0] * n})
+    _report_table(
+        "ST__Interval__Generators__Available_Capacity",
+        "Available_Capacity",
+        {"Gen1": [100.0] * n, "Gen2": [50.0] * n},
+    )
+    _report_table(
+        "ST__Interval__Regions__Load", "Load", {"North": [15.0] * n, "South": [8.0] * n}
+    )
+    _report_table(
+        "ST__Interval__Regions__Unserved_Energy",
+        "Unserved_Energy",
+        {"North": [0.0] * n, "South": [0.0] * n},
+    )
     _report_table("ST__Interval__Lines__Flow", "Flow", {"Line1": [42.0] * n})
-    _report_table("ST__Interval__Generators__Total_Generation_Cost", "Total_Generation_Cost",
-                   {"Gen1": [5.0] * n, "Gen2": [3.0] * n})
+    _report_table(
+        "ST__Interval__Generators__Total_Generation_Cost",
+        "Total_Generation_Cost",
+        {"Gen1": [5.0] * n, "Gen2": [3.0] * n},
+    )
     # Gen1_head mirrors Gen1 exactly (real-data convention); tail is 0.
-    _report_table("ST__Interval__Storages__Generation", "Generation",
-                   {"Gen1_head": [10.0, 20.0, 30.0][:n], "Gen1_tail": [0.0] * n})
-    _report_table("ST__Interval__Storages__Pump_Load", "Pump_Load",
-                   {"Gen1_head": [5.0] * n, "Gen1_tail": [0.0] * n})
+    _report_table(
+        "ST__Interval__Storages__Generation",
+        "Generation",
+        {"Gen1_head": [10.0, 20.0, 30.0][:n], "Gen1_tail": [0.0] * n},
+    )
+    _report_table(
+        "ST__Interval__Storages__Pump_Load",
+        "Pump_Load",
+        {"Gen1_head": [5.0] * n, "Gen1_tail": [0.0] * n},
+    )
 
-    _report_table("ST__Year__Generators__Installed_Capacity", "Installed_Capacity",
-                   {"Gen1": [100.0], "Gen2": [50.0]})
+    _report_table(
+        "ST__Year__Generators__Installed_Capacity",
+        "Installed_Capacity",
+        {"Gen1": [100.0], "Gen2": [50.0]},
+    )
     _report_table("ST__Year__Lines__Export_Limit", "Export_Limit", {"Line1": [500.0]})
 
     conn.close()
@@ -242,9 +344,13 @@ class TestPlexosDuckDBSource:
         with PlexosDuckDBSource(single_solution) as source:
             df = source.pivot_wide(GEN_TABLE, "Generation")
             assert list(df["timestamp"]) == list(
-                pd.to_datetime([
-                    "2030-01-01T00:00:00", "2030-01-01T01:00:00", "2030-01-01T02:00:00",
-                ])
+                pd.to_datetime(
+                    [
+                        "2030-01-01T00:00:00",
+                        "2030-01-01T01:00:00",
+                        "2030-01-01T02:00:00",
+                    ]
+                )
             )
             assert df.set_index("timestamp")["Gen1"].tolist() == [10.0, 20.0, 30.0]
             assert df.set_index("timestamp")["Gen2"].tolist() == [1.0, 2.0, 3.0]
@@ -253,11 +359,16 @@ class TestPlexosDuckDBSource:
         """Overlapping timestamps: the earlier file wins (dedup_slices 'right')."""
         with PlexosDuckDBSource(two_solutions) as source:
             df = source.pivot_wide(GEN_TABLE, "Generation").set_index("timestamp")
-            expected_index = pd.to_datetime([
-                "2030-01-01T00:00:00", "2030-01-01T01:00:00",
-                "2030-01-01T02:00:00", "2030-01-01T03:00:00",
-                "2030-01-01T04:00:00", "2030-01-01T05:00:00",
-            ])
+            expected_index = pd.to_datetime(
+                [
+                    "2030-01-01T00:00:00",
+                    "2030-01-01T01:00:00",
+                    "2030-01-01T02:00:00",
+                    "2030-01-01T03:00:00",
+                    "2030-01-01T04:00:00",
+                    "2030-01-01T05:00:00",
+                ]
+            )
             assert list(df.index) == list(expected_index)
             # Hours 2-3 come from the first (earlier-start) file, not the
             # overlapping 999.0 stand-in values in the second file.
@@ -371,8 +482,14 @@ class TestPlexosDuckDBSimulation:
     def test_new_default_compositions_resolve(self, full_solution):
         sim = PlexosDuckDBSimulation(full_solution)
         names = {ds.name for ds in sim.list_datasets()}
-        for comp in ["availability", "load", "unserved", "line_flow",
-                     "storage_charging", "production_cost"]:
+        for comp in [
+            "availability",
+            "load",
+            "unserved",
+            "line_flow",
+            "storage_charging",
+            "production_cost",
+        ]:
             assert comp in names, f"{comp} missing from {names}"
 
     def test_storage_charging_raw_has_both_head_and_tail(self, full_solution):
@@ -425,15 +542,17 @@ class TestScenarioIntegration:
         sim = PlexosDuckDBSimulation(single_solution)
         db = GATDatabase()
         scenario = Scenario(
-            system=system, simulation=sim, db=db,
-            project="test", name="plexos-duckdb",
+            system=system,
+            simulation=sim,
+            db=db,
+            project="test",
+            name="plexos-duckdb",
         )
         scenario.ingest()
 
         wide = scenario.query("generation", group_by=["gen_area"])
         totals = {
-            str(row[0]): float(sum(row[1:]))
-            for row in wide.itertuples(index=False)
+            str(row[0]): float(sum(row[1:])) for row in wide.itertuples(index=False)
         }
         # Gen1 (North) = 10+20+30 = 60; Gen2 (South) = 1+2+3 = 6
         assert totals == pytest.approx({"North": 60.0, "South": 6.0})
@@ -443,8 +562,7 @@ class TestScenarioIntegration:
 
         wide = scenario.query("generation", group_by=["gen_area"])
         totals = {
-            str(row[0]): float(sum(row[1:]))
-            for row in wide.itertuples(index=False)
+            str(row[0]): float(sum(row[1:])) for row in wide.itertuples(index=False)
         }
         assert totals == pytest.approx({"North": 60.0, "South": 6.0})
 
@@ -466,8 +584,14 @@ class TestScenarioIntegration:
         extra = pd.DataFrame(
             [(0, "base", "Gen1", "Gas", pd.Timestamp("2030-01-01"), 60, 1.0, "$")],
             columns=[
-                "band", "sample_name", "name", "category",
-                "timestamp", "interval_length", "Start_&_Shutdown_Cost", "unit",
+                "band",
+                "sample_name",
+                "name",
+                "category",
+                "timestamp",
+                "interval_length",
+                "Start_&_Shutdown_Cost",
+                "unit",
             ],
         )
         conn.execute(
@@ -517,9 +641,7 @@ class TestRealSolutionZip:
         assert isinstance(gen.index, pd.DatetimeIndex)
         assert len(gen.columns) > 0
 
-        area_map = {
-            m.name: m for m in system.get_default_category_maps()
-        }
+        area_map = {m.name: m for m in system.get_default_category_maps()}
         assert "gen_area" in area_map
 
 
@@ -551,8 +673,7 @@ class TestRealSolutionZipVsLegacyH5Parity:
         legacy._use_cache = False
         legacy_gen = legacy.get_generation().copy()
         legacy_gen.columns = [
-            str(legacy._gen_area_map.get(str(c), "other"))
-            for c in legacy_gen.columns
+            str(legacy._gen_area_map.get(str(c), "other")) for c in legacy_gen.columns
         ]
         legacy_by_area = legacy_gen.T.groupby(level=0).sum().T
         legacy_totals = {
@@ -566,8 +687,11 @@ class TestRealSolutionZipVsLegacyH5Parity:
         sim = PlexosDuckDBSimulation(zip_path)
         db = GATDatabase()
         scenario = Scenario(
-            system=system, simulation=sim, db=db,
-            project="parity", name="eclipse-da",
+            system=system,
+            simulation=sim,
+            db=db,
+            project="parity",
+            name="eclipse-da",
         )
         # Real PLEXOS property names can contain characters (e.g. "&" in
         # "Start & Shutdown Cost") that GATDatabase's view registration
@@ -578,8 +702,7 @@ class TestRealSolutionZipVsLegacyH5Parity:
         scenario.ingest(dataset_filter=lambda ds: ds.name in needed)
         wide = scenario.query("generation", group_by=["gen_area"])
         new_totals = {
-            str(row[0]): float(sum(row[1:]))
-            for row in wide.itertuples(index=False)
+            str(row[0]): float(sum(row[1:])) for row in wide.itertuples(index=False)
         }
 
         assert set(new_totals) == set(legacy_totals), (

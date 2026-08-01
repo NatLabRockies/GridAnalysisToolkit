@@ -8,6 +8,7 @@ tests/datahelpers/test_combine_frames.py for the pre-unification behavior
 this preserves (for the aggregator) or improves on (for legacy Plexos,
 which doesn't sort unsorted input — see its own quirk tests).
 """
+
 import pandas as pd
 import pytest
 
@@ -50,7 +51,7 @@ def test_overlap_right_earlier_wins():
 
 
 def test_overlap_left_later_wins():
-    """"left" strategy: later frame wins at the seam — Sienna's default."""
+    """ "left" strategy: later frame wins at the seam — Sienna's default."""
     a = _ts_frame(["2020-01-01", "2020-01-02", "2020-01-03"], [1, 2, 3])
     b = _ts_frame(["2020-01-03", "2020-01-04", "2020-01-05"], [99, 4, 5])
     out = combine_overlapping_frames([a, b], merge_strategy="left")

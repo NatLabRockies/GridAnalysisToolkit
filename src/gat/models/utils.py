@@ -1,6 +1,7 @@
 from .scenario import TechnologyMapping
 from typing import Dict, List
 
+
 def create_tech_mappings(model_technologies: List[str]) -> Dict[str, TechnologyMapping]:
     """
     Creates standardized technology mappings using the TechnologyMapping.new() method.

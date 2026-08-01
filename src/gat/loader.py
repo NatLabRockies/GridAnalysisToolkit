@@ -69,6 +69,7 @@ def load(
     """
     # Check for server URL from env if not provided
     import os
+
     if server_url is None:
         server_url = os.environ.get("GAT_SERVER")
 

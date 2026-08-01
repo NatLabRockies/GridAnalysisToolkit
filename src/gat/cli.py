@@ -70,9 +70,9 @@ def cli(ctx, verbose, debug):
 
     # Quiet logging by default for CLI; --verbose or --debug to restore
     from gat.logging_config import setup_cli_logging
+
     level = "DEBUG" if debug else "INFO" if verbose else "ERROR"
     setup_cli_logging(level)
-
 
 
 # ============================================================

@@ -26,6 +26,7 @@ def _get_Line2D():
     global _mpl_Line2D
     if _mpl_Line2D is None:
         from matplotlib.lines import Line2D
+
         _mpl_Line2D = Line2D
     return _mpl_Line2D
 
@@ -33,11 +34,13 @@ def _get_Line2D():
 def _get_backend(backend):
     """Resolve a backend name (or None) to a PlotBackend instance."""
     from .backends import get_backend
+
     return get_backend(backend)
 
 
 def _resolve_columns_colors(
-    columns, palette: Optional[Palette] = None,
+    columns,
+    palette: Optional[Palette] = None,
 ) -> tuple:
     """Resolve column ordering and colors from a palette or the global colormap.
 
@@ -64,6 +67,7 @@ def _resolve_columns_colors(
 # Helper — kept for backward compat with dispatch/transmission code
 # ------------------------------------------------------------------ #
 
+
 def create_load_handles(components: List) -> List:
     """Create legend handles for load overlay lines."""
     Line2D = _get_Line2D()
@@ -71,18 +75,32 @@ def create_load_handles(components: List) -> List:
 
     if qp.config.net_load_alias in components:
         load_elements.append(
-            Line2D([0], [0], color='black',
-                   label=qp.config.net_load_alias, linestyle='.'))
+            Line2D(
+                [0], [0], color="black", label=qp.config.net_load_alias, linestyle="."
+            )
+        )
 
     if qp.config.native_load_alias in components:
         load_elements.append(
-            Line2D([0], [0], color='black',
-                   label=qp.config.native_load_alias, linestyle='-'))
+            Line2D(
+                [0],
+                [0],
+                color="black",
+                label=qp.config.native_load_alias,
+                linestyle="-",
+            )
+        )
 
     if qp.config.total_load_alias in components:
         load_elements.append(
-            Line2D([0], [0], color='black',
-                   label=qp.config.total_load_alias, linestyle='--'))
+            Line2D(
+                [0],
+                [0],
+                color="black",
+                label=qp.config.total_load_alias,
+                linestyle="--",
+            )
+        )
 
     return load_elements
 
@@ -91,14 +109,16 @@ def create_load_handles(components: List) -> List:
 # Core primitive 1 — Stacked Area
 # ------------------------------------------------------------------ #
 
+
 def plot_stacked_component_area(
-        df: pd.DataFrame,
-        include_total_load=True,
-        include_native_load=True,
-        include_net_load=True,
-        palette: Optional[Palette] = None,
-        backend=None,
-        **kwargs):
+    df: pd.DataFrame,
+    include_total_load=True,
+    include_native_load=True,
+    include_net_load=True,
+    palette: Optional[Palette] = None,
+    backend=None,
+    **kwargs,
+):
     """Plot components as a stacked area chart.
 
     Data preparation (column ordering, pos/neg split, load line extraction)
@@ -147,8 +167,13 @@ def plot_stacked_component_area(
 
     # --- render ---
     return be.stacked_area(
-        df_pos, df_neg, sub_colors, sub_cols_ordered,
-        load_lines=load_lines, legend=legend, **kwargs,
+        df_pos,
+        df_neg,
+        sub_colors,
+        sub_cols_ordered,
+        load_lines=load_lines,
+        legend=legend,
+        **kwargs,
     )
 
 
@@ -156,12 +181,14 @@ def plot_stacked_component_area(
 # Core primitive 2 — Stacked Bar
 # ------------------------------------------------------------------ #
 
+
 def plot_stacked_component_bar(
-        df: pd.DataFrame,
-        horizontal=False,
-        palette: Optional[Palette] = None,
-        backend=None,
-        **kwargs):
+    df: pd.DataFrame,
+    horizontal=False,
+    palette: Optional[Palette] = None,
+    backend=None,
+    **kwargs,
+):
     """Plot components as a stacked bar chart.
 
     Args:
@@ -186,8 +213,13 @@ def plot_stacked_component_bar(
 
     # --- render ---
     return be.stacked_bar(
-        df_pos, df_neg, sub_colors, sub_cols_ordered,
-        horizontal=horizontal, legend=legend, **kwargs,
+        df_pos,
+        df_neg,
+        sub_colors,
+        sub_cols_ordered,
+        horizontal=horizontal,
+        legend=legend,
+        **kwargs,
     )
 
 
@@ -195,18 +227,20 @@ def plot_stacked_component_bar(
 # Core primitive 3 — Donut
 # ------------------------------------------------------------------ #
 
+
 def plot_component_donut(
-        data: pd.Series,
-        threshold: float = 3,
-        unit='',
-        percent_tot_labels: Optional[List] = None,
-        percent_tot_text: Optional[str] = None,
-        startangle: Optional[float] = None,
-        horizontal_length: float = 0.5,
-        radial_length: float = 1.3,
-        palette: Optional[Palette] = None,
-        backend=None,
-        **kwargs):
+    data: pd.Series,
+    threshold: float = 3,
+    unit="",
+    percent_tot_labels: Optional[List] = None,
+    percent_tot_text: Optional[str] = None,
+    startangle: Optional[float] = None,
+    horizontal_length: float = 0.5,
+    radial_length: float = 1.3,
+    palette: Optional[Palette] = None,
+    backend=None,
+    **kwargs,
+):
     """Plot a donut chart of component shares.
 
     Data preparation (small-category merging, annotation geometry, color
@@ -242,17 +276,20 @@ def plot_component_donut(
 
     if not small_categories.empty:
         other_sum = small_categories.sum()
-        plot_series = pd.concat([
-            large_categories, pd.Series([other_sum], index=['Smol']),
-        ])
+        plot_series = pd.concat(
+            [
+                large_categories,
+                pd.Series([other_sum], index=["Smol"]),
+            ]
+        )
     else:
         plot_series = large_categories
 
     # Calculate optimal startangle
     if startangle is None:
         startangle = 90
-        if 'Smol' in plot_series.index:
-            smol_idx = plot_series.index.get_loc('Smol')
+        if "Smol" in plot_series.index:
+            smol_idx = plot_series.index.get_loc("Smol")
             angle_before_smol = 360 * (
                 plot_series.iloc[:smol_idx].sum() / plot_series.sum()
             )
@@ -265,7 +302,7 @@ def plot_component_donut(
         for label in plot_series.index.values:
             if label in pal_colors:
                 colors.append(pal_colors[label])
-            elif label == 'Smol':
+            elif label == "Smol":
                 colors.append("#d6d4d4")
             else:
                 colors.append(random_color())
@@ -275,7 +312,7 @@ def plot_component_donut(
         for label in plot_series.index.values:
             if label in gat_colormap:
                 colors.append(gat_colormap[label])
-            elif label == 'Smol':
+            elif label == "Smol":
                 colors.append("#d6d4d4")
             else:
                 colors.append(random_color())
@@ -302,44 +339,52 @@ def plot_component_donut(
         y_end = y_mid
 
         value = (
-            series[category] if category != 'Smol'
+            series[category]
+            if category != "Smol"
             else series[small_categories.index].sum()
         )
 
-        if category == 'Smol' and not small_categories.empty:
+        if category == "Smol" and not small_categories.empty:
             other_details = [
-                f'{idx}: {series[idx]:.1f}{unit} ({val:.1f}%)'
+                f"{idx}: {series[idx]:.1f}{unit} ({val:.1f}%)"
                 for idx, val in small_categories.items()
             ]
-            text = '\n'.join(other_details)
-            va = 'top'
+            text = "\n".join(other_details)
+            va = "top"
         else:
-            text = f'{category}: {value:.1f}{unit} ({pct:.1f}%)'
-            va = 'center'
+            text = f"{category}: {value:.1f}{unit} ({pct:.1f}%)"
+            va = "center"
 
-        annotations.append({
-            "text": text,
-            "xy": (x_start, y_start),
-            "xytext": (x_end, y_end),
-            "ha": 'left' if x_mid >= 0 else 'right',
-            "va": va,
-        })
+        annotations.append(
+            {
+                "text": text,
+                "xy": (x_start, y_start),
+                "xytext": (x_end, y_end),
+                "ha": "left" if x_mid >= 0 else "right",
+                "va": va,
+            }
+        )
 
     # Build center text
-    center_text = f'{total:.1f} {unit}'
+    center_text = f"{total:.1f} {unit}"
     if percent_tot_text is not None:
-        center_text = f'{total:.1f} {unit}\n{percent_tot_text}: {sub_total:.1f}'
+        center_text = f"{total:.1f} {unit}\n{percent_tot_text}: {sub_total:.1f}"
 
     # --- render ---
     return be.donut(
-        plot_series, colors, annotations, center_text,
-        startangle=startangle, **kwargs,
+        plot_series,
+        colors,
+        annotations,
+        center_text,
+        startangle=startangle,
+        **kwargs,
     )
 
 
 # ------------------------------------------------------------------ #
 # Placeholder primitives
 # ------------------------------------------------------------------ #
+
 
 def plot_series_heatmap(series: pd.Series):
     pass

@@ -15,13 +15,16 @@ from math import sqrt, ceil
 from loguru import logger
 
 color_map = {}
-month_map = {index:month for index, month in enumerate(calendar.month_name) if month}
+month_map = {index: month for index, month in enumerate(calendar.month_name) if month}
+
 
 def random_color():
-    return "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+    return "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
+
 
 def set_colormap(custom_colors):
     color_map.update(custom_colors)
+
 
 def get_colormap():
     new_colors = {}
@@ -31,7 +34,8 @@ def get_colormap():
 
 
 def set_default_font(fontfamily):
-    matplotlib.rcParams['font.family'] = fontfamily
+    matplotlib.rcParams["font.family"] = fontfamily
+
 
 # Prefer Arial when present, fall back to DejaVu Sans (matplotlib's default).
 # matplotlib's font_manager resolves this chain lazily against its cached
@@ -39,24 +43,25 @@ def set_default_font(fontfamily):
 # `fm.findSystemFonts(fontpaths=None, fontext='ttf')` at import time, which
 # walks every TTF on disk and takes ~8 s on macOS (where 400+ system fonts
 # live in multiple directories), inflating every `import gat.quickplots`.
-matplotlib.rcParams['font.family'] = ['Arial', 'DejaVu Sans']
+matplotlib.rcParams["font.family"] = ["Arial", "DejaVu Sans"]
 
 
 def get_gen_color_map(file):
     """
-        Opens a .css file and parses it to get a color mapping.
-        Open the css file in VSCode to quickly update mapping with built in Color Wheel.
+    Opens a .css file and parses it to get a color mapping.
+    Open the css file in VSCode to quickly update mapping with built in Color Wheel.
     """
     color_dict = {}
-    with open(file, 'r') as f:
+    with open(file, "r") as f:
 
         for line in f:
 
-            temp = line.strip().split(' ')
-            gen_type = temp[0].replace("#","")
-            color = temp[1].split(':')[1].replace("}","")
+            temp = line.strip().split(" ")
+            gen_type = temp[0].replace("#", "")
+            color = temp[1].split(":")[1].replace("}", "")
             color_dict[gen_type] = color
     return color_dict
+
 
 def prepare_tech_legend(unique_tech):
 
@@ -71,13 +76,13 @@ def prepare_tech_legend(unique_tech):
     return patches
 
 
-
 def rank_series_values(series):
 
     series_sorted = series.sort_values(ascending=False).to_frame()
-    series_sorted['rank'] = np.arange(len(series_sorted))
+    series_sorted["rank"] = np.arange(len(series_sorted))
 
     return series_sorted
+
 
 def above_threshold(x, threshold=90):
     if x >= threshold:
@@ -90,15 +95,16 @@ def scale_up_down(df):
     """
     Not fully implemented
     """
-    max_val = df.max().max() # Get max value of dataframe
+    max_val = df.max().max()  # Get max value of dataframe
 
     return NotImplemented
+
 
 def trim_axs(axs, N):
     """
     Reduce *axs* to *N* Axes. All further Axes are removed from the figure.
     """
-    if hasattr(axs, 'flat'):
+    if hasattr(axs, "flat"):
         axs = axs.flat
         for ax in axs[N:]:
             ax.remove()
@@ -130,18 +136,17 @@ def scale_marker(input_arr, max_size=5, min_size=0):
 
     max_val = max(input_arr)
 
-    output_arr = (input_arr/max_val) * max_size
-    output_arr = [val if val > min_size else min_size for val in output_arr ]
+    output_arr = (input_arr / max_val) * max_size
+    output_arr = [val if val > min_size else min_size for val in output_arr]
 
     return output_arr
 
 
-def order_columns_colors(columns, load_cols = None):
-
+def order_columns_colors(columns, load_cols=None):
     """
-        Reorders the columns and returns the corresponding sequence of colors
-        If a column is not mapped to a color, assigns a random color.
-        Unassigned columns are first (bottom of the dispatch stack)
+    Reorders the columns and returns the corresponding sequence of colors
+    If a column is not mapped to a color, assigns a random color.
+    Unassigned columns are first (bottom of the dispatch stack)
     """
 
     if load_cols == None:
@@ -152,15 +157,19 @@ def order_columns_colors(columns, load_cols = None):
 
     columns_ordered = [val for val in temp_colors.keys() if val not in load_cols]
 
-
-    sub_cols_ordered = [col for col in columns if col not in columns_ordered+load_cols] + [col for col in columns_ordered if col in columns]
-    sub_colors = ["#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)]) for col in columns if col not in columns_ordered+load_cols] + \
-                    [temp_colors[col] for col in columns_ordered if col in columns]
+    sub_cols_ordered = [
+        col for col in columns if col not in columns_ordered + load_cols
+    ] + [col for col in columns_ordered if col in columns]
+    sub_colors = [
+        "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
+        for col in columns
+        if col not in columns_ordered + load_cols
+    ] + [temp_colors[col] for col in columns_ordered if col in columns]
 
     return sub_cols_ordered, sub_colors
 
 
-def make_cmap(techs: Dict[str,Technology]) -> dict:
+def make_cmap(techs: Dict[str, Technology]) -> dict:
     # Takes a dictionary of techs and creates an ordered technology map
     order = 0
 
@@ -182,7 +191,6 @@ def make_cmap(techs: Dict[str,Technology]) -> dict:
         else:
             ordered_techs[tech.display_order] = tech
 
-
     new_cmap = {}
     for tech in unordered_techs:
         new_cmap[tech.display_group] = tech.display_color
@@ -193,7 +201,13 @@ def make_cmap(techs: Dict[str,Technology]) -> dict:
     return new_cmap
 
 
-def create_tech_legend(tech_map: Dict[str, str], reversed=True, title='', loc='upper left', bbox_to_anchor=None):
+def create_tech_legend(
+    tech_map: Dict[str, str],
+    reversed=True,
+    title="",
+    loc="upper left",
+    bbox_to_anchor=None,
+):
     """Creates a legend from a dictionary of name:color.
 
     Args:
@@ -220,36 +234,43 @@ def create_tech_legend(tech_map: Dict[str, str], reversed=True, title='', loc='u
         handles.reverse()
 
     # Set orientation based on location
-    if loc in ['upper right', 'upper left', 'lower right', 'lower left', 'center right', 'center left']:
+    if loc in [
+        "upper right",
+        "upper left",
+        "lower right",
+        "lower left",
+        "center right",
+        "center left",
+    ]:
         ncol = 1
     else:  # top or bottom
         ncol = min(3, len(handles))  # Limit to 3 columns max
 
     # Create legend with specified properties
     legend_kwargs = {
-        'handles': handles,
-        'title': title,
-        'loc': loc,
-        'ncol': ncol,
-        'frameon': True,
-        'framealpha': 0.8,
-        'edgecolor': 'lightgrey'
+        "handles": handles,
+        "title": title,
+        "loc": loc,
+        "ncol": ncol,
+        "frameon": True,
+        "framealpha": 0.8,
+        "edgecolor": "lightgrey",
     }
 
     # Add bbox_to_anchor if provided
     if bbox_to_anchor is not None:
-        legend_kwargs['bbox_to_anchor'] = bbox_to_anchor
+        legend_kwargs["bbox_to_anchor"] = bbox_to_anchor
         # When using bbox_to_anchor, it's usually good to set mode='expand' for side legends
-        if loc in ['right', 'left']:
-            legend_kwargs['mode'] = None
-            legend_kwargs['borderaxespad'] = 0.
+        if loc in ["right", "left"]:
+            legend_kwargs["mode"] = None
+            legend_kwargs["borderaxespad"] = 0.0
 
     legend = plt.legend(**legend_kwargs)
 
     return legend
 
 
-def create_marker_legend(marker_size: List[float], labels=None, title='', loc='right'):
+def create_marker_legend(marker_size: List[float], labels=None, title="", loc="right"):
     """Creates a legend for marker sizes indicating generator capacity on a map.
 
     Args:
@@ -272,12 +293,20 @@ def create_marker_legend(marker_size: List[float], labels=None, title='', loc='r
     handles = []
     for size, label in zip(marker_size, labels):
         # Create a scatter point for each size
-        handle = plt.scatter([], [], s=size, color='grey', alpha=0.7,
-                             edgecolor='black', linewidth=1)
+        handle = plt.scatter(
+            [], [], s=size, color="grey", alpha=0.7, edgecolor="black", linewidth=1
+        )
         handles.append((handle, label))
 
     # Set orientation based on location
-    if loc in ['upper right', 'upper left', 'lower right', 'lower left', 'center right', 'center left']:
+    if loc in [
+        "upper right",
+        "upper left",
+        "lower right",
+        "lower left",
+        "center right",
+        "center left",
+    ]:
         ncol = 1
     else:  # top or bottom
         ncol = min(3, len(handles))  # Limit to 3 columns max
@@ -291,9 +320,9 @@ def create_marker_legend(marker_size: List[float], labels=None, title='', loc='r
         ncol=ncol,
         frameon=True,
         framealpha=0.8,
-        edgecolor='lightgrey',
+        edgecolor="lightgrey",
         scatterpoints=1,
-        labelspacing=1.5  # Add more space between legend items for marker visibility
+        labelspacing=1.5,  # Add more space between legend items for marker visibility
     )
 
     return legend

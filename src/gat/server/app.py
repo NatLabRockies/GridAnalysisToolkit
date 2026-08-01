@@ -72,6 +72,7 @@ def create_app(config: ServerConfig | None = None) -> FastAPI:
 
     # Register routes
     from gat.server.routes import router
+
     app.include_router(router)
 
     # Add auth middleware if token is configured

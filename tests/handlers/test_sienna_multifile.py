@@ -23,6 +23,7 @@ These tests skip cleanly when the multifile fixture isn't present —
 generating it requires a Docker run, so most CI environments won't
 have it.
 """
+
 import pandas as pd
 import pytest
 
@@ -41,12 +42,14 @@ def _flatten(df):
 def _summary(df):
     flat = _flatten(df)
     numeric = flat.select_dtypes(include="number")
-    out = pd.DataFrame({
-        "sum": numeric.sum(),
-        "min": numeric.min(),
-        "max": numeric.max(),
-        "mean": numeric.mean(),
-    }).reset_index(names="column")
+    out = pd.DataFrame(
+        {
+            "sum": numeric.sum(),
+            "min": numeric.min(),
+            "max": numeric.max(),
+            "mean": numeric.mean(),
+        }
+    ).reset_index(names="column")
     return out.sort_values("column").reset_index(drop=True)
 
 
@@ -86,9 +89,9 @@ def test_multifile_horizon_spans_union(sienna_v4_multifile_scenario):
     # Default fixture: 7 days of unique data with 1-day overlap → at least
     # 6 days of distinct horizon. Give a generous lower bound (5 days) to
     # tolerate config tweaks.
-    assert span_hours >= 24 * 5, (
-        f"Multi-file horizon is only {span_hours:.0f}h; expected ≥120h"
-    )
+    assert (
+        span_hours >= 24 * 5
+    ), f"Multi-file horizon is only {span_hours:.0f}h; expected ≥120h"
 
 
 def test_multifile_chronological_index(sienna_v4_multifile_scenario):
@@ -110,14 +113,18 @@ def test_multifile_chronological_index(sienna_v4_multifile_scenario):
 # ---------------------------------------------------------------------------
 
 
-def test_multifile_get_generators_tech_snapshot(sienna_v4_multifile_scenario, dataframe_regression):
+def test_multifile_get_generators_tech_snapshot(
+    sienna_v4_multifile_scenario, dataframe_regression
+):
     """Generator → tech mapping shouldn't change across the multi-file
     aggregator path (system-side data, not simulation-side)."""
     df = sienna_v4_multifile_scenario.get_generators_tech()
     dataframe_regression.check(_flatten(df), default_tolerance=TOL)
 
 
-def test_multifile_get_generation_summary_snapshot(sienna_v4_multifile_scenario, dataframe_regression):
+def test_multifile_get_generation_summary_snapshot(
+    sienna_v4_multifile_scenario, dataframe_regression
+):
     """Per-generator generation summary across the combined horizon.
 
     This is the load-bearing snapshot — captures values *after* both the
@@ -128,7 +135,9 @@ def test_multifile_get_generation_summary_snapshot(sienna_v4_multifile_scenario,
     dataframe_regression.check(_summary(df), default_tolerance=TOL)
 
 
-def test_multifile_get_area_load_summary_snapshot(sienna_v4_multifile_scenario, dataframe_regression):
+def test_multifile_get_area_load_summary_snapshot(
+    sienna_v4_multifile_scenario, dataframe_regression
+):
     """Area-aggregated load is a parameter (not a decision variable),
     so it travels through the dedup path the same as generation but
     with values that aren't sensitive to solver tolerances."""
@@ -136,11 +145,14 @@ def test_multifile_get_area_load_summary_snapshot(sienna_v4_multifile_scenario, 
     dataframe_regression.check(_summary(df), default_tolerance=TOL)
 
 
-def test_multifile_get_area_dispatch_summary_snapshot(sienna_v4_multifile_scenario, dataframe_regression):
+def test_multifile_get_area_dispatch_summary_snapshot(
+    sienna_v4_multifile_scenario, dataframe_regression
+):
     """End-to-end: generation + load + curtailment computed across both
     files. Load-bearing for any caller that reads `get_area_dispatch`
     against a multi-file scenario."""
     df = sienna_v4_multifile_scenario.get_area_dispatch(
-        include_charging=False, include_use=False,
+        include_charging=False,
+        include_use=False,
     )
     dataframe_regression.check(_summary(df), default_tolerance=TOL)

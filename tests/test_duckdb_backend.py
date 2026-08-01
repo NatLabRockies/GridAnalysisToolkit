@@ -14,7 +14,6 @@ from gat.datasets import DatasetComposition, DatasetInfo, DatasetKind
 from gat.interfaces import BaseSimulation, BaseSystem
 from gat.scenario import Scenario
 
-
 # ------------------------------------------------------------------ #
 # Mock implementations
 # ------------------------------------------------------------------ #
@@ -50,25 +49,31 @@ class MockSystem(BaseSystem):
 
     def get_dataset(self, name: str) -> pd.DataFrame:
         if name == "ThermalStandard":
-            return pd.DataFrame({
-                "name": ["gen_101", "gen_102", "gen_103"],
-                "bus": ["bus_A", "bus_B", "bus_A"],
-                "area": ["East", "West", "East"],
-                "fuel": ["Gas", "Gas", "Coal"],
-                "capacity_mw": np.array([400.0, 150.0, 600.0], dtype=np.float32),
-            })
+            return pd.DataFrame(
+                {
+                    "name": ["gen_101", "gen_102", "gen_103"],
+                    "bus": ["bus_A", "bus_B", "bus_A"],
+                    "area": ["East", "West", "East"],
+                    "fuel": ["Gas", "Gas", "Coal"],
+                    "capacity_mw": np.array([400.0, 150.0, 600.0], dtype=np.float32),
+                }
+            )
         elif name == "RenewableDispatch":
-            return pd.DataFrame({
-                "name": ["solar_01", "wind_01"],
-                "bus": ["bus_B", "bus_A"],
-                "area": ["West", "East"],
-                "fuel": ["Solar", "Wind"],
-                "capacity_mw": np.array([200.0, 300.0], dtype=np.float32),
-            })
+            return pd.DataFrame(
+                {
+                    "name": ["solar_01", "wind_01"],
+                    "bus": ["bus_B", "bus_A"],
+                    "area": ["West", "East"],
+                    "fuel": ["Solar", "Wind"],
+                    "capacity_mw": np.array([200.0, 300.0], dtype=np.float32),
+                }
+            )
         elif name == "generators":
             return pd.concat(
-                [self.get_dataset("ThermalStandard"),
-                 self.get_dataset("RenewableDispatch")],
+                [
+                    self.get_dataset("ThermalStandard"),
+                    self.get_dataset("RenewableDispatch"),
+                ],
                 ignore_index=True,
             )
         raise KeyError(name)
@@ -185,10 +190,12 @@ class SpecialCharSystem(BaseSystem):
 
     def get_dataset(self, name: str) -> pd.DataFrame:
         if name == "Start & Shutdown Cost":
-            return pd.DataFrame({
-                "name": ["gen_101", "gen_102"],
-                "value": np.array([10.0, 20.0], dtype=np.float32),
-            })
+            return pd.DataFrame(
+                {
+                    "name": ["gen_101", "gen_102"],
+                    "value": np.array([10.0, 20.0], dtype=np.float32),
+                }
+            )
         raise KeyError(name)
 
     def get_default_category_maps(self) -> list[CategoryMap]:
@@ -278,7 +285,11 @@ class TestGATDatabase:
         for ds in sim.list_datasets():
             if ds.kind == DatasetKind.RAW_SIMULATION:
                 df = sim.get_dataset(ds.name)
-                from gat.backends.duckdb_backend import _prepare_sim_dataframe, _sanitize_table_name
+                from gat.backends.duckdb_backend import (
+                    _prepare_sim_dataframe,
+                    _sanitize_table_name,
+                )
+
                 df = _prepare_sim_dataframe(df)
                 table_name = f"test.sim__{_sanitize_table_name(ds.name)}"
                 db._conn.execute(
@@ -354,12 +365,22 @@ class TestCategoryMaps:
     def test_list_category_maps(self):
         db = GATDatabase()
         db._ensure_schema("test")
-        db.register_category_map("test", CategoryMap(
-            name="tech", description="", mapping={"a": "b"},
-        ))
-        db.register_category_map("test", CategoryMap(
-            name="area", description="", mapping={"a": "c"},
-        ))
+        db.register_category_map(
+            "test",
+            CategoryMap(
+                name="tech",
+                description="",
+                mapping={"a": "b"},
+            ),
+        )
+        db.register_category_map(
+            "test",
+            CategoryMap(
+                name="area",
+                description="",
+                mapping={"a": "c"},
+            ),
+        )
         assert set(db.list_category_maps("test")) == {"tech", "area"}
         db.close()
 
@@ -368,9 +389,14 @@ class TestCategoryMapRegistry:
     def test_register_and_list(self):
         reg = CategoryMapRegistry()
         reg.register(CategoryMap(name="tech", description="", mapping={}))
-        reg.register(CategoryMap(
-            name="area", description="", mapping={}, applies_to=["generation"],
-        ))
+        reg.register(
+            CategoryMap(
+                name="area",
+                description="",
+                mapping={},
+                applies_to=["generation"],
+            )
+        )
 
         assert reg.list_maps() == ["tech", "area"]
         assert reg.list_for_dataset("generation") == ["tech", "area"]
@@ -408,13 +434,11 @@ class TestGroupedQueries:
 
         # East + Gas = gen_101 at t=0: 380.5
         east_gas = result[
-            (result["native_area"] == "East")
-            & (result["technology_simple"] == "Gas")
+            (result["native_area"] == "East") & (result["technology_simple"] == "Gas")
         ]
         assert len(east_gas) == 1
         ts_cols = [
-            c for c in result.columns
-            if c not in ("native_area", "technology_simple")
+            c for c in result.columns if c not in ("native_area", "technology_simple")
         ]
         val = east_gas.iloc[0][ts_cols[0]]
         assert abs(val - 380.5) < 0.1
@@ -470,17 +494,19 @@ class TestScenario:
 
     def test_add_category_map(self, scenario):
         """User can add a new category map after ingestion."""
-        scenario.add_category_map(CategoryMap(
-            name="custom_group",
-            description="User-defined grouping",
-            mapping={
-                "gen_101": "GroupA",
-                "gen_102": "GroupA",
-                "gen_103": "GroupB",
-                "solar_01": "GroupB",
-                "wind_01": "GroupA",
-            },
-        ))
+        scenario.add_category_map(
+            CategoryMap(
+                name="custom_group",
+                description="User-defined grouping",
+                mapping={
+                    "gen_101": "GroupA",
+                    "gen_102": "GroupA",
+                    "gen_103": "GroupB",
+                    "solar_01": "GroupB",
+                    "wind_01": "GroupA",
+                },
+            )
+        )
         assert "custom_group" in scenario.list_category_maps()
         result = scenario.query("generation", group_by=["custom_group"])
         cats = set(result["custom_group"])

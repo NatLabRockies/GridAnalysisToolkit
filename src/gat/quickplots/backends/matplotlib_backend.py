@@ -38,8 +38,12 @@ class MatplotlibBackend:
         linewidth = kwargs.pop("linewidth", 0)
 
         ax = df_pos[columns_ordered].plot.area(
-            stacked=True, color=colors, linewidth=linewidth, ax=ax,
-            legend=legend, **kwargs,
+            stacked=True,
+            color=colors,
+            linewidth=linewidth,
+            ax=ax,
+            legend=legend,
+            **kwargs,
         )
 
         # Overlay load lines
@@ -59,8 +63,12 @@ class MatplotlibBackend:
 
         # Negative area
         df_neg[columns_ordered].plot.area(
-            stacked=True, color=colors, linewidth=linewidth, ax=ax,
-            legend=False, **kwargs,
+            stacked=True,
+            color=colors,
+            linewidth=linewidth,
+            ax=ax,
+            legend=False,
+            **kwargs,
         )
 
         # Auto y-limits
@@ -92,16 +100,26 @@ class MatplotlibBackend:
         kind = "barh" if horizontal else "bar"
 
         ax = df_pos[columns_ordered].plot(
-            kind=kind, stacked=True, color=colors,
-            linewidth=linewidth, ax=ax, legend=legend, **kwargs,
+            kind=kind,
+            stacked=True,
+            color=colors,
+            linewidth=linewidth,
+            ax=ax,
+            legend=legend,
+            **kwargs,
         )
 
         if legend:
             handles, labels = ax.get_legend_handles_labels()
 
         df_neg[columns_ordered].plot(
-            kind=kind, stacked=True, color=colors,
-            linewidth=linewidth, ax=ax, legend=False, **kwargs,
+            kind=kind,
+            stacked=True,
+            color=colors,
+            linewidth=linewidth,
+            ax=ax,
+            legend=False,
+            **kwargs,
         )
 
         max_stack = df_pos.sum(axis=1).max()
@@ -133,8 +151,11 @@ class MatplotlibBackend:
         startangle = kwargs.pop("startangle", 90)
 
         wedges, _texts = ax.pie(
-            plot_series, labels=None, colors=colors,
-            startangle=startangle, wedgeprops=dict(width=0.45),
+            plot_series,
+            labels=None,
+            colors=colors,
+            startangle=startangle,
+            wedgeprops=dict(width=0.45),
         )
 
         for ann in annotations:
@@ -148,14 +169,19 @@ class MatplotlibBackend:
                 arrowprops=dict(
                     arrowstyle="-",
                     connectionstyle="angle,angleA=0,angleB=90,rad=0",
-                    color="gray", lw=0.8,
+                    color="gray",
+                    lw=0.8,
                 ),
             )
 
         ax.text(
-            0, 0, center_text,
-            ha="center", va="center",
-            fontsize=18, fontweight="bold",
+            0,
+            0,
+            center_text,
+            ha="center",
+            va="center",
+            fontsize=18,
+            fontweight="bold",
         )
         ax.axis("equal")
         return ax

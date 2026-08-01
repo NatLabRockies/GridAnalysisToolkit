@@ -53,6 +53,7 @@ def _safe_project_dir(project: str) -> str:
         return cleaned
     # Disambiguate when sanitisation was lossy.
     import hashlib
+
     suffix = hashlib.sha256(project.encode("utf-8")).hexdigest()[:6]
     return f"{cleaned}-{suffix}"
 
@@ -66,7 +67,8 @@ def has_project_geo(data_root: str | Path, project: str) -> bool:
 
 
 def load_project_bus_coords(
-    data_root: str | Path, project: str,
+    data_root: str | Path,
+    project: str,
 ) -> Optional[tuple[dict[str, tuple[float, float]], str]]:
     """Load `(coords_by_id_str, bus_id_field)` for a project.
 
@@ -89,7 +91,7 @@ def load_project_bus_coords(
     except Exception:
         return None
     out: dict[str, tuple[float, float]] = {}
-    for f in (gj.get("features") or []):
+    for f in gj.get("features") or []:
         props = f.get("properties") or {}
         bid = props.get("bus_id")
         coords = (f.get("geometry") or {}).get("coordinates") or []
@@ -123,15 +125,17 @@ def write_project_buses(
     d.mkdir(parents=True, exist_ok=True)
     (d / "buses.geojson").write_text(json.dumps(buses_fc), encoding="utf-8")
     (d / "metadata.json").write_text(
-        json.dumps({
-            "project": project,
-            "bus_id_field": bus_id_field,
-            "bus_id_column": bus_id_column,
-            "lat_column": lat_column,
-            "lon_column": lon_column,
-            "source_filename": source_filename,
-            "uploaded_at": datetime.now(timezone.utc).isoformat(),
-        }),
+        json.dumps(
+            {
+                "project": project,
+                "bus_id_field": bus_id_field,
+                "bus_id_column": bus_id_column,
+                "lat_column": lat_column,
+                "lon_column": lon_column,
+                "source_filename": source_filename,
+                "uploaded_at": datetime.now(timezone.utc).isoformat(),
+            }
+        ),
         encoding="utf-8",
     )
     return d

@@ -61,8 +61,7 @@ def get_backend(name: Optional[str] = None) -> PlotBackend:
     if name not in _backends:
         available = list(_backends.keys())
         raise ValueError(
-            f"Unknown plotting backend '{name}'. "
-            f"Available: {available}"
+            f"Unknown plotting backend '{name}'. " f"Available: {available}"
         )
     return _backends[name]
 
@@ -80,8 +79,7 @@ def set_default_backend(name: str) -> None:
     if name not in _backends:
         available = list(_backends.keys())
         raise ValueError(
-            f"Unknown plotting backend '{name}'. "
-            f"Available: {available}"
+            f"Unknown plotting backend '{name}'. " f"Available: {available}"
         )
     _default_backend = name
     logger.info("Default plotting backend set to '{}'", name)
@@ -108,4 +106,3 @@ try:
     register_backend("interactive", PlotlyBackend())
 except ImportError:
     pass
-

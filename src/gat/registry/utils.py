@@ -15,7 +15,7 @@ def execute_plot(
     plot_kwargs: Dict[str, Any] = None,
     output_path: Optional[str] = None,
     dpi: int = 200,
-    save_data: bool = False
+    save_data: bool = False,
 ) -> Optional[Tuple[str, Any, Optional[Any]]]:
     """
     Execute a plot function with error handling.
@@ -53,7 +53,7 @@ def execute_plot(
                     output_dir = os.path.dirname(output_file)
 
                     os.makedirs(output_dir, exist_ok=True)
-                    plt.savefig(output_file, dpi=dpi, bbox_inches='tight')
+                    plt.savefig(output_file, dpi=dpi, bbox_inches="tight")
                     plt.close(ax.figure)
 
                     # Save dataframe if available and requested
@@ -61,7 +61,6 @@ def execute_plot(
                         data_file = os.path.join(output_path, f"{name}.csv")
                         df.to_csv(data_file)
                         logger.info(f"Saved plot data to {data_file}")
-
 
             return None
         else:
@@ -79,7 +78,7 @@ def execute_plot(
                 output_file = os.path.join(output_path, f"{name}.png")
                 output_dir = os.path.dirname(output_file)
                 os.makedirs(output_dir, exist_ok=True)
-                plt.savefig(output_file, dpi=dpi, bbox_inches='tight')
+                plt.savefig(output_file, dpi=dpi, bbox_inches="tight")
                 plt.close(ax.figure)
 
                 # Save dataframe if available and requested
@@ -140,7 +139,11 @@ def generate_plot_config(plot_func: Callable) -> Dict[str, Any]:
     first_param = next(iter(sig.parameters.values()), None)
     scenario_type = "Unknown"
     if first_param and first_param.annotation != inspect.Parameter.empty:
-        scenario_type = first_param.annotation.__name__ if hasattr(first_param.annotation, '__name__') else str(first_param.annotation)
+        scenario_type = (
+            first_param.annotation.__name__
+            if hasattr(first_param.annotation, "__name__")
+            else str(first_param.annotation)
+        )
 
     # Get docstring
     docstring = inspect.getdoc(plot_func) or "No description available"
@@ -151,8 +154,10 @@ def generate_plot_config(plot_func: Callable) -> Dict[str, Any]:
         "description": docstring.split("\n")[0] if docstring else "No description",
         "scenario_type": scenario_type,
         "options": options,
-        "enabled": True if not options else False,  # Disable by default if it requires options
-        "module": plot_func.__module__
+        "enabled": (
+            True if not options else False
+        ),  # Disable by default if it requires options
+        "module": plot_func.__module__,
     }
 
     return config

@@ -26,12 +26,7 @@ def schema_name_for(project: str, scenario: str, model: str) -> str:
     Display fields (project / scenario / model) keep their original
     casing in API responses — only the identifier is normalized.
     """
-    return (
-        f"{project}__{scenario}__{model}"
-        .replace("-", "_")
-        .replace(" ", "_")
-        .lower()
-    )
+    return f"{project}__{scenario}__{model}".replace("-", "_").replace(" ", "_").lower()
 
 
 def ingest_scenario(
@@ -95,14 +90,18 @@ def ingest_scenario(
     if is_default is None:
         # Default-flagged when this *was* the auto-picked default.
         natural_default = (
-            _pick_default_sienna_model(simulation_paths) if handler == "sienna" else "default"
+            _pick_default_sienna_model(simulation_paths)
+            if handler == "sienna"
+            else "default"
         )
-        is_default = (model == _sanitize_identifier(natural_default))
+        is_default = model == _sanitize_identifier(natural_default)
 
-    source_info = json.dumps({
-        "system_path": system_path,
-        "simulation_paths": simulation_paths,
-    })
+    source_info = json.dumps(
+        {
+            "system_path": system_path,
+            "simulation_paths": simulation_paths,
+        }
+    )
 
     # Registry writes route through ``db.with_write_conn`` so server
     # callers that injected a lock-aware write provider get brief
@@ -111,15 +110,24 @@ def ingest_scenario(
     # to the prior ``register_scenario(conn, ...)`` call.
     db.with_write_conn(
         lambda c: register_scenario(
-            c, project, scenario, handler, schema_name,
-            model=model, source_paths=source_info, status="ingesting",
+            c,
+            project,
+            scenario,
+            handler,
+            schema_name,
+            model=model,
+            source_paths=source_info,
+            status="ingesting",
             is_default=is_default,
         )
     )
 
     try:
         system, simulation = _create_parser(
-            handler, system_path, simulation_paths, model=model,
+            handler,
+            system_path,
+            simulation_paths,
+            model=model,
         )
 
         if scenario_root_uri is not None:
@@ -133,14 +141,19 @@ def ingest_scenario(
             name=scenario,
             schema_name=schema_name,
         )
-        scenario_obj.ingest(dataset_filter=dataset_filter, include_system=include_system)
+        scenario_obj.ingest(
+            dataset_filter=dataset_filter, include_system=include_system
+        )
 
         db.with_write_conn(
             lambda c: set_status(c, project, scenario, "ready", model=model)
         )
         logger.info(
             "Ingested {}/{} model={} (schema: {})",
-            project, scenario, model, schema_name,
+            project,
+            scenario,
+            model,
+            schema_name,
         )
 
         return {
@@ -170,7 +183,9 @@ def ingest_scenario(
         db.set_parquet_root(None)
 
 
-def list_available_models(handler: str, simulation_paths: list[str] | None) -> list[str]:
+def list_available_models(
+    handler: str, simulation_paths: list[str] | None
+) -> list[str]:
     """Enumerate the optimization stages present in the source files
     without ingesting. Upload handlers use this to populate the
     registry with everything that *could* be ingested and to drive
@@ -184,10 +199,13 @@ def _list_sienna_models(simulation_path: str) -> list[str]:
     """Return all decision + emulation model names in a Sienna H5."""
     try:
         from gat.simulations.sienna import SiennaSimulationConfig
+
         cfg = SiennaSimulationConfig.from_h5_file(str(simulation_path))
         return list(cfg.simulation_models) or ["default"]
     except Exception as e:
-        logger.warning("Could not enumerate Sienna models from {}: {}", simulation_path, e)
+        logger.warning(
+            "Could not enumerate Sienna models from {}: {}", simulation_path, e
+        )
         return ["default"]
 
 
@@ -199,6 +217,7 @@ def _pick_default_sienna_model(simulation_paths: list[str] | None) -> str:
         return "default"
     try:
         from gat.simulations.sienna import SiennaSimulationConfig
+
         cfg = SiennaSimulationConfig.from_h5_file(str(simulation_paths[0]))
         if cfg.emulation_models:
             return next(iter(cfg.emulation_models.keys()))
@@ -233,7 +252,11 @@ def _create_parser(
 
         system = SiennaSystem(system_path)
         # SiennaSimulation takes a single path; use first file
-        sim_path = simulation_paths[0] if isinstance(simulation_paths, list) else simulation_paths
+        sim_path = (
+            simulation_paths[0]
+            if isinstance(simulation_paths, list)
+            else simulation_paths
+        )
         # ``model`` becomes ``selected_model`` inside the parser, which
         # decides which group of HDF5 datasets get exposed.
         sienna_model = None if model in (None, "default") else model
@@ -248,7 +271,11 @@ def _create_parser(
             raise ValueError("reeds handler requires simulation_paths")
 
         # ReEDs uses a single directory path
-        path = simulation_paths[0] if isinstance(simulation_paths, list) else simulation_paths
+        path = (
+            simulation_paths[0]
+            if isinstance(simulation_paths, list)
+            else simulation_paths
+        )
         system = ReEDsSystem(path)
         simulation = ReEDsSimulation(path)
         return system, simulation

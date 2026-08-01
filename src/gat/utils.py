@@ -4,10 +4,13 @@ from typing import Optional, Union, List, Type
 import logging
 import importlib
 
-def scenario_from_config(config: ScenarioConfig,
-                         system_path: Optional[str] = None,
-                         simulation_paths: Optional[Union[str, List[str]]] = None,
-                         display_name: Optional[str] = None) -> BaseScenario:
+
+def scenario_from_config(
+    config: ScenarioConfig,
+    system_path: Optional[str] = None,
+    simulation_paths: Optional[Union[str, List[str]]] = None,
+    display_name: Optional[str] = None,
+) -> BaseScenario:
     """
     Creates a Scenario Object from a ScenarioConfig.
 
@@ -32,12 +35,15 @@ def scenario_from_config(config: ScenarioConfig,
 
         if model_type == "sienna":
             from gat.scenariohandlers import SiennaScenario
+
             scenario_class = SiennaScenario
         elif model_type == "plexos":
             from gat.scenariohandlers import PlexosScenario
+
             scenario_class = PlexosScenario
         elif model_type == "reeds":
             from gat.scenariohandlers import ReEDsScenario
+
             scenario_class = ReEDsScenario
         else:
             # Try dynamic import as a fallback
@@ -47,14 +53,16 @@ def scenario_from_config(config: ScenarioConfig,
                 module = importlib.import_module(module_name)
                 scenario_class = getattr(module, class_name)
             except (ImportError, AttributeError) as e:
-                raise ValueError(f"Unsupported model type: {model_type}. Error: {str(e)}")
+                raise ValueError(
+                    f"Unsupported model type: {model_type}. Error: {str(e)}"
+                )
 
         # Create the scenario object using the appropriate class
         scenario = scenario_class.from_config(
             config_path=config,
             system_path=system_path,
             simulation_paths=simulation_paths,
-            display_name=display_name
+            display_name=display_name,
         )
 
         return scenario

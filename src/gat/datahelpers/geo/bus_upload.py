@@ -37,7 +37,9 @@ from .geo_helpers import (
 )
 
 
-def _read_csv_columns_and_rows(path: Path, max_sample: int = 5) -> tuple[list[str], list[dict], int]:
+def _read_csv_columns_and_rows(
+    path: Path, max_sample: int = 5
+) -> tuple[list[str], list[dict], int]:
     """Stream a CSV and return (columns, sample_rows, total_row_count)."""
     columns: list[str] = []
     sample: list[dict] = []
@@ -171,6 +173,7 @@ def bus_table_columns(bus_table: list[dict]) -> list[str]:
 
 # ── User-file parsing ──
 
+
 def _parse_user_geo_file(
     path: Path,
     bus_id_column: str,
@@ -198,7 +201,13 @@ def _parse_user_geo_file(
                 if bid is None or lat in (None, "") or lon in (None, ""):
                     continue
                 try:
-                    rows.append({"bus_id": str(bid).strip(), "lat": float(lat), "lon": float(lon)})
+                    rows.append(
+                        {
+                            "bus_id": str(bid).strip(),
+                            "lat": float(lat),
+                            "lon": float(lon),
+                        }
+                    )
                 except (TypeError, ValueError):
                     continue
     else:
@@ -216,7 +225,13 @@ def _parse_user_geo_file(
             if bid is None:
                 continue
             try:
-                rows.append({"bus_id": str(bid).strip(), "lat": float(coords[1]), "lon": float(coords[0])})
+                rows.append(
+                    {
+                        "bus_id": str(bid).strip(),
+                        "lat": float(coords[1]),
+                        "lon": float(coords[0]),
+                    }
+                )
             except (TypeError, ValueError):
                 continue
     return kind, rows
@@ -279,13 +294,18 @@ def _match_buses(
         if not uuid:
             continue
         uuid_to_latlon[uuid] = user_lookup[bid]
-        uuid_to_meta[uuid] = {"bus_id": bid, "bus_name": bus.get("name"), "bus_number": bus.get("number")}
+        uuid_to_meta[uuid] = {
+            "bus_id": bid,
+            "bus_name": bus.get("name"),
+            "bus_number": bus.get("number"),
+        }
 
     unmatched = [bid for bid in user_lookup if bid not in chosen]
     return uuid_to_latlon, uuid_to_meta, unmatched, used_column
 
 
 # ── Public API ──
+
 
 def inspect_geo_file(
     path: Path,
@@ -349,7 +369,9 @@ def inspect_geo_file(
             elif "number" in out["system_bus_columns"]:
                 out["detected_system_bus_col"] = "number"
             else:
-                out["detected_system_bus_col"] = out["system_bus_columns"][0] if out["system_bus_columns"] else None
+                out["detected_system_bus_col"] = (
+                    out["system_bus_columns"][0] if out["system_bus_columns"] else None
+                )
             out["system_bus_count"] = len(bus_table)
         except Exception as e:  # noqa: BLE001
             out["system_bus_columns"] = []
@@ -365,7 +387,8 @@ def inspect_geo_file(
                     lon_column=eff_lon,
                 )
                 uuid_map, _meta, unmatched, used_col = _match_buses(
-                    user_rows, bus_table,
+                    user_rows,
+                    bus_table,
                     system_bus_id_column=system_bus_id_column,
                 )
                 out["match_preview"] = {
@@ -426,21 +449,25 @@ def compute_bus_geometry(
     by_type = _load_sienna_components(system_path)
     bus_table = _bus_table(by_type)
     uuid_to_latlon, uuid_to_meta, unmatched_user, used_col = _match_buses(
-        user_rows, bus_table, system_bus_id_column=system_bus_id_column,
+        user_rows,
+        bus_table,
+        system_bus_id_column=system_bus_id_column,
     )
 
     bus_features = []
     for uuid, (lat, lon) in uuid_to_latlon.items():
         m = uuid_to_meta.get(uuid, {})
-        bus_features.append({
-            "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [lon, lat]},
-            "properties": {
-                "bus_id": m.get("bus_id"),
-                "bus_name": m.get("bus_name"),
-                "bus_number": m.get("bus_number"),
-            },
-        })
+        bus_features.append(
+            {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [lon, lat]},
+                "properties": {
+                    "bus_id": m.get("bus_id"),
+                    "bus_name": m.get("bus_name"),
+                    "bus_number": m.get("bus_number"),
+                },
+            }
+        )
     buses_fc = {"type": "FeatureCollection", "features": bus_features}
 
     return {

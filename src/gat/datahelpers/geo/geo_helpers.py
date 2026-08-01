@@ -1,14 +1,25 @@
 import geopandas as gpd
 from shapely.geometry import Point, LineString
 
-
 # ── Column-name detection ──
 # Common case-/whitespace-insensitive aliases for the columns we care about
 # in user-supplied geo files. `_normalize_col_name` applies the matching
 # rule so detection is consistent everywhere.
 
 _LAT_NAMES = {"lat", "latitude", "y", "lat_y", "point_y", "geo_lat", "facility_lat"}
-_LON_NAMES = {"lon", "lng", "long", "longitude", "x", "lat_x", "point_x", "geo_lon", "geo_lng", "facility_lon", "facility_lng"}
+_LON_NAMES = {
+    "lon",
+    "lng",
+    "long",
+    "longitude",
+    "x",
+    "lat_x",
+    "point_x",
+    "geo_lon",
+    "geo_lng",
+    "facility_lon",
+    "facility_lng",
+}
 _BUS_ID_NAMES = {"bus_id", "bus_number", "bus", "node_id", "node", "id", "name"}
 
 
@@ -42,31 +53,44 @@ def detect_bus_id_column(columns):
             return col
     return None
 
-def convert_to_geonode(df, lat_col='Latitude', lon_col='Longitude', default_crs='EPSG:4326') -> gpd.GeoDataFrame:
 
+def convert_to_geonode(
+    df, lat_col="Latitude", lon_col="Longitude", default_crs="EPSG:4326"
+) -> gpd.GeoDataFrame:
     "Takes a dataframe with lat/lon values and returns a GeoDataFrame version of it"
 
-    df['geometry'] = df.apply(lambda row: Point(row[lon_col], row[lat_col]), axis=1)
+    df["geometry"] = df.apply(lambda row: Point(row[lon_col], row[lat_col]), axis=1)
 
-    gdf = gpd.GeoDataFrame(df, geometry=df['geometry'])
+    gdf = gpd.GeoDataFrame(df, geometry=df["geometry"])
     gdf = gdf.set_crs(default_crs)
-    gdf.drop(columns=[lat_col, lon_col],inplace=True)
+    gdf.drop(columns=[lat_col, lon_col], inplace=True)
 
     return gdf
 
 
-def convert_to_geoline(df, from_lat='from_lat', from_lon='from_lon', to_lat='to_lat', to_lon='to_lon', default_crs='EPSG:4326')->gpd.GeoDataFrame:
+def convert_to_geoline(
+    df,
+    from_lat="from_lat",
+    from_lon="from_lon",
+    to_lat="to_lat",
+    to_lon="to_lon",
+    default_crs="EPSG:4326",
+) -> gpd.GeoDataFrame:
 
-    df['geometry'] = df.apply(lambda row: LineString([
-        [row[from_lon] , row[from_lat]], # From Point
-        [row[to_lon], row[to_lat] ] # To Point
-        ]
+    df["geometry"] = df.apply(
+        lambda row: LineString(
+            [
+                [row[from_lon], row[from_lat]],  # From Point
+                [row[to_lon], row[to_lat]],  # To Point
+            ]
         ),
-        axis=1)
-    gdf = gpd.GeoDataFrame(df, geometry=df['geometry'])
+        axis=1,
+    )
+    gdf = gpd.GeoDataFrame(df, geometry=df["geometry"])
     gdf = gdf.set_crs(default_crs)
     gdf.drop(columns=[from_lat, to_lat, from_lon, to_lon], inplace=True)
     return gdf
+
 
 def map_to_area(point_gdf: gpd.GeoDataFrame, area_gdf: gpd.GeoDataFrame):
     """

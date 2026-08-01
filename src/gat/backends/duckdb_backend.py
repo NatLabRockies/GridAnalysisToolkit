@@ -37,14 +37,19 @@ except ImportError:
 def _require_duckdb() -> None:
     if duckdb is None:
         raise ImportError(
-            "duckdb is required for GATDatabase. "
-            "Install it with: pip install duckdb"
+            "duckdb is required for GATDatabase. " "Install it with: pip install duckdb"
         )
 
 
 def _sanitize_table_name(name: str) -> str:
     """Sanitize a dataset name for use as a DuckDB table name."""
-    return name.replace("-", "_").replace(".", "_").replace("{", "_").replace("}", "_").replace(" ", "_")
+    return (
+        name.replace("-", "_")
+        .replace(".", "_")
+        .replace("{", "_")
+        .replace("}", "_")
+        .replace(" ", "_")
+    )
 
 
 def _create_table_from_df(conn: Any, table_name: str, df: pd.DataFrame) -> None:
@@ -66,7 +71,7 @@ def _strip_scheme(url: str) -> str:
     scheme. Callers typically supply the full URL — normalize."""
     for prefix in ("https://", "http://"):
         if url.startswith(prefix):
-            return url[len(prefix):].rstrip("/")
+            return url[len(prefix) :].rstrip("/")
     return url.rstrip("/")
 
 
@@ -87,6 +92,7 @@ def configure_httpfs(conn: Any) -> None:
     demand; subsequent calls use the cache.
     """
     import os
+
     endpoint = os.environ.get("AWS_ENDPOINT_URL_S3")
     access = os.environ.get("AWS_ACCESS_KEY_ID")
     secret = os.environ.get("AWS_SECRET_ACCESS_KEY")
@@ -125,6 +131,7 @@ def _s3_storage_options() -> dict[str, Any]:
     (e.g. local dev) so callers can blindly pass it through.
     """
     import os
+
     access = os.environ.get("AWS_ACCESS_KEY_ID")
     secret = os.environ.get("AWS_SECRET_ACCESS_KEY")
     if not (access and secret):
@@ -193,9 +200,7 @@ def _register_view(conn: Any, schema: str, view_name: str, view_uri: str) -> Non
     No local copy lives on the pod's disk — pod-restart-safe by construction.
     """
     qualified = _quote_qualified(schema, view_name)
-    conn.execute(
-        f"CREATE OR REPLACE VIEW {qualified} AS SELECT * FROM '{view_uri}'"
-    )
+    conn.execute(f"CREATE OR REPLACE VIEW {qualified} AS SELECT * FROM '{view_uri}'")
 
 
 def _write_parquet_and_view(
@@ -260,6 +265,7 @@ class GATDatabase:
         else:
             self._conn = duckdb.connect()
             import tempfile
+
             self._local_parquet_root = Path(tempfile.mkdtemp(prefix="gat_parquet_"))
         self._local_parquet_root.mkdir(parents=True, exist_ok=True)
 
@@ -326,7 +332,6 @@ class GATDatabase:
             return (self._local_parquet_root / f"{view_name}.parquet").as_posix()
         return f"{self._parquet_root_uri}/{view_name}.parquet"
 
-
     def get_connection(self) -> Any:
         """Return the raw DuckDB connection for direct SQL access."""
         return self._conn
@@ -359,6 +364,7 @@ class GATDatabase:
         in Phase A is lock-free.
         """
         import time as _time
+
         datasets = system.list_datasets()
 
         # Phase A — read everything from the system parser (no DB). Each
@@ -407,22 +413,32 @@ class GATDatabase:
 
             for ds_name, df, t_read, t_after_read in raw_entries:
                 t_write = _time.perf_counter()
-                table_name = _quote_qualified(schema, f"sys__{_sanitize_table_name(ds_name)}")
+                table_name = _quote_qualified(
+                    schema, f"sys__{_sanitize_table_name(ds_name)}"
+                )
                 _create_table_from_df(conn, table_name, df)
                 t_done = _time.perf_counter()
                 logger.info(
                     "[ingest-timing] sys raw '{}' rows={} read={:.2f}s write={:.2f}s",
-                    ds_name, len(df), t_after_read - t_read, t_done - t_write,
+                    ds_name,
+                    len(df),
+                    t_after_read - t_read,
+                    t_done - t_write,
                 )
 
             for ds_name, df, t_read, t_after_read in composed_entries:
                 t_write = _time.perf_counter()
-                table_name = _quote_qualified(schema, f"sys__{_sanitize_table_name(ds_name)}")
+                table_name = _quote_qualified(
+                    schema, f"sys__{_sanitize_table_name(ds_name)}"
+                )
                 _create_table_from_df(conn, table_name, df)
                 t_done = _time.perf_counter()
                 logger.info(
                     "[ingest-timing] sys composed '{}' rows={} read={:.2f}s write={:.2f}s",
-                    ds_name, len(df), t_after_read - t_read, t_done - t_write,
+                    ds_name,
+                    len(df),
+                    t_after_read - t_read,
+                    t_done - t_write,
                 )
 
             if bus_coords_df is not None:
@@ -430,7 +446,8 @@ class GATDatabase:
                 _create_table_from_df(conn, table_name, bus_coords_df)
                 logger.info(
                     "Stored {} bus coordinates → {}",
-                    len(bus_coords_df), table_name,
+                    len(bus_coords_df),
+                    table_name,
                 )
 
             if branch_endpoints_df is not None:
@@ -438,7 +455,8 @@ class GATDatabase:
                 _create_table_from_df(conn, table_name, branch_endpoints_df)
                 logger.info(
                     "Stored {} branch endpoints → {}",
-                    len(branch_endpoints_df), table_name,
+                    len(branch_endpoints_df),
+                    table_name,
                 )
 
         self.with_write_conn(_do_db_ops)
@@ -475,6 +493,7 @@ class GATDatabase:
         overhead amortizes.
         """
         import time as _time
+
         datasets = sim.list_datasets()
         keep = dataset_filter if dataset_filter is not None else (lambda _ds: True)
 
@@ -497,16 +516,27 @@ class GATDatabase:
             uri = self._parquet_uri_for(view_name)
             _write_parquet(uri, df)
             _t_done = _time.perf_counter()
-            raw_plans.append((
-                ds.name, view_name, uri,
-                len(df), len(df.columns),
-                _t_read, _t_write, _t_done,
-            ))
+            raw_plans.append(
+                (
+                    ds.name,
+                    view_name,
+                    uri,
+                    len(df),
+                    len(df.columns),
+                    _t_read,
+                    _t_write,
+                    _t_done,
+                )
+            )
 
         for ds_name, _vn, _u, n_rows, n_cols, t_read, t_write, t_done in raw_plans:
             logger.info(
                 "[ingest-timing] sim raw '{}' rows={} cols={} read={:.2f}s write={:.2f}s",
-                ds_name, n_rows, n_cols, t_write - t_read, t_done - t_write,
+                ds_name,
+                n_rows,
+                n_cols,
+                t_write - t_read,
+                t_done - t_write,
             )
 
         # Phase B — one locked window: schema + view registrations +
@@ -522,7 +552,8 @@ class GATDatabase:
             if missing:
                 logger.info(
                     "[ingest-timing] sim composed '{}' skipped (sources not in this tier: {})",
-                    ds.name, missing,
+                    ds.name,
+                    missing,
                 )
                 continue
             composed_to_build.append(ds)
@@ -536,15 +567,14 @@ class GATDatabase:
                 self._build_composed_simulation_on(conn, schema, ds)
                 logger.info(
                     "[ingest-timing] sim composed '{}' sources={} pivot={:.2f}s",
-                    ds.name, len(ds.source_datasets),
+                    ds.name,
+                    len(ds.source_datasets),
                     _time.perf_counter() - _t_start,
                 )
 
         self.with_write_conn(_do_db_ops)
 
-    def _build_composed_simulation(
-        self, schema: str, ds: DatasetInfo
-    ) -> None:
+    def _build_composed_simulation(self, schema: str, ds: DatasetInfo) -> None:
         """Public-ish entry point preserved for direct callers (CLI,
         tests). Routes through ``with_write_conn`` so server callers
         still get lock-aware execution; CLI callers fall through to
@@ -582,13 +612,12 @@ class GATDatabase:
             except Exception:
                 logger.warning(
                     "Source table '{}' not found for composed dataset '{}'",
-                    st, ds.name,
+                    st,
+                    ds.name,
                 )
 
         if not existing:
-            logger.warning(
-                "No source tables found for composed dataset '{}'", ds.name
-            )
+            logger.warning("No source tables found for composed dataset '{}'", ds.name)
             return
 
         unpivot_parts = []
@@ -612,26 +641,22 @@ class GATDatabase:
 
         try:
             conn.execute(pivot_sql)
-            count = conn.execute(
-                f"SELECT COUNT(*) FROM {composed_name}"
-            ).fetchone()[0]
+            count = conn.execute(f"SELECT COUNT(*) FROM {composed_name}").fetchone()[0]
             logger.debug(
                 "Built composed dataset '{}' → {} ({} entities)",
-                ds.name, composed_name, count,
+                ds.name,
+                composed_name,
+                count,
             )
         except Exception as e:
-            logger.error(
-                "Failed to build composed dataset '{}': {}", ds.name, e
-            )
+            logger.error("Failed to build composed dataset '{}': {}", ds.name, e)
             raise
 
     # ------------------------------------------------------------------ #
     # Category maps
     # ------------------------------------------------------------------ #
 
-    def register_category_map(
-        self, schema: str, cat_map: CategoryMap
-    ) -> None:
+    def register_category_map(self, schema: str, cat_map: CategoryMap) -> None:
         """Register a category map as a DuckDB table.
 
         The table is stored as {schema}.catmap__{name} with columns
@@ -641,7 +666,9 @@ class GATDatabase:
         ``with_write_conn`` window so each cat-map registration costs
         one brief lock acquire (server mode), not one per inner SQL.
         """
-        table_name = _quote_qualified(schema, f"catmap__{_sanitize_table_name(cat_map.name)}")
+        table_name = _quote_qualified(
+            schema, f"catmap__{_sanitize_table_name(cat_map.name)}"
+        )
 
         def _do(conn: Any) -> None:
             conn.execute(f"CREATE SCHEMA IF NOT EXISTS {_quote_ident(schema)}")
@@ -649,24 +676,30 @@ class GATDatabase:
                 self._register_dict_map(conn, table_name, cat_map.mapping)
             elif cat_map.mapping_file is not None:
                 self._register_file_map(
-                    conn, table_name, cat_map.mapping_file,
-                    cat_map.entity_column, cat_map.category_column,
+                    conn,
+                    table_name,
+                    cat_map.mapping_file,
+                    cat_map.entity_column,
+                    cat_map.category_column,
                 )
             elif cat_map.geometry_file is not None:
                 self._register_spatial_map(
-                    conn, schema, table_name, cat_map,
+                    conn,
+                    schema,
+                    table_name,
+                    cat_map,
                 )
             else:
                 raise ValueError(
                     f"CategoryMap '{cat_map.name}' has no source "
                     "(mapping, mapping_file, or geometry_file)"
                 )
-            count = conn.execute(
-                f"SELECT COUNT(*) FROM {table_name}"
-            ).fetchone()[0]
+            count = conn.execute(f"SELECT COUNT(*) FROM {table_name}").fetchone()[0]
             logger.debug(
                 "Registered category map '{}' → {} ({} entries)",
-                cat_map.name, table_name, count,
+                cat_map.name,
+                table_name,
+                count,
             )
 
         self.with_write_conn(_do)
@@ -679,9 +712,7 @@ class GATDatabase:
     def _register_dict_map(
         self, conn: Any, table_name: str, mapping: dict[str, str]
     ) -> None:
-        df = pd.DataFrame(
-            list(mapping.items()), columns=["entity_id", "category"]
-        )
+        df = pd.DataFrame(list(mapping.items()), columns=["entity_id", "category"])
         _create_table_from_df(conn, table_name, df)
 
     def _register_file_map(
@@ -724,7 +755,9 @@ class GATDatabase:
 
         geom_path = cat_map.geometry_file
         geom_key = cat_map.geometry_key
-        join_table = _quote_qualified(schema, f"sys__{_sanitize_table_name(cat_map.join_via)}")
+        join_table = _quote_qualified(
+            schema, f"sys__{_sanitize_table_name(cat_map.join_via)}"
+        )
 
         conn.execute(
             f"CREATE OR REPLACE TEMP TABLE _spatial_geom AS "
@@ -777,7 +810,9 @@ class GATDatabase:
         exclude_cols = ["entity_id"]
 
         for i, cat_name in enumerate(group_by):
-            cat_table = _quote_qualified(schema, f"catmap__{_sanitize_table_name(cat_name)}")
+            cat_table = _quote_qualified(
+                schema, f"catmap__{_sanitize_table_name(cat_name)}"
+            )
             alias = f"cm{i}"
             col_alias = _sanitize_table_name(cat_name)
             join_clauses.append(
@@ -847,6 +882,7 @@ ORDER BY {group_cols}
 # ------------------------------------------------------------------ #
 # Helpers
 # ------------------------------------------------------------------ #
+
 
 def _cast_floats_to_f32(df: pd.DataFrame) -> pd.DataFrame:
     """Cast float64 columns to float32 to reduce memory."""

@@ -14,6 +14,7 @@ Covers (transitively):
 - `gat.models.project.PlexosScenarioConfig`
 - The legacy `PlexosScenario` factory invocation in `gat.loader._load_local_scenario`
 """
+
 import warnings
 
 import pytest
@@ -88,6 +89,7 @@ def test_gat_load_roundtrip_against_plexos_fixture(
 
     # 6. Verify what came back is real and functional
     from gat.scenariohandlers import PlexosScenario
+
     assert isinstance(scenario, PlexosScenario)
     assert scenario.parser is not None
     # Smoke test that one get_* call works against the loaded scenario.
@@ -126,15 +128,18 @@ def test_gat_load_default_resolves_to_registered_project(
     cfg.default_scenario = "default-scenario"
     pm.save_config(cfg)
 
-    save_project_ref(UserProjectRef(
-        project_id="default-rt",
-        name="Default RT",
-        path=str(project_dir),
-        is_default=True,
-    ))
+    save_project_ref(
+        UserProjectRef(
+            project_id="default-rt",
+            name="Default RT",
+            path=str(project_dir),
+            is_default=True,
+        )
+    )
 
     # Pass no project / no scenario → should resolve via defaults.
     scenario, _palette, _project = gat.load(verbose=False)
 
     from gat.scenariohandlers import PlexosScenario
+
     assert isinstance(scenario, PlexosScenario)

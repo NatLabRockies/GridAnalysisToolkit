@@ -8,7 +8,6 @@ an interactive selector (`gat plot`).
 import click
 from loguru import logger
 
-
 # Maps CLI-friendly names to (plot_function_name, description, handler_kwargs)
 STANDARD_PLOTS = {
     "monthly-dispatch": {
@@ -56,6 +55,7 @@ STANDARD_PLOTS = {
         "function": "plot_net_load_min_area",
     },
 }
+
 
 def _run_plot(scenario, plot_name: str, backend: str = None):
     """Execute a standard plot by CLI name."""
@@ -120,7 +120,9 @@ def _interactive_select():
     click.echo()
 
     while True:
-        choice = click.prompt("  Select a plot (number or name)", default="", show_default=False)
+        choice = click.prompt(
+            "  Select a plot (number or name)", default="", show_default=False
+        )
         if not choice:
             return None
 
@@ -144,11 +146,15 @@ def _interactive_select():
 
 @click.command("plot")
 @click.argument("name", required=False, default=None)
-@click.option("--list", "-l", "list_plots", is_flag=True, help="List available standard plots")
+@click.option(
+    "--list", "-l", "list_plots", is_flag=True, help="List available standard plots"
+)
 @click.option("--project", "-p", default=None, help="Project ID")
 @click.option("--scenario", "-s", default=None, help="Scenario ID")
 @click.option("--backend", "-b", default=None, help="Plot backend: static, interactive")
-@click.option("--server", "server_url", default=None, help="GAT server URL for remote data")
+@click.option(
+    "--server", "server_url", default=None, help="GAT server URL for remote data"
+)
 def plot_cmd(name, list_plots, project, scenario, backend, server_url):
     """Generate standard plots directly.
 
@@ -167,7 +173,9 @@ def plot_cmd(name, list_plots, project, scenario, backend, server_url):
         click.echo("\n  Available standard plots:\n")
         for cli_name, info in STANDARD_PLOTS.items():
             click.echo(f"    {cli_name:<25} {info['description']}")
-        click.echo(f"\n  Usage: gat plot <name> [-b backend] [-p project] [-s scenario]\n")
+        click.echo(
+            f"\n  Usage: gat plot <name> [-b backend] [-p project] [-s scenario]\n"
+        )
         return
 
     if name is None:
@@ -188,7 +196,9 @@ def plot_cmd(name, list_plots, project, scenario, backend, server_url):
     from gat.loader import load
 
     scenario_obj, _palette, _manager = load(
-        project=project, scenario=scenario, verbose=False,
+        project=project,
+        scenario=scenario,
+        verbose=False,
         server_url=server_url,
     )
 

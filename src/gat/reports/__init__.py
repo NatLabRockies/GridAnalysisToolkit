@@ -11,5 +11,6 @@ to register its CLI commands.
 # Import all report modules to ensure they're available for CLI registration
 from . import system_comparison
 from . import scenario_single
-#from . import standard_multi
-#from . import generation_report
+
+# from . import standard_multi
+# from . import generation_report

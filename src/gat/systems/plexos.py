@@ -8,6 +8,7 @@ POC scope: only the relations needed to support generator aggregation are
 exposed today. Full system metadata (lines, loads, buses) will follow in the
 broader migration.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -45,6 +46,7 @@ class PlexosSystem(BaseSystem):
 
         if solution_dir is not None:
             from glob import glob
+
             solution_files = sorted(glob(str(Path(solution_dir) / "*.h5")))
         if not solution_files:
             raise ValueError("PlexosSystem requires solution_dir or solution_files")
@@ -84,20 +86,24 @@ class PlexosSystem(BaseSystem):
                 )
                 gen_area = {**gen_area, **battery_area}
             if gen_area:
-                maps.append(CategoryMap(
-                    name="gen_area",
-                    description="Generator → region/area mapping (from plexos h5 relations)",
-                    mapping={str(k): str(v) for k, v in gen_area.items()},
-                ))
+                maps.append(
+                    CategoryMap(
+                        name="gen_area",
+                        description="Generator → region/area mapping (from plexos h5 relations)",
+                        mapping={str(k): str(v) for k, v in gen_area.items()},
+                    )
+                )
         except Exception as e:
             logger.debug("Could not extract regions_generators: {}", e)
 
         # Generator → simplified tech, if a tech_map was supplied.
         if self._tech_map:
-            maps.append(CategoryMap(
-                name="gen_tech",
-                description="Generator → simplified technology",
-                mapping={str(k): str(v) for k, v in self._tech_map.items()},
-            ))
+            maps.append(
+                CategoryMap(
+                    name="gen_tech",
+                    description="Generator → simplified technology",
+                    mapping={str(k): str(v) for k, v in self._tech_map.items()},
+                )
+            )
 
         return maps

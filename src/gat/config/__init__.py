@@ -1,6 +1,4 @@
-
 class gatConfig(object):
-
     """
     A configuration class used across scenario objects and quickplots.
     Updating the fields of this object impacts how dataframe columns are named,
@@ -28,17 +26,15 @@ class gatConfig(object):
 
     """
 
-
     def __init__(self) -> None:
 
-
-        self.native_load_alias = 'Native Demand'
+        self.native_load_alias = "Native Demand"
 
         # Name of column to represent total load including charging.
-        self.total_load_alias = 'Total Demand'
+        self.total_load_alias = "Total Demand"
 
         # Name to use for the generated Net Load = Total Load - VRE
-        self.net_load_alias = 'Net Demand'
+        self.net_load_alias = "Net Demand"
 
         # Unserved Energy
         self.unserved_energy_alias = "Unserved Energy"
@@ -47,14 +43,14 @@ class gatConfig(object):
 
         # list of Variable renewable energies.
         # should be able to update
-        self.curtailable_tech = ['Land-based Wind','Offshore Wind', 'PV','dPV', 'VRE']
-
+        self.curtailable_tech = ["Land-based Wind", "Offshore Wind", "PV", "dPV", "VRE"]
 
         # Plotting properties
-        self.default_font = 'Arial'
+        self.default_font = "Arial"
 
     @property
     def load_columns(self):
         return [self.native_load_alias, self.total_load_alias, self.net_load_alias]
+
 
 config = gatConfig()

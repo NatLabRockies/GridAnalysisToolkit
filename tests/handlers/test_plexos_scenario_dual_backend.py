@@ -15,6 +15,7 @@ which tests a different class pair (PlexosSystem/PlexosSimulation, the
 older h5-based v1 POC) — this file is specifically about PlexosScenario
 itself now speaking two backends.
 """
+
 from pathlib import Path
 
 import pandas as pd
@@ -75,9 +76,9 @@ class TestRealSolutionZipVsH5SystemDispatchParity:
             f"legacy={set(legacy_totals)}"
         )
         for tech in common_techs:
-            assert new_totals[tech] == pytest.approx(legacy_totals[tech], rel=1e-2), (
-                f"technology '{tech}': new={new_totals[tech]} legacy={legacy_totals[tech]}"
-            )
+            assert new_totals[tech] == pytest.approx(
+                legacy_totals[tech], rel=1e-2
+            ), f"technology '{tech}': new={new_totals[tech]} legacy={legacy_totals[tech]}"
 
     def test_get_generation_capacity_parity(self, matched_pair):
         zip_path, h5_path = matched_pair

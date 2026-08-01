@@ -86,8 +86,10 @@ class CategoryMapRegistry:
     def get(self, name: str) -> CategoryMap:
         """Get a category map by name."""
         if name not in self._maps:
-            raise KeyError(f"Category map '{name}' not found. "
-                           f"Available: {list(self._maps.keys())}")
+            raise KeyError(
+                f"Category map '{name}' not found. "
+                f"Available: {list(self._maps.keys())}"
+            )
         return self._maps[name]
 
     def list_maps(self) -> list[str]:

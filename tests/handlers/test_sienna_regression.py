@@ -7,6 +7,7 @@ v5 branch is in place.
 Regenerate snapshots with:
     pytest tests/handlers/test_sienna_regression.py --force-regen
 """
+
 import pandas as pd
 import pytest
 
@@ -25,12 +26,14 @@ def _flatten_columns(df: pd.DataFrame) -> pd.DataFrame:
 def _summary(df: pd.DataFrame) -> pd.DataFrame:
     flat = _flatten_columns(df)
     numeric = flat.select_dtypes(include="number")
-    out = pd.DataFrame({
-        "sum": numeric.sum(),
-        "min": numeric.min(),
-        "max": numeric.max(),
-        "mean": numeric.mean(),
-    }).reset_index(names="column")
+    out = pd.DataFrame(
+        {
+            "sum": numeric.sum(),
+            "min": numeric.min(),
+            "max": numeric.max(),
+            "mean": numeric.mean(),
+        }
+    ).reset_index(names="column")
     # Sort for deterministic ordering — column iteration order depends on
     # which scenarios were instantiated earlier in the session.
     return out.sort_values("column").reset_index(drop=True)
@@ -65,7 +68,11 @@ def test_v4_get_area_unserved_contract(sienna_v4_scenario):
     assert sienna_v4_scenario.get_area_unserved() is NotImplemented
 
 
-@pytest.mark.skip(reason="v4 fixture uses CopperPlatePowerModel — no line flows produced. Switch generate.jl to DCPPowerModel/PTDF to enable.")
+@pytest.mark.skip(
+    reason="v4 fixture uses CopperPlatePowerModel — no line flows produced. Switch generate.jl to DCPPowerModel/PTDF to enable."
+)
 def test_v4_get_line_loading_summary(sienna_v4_scenario, dataframe_regression):
     df = sienna_v4_scenario.get_line_loading()
-    dataframe_regression.check(_summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3})
+    dataframe_regression.check(
+        _summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3}
+    )

@@ -14,19 +14,15 @@ import h5py
 from .parsers import *
 
 
-
-class PlexosParser():
-
+class PlexosParser:
 
     def __init__(self, solution_dir=None, solution_files=None) -> None:
-
 
         self._solution_dir = solution_dir
         self._files = solution_files
 
-
         if self._files == None:
-            if  os.path.isdir(self._solution_dir):
+            if os.path.isdir(self._solution_dir):
 
                 self._files = iglob(self._solution_dir)
         else:
@@ -34,7 +30,7 @@ class PlexosParser():
 
             for file in self._files:
                 if os.path.isfile(file) == False:
-                    print(f'path does not exist {file}')
+                    print(f"path does not exist {file}")
 
         pass
 
@@ -43,12 +39,12 @@ class PlexosParser():
         with h5py.File(template_file) as h5data:
             return [key for key in h5data[h5path].keys()]
 
-    def list_groups(self, schedule='ST', freq='interval'):
-        h5path = f'/data/{schedule}/{freq}'
+    def list_groups(self, schedule="ST", freq="interval"):
+        h5path = f"/data/{schedule}/{freq}"
         return self.list_keys(h5path)
 
     def list_datasets(self, schedule, freq, group):
-        h5path = f'/data/{schedule}/{freq}/{group}'
+        h5path = f"/data/{schedule}/{freq}/{group}"
 
         return self.list_keys(h5path)
 
@@ -68,9 +64,11 @@ class PlexosParser():
         if template:
             result = extract_h5_data(self._files[0], schedule, freq, group, dataset)
         else:
-            result = agg_plexos_parallel(self._files, schedule, freq, group, datasets=[dataset])
+            result = agg_plexos_parallel(
+                self._files, schedule, freq, group, datasets=[dataset]
+            )
 
-        result = result.droplevel(level='dataset')
+        result = result.droplevel(level="dataset")
         result.columns = [decode_value(col) for col in result.columns]
         return result
 
@@ -86,28 +84,23 @@ class PlexosParser():
 
         """
 
-
         result = agg_plexos_parallel(self._files, schedule, freq, group, datasets)
         if plexos_format:
-            df_new = result.unstack(level='dataset').stack(level='DateTime')
+            df_new = result.unstack(level="dataset").stack(level="DateTime")
             return df_new
         else:
             return result
 
 
-
-
-class SiennaSimulationParser():
+class SiennaSimulationParser:
 
     def __init__(self, solution_dir=None, solution_files=None) -> None:
-
 
         self._solution_dir = solution_dir
         self._files = solution_files
 
-
         if self._files == None:
-            if  os.path.isdir(self._solution_dir):
+            if os.path.isdir(self._solution_dir):
 
                 self._files = iglob(self._solution_dir)
         else:
@@ -115,7 +108,7 @@ class SiennaSimulationParser():
 
             for file in self._files:
                 if os.path.isfile(file) == False:
-                    print(f'path does not exist {file}')
+                    print(f"path does not exist {file}")
 
         pass
 

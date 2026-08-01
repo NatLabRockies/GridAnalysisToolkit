@@ -19,6 +19,7 @@ def _mock_curtailable_tech():
         else:
             gc.curtailable_tech = saved
 
+
 def test_standard_technology_mapping():
     """Test mapping with standard technology names that exist in standard_color_dict"""
     # Test with a standard technology
@@ -37,6 +38,7 @@ def test_standard_technology_mapping():
     assert tech_map.display_order == list(standard_color_dict.keys()).index("Nuclear")
     assert tech_map.curtailable == False  # Nuclear isn't in curtailable_tech
 
+
 def test_normalized_technology_mapping():
     """Test mapping with technologies that need normalization"""
     # Test with dashes
@@ -54,10 +56,13 @@ def test_normalized_technology_mapping():
     assert tech_map.display_group == "Gas-CC"
     assert tech_map.display_color == standard_color_dict["Gas-CC"]
 
+
 def test_random_color_assignment():
     """Test mapping with unknown technology names"""
     # Test with warning capture
-    with pytest.warns(UserWarning, match="Technology 'UnknownTech' not found in standard mappings"):
+    with pytest.warns(
+        UserWarning, match="Technology 'UnknownTech' not found in standard mappings"
+    ):
         tech_map = TechnologyMapping.new("UnknownTech")
 
     # Check that display group is the original technology
@@ -68,6 +73,7 @@ def test_random_color_assignment():
     assert tech_map.display_order == 0
     # Should not be curtailable if not in the list
     assert tech_map.curtailable == False
+
 
 def test_curtailable_technologies():
     """Test curtailable flag assignment"""
@@ -151,14 +157,17 @@ class TestFuzzyMatchTechnologyHelper:
     """Direct tests of the _fuzzy_match_technology token-overlap scorer."""
 
     def test_prefers_smaller_more_specific_candidate_over_generic_abbreviation(self):
-        """"COAL_CT" shares a token with both "Coal" and generic "*-CT"
+        """ "COAL_CT" shares a token with both "Coal" and generic "*-CT"
         entries (e.g. "NG-CT"/"RE-CT"), but the tighter, more specific
         candidate ("Coal") must win on Jaccard overlap."""
         result = _fuzzy_match_technology("COAL_CT", list(standard_color_dict.keys()))
         assert result == "Coal"
 
     def test_no_overlap_returns_none(self):
-        assert _fuzzy_match_technology("Xyzzy123", list(standard_color_dict.keys())) is None
+        assert (
+            _fuzzy_match_technology("Xyzzy123", list(standard_color_dict.keys()))
+            is None
+        )
 
     def test_empty_technology_string_returns_none(self):
         assert _fuzzy_match_technology("", list(standard_color_dict.keys())) is None

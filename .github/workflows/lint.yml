@@ -1,0 +1,28 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install linters
+        run: pip install black ruff
+
+      # Formatting is enforced (black) and lint is deliberately minimal —
+      # only bug-catching rules, configured in [tool.ruff] in pyproject.toml.
+      - name: black --check
+        run: black --check src/gat tests
+
+      - name: ruff check
+        run: ruff check src/gat tests

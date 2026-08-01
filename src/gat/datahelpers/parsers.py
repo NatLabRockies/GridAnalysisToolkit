@@ -15,24 +15,26 @@ from glob import iglob
 import h5py
 from loguru import logger
 
+
 def decode_value(input):
     t = type(input)
-    if t == bytes or t ==np.bytes_:
+    if t == bytes or t == np.bytes_:
         return input.decode()
     else:
         return input
 
+
 def reduce_plexos_input(plexos_data):
 
-    if type(plexos_data) ==str:
+    if type(plexos_data) == str:
         paths = get_plexos_paths(plexos_data)
     elif type(plexos_data) == list:
         paths = plexos_data
 
     return paths
 
-def combine_frames_skip_prev(frames: pd.DataFrame) -> pd.DataFrame:
 
+def combine_frames_skip_prev(frames: pd.DataFrame) -> pd.DataFrame:
     """
     Combine multiple time-indexed dataframes, dropping rows from later
     frames whose timestamps are already present in earlier frames.
@@ -75,10 +77,10 @@ def combine_frames_skip_prev(frames: pd.DataFrame) -> pd.DataFrame:
     if len(frame_dict) == 1:
         agg_df = frames[0]
     else:
-    # Filter each frame to exclude overlapping timestamps
+        # Filter each frame to exclude overlapping timestamps
         for i in range(1, len(end_dates)):
 
-            prev_date = end_dates[i-1]
+            prev_date = end_dates[i - 1]
             curr_end = end_dates[i]
 
             curr_df = frame_dict[curr_end]
@@ -94,57 +96,71 @@ def combine_frames_skip_prev(frames: pd.DataFrame) -> pd.DataFrame:
 
 def read_h5_data(file_path, key):
 
-    with h5py.File(file_path,'r') as h5data:
+    with h5py.File(file_path, "r") as h5data:
 
         return h5data[key][()]
 
-def extract_h5_group(file_path: str, schedule: str, freq:str, group:str, datasets=None, dtype='float32'):
 
+def extract_h5_group(
+    file_path: str, schedule: str, freq: str, group: str, datasets=None, dtype="float32"
+):
     """
-        Extracts and h5 group of datasets from a single h5 file
-        Expects and h5 file that was generated from an xml Plexos Solution
+    Extracts and h5 group of datasets from a single h5 file
+    Expects and h5 file that was generated from an xml Plexos Solution
     """
 
-    with h5py.File(file_path, 'r') as h5data:
+    with h5py.File(file_path, "r") as h5data:
 
         # headers are in either metadata/object or metadata/relations
-        relations = [key for key in  h5data[f'/metadata/relations'].keys()]
+        relations = [key for key in h5data[f"/metadata/relations"].keys()]
 
-        sub = 'objects'
+        sub = "objects"
         if group in relations:
-            sub = 'relations'
+            sub = "relations"
 
-        headers = h5data[f'/metadata/{sub}/{group}'][()]
+        headers = h5data[f"/metadata/{sub}/{group}"][()]
 
         # split relation name, otherwise group name + "category"
         if group in relations:
-            header_names = group.split('_')
+            header_names = group.split("_")
         else:
-            header_names = [group, 'category']
+            header_names = [group, "category"]
 
         # get the timestamps
-        timestamps = h5data[f'/metadata/times/{freq}'][()]
+        timestamps = h5data[f"/metadata/times/{freq}"][()]
         timestamps = pd.to_datetime([val.decode() for val in timestamps])
 
         # check if datasets are available
         if datasets:
-            datasets = [key for key in h5data[f'/data/{schedule}/{freq}/{group}'].keys() if key in datasets]
+            datasets = [
+                key
+                for key in h5data[f"/data/{schedule}/{freq}/{group}"].keys()
+                if key in datasets
+            ]
         else:
-            datasets = [key for key in h5data[f'/data/{schedule}/{freq}/{group}'].keys()]
+            datasets = [
+                key for key in h5data[f"/data/{schedule}/{freq}/{group}"].keys()
+            ]
 
-        group_data = [] #
+        group_data = []  #
 
         for d in datasets:
 
-            attributes = h5data[f'/data/{schedule}/{freq}/{group}/{d}'].attrs
+            attributes = h5data[f"/data/{schedule}/{freq}/{group}/{d}"].attrs
 
-            units = decode_value(attributes['units'])
-            period_offset = attributes['period_offset']
+            units = decode_value(attributes["units"])
+            period_offset = attributes["period_offset"]
 
-            new_headers = pd.MultiIndex.from_tuples([(f'{d} ({units})', decode_value(r[0]), decode_value(r[1])) for r in headers], names=['dataset']+header_names)
+            new_headers = pd.MultiIndex.from_tuples(
+                [
+                    (f"{d} ({units})", decode_value(r[0]), decode_value(r[1]))
+                    for r in headers
+                ],
+                names=["dataset"] + header_names,
+            )
 
-            data = h5data[f'/data/{schedule}/{freq}/{group}/{d}'][()]
-            timewindow = timestamps[period_offset:period_offset+data.shape[1]]
+            data = h5data[f"/data/{schedule}/{freq}/{group}/{d}"][()]
+            timewindow = timestamps[period_offset : period_offset + data.shape[1]]
 
             tshape = timewindow.shape
             sdata = data.squeeze()
@@ -167,42 +183,43 @@ def extract_h5_group(file_path: str, schedule: str, freq:str, group:str, dataset
 
             group_data.append(df)
 
-            df.columns.name = 'DateTime'
-
+            df.columns.name = "DateTime"
 
     all_df = pd.concat(group_data)
 
     return all_df
 
 
-
-def extract_h5_data(file_path: str, schedule: str, freq:str, group:str, dataset:str, dtype='float32'):
-
+def extract_h5_data(
+    file_path: str, schedule: str, freq: str, group: str, dataset: str, dtype="float32"
+):
     """
-        Takes a single h5 file and
-        extracts a dataset
+    Takes a single h5 file and
+    extracts a dataset
 
-        This method acts as a base function that provides the underlying datasets
-        without much modification /aggregation
+    This method acts as a base function that provides the underlying datasets
+    without much modification /aggregation
     """
 
-    df = extract_h5_group(file_path, schedule, freq, group, datasets=[dataset], dtype=dtype)
+    df = extract_h5_group(
+        file_path, schedule, freq, group, datasets=[dataset], dtype=dtype
+    )
     return df
 
 
-def get_plexos_paths(plexos_dir: str) ->  list:
+def get_plexos_paths(plexos_dir: str) -> list:
 
     files = iglob(f"{plexos_dir}/*.h5")
     file_paths = [os.path.normpath(file) for file in files]
     return file_paths
 
 
-
-def agg_plexos_dataset(plexos_data: [list,str], schedule: str, freq:str, group:str, dataset:str):
-
+def agg_plexos_dataset(
+    plexos_data: [list, str], schedule: str, freq: str, group: str, dataset: str
+):
     """
-        Input: directory of h5 files
-        Output: dataframe of combined files
+    Input: directory of h5 files
+    Output: dataframe of combined files
     """
 
     paths = reduce_plexos_input(plexos_data)
@@ -214,17 +231,22 @@ def agg_plexos_dataset(plexos_data: [list,str], schedule: str, freq:str, group:s
 
         frames.append(df)
 
-    if freq =='year':
+    if freq == "year":
         agg_df = pd.concat(frames).drop_duplicates()
     else:
         agg_df = combine_frames_skip_prev(frames)
 
-
     return agg_df
 
 
-def agg_plexos_parallel(plexos_data: [list, str], schedule: str, freq: str, group: str, datasets=None,
-                        max_workers: int = None) -> pd.DataFrame:
+def agg_plexos_parallel(
+    plexos_data: [list, str],
+    schedule: str,
+    freq: str,
+    group: str,
+    datasets=None,
+    max_workers: int = None,
+) -> pd.DataFrame:
     """Aggregate a plexos h5 dataset across multiple solution files.
 
     Reads each file's `extract_h5_group(...)` result in parallel using a
@@ -261,7 +283,9 @@ def agg_plexos_parallel(plexos_data: [list, str], schedule: str, freq: str, grou
 
     if len(paths) <= 1:
         # Single file (or nothing to aggregate) — skip the executor overhead.
-        frames = [extract_h5_group(path, schedule, freq, group, datasets) for path in paths]
+        frames = [
+            extract_h5_group(path, schedule, freq, group, datasets) for path in paths
+        ]
     else:
         workers = min(max_workers or os.cpu_count() or 1, len(paths))
         # `frames_by_index` preserves source-file order across asynchronous
@@ -271,7 +295,9 @@ def agg_plexos_parallel(plexos_data: [list, str], schedule: str, freq: str, grou
         try:
             with ProcessPoolExecutor(max_workers=workers) as ex:
                 future_to_index = {
-                    ex.submit(extract_h5_group, path, schedule, freq, group, datasets): i
+                    ex.submit(
+                        extract_h5_group, path, schedule, freq, group, datasets
+                    ): i
                     for i, path in enumerate(paths)
                 }
                 for fut in as_completed(future_to_index):
@@ -283,9 +309,13 @@ def agg_plexos_parallel(plexos_data: [list, str], schedule: str, freq: str, grou
             # or h5py-version mismatches between worker processes.
             logger.warning(
                 "agg_plexos_parallel: parallel read failed ({}); "
-                "falling back to sequential.", e,
+                "falling back to sequential.",
+                e,
             )
-            frames = [extract_h5_group(path, schedule, freq, group, datasets) for path in paths]
+            frames = [
+                extract_h5_group(path, schedule, freq, group, datasets)
+                for path in paths
+            ]
 
     # transpose the results once finished
     framesT = [df.T for df in frames]
@@ -295,7 +325,6 @@ def agg_plexos_parallel(plexos_data: [list, str], schedule: str, freq: str, grou
 
     # return Transposed data (column for each timestamp)
     return agg_df.T
-
 
 
 def parse_h5_map(file_path, metadata_path, reverse=False):
@@ -315,27 +344,26 @@ def get_h5_map(file_path, h5_path, reverse=False):
 
 def get_h5_gen_tech_map(file_path):
 
-    return parse_h5_map(file_path, 'metadata/objects/generators')
+    return parse_h5_map(file_path, "metadata/objects/generators")
 
 
 def get_h5_gen_zone_map(file_path):
 
-    return parse_h5_map(file_path, 'metadata/relations/zones_generators', reverse=True)
-
+    return parse_h5_map(file_path, "metadata/relations/zones_generators", reverse=True)
 
 
 def get_h5_gen_region_map(file_path):
 
-    return parse_h5_map(file_path, 'metadata/relations/regions_generators', reverse=True)
+    return parse_h5_map(
+        file_path, "metadata/relations/regions_generators", reverse=True
+    )
+
 
 def get_h5_region_region_map(file_path):
     # identity map for regional load
-    map = parse_h5_map(file_path, 'metadata/objects/regions')
-    new_map = {key:key for key in map.keys()}
+    map = parse_h5_map(file_path, "metadata/objects/regions")
+    new_map = {key: key for key in map.keys()}
     return new_map
-
-
-
 
 
 def get_h5_region_zone_map(file_path):
@@ -350,4 +378,3 @@ def get_h5_region_zone_map(file_path):
         region_zone_map[region] = zone
 
     return region_zone_map
-

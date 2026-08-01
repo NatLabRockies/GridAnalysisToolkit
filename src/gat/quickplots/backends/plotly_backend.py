@@ -16,7 +16,6 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-
 # Plotly line-dash mapping from matplotlib linestyle conventions
 _DASH_MAP = {
     "-": "solid",
@@ -281,11 +280,7 @@ class PlotlyBackend:
         )
         # Return (fig, list of (row, col) tuples) to parallel matplotlib's
         # (fig, axes_array) pattern.
-        cells = [
-            (r, c)
-            for r in range(1, nrows + 1)
-            for c in range(1, ncols + 1)
-        ]
+        cells = [(r, c) for r in range(1, nrows + 1) for c in range(1, ncols + 1)]
         return fig, cells
 
     # ------------------------------------------------------------------ #

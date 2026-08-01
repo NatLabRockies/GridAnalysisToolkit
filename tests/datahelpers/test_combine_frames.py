@@ -13,6 +13,7 @@ Semantics (probed against the implementation):
 - A single-frame input is returned unchanged (same object).
 - A no-overlap case is just a sorted concat.
 """
+
 import pandas as pd
 import pytest
 
@@ -109,7 +110,9 @@ def test_two_frames_full_overlap_smaller_inside_larger():
     before B's max but contains rows beyond it, A keeps those rows and B
     keeps everything (B is "first" in time-sorted order, processed first).
     """
-    a = _ts_frame(["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-04"], [1, 2, 3, 4])
+    a = _ts_frame(
+        ["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-04"], [1, 2, 3, 4]
+    )
     b = _ts_frame(["2020-01-02", "2020-01-03"], [99, 99])
     out = combine_frames_skip_prev([a, b])
     # A's max (01-04) > B's max (01-03), so A is processed second and filtered

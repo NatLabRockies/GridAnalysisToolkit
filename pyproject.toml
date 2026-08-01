@@ -80,6 +80,13 @@ testpaths = ["tests"]
 
 [tool.black]
 line-length = 88
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+# Deliberately minimal at adoption: only rules that catch genuine bugs
+# (syntax errors, undefined names, malformed comparisons) — no style
+# opinions beyond black. Broaden incrementally as the codebase settles.
+lint.select = ["E9", "F63", "F7", "F82"]
 
 [tool.isort]
 profile = "black"

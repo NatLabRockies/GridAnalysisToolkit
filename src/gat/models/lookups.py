@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Union,  Any, TYPE_CHECKING
+from typing import List, Optional, Dict, Union, Any, TYPE_CHECKING
 from pathlib import Path
 from abc import ABC, abstractmethod
 import pandas as pd
@@ -7,6 +7,7 @@ import pandas as pd
 if TYPE_CHECKING:
     import geopandas as gpd
 # Lookup types = Area-Area, Node-Area, Node-Geometry, SiennaBusLookup
+
 
 class BaseRelationLookup(BaseModel, ABC):
     file_path: str
@@ -20,16 +21,18 @@ class BaseRelationLookup(BaseModel, ABC):
 
     def __str__(self) -> str:
         """Custom string representation for better debugging"""
-        return (f"{self.__class__.__name__}("
+        return (
+            f"{self.__class__.__name__}("
             f"file='{self.file_path}', "
             f"source='{self.source_value}', "
             f"target='{self.target_value}', "
             f"type='{self.lookup_type}', "
-            f"available_values={self.available_values})")
+            f"available_values={self.available_values})"
+        )
 
     @classmethod
     @abstractmethod
-    def from_file(cls, file_path: Union[str, Path], source_value: Optional[str]=None):
+    def from_file(cls, file_path: Union[str, Path], source_value: Optional[str] = None):
         """Initializes the lookup class from a file
         must be implemented in a concrete class
         """
@@ -51,7 +54,9 @@ class BaseRelationLookup(BaseModel, ABC):
         if val in self._available_values:
             self.target_value = val
         else:
-            print(f"Error setting target_value={val}, use one of the following {self._available_values}")
+            print(
+                f"Error setting target_value={val}, use one of the following {self._available_values}"
+            )
 
     @property
     def source_value(self) -> str:
@@ -78,6 +83,7 @@ class FileAreaLookup(BaseRelationLookup):
     """
     Maps the BaseScenario default Area to another Area using a flat file
     """
+
     lookup_type: str = "Area-Area"
 
     @classmethod
@@ -92,11 +98,11 @@ class FileAreaLookup(BaseRelationLookup):
         file_path = str(file_path)
 
         # Read file based on extension
-        if file_path.endswith('.csv'):
+        if file_path.endswith(".csv"):
             df = pd.read_csv(file_path)
-        elif file_path.endswith('.parquet'):
+        elif file_path.endswith(".parquet"):
             df = pd.read_parquet(file_path)
-        elif file_path.endswith(('.xlsx', '.xls')):
+        elif file_path.endswith((".xlsx", ".xls")):
             df = pd.read_excel(file_path)
         else:
             raise ValueError(f"Unsupported file format: {file_path}")
@@ -110,7 +116,7 @@ class FileAreaLookup(BaseRelationLookup):
             source_value=source_value,
             target_value=available_values[0] if available_values else "",
             available_values=available_values,
-            lookup_type="Area-Area"
+            lookup_type="Area-Area",
         )
 
     def map_to_area(self, input_array: List[Any]) -> Dict[Union[str, int], str]:
@@ -118,11 +124,11 @@ class FileAreaLookup(BaseRelationLookup):
         import pandas as pd
 
         # Read the mapping file
-        if self._file_path.endswith('.csv'):
+        if self._file_path.endswith(".csv"):
             df = pd.read_csv(self.file_path)
-        elif self._file_path.endswith('.parquet'):
+        elif self._file_path.endswith(".parquet"):
             df = pd.read_parquet(self.file_path)
-        elif self._file_path.endswith(('.xlsx', '.xls')):
+        elif self._file_path.endswith((".xlsx", ".xls")):
             df = pd.read_excel(self.file_path)
 
         # Create mapping dictionary
@@ -130,7 +136,9 @@ class FileAreaLookup(BaseRelationLookup):
         for item in input_array:
             # Find the item in the source column and get its target value
             if item in df[self._source_value].values:
-                result[item] = df.loc[df[self._source_value] == item, self._target_value].iloc[0]
+                result[item] = df.loc[
+                    df[self._source_value] == item, self._target_value
+                ].iloc[0]
             else:
                 result[item] = None
 
@@ -139,6 +147,7 @@ class FileAreaLookup(BaseRelationLookup):
 
 class SiennaAreaLookup(BaseRelationLookup):
     """Specialized lookup for Sienna areas"""
+
     source_value: str = "SYSTEM_DEFAULT"  # This should never change
     target_value: str = "SYSTEM_DEFAULT"
     available_values: List[str] = ["SYSTEM_DEFAULT"]
@@ -159,7 +168,7 @@ class SiennaAreaLookup(BaseRelationLookup):
             source_value="SYSTEM_DEFAULT",
             target_value="SYSTEM_DEFAULT",
             available_values=["SYSTEM_DEFAULT"],
-            lookup_type="SiennaBusLookup"
+            lookup_type="SiennaBusLookup",
         )
 
     def map_to_area(self, input_array: List[Any]) -> Dict[Union[str, int], str]:
@@ -171,10 +180,13 @@ class SiennaAreaLookup(BaseRelationLookup):
 
 class GeoAreaLookup(BaseRelationLookup):
     """Geospatial lookup for mapping between geometries and areas"""
+
     lookup_type: str = "Node-Geometry"
 
     @classmethod
-    def from_file(cls, file_path: Union[str, Path], source_value: Optional[str] = "geometry"):
+    def from_file(
+        cls, file_path: Union[str, Path], source_value: Optional[str] = "geometry"
+    ):
         """
         Reads the geospatial file and sets available values and default target.
         """
@@ -193,7 +205,7 @@ class GeoAreaLookup(BaseRelationLookup):
                 source_value=source_value or "geometry",
                 target_value=available_values[0] if available_values else "",
                 available_values=available_values,
-                lookup_type="Node-Geometry"
+                lookup_type="Node-Geometry",
             )
         except Exception as e:
             print(f"Error loading GeoPackage: {e}")
@@ -203,7 +215,7 @@ class GeoAreaLookup(BaseRelationLookup):
                 source_value=source_value or "geometry",
                 target_value="",
                 available_values=[],
-                lookup_type="Node-Geometry"
+                lookup_type="Node-Geometry",
             )
 
     def map_to_area(self, input_arr: List[Any]) -> Dict[Union[str, int], str]:
@@ -222,7 +234,7 @@ class GeoAreaLookup(BaseRelationLookup):
         nodes_df = gpd.GeoDataFrame(
             data=[item[0] for item in input_arr],  # node IDs
             geometry=[item[1] for item in input_arr],  # geometries
-            columns=["node_id"]
+            columns=["node_id"],
         )
 
         # Read the target layer
@@ -244,14 +256,15 @@ class GeoAreaLookup(BaseRelationLookup):
                 result[row["node_id"]] = None
 
         return result
+
     def attach_spatial_attributes(
         self,
         source_gdf: "gpd.GeoDataFrame",
         layer_name: str = None,
         attribute_column: str = None,
-        join_type: str = 'left',
-        predicate: str = 'within'
-        ) -> "gpd.GeoDataFrame":
+        join_type: str = "left",
+        predicate: str = "within",
+    ) -> "gpd.GeoDataFrame":
         """
         Performs a spatial join between a source GeoDataFrame and a target layer from a geospatial file.
         Then attaches specified attributes from the target layer to the source GeoDataFrame.
@@ -284,28 +297,38 @@ class GeoAreaLookup(BaseRelationLookup):
             attribute_column = target_gdf.columns[0]
 
         # Ensure CRS compatibility
-        if source_gdf.crs != target_gdf.crs and source_gdf.crs is not None and target_gdf.crs is not None:
+        if (
+            source_gdf.crs != target_gdf.crs
+            and source_gdf.crs is not None
+            and target_gdf.crs is not None
+        ):
             target_gdf = target_gdf.to_crs(source_gdf.crs)
 
-
         # Perform spatial join
-        joined_gdf = gpd.sjoin(source_gdf, target_gdf[[attribute_column, 'geometry']],
-                              how=join_type, predicate=predicate)
+        joined_gdf = gpd.sjoin(
+            source_gdf,
+            target_gdf[[attribute_column, "geometry"]],
+            how=join_type,
+            predicate=predicate,
+        )
 
         # Rename the joined column for clarity
         if f"{attribute_column}_right" in joined_gdf.columns:
-            joined_gdf = joined_gdf.rename(columns={f"{attribute_column}_right": f"area_{attribute_column}"})
+            joined_gdf = joined_gdf.rename(
+                columns={f"{attribute_column}_right": f"area_{attribute_column}"}
+            )
 
         # Drop the index_right column from the spatial join
-        if 'index_right' in joined_gdf.columns:
-            joined_gdf = joined_gdf.drop(columns=['index_right'])
+        if "index_right" in joined_gdf.columns:
+            joined_gdf = joined_gdf.drop(columns=["index_right"])
 
-        return joined_gdf.rename(columns={attribute_column:'Area'})
+        return joined_gdf.rename(columns={attribute_column: "Area"})
 
-    def get_layer_gdf(self, layer_name: str=None)->"gpd.GeoDataFrame":
+    def get_layer_gdf(self, layer_name: str = None) -> "gpd.GeoDataFrame":
 
         import geopandas as gpd
-                # Read the target layer
+
+        # Read the target layer
         if layer_name:
             target_gdf = gpd.read_file(self.file_path, layer=layer_name)
         else:

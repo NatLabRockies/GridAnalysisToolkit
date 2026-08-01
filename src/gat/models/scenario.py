@@ -21,7 +21,9 @@ def _tokenize_technology(name: str) -> set:
     return set(t for t in re.split(r"[-_\s]+", name.lower()) if t)
 
 
-def _fuzzy_match_technology(model_technology: str, candidates: List[str]) -> Optional[str]:
+def _fuzzy_match_technology(
+    model_technology: str, candidates: List[str]
+) -> Optional[str]:
     """Token-overlap match against known display groups.
 
     Model technology naming is backend- and even model-specific (PLEXOS
@@ -286,9 +288,9 @@ class ScenarioConfig(BaseModel):
         # Sort technologies by display_order
         sorted_techs = sorted(
             self.technology_mappings.values(),
-            key=lambda tech: tech.display_order
-            if tech.display_order is not None
-            else float("inf"),
+            key=lambda tech: (
+                tech.display_order if tech.display_order is not None else float("inf")
+            ),
         )
 
         # Create a dictionary with display_group as key and display_color as value

@@ -6,7 +6,6 @@ from typing import Any, Optional
 
 from loguru import logger
 
-
 REGISTRY_SCHEMA = "_gat_registry"
 REGISTRY_TABLE = f"{REGISTRY_SCHEMA}.scenarios"
 PROJECT_GEO_TABLE = f"{REGISTRY_SCHEMA}.project_geo"
@@ -115,11 +114,22 @@ def register_scenario(
              source_paths, status, is_default)
         VALUES (?, ?, ?, ?, ?, now(), ?, ?, ?)
         """,
-        [project, scenario, model, handler, schema_name, source_paths, status, is_default],
+        [
+            project,
+            scenario,
+            model,
+            handler,
+            schema_name,
+            source_paths,
+            status,
+            is_default,
+        ],
     )
 
 
-def set_status(conn: Any, project: str, scenario: str, status: str, model: Optional[str] = None) -> None:
+def set_status(
+    conn: Any, project: str, scenario: str, status: str, model: Optional[str] = None
+) -> None:
     """Update the status of a scenario+model. When ``model`` is None,
     update every row for the scenario — useful for bulk error states
     on a failed parse."""
@@ -144,7 +154,9 @@ def list_scenarios(conn: Any) -> list[dict]:
     return df.to_dict(orient="records")
 
 
-def get_scenario(conn: Any, project: str, scenario: str, model: Optional[str] = None) -> Optional[dict]:
+def get_scenario(
+    conn: Any, project: str, scenario: str, model: Optional[str] = None
+) -> Optional[dict]:
     """Get a single (project, scenario, model) registry row.
 
     When ``model`` is None, returns the default-flagged row, or the
@@ -210,8 +222,14 @@ def upsert_project_geo(
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, now())
         """,
         [
-            project, bus_id_field, bus_id_column, lat_column, lon_column,
-            source_filename, bus_count, unmatched_count,
+            project,
+            bus_id_field,
+            bus_id_column,
+            lat_column,
+            lon_column,
+            source_filename,
+            bus_count,
+            unmatched_count,
         ],
     )
 
@@ -227,7 +245,9 @@ def get_project_geo(conn: Any, project: str) -> Optional[dict]:
     return df.iloc[0].to_dict()
 
 
-def delete_scenario(conn: Any, project: str, scenario: str, model: Optional[str] = None) -> bool:
+def delete_scenario(
+    conn: Any, project: str, scenario: str, model: Optional[str] = None
+) -> bool:
     """Delete a (project, scenario) — by default every model's schema +
     its registry rows. Pass ``model`` to delete only one model's
     schema/row, leaving siblings intact.
@@ -242,8 +262,13 @@ def delete_scenario(conn: Any, project: str, scenario: str, model: Optional[str]
             f"WHERE project = ? AND scenario = ? AND model = ?",
             [project, scenario, model],
         )
-        logger.info("Deleted scenario {}/{} model={} (schema: {})",
-                    project, scenario, model, entry["schema_name"])
+        logger.info(
+            "Deleted scenario {}/{} model={} (schema: {})",
+            project,
+            scenario,
+            model,
+            entry["schema_name"],
+        )
         return True
 
     rows = conn.execute(

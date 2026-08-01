@@ -7,6 +7,7 @@ after an intentional change, run:
 
 Snapshots are stored under tests/handlers/test_plexos_regression/.
 """
+
 import pandas as pd
 import pytest
 
@@ -30,12 +31,14 @@ def _summary(df: pd.DataFrame) -> pd.DataFrame:
     """Per-column summary: useful when full-row snapshots are noisy or huge."""
     flat = _flatten_columns(df)
     numeric = flat.select_dtypes(include="number")
-    out = pd.DataFrame({
-        "sum": numeric.sum(),
-        "min": numeric.min(),
-        "max": numeric.max(),
-        "mean": numeric.mean(),
-    }).reset_index(names="column")
+    out = pd.DataFrame(
+        {
+            "sum": numeric.sum(),
+            "min": numeric.min(),
+            "max": numeric.max(),
+            "mean": numeric.mean(),
+        }
+    ).reset_index(names="column")
     return out.sort_values("column").reset_index(drop=True)
 
 
@@ -52,7 +55,9 @@ def test_get_gen_and_curtailment_summary(plexos_scenario, dataframe_regression):
     dataframe_regression.check(_summary(df), default_tolerance=TOL)
 
 
-def test_get_area_dispatch_user_reproducer_summary(plexos_scenario, dataframe_regression):
+def test_get_area_dispatch_user_reproducer_summary(
+    plexos_scenario, dataframe_regression
+):
     """Bug-fix regression: the exact call the user (ecooper) was running."""
     df = plexos_scenario.get_area_dispatch(include_load=False, include_charging=False)
     dataframe_regression.check(_summary(df), default_tolerance=TOL)
@@ -83,10 +88,14 @@ def test_get_area_unserved_summary(plexos_scenario, dataframe_regression):
 
 def test_get_line_loading_summary(plexos_scenario, dataframe_regression):
     df = plexos_scenario.get_line_loading()
-    dataframe_regression.check(_summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3})
+    dataframe_regression.check(
+        _summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3}
+    )
 
 
-@pytest.mark.skip(reason="get_peak_stats has a pre-existing KeyError on 'Total Demand' for this fixture; unrelated to Phase 1")
+@pytest.mark.skip(
+    reason="get_peak_stats has a pre-existing KeyError on 'Total Demand' for this fixture; unrelated to Phase 1"
+)
 def test_get_peak_stats(plexos_scenario, dataframe_regression):
     df = plexos_scenario.get_peak_stats()
     dataframe_regression.check(_flatten_columns(df), default_tolerance=TOL)
@@ -136,7 +145,9 @@ def test_get_line_flow_summary(plexos_scenario, dataframe_regression):
     `get_flow()` is an alias of this method (deprecated) — covered via this test.
     """
     df = plexos_scenario.get_line_flow()
-    dataframe_regression.check(_summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3})
+    dataframe_regression.check(
+        _summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3}
+    )
 
 
 def test_get_line_utilization_summary(plexos_scenario, dataframe_regression):
@@ -144,12 +155,16 @@ def test_get_line_utilization_summary(plexos_scenario, dataframe_regression):
     Tolerances loosened slightly to absorb floating-point drift in the
     percentile bucketing."""
     df = plexos_scenario.get_line_utilization()
-    dataframe_regression.check(_summary(df), default_tolerance={"rtol": 1e-5, "atol": 1e-3})
+    dataframe_regression.check(
+        _summary(df), default_tolerance={"rtol": 1e-5, "atol": 1e-3}
+    )
 
 
 def test_get_line_congestion_hours_summary(plexos_scenario, dataframe_regression):
     df = plexos_scenario.get_line_congestion_hours()
-    dataframe_regression.check(_summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3})
+    dataframe_regression.check(
+        _summary(df), default_tolerance={"rtol": 1e-6, "atol": 1e-3}
+    )
 
 
 def test_get_unserved_summary(plexos_scenario, dataframe_regression):

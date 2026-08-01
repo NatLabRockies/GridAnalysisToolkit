@@ -16,7 +16,10 @@ from loguru import logger
 from gat.models.scenario import ScenarioConfig, load_config
 
 from ..datahelpers.sienna import SiennaSystemParser
-from ..simulations import SimulationAggregator, SiennaSimulationParser as _SiennaSimParser
+from ..simulations import (
+    SimulationAggregator,
+    SiennaSimulationParser as _SiennaSimParser,
+)
 from .base import BaseScenario, gc
 from .config_maps import sienna_standard_map
 from .multi import MultiScenario
@@ -122,6 +125,7 @@ class SiennaScenario(BaseScenario):
             Deprecated. Use ``simulation_files`` instead.
         """
         from ._deprecation import warn_legacy_handler
+
         warn_legacy_handler(self)
         from .base import _resolve_simulation_files
 
@@ -182,7 +186,9 @@ class SiennaScenario(BaseScenario):
 
         # Initialize Sienna-specific configuration
         if self.config.system_config is None and self.system is not None:
-            from gat.models.sienna import initialize_sienna_system_config as initialize_sienna_config
+            from gat.models.sienna import (
+                initialize_sienna_system_config as initialize_sienna_config,
+            )
 
             self.config.system_config = initialize_sienna_config(
                 self.system.data_format_version
@@ -210,7 +216,9 @@ class SiennaScenario(BaseScenario):
         # Prefer h5 group attrs over sys.json for simulation-side scaling: the
         # simulation may have been run with a different per-unit base than the
         # system was serialized with. Fall back to the sys.json value (above).
-        if self.parser is not None and hasattr(self.parser, "get_decision_model_base_power"):
+        if self.parser is not None and hasattr(
+            self.parser, "get_decision_model_base_power"
+        ):
             try:
                 bp = self.parser.get_decision_model_base_power("UC")
                 if bp is not None:

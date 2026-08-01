@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from .base import BaseScenario
 
 
-class MultiScenario():
+class MultiScenario:
     """
     Class for handling multiple scenarios with a familiar API.
 
@@ -34,15 +34,17 @@ class MultiScenario():
         :param scenarios: A dictionary mapping a display name (str) to a scenario object (BaseScenario).
         """
         from ._deprecation import warn_legacy_handler
-        warn_legacy_handler(self)
-        self.scenarios = scenarios # Dict of scenario display name, scenario obj
 
+        warn_legacy_handler(self)
+        self.scenarios = scenarios  # Dict of scenario display name, scenario obj
 
         pass
 
     # multi-scenario functions
 
-    def add_scenario(self, scenario_obj: "BaseScenario", display_name: Optional[str] = None):
+    def add_scenario(
+        self, scenario_obj: "BaseScenario", display_name: Optional[str] = None
+    ):
         """
         Adds a scenario to the MultiScenario object.
 
@@ -51,7 +53,9 @@ class MultiScenario():
         """
         if display_name is None:
             if not scenario_obj.display_name:
-                raise ValueError("Cannot add scenario: no display_name provided and scenario has no display_name attribute")
+                raise ValueError(
+                    "Cannot add scenario: no display_name provided and scenario has no display_name attribute"
+                )
             display_name = scenario_obj.display_name
 
         self.scenarios[display_name] = scenario_obj
@@ -114,23 +118,32 @@ class MultiScenario():
                 if isinstance(result_df.columns, pd.MultiIndex):
                     # Add scenario as the outermost level to the existing MultiIndex
                     new_columns = pd.MultiIndex.from_tuples(
-                        [(display_name,) + col if isinstance(col, tuple) else (display_name, col)
-                         for col in result_df.columns],
-                        names=['Scenario'] + list(result_df.columns.names)
+                        [
+                            (
+                                (display_name,) + col
+                                if isinstance(col, tuple)
+                                else (display_name, col)
+                            )
+                            for col in result_df.columns
+                        ],
+                        names=["Scenario"] + list(result_df.columns.names),
                     )
                     result_df.columns = new_columns
                 else:
                     # For simple column indexes, create new MultiIndex with scenario as first level
                     new_columns = pd.MultiIndex.from_tuples(
                         [(display_name, col) for col in result_df.columns],
-                        names=['Scenario', 'Component']
+                        names=["Scenario", "Component"],
                     )
                     result_df.columns = new_columns
 
                 frames.append(result_df)
             else:
                 import warnings
-                warnings.warn(f"Scenario '{display_name}' returned no data for method '{method_name}'")
+
+                warnings.warn(
+                    f"Scenario '{display_name}' returned no data for method '{method_name}'"
+                )
 
         if frames:
             # Combine all DataFrames along columns (axis=1)
@@ -157,7 +170,7 @@ class MultiScenario():
             A DataFrame of generation data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_generation')
+        return self._concat_gat_df("get_generation")
 
     def get_generators_tech(self):
         """
@@ -167,7 +180,7 @@ class MultiScenario():
             A DataFrame of generation data with technology for all scenarios,
             with an added 'Scenario' level in the column index.
         """
-        return self._concat_gat_df('get_generators_tech')
+        return self._concat_gat_df("get_generators_tech")
 
     # Similarly for other methods
     def get_availability(self):
@@ -178,7 +191,7 @@ class MultiScenario():
             A DataFrame of availability data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_availability')
+        return self._concat_gat_df("get_availability")
 
     def get_load(self):
         """
@@ -188,7 +201,7 @@ class MultiScenario():
             A DataFrame of load data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_load')
+        return self._concat_gat_df("get_load")
 
     def get_production_cost(self):
         """
@@ -198,7 +211,7 @@ class MultiScenario():
             A DataFrame of production cost data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_production_cost')
+        return self._concat_gat_df("get_production_cost")
 
     def get_generation_capacity(self):
         """
@@ -208,8 +221,9 @@ class MultiScenario():
             A DataFrame of generation capacity data for all scenarios, with 'Scenario'
             as an additional column.
         """
-        return self._concat_gat_df('get_generation_capacity').stack(level='Scenario', future_stack=True)
-
+        return self._concat_gat_df("get_generation_capacity").stack(
+            level="Scenario", future_stack=True
+        )
 
     def get_line_flow(self):
         """
@@ -219,7 +233,7 @@ class MultiScenario():
             A DataFrame of line flow data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_line_flow')
+        return self._concat_gat_df("get_line_flow")
 
     def get_storage_charging(self):
         """
@@ -229,7 +243,7 @@ class MultiScenario():
             A DataFrame of storage charging data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_storage_charging')
+        return self._concat_gat_df("get_storage_charging")
 
     def get_unserved(self):
         """
@@ -239,7 +253,7 @@ class MultiScenario():
             A DataFrame of unserved energy data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_unserved')
+        return self._concat_gat_df("get_unserved")
 
     def get_area_dispatch(self):
         """
@@ -249,7 +263,7 @@ class MultiScenario():
             A DataFrame of area dispatch data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_area_dispatch')
+        return self._concat_gat_df("get_area_dispatch")
 
     def get_area_charging(self):
         """
@@ -259,7 +273,7 @@ class MultiScenario():
             A DataFrame of area charging data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_area_charging')
+        return self._concat_gat_df("get_area_charging")
 
     def get_area_unserved(self):
         """
@@ -269,7 +283,7 @@ class MultiScenario():
             A DataFrame of area unserved energy data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_area_unserved')
+        return self._concat_gat_df("get_area_unserved")
 
     def get_system_dispatch(self):
         """
@@ -279,4 +293,4 @@ class MultiScenario():
             A DataFrame of system dispatch data for all scenarios, with an added 'Scenario'
             level in the column index.
         """
-        return self._concat_gat_df('get_system_dispatch')
+        return self._concat_gat_df("get_system_dispatch")

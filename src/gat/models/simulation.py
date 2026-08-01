@@ -4,7 +4,7 @@ SimulationFile -> Pydantic model for opening, listing and reading available data
 SimulationDataset -> a singular dataset with units and scaling factor.
 
 Simulation -> Multiple SimulationFile object (concrete implementation handled by gat. plugin backend system supported.
-handles parallelism. Merges data into a duckdb database as a cache. 
+handles parallelism. Merges data into a duckdb database as a cache.
 )
 
 

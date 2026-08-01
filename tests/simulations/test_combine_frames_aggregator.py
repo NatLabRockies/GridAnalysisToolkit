@@ -10,6 +10,7 @@ require real files) by constructing the instance via ``__new__`` and
 calling the method directly. This is a unit test of the combine logic,
 not an integration test of the full aggregator.
 """
+
 import pandas as pd
 import pytest
 

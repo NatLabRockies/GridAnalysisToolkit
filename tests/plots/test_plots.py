@@ -4,9 +4,10 @@ from glob import glob
 import gat.quickplots as qp
 from utils import *
 
-@pytest.mark.parametrize("handler_type", ['plexos', 'sienna'])
+
+@pytest.mark.parametrize("handler_type", ["plexos", "sienna"])
 def test_plot_bars(handler_type):
-    """ Should plot in order"""
+    """Should plot in order"""
 
     # Test that the legend is in correct order
 
@@ -17,10 +18,7 @@ def test_plot_bars(handler_type):
     assert True
 
 
-
-
-
-@pytest.mark.parametrize("handler_type", ['plexos', 'sienna'])
+@pytest.mark.parametrize("handler_type", ["plexos", "sienna"])
 def test_plot_stacked_area(handler_type):
 
     # Test that the legend is in correct order
@@ -29,11 +27,10 @@ def test_plot_stacked_area(handler_type):
 
     # Test that the load columns map to lines
 
-
     assert True
 
 
-@pytest.mark.parametrize("handler_type", ['plexos', 'sienna'])
+@pytest.mark.parametrize("handler_type", ["plexos", "sienna"])
 def test_area_facets(handler_type):
 
     # Test one area vs many
@@ -41,7 +38,7 @@ def test_area_facets(handler_type):
 
     dispatch = scenario.get_area_dispatch()
 
-    areas = dispatch.columns.get_level_values(level='Area')
+    areas = dispatch.columns.get_level_values(level="Area")
 
     dispatch_single = dispatch[[areas[0]]]
 
@@ -52,7 +49,6 @@ def test_area_facets(handler_type):
     dispatch_multiple = dispatch[areas[0:5]]
 
     qp.facet_area_annual_dispatch(dispatch_multiple)
-
 
     # TODO
     # There should be no empty ax objects.

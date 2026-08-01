@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 @plot_function("BaseScenario", plot_type="transmission")
 def line_loading(scenario: "BaseScenario", subpath="transmission/system/flow-loading"):
 
-
     loading_df = scenario.get_line_loading()
 
     ax = qp.plot_loading_ranked(loading_df)
@@ -18,7 +17,9 @@ def line_loading(scenario: "BaseScenario", subpath="transmission/system/flow-loa
 
 
 @plot_function("BaseScenario", plot_type="transmission")
-def line_utilization(scenario: "BaseScenario", subpath="transmission/system/flow-utilization"):
+def line_utilization(
+    scenario: "BaseScenario", subpath="transmission/system/flow-utilization"
+):
 
     utilization_df = scenario.get_line_utilization()
 
@@ -28,21 +29,29 @@ def line_utilization(scenario: "BaseScenario", subpath="transmission/system/flow
 
 
 @plot_function("BaseScenario", plot_type="transmission")
-def line_congestion(scenario: "BaseScenario", congestion_threshold=100, subpath="transmission/system/flow-congestion"):
+def line_congestion(
+    scenario: "BaseScenario",
+    congestion_threshold=100,
+    subpath="transmission/system/flow-congestion",
+):
 
     congestion_df = scenario.get_line_congestion_hours(congestion_threshold).sum()
 
     ax = qp.plot_ranked_series(congestion_df)
     ax.set_title("Congestion")
-    return(subpath, ax, congestion_df)
+    return (subpath, ax, congestion_df)
 
 
 @plot_function("SiennaScenario", plot_type="transmission")
-def area_interchange_all(scenario: "SiennaScenario", start_date:str=None, end_date:str=None, filter_columns:Optional[List[str]]=None, subpath:str="transmission/system/area-interchange"):
-
+def area_interchange_all(
+    scenario: "SiennaScenario",
+    start_date: str = None,
+    end_date: str = None,
+    filter_columns: Optional[List[str]] = None,
+    subpath: str = "transmission/system/area-interchange",
+):
 
     interchange = scenario.get_area_interchange()
-
 
     if filter_columns is not None:
         interchange = interchange[filter_columns]
@@ -62,8 +71,15 @@ def area_interchange_all(scenario: "SiennaScenario", start_date:str=None, end_da
 
     return (subpath, ax, interchange)
 
+
 @plot_function("SiennaScenario", plot_type="transmission")
-def area_interchange_flow_duration_curve(scenario: "SiennaScenario", start_date:str=None, end_date:str=None, filter_columns:Optional[List[str]]=None, subpath:str="transmission/system/flow-{}"):
+def area_interchange_flow_duration_curve(
+    scenario: "SiennaScenario",
+    start_date: str = None,
+    end_date: str = None,
+    filter_columns: Optional[List[str]] = None,
+    subpath: str = "transmission/system/flow-{}",
+):
 
     interchange = scenario.get_area_interchange()
 
@@ -81,7 +97,7 @@ def area_interchange_flow_duration_curve(scenario: "SiennaScenario", start_date:
     interchange = interchange.loc[start_date:end_date]
 
     for interface in interchange.columns:
-        ax = qp.plot_flow(interchange, interface, label=f'Interface: {interface}')
+        ax = qp.plot_flow(interchange, interface, label=f"Interface: {interface}")
         interface_subpath = subpath.format(interface)
 
         yield (interface_subpath, ax, None)
@@ -90,10 +106,11 @@ def area_interchange_flow_duration_curve(scenario: "SiennaScenario", start_date:
 @plot_function("SiennaScenario", plot_type="transmission")
 def area_interchange_boxplot(
     scenario: "SiennaScenario",
-    start_date:str=None,
-    end_date:str=None,
-    filter_columns:Optional[List[str]]=None,
-    subpath:str="transmission/system/boxplot-area-interchange-{}"):
+    start_date: str = None,
+    end_date: str = None,
+    filter_columns: Optional[List[str]] = None,
+    subpath: str = "transmission/system/boxplot-area-interchange-{}",
+):
 
     interchange = scenario.get_area_interchange()
 
@@ -112,11 +129,17 @@ def area_interchange_boxplot(
 
         interface_subpath = subpath.format(interface)
 
-        yield (interface_subpath,ax, df)
+        yield (interface_subpath, ax, df)
 
 
 @plot_function("SiennaScenario", plot_type="transmission")
-def area_interchange_boxplot_monthly(scenario: "SiennaScenario", start_date:str=None, end_date:str=None, filter_columns:Optional[List[str]]=None, subpath:str="transmission/system/boxplot-monthly-area-interchange-{}"):
+def area_interchange_boxplot_monthly(
+    scenario: "SiennaScenario",
+    start_date: str = None,
+    end_date: str = None,
+    filter_columns: Optional[List[str]] = None,
+    subpath: str = "transmission/system/boxplot-monthly-area-interchange-{}",
+):
 
     interchange = scenario.get_area_interchange()
 

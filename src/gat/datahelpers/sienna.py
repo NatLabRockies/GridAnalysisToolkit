@@ -8,11 +8,14 @@ try:
 
     def _loads(data):
         return _json.loads(data)
+
 except ImportError:
     import json as _json
 
     def _loads(data):
         return _json.loads(data)
+
+
 from typing import TYPE_CHECKING, List, Optional, Union
 
 # TODO move to a relative import since geopandas isn't always required.
@@ -156,7 +159,7 @@ class SiennaH5Parser:
 
                 meta_dict = {val[0]: val[1] for val in keys}
                 return meta_dict
-        except ValueError:
+        except ValueError as e:
             if "Unknown driver" in str(e):
                 print("Core driver is not available, using default")
                 with h5py.File(self.file_path, "r") as h5data:
@@ -201,7 +204,7 @@ class SiennaH5Parser:
 
             df.index.name = "DATETIME"
             return df
-        except ValueError:
+        except ValueError as e:
             if "Unknown driver" in str(e):
                 print("Core driver is not available, using default")
                 with h5py.File(self.file_path, "r") as h5data:
@@ -669,9 +672,11 @@ class SiennaSystemParser:
 # but get a DeprecationWarning pointing at the new name.
 # ----------------------------------------------------------------------------
 
+
 def __getattr__(name):
     if name == "SiennaSimulationParser":
         import warnings as _w
+
         _w.warn(
             "gat.datahelpers.sienna.SiennaSimulationParser is renamed to "
             "SiennaH5Parser. The old name still resolves but will be removed "

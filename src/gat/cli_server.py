@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import click
 
-
 # ============================================================
 # Server commands
 # ============================================================
@@ -18,7 +17,9 @@ def server():
 
 @server.command("start")
 @click.option("--host", default=None, help="Bind address (default: 127.0.0.1)")
-@click.option("--port", "-p", default=None, type=int, help="Listen port (default: 8815)")
+@click.option(
+    "--port", "-p", default=None, type=int, help="Listen port (default: 8815)"
+)
 @click.option("--db", "db_path", default=None, help="Path to DuckDB file")
 @click.option("--token", default=None, help="Auth token (or set GAT_SERVER_AUTH_TOKEN)")
 def server_start(host, port, db_path, token):
@@ -33,7 +34,10 @@ def server_start(host, port, db_path, token):
     from gat.server.config import ServerConfig
 
     config = ServerConfig.from_env(
-        host=host, port=port, db_path=db_path, auth_token=token,
+        host=host,
+        port=port,
+        db_path=db_path,
+        auth_token=token,
     )
 
     click.echo(f"Starting GAT server on {config.host}:{config.port}")
@@ -60,6 +64,7 @@ def server_status(server_url):
 
     try:
         from gat.client import GATClient
+
         client = GATClient(url)
         info = client.health()
         click.echo(f"Server: {url}")
@@ -80,9 +85,16 @@ def server_status(server_url):
 @click.command("push")
 @click.argument("project")
 @click.argument("scenario")
-@click.option("--handler", "-h", required=True, help="Handler type (sienna, reeds, plexos)")
+@click.option(
+    "--handler", "-h", required=True, help="Handler type (sienna, reeds, plexos)"
+)
 @click.option("--system", "system_path", default=None, help="Path to system file")
-@click.option("--simulation", "simulation_paths", multiple=True, help="Path(s) to simulation files")
+@click.option(
+    "--simulation",
+    "simulation_paths",
+    multiple=True,
+    help="Path(s) to simulation files",
+)
 @click.option("--server", "server_url", default=None, help="Server URL")
 def push_cmd(project, scenario, handler, system_path, simulation_paths, server_url):
     """Push a scenario for server-side ingestion."""
@@ -164,7 +176,12 @@ def scenarios_cmd(server_url):
 @click.argument("scenario")
 @click.argument("sql")
 @click.option("--server", "server_url", default=None, help="Server URL")
-@click.option("--format", "output_format", default="table", type=click.Choice(["table", "csv", "json"]))
+@click.option(
+    "--format",
+    "output_format",
+    default="table",
+    type=click.Choice(["table", "csv", "json"]),
+)
 def query_cmd(project, scenario, sql, server_url, output_format):
     """Execute SQL against a remote scenario."""
     url = _resolve_server_url(server_url)
@@ -215,6 +232,7 @@ def _resolve_server_url(cli_url: str | None) -> str | None:
     # Try user config
     try:
         from gat.models.user import load_user_config
+
         config = load_user_config()
         if hasattr(config, "server_url") and config.server_url:
             return config.server_url

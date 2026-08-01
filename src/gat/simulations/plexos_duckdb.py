@@ -16,6 +16,7 @@ legacy POC, adding another property is a one-line addition to
 same way (Phase/Period/Collection/Property), so no new parsing code is
 needed per property.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -105,21 +106,25 @@ class PlexosDuckDBSimulation(BaseSimulation):
         result: list[DatasetInfo] = []
 
         for table in sorted(self._get_raw_tables()):
-            result.append(DatasetInfo(
-                name=table,
-                description="Plexos report dataset",
-                kind=DatasetKind.RAW_SIMULATION,
-                entity_column="entity_id",
-            ))
+            result.append(
+                DatasetInfo(
+                    name=table,
+                    description="Plexos report dataset",
+                    kind=DatasetKind.RAW_SIMULATION,
+                    entity_column="entity_id",
+                )
+            )
 
         for comp_name, source_tables in self._resolve_compositions().items():
-            result.append(DatasetInfo(
-                name=comp_name,
-                description=f"Composed dataset ({len(source_tables)} sources)",
-                kind=DatasetKind.COMPOSED,
-                entity_column="entity_id",
-                source_datasets=source_tables,
-            ))
+            result.append(
+                DatasetInfo(
+                    name=comp_name,
+                    description=f"Composed dataset ({len(source_tables)} sources)",
+                    kind=DatasetKind.COMPOSED,
+                    entity_column="entity_id",
+                    source_datasets=source_tables,
+                )
+            )
 
         return result
 
