@@ -1,7 +1,7 @@
 """
 GAT - Grid Analysis Toolkit
 
-A toolset for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
+A toolkit for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
 """
 
 __author__ = "Micah Webb"

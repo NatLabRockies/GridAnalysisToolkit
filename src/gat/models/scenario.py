@@ -66,7 +66,7 @@ class TechnologyMapping(BaseModel):
         If it does map to a standard technology, use standard color
         If not, give random color and give user warning.
 
-        Allow for shorthand colors. e.g user can select something like NREL_PV to use the standard NREL PV color.
+        Allow for shorthand colors. e.g user can select something like NLR_PV to use the standard NLR PV color.
 
         Assign order based on increasing index. Might use display order found in standard color dict. (Might have to be done in a different scope)
         Default to assign 0 (putting unmapped technologies at the bottom.)

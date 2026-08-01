@@ -87,7 +87,7 @@ class UserProjectRef(BaseModel):
                 "remote_url": "git@github.com:team/ntp-base.git",
                 "last_accessed": "2024-01-20T15:45:00Z",
                 "is_default": True,
-                "tags": ["transmission", "nrel"],
+                "tags": ["transmission", "nlr"],
             }
         }
 
@@ -115,7 +115,7 @@ class UserConfig(BaseModel):
 
     # Display preferences
     default_theme: str = Field(
-        default="nrel", description="Default color theme for plots"
+        default="nlr", description="Default color theme for plots"
     )
     default_output_format: str = Field(
         default="png", description="Default output format (png, svg, html)"

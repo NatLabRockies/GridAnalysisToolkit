@@ -1,12 +1,10 @@
-# GAT - Grid Analysis Toolset
+# GAT - Grid Analysis Toolkit
 
-SWR-25-41 "GAT (Grid Analysis Toolkit)" — see [DISCLAIMER.md](DISCLAIMER.md).
-
-A toolset for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
+A toolkit for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
 
 GAT aims to provide simplified access to PCM and CEM results in a standard format while also allowing raw data access to underlying datasets specific to the model.
 
-For plotting, GAT defaults to standard NREL color schemes and standard styles while allowing customization.
+For plotting, GAT defaults to standard National Lab of the Rockies (NLR) color schemes and standard styles while allowing customization.
 
 ## Installation
 
@@ -76,7 +74,7 @@ If you wish to contribute to the development of GAT, please clone the repo and i
 
 `git clone https://github.com/NatLabRockies/GridAnalysisToolkit.git`
 
-`cd GAT`
+`cd GridAnalysisToolkit`
 
 Follow the instructions for creating a virtual environment above, then:
 
@@ -97,3 +95,10 @@ After installing the doc dependencies:
 Review documentation changes locally:
 
 `open build/html/index.html`
+
+## Software Record and Disclaimer
+
+GAT is developed by the National Lab of the Rockies (NLR) and released
+under software record SWR-25-41 "GAT (Grid Analysis Toolkit)".
+
+See [DISCLAIMER.md](DISCLAIMER.md) for the full disclaimer.

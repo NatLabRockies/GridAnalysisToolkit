@@ -175,7 +175,7 @@ if __name__ == "__main__":
 - [GAT Documentation](https://gat.readthedocs.io)
 - [API Reference](../docs/source/api/)
 - [User Guides](../docs/source/guides/)
-- [GitHub Repository](https://github.com/NREL/GAT)
+- [GitHub Repository](https://github.com/NatLabRockies/GridAnalysisToolkit)
 
 ## Support
 

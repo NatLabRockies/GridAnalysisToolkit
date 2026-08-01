@@ -64,7 +64,7 @@ class LazyGroup(click.Group):
 def cli(ctx, verbose, debug):
     """Grid Analysis Toolkit (GAT) CLI.
 
-    A toolset for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
+    A toolkit for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
     """
     ctx.ensure_object(dict)
 

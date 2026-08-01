@@ -66,7 +66,7 @@ source_suffix = {
 }
 
 html_theme_options = {
-    "repository_url": "https://github.com/NREL/GAT",
+    "repository_url": "https://github.com/NatLabRockies/GridAnalysisToolkit",
     "path_to_docs": "docs/source/",
     "show_toc_level": 3,
     "use_source_button": True,

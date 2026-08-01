@@ -162,7 +162,7 @@ gat sources remove old-source
 **v0.x config.yaml:**
 ```yaml
 user_name: alice
-default_theme: nrel
+default_theme: nlr
 data_sources:
   - type: sienna
     name: NTP Base
@@ -178,7 +178,7 @@ project_cache:
 **v1.0 config.yaml:**
 ```yaml
 user_name: alice
-default_theme: nrel
+default_theme: nlr
 default_palette: renewable_focus
 # No more data_sources or project_cache!
 ```
