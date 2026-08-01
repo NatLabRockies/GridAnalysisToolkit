@@ -50,19 +50,19 @@ generator output, etc.).
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
-    ACBus
     PowerLoad
+    ACBus
     RenewableDispatch
-    LoadZone
-    Arc
-    TwoTerminalHVDCLine
-    FixedAdmittance
-    TapTransformer
     RenewableNonDispatch
-    ThermalStandard
-    VariableReserve
+    FixedAdmittance
     Area
+    ThermalStandard
     Line
+    VariableReserve
+    TwoTerminalHVDCLine
+    LoadZone
+    TapTransformer
+    Arc
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
