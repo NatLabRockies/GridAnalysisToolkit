@@ -15,26 +15,41 @@ than the Sienna RTS-GMLC fixture. Sienna's fixture is built with
 ``FlowActivePowerVariable__Line`` data; switching the Sienna fixture's
 generate.jl to ``DCPPowerModel`` would unlock these plots there too.
 """
+import glob
+import os
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import matplotlib.pyplot as plt
-from gat.scenariohandlers import PlexosScenario
-import gat.quickplots as qp
 
-plexos_dir = "../../example_data/plexos"
-scenario = PlexosScenario(simulation_files=plexos_dir)
+# PLEXOS solution files are proprietary and not distributed with GAT,
+# so unlike the Sienna examples this one only executes when you point
+# it at your own solution directory (GAT_PLEXOS_FIXTURE, or drop .h5
+# files in example_data/plexos). The docs build renders the code
+# without figures when no fixture is available.
+plexos_dir = os.environ.get("GAT_PLEXOS_FIXTURE", "../../example_data/plexos")
 
-loading = scenario.get_line_loading()
-utilization = scenario.get_line_utilization()
+if not glob.glob(os.path.join(plexos_dir, "*.h5")):
+    print(
+        "Plexos fixture not available — set GAT_PLEXOS_FIXTURE to a "
+        "directory of PLEXOS .h5 solution files to run this example."
+    )
+else:
+    from gat.scenariohandlers import PlexosScenario
+    import gat.quickplots as qp
 
-fig, axs = plt.subplots(1, 2, figsize=(14, 5))
+    scenario = PlexosScenario(simulation_files=plexos_dir)
 
-qp.plot_loading_ranked(loading, ax=axs[0])
-axs[0].set_title("Line Loading — Ranked")
+    loading = scenario.get_line_loading()
+    utilization = scenario.get_line_utilization()
 
-qp.plot_lines_utilization(utilization, ax=axs[1])
-axs[1].set_title("Line Utilization Distribution")
+    fig, axs = plt.subplots(1, 2, figsize=(14, 5))
 
-plt.tight_layout()
-plt.show()
+    qp.plot_loading_ranked(loading, ax=axs[0])
+    axs[0].set_title("Line Loading — Ranked")
+
+    qp.plot_lines_utilization(utilization, ax=axs[1])
+    axs[1].set_title("Line Utilization Distribution")
+
+    plt.tight_layout()
+    plt.show()
