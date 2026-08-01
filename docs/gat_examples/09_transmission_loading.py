@@ -1,6 +1,6 @@
 """
-Transmission Line Loading and Utilization (Plexos)
---------------------------------------------------
+Transmission Line Loading and Utilization
+-----------------------------------------
 
 Two transmission views:
 
@@ -9,47 +9,40 @@ Two transmission views:
 2. **Utilization** — distribution of hours each line operates above
    threshold percentiles (90/95/99% of rating).
 
-This is the only example in the gallery using a Plexos fixture rather
-than the Sienna RTS-GMLC fixture. Sienna's fixture is built with
-``CopperPlatePowerModel`` so the simulation file has no
-``FlowActivePowerVariable__Line`` data; switching the Sienna fixture's
-generate.jl to ``DCPPowerModel`` would unlock these plots there too.
+The Sienna RTS-GMLC fixture is solved with ``DCPPowerModel``, so the
+simulation store carries ``FlowActivePowerVariable__Line`` data and
+these plots work out of the box. The same calls work against a Plexos
+scenario (``PlexosScenario(simulation_files=...)``) — the transmission
+API is shared across scenario types.
 """
-import glob
-import os
 import warnings
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import matplotlib.pyplot as plt
 
-# PLEXOS solution files are proprietary and not distributed with GAT,
-# so unlike the Sienna examples this one only executes when you point
-# it at your own solution directory (GAT_PLEXOS_FIXTURE, or drop .h5
-# files in example_data/plexos). The docs build renders the code
-# without figures when no fixture is available.
-plexos_dir = os.environ.get("GAT_PLEXOS_FIXTURE", "../../example_data/plexos")
+from gat.scenariohandlers import SiennaScenario
+import gat.quickplots as qp
 
-if not glob.glob(os.path.join(plexos_dir, "*.h5")):
-    print(
-        "Plexos fixture not available — set GAT_PLEXOS_FIXTURE to a "
-        "directory of PLEXOS .h5 solution files to run this example."
-    )
-else:
-    from gat.scenariohandlers import PlexosScenario
-    import gat.quickplots as qp
+# These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via
+# `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`
+# instead — see docs/source/python_api_load.md.
+sienna_v4 = "../../example_data/sienna/v4"
+scenario = SiennaScenario(
+    simulation_files=f"{sienna_v4}/simulation_store.h5",
+    system_file=f"{sienna_v4}/sys.json",
+)
 
-    scenario = PlexosScenario(simulation_files=plexos_dir)
+loading = scenario.get_line_loading()
+utilization = scenario.get_line_utilization()
 
-    loading = scenario.get_line_loading()
-    utilization = scenario.get_line_utilization()
+fig, axs = plt.subplots(1, 2, figsize=(14, 5))
 
-    fig, axs = plt.subplots(1, 2, figsize=(14, 5))
+qp.plot_loading_ranked(loading, ax=axs[0])
+axs[0].set_title("Line Loading — Ranked")
 
-    qp.plot_loading_ranked(loading, ax=axs[0])
-    axs[0].set_title("Line Loading — Ranked")
+qp.plot_lines_utilization(utilization, ax=axs[1])
+axs[1].set_title("Line Utilization Distribution")
 
-    qp.plot_lines_utilization(utilization, ax=axs[1])
-    axs[1].set_title("Line Utilization Distribution")
-
-    plt.tight_layout()
-    plt.show()
+plt.tight_layout()
+plt.show()
