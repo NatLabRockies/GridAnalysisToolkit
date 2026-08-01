@@ -21,18 +21,22 @@ jobs:
         with:
           filters: |
             sienna:
-              - 'docker/sienna/**'
+              - 'docker/sienna/Dockerfile'
+              - 'docker/sienna/*.toml'
+              - 'docker/sienna/generate.jl'
 
-      # Fixture content is fully determined by docker/sienna/** (Dockerfile,
-      # Manifests, generate.jl), matching the cache key below — a lookup-only
-      # check tells us if a previous build is still available without paying
+      # Fixture content is fully determined by the Dockerfile, Manifests,
+      # and generate.jl — deliberately NOT docker/sienna/** so that edits
+      # to docker/sienna/README.md don't invalidate the cache key. The
+      # filter above matches the cache key below; a lookup-only check
+      # tells us if a previous build is still available without paying
       # for a download.
       - name: Check for existing sienna v4 fixture cache
         id: fixture-cache-check
         uses: actions/cache/restore@v4
         with:
           path: example_data/sienna/v4
-          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
           lookup-only: true
 
       # Deliberately NOT an automatic rebuild-on-cache-miss fallback. Sienna's
@@ -57,7 +61,7 @@ jobs:
       - name: Fail fast if the fixture cache is missing and nothing here will rebuild it
         if: steps.fixture-cache-check.outputs.cache-hit != 'true' && (github.event_name != 'pull_request' || steps.filter.outputs.sienna != 'true')
         run: |
-          echo "::error::No cached sienna v4 fixture found for key 'sienna-v4-${{ hashFiles('docker/sienna/**') }}', and nothing in this run will rebuild it (push events never auto-rebuild -- see the sienna-fixture job's condition -- and docker/sienna/** wasn't changed in this PR). This is deliberate: an automatic rebuild-on-cache-miss fallback previously caused silent fixture drift (whichever concurrent build 'won' a cache-miss race became the fixture every future run tested against, with no guarantee it matched the committed regression baselines -- see PR #8/#9). Fix: have someone with write access run the 'Sienna fixture refresh' workflow (.github/workflows/sienna-fixture-refresh.yml) via workflow_dispatch to deliberately rebuild the fixture and refresh the cache, then regenerate + commit the regression baselines per its job summary / docker/sienna/README.md."
+          echo "::error::No cached sienna v4 fixture found for key 'sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}', and nothing in this run will rebuild it (push events never auto-rebuild -- see the sienna-fixture job's condition -- and no fixture-relevant files (docker/sienna Dockerfile/Manifests/generate.jl) were changed in this PR). This is deliberate: an automatic rebuild-on-cache-miss fallback previously caused silent fixture drift (whichever concurrent build 'won' a cache-miss race became the fixture every future run tested against, with no guarantee it matched the committed regression baselines -- see PR #8/#9). Fix: have someone with write access run the 'Sienna fixture refresh' workflow (.github/workflows/sienna-fixture-refresh.yml) via workflow_dispatch to deliberately rebuild the fixture and refresh the cache, then regenerate + commit the regression baselines per its job summary / docker/sienna/README.md."
           exit 1
 
   sienna-fixture:
@@ -89,7 +93,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: example_data/sienna/v4
-          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
 
       - name: Set up Docker Buildx
         if: steps.fixture-cache.outputs.cache-hit != 'true'
@@ -165,7 +169,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: example_data/sienna/v4
-          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
           fail-on-cache-miss: true
 
       # Sienna's UC solve isn't bit-deterministic run-to-run (MIP tie-

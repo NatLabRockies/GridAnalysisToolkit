@@ -4,7 +4,7 @@ name: Sienna fixture refresh
 # entry under the *same* key scheme tests.yml's automatic "changes" /
 # "sienna-fixture" / "pytest" jobs already use:
 #
-#     sienna-<version>-${{ hashFiles('docker/sienna/**') }}
+#     sienna-<version>-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
 #
 # Sienna's UC solve isn't perfectly reproducible run-to-run (MIP tie-breaking
 # among equally-optimal dispatch solutions -- much improved by pinning solver
@@ -77,7 +77,7 @@ jobs:
         run: |
           version="${{ inputs.version }}"
           number="${version#v}"
-          key="sienna-${version}-${{ hashFiles('docker/sienna/**') }}"
+          key="sienna-${version}-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}"
           {
             echo "number=${number}"
             echo "key=${key}"
@@ -141,7 +141,7 @@ jobs:
             echo "## Sienna ${{ inputs.version }} fixture refreshed"
             echo
             echo "The \`actions/cache\` entry for key \`${{ steps.vars.outputs.key }}\` has been rebuilt and re-populated."
-            echo "The next automatic CI run (for any PR, as long as \`docker/sienna/**\` doesn't change again) will restore **this** fixture."
+            echo "The next automatic CI run (for any PR, as long as the fixture-relevant files (Dockerfile/Manifests/generate.jl) don't change again) will restore **this** fixture."
             echo
             echo "**This does NOT update the committed regression baselines.**"
             echo "\`tests/handlers/test_sienna_regression.py\` snapshots (\`tests/handlers/test_sienna_regression/*.csv\`) still reflect the *previous* fixture until you regenerate and commit them:"

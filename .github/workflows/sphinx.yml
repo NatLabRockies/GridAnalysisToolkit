@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: example_data/sienna/v4
-          key: sienna-v4-${{ hashFiles('docker/sienna/**') }}
+          key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
 
       - name: Set up Docker Buildx
         if: steps.fixture-cache.outputs.cache-hit != 'true'
