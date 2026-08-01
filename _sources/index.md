@@ -58,11 +58,11 @@ Finally, data analysis and visualization often requires customization to meet pr
 
 ## Configuration
 
-While GAT provides default configurations for Sienna and other NREL tools, it is usually the case that some initial configuration is required to map generation types into something geared towards the audience of the modeler or analyst. Below is a diagram of the mapping flow from model specific generators and types to GAT presentation level types and colors.
+While GAT provides default configurations for Sienna and other National Lab of the Rockies (NLR) tools, it is usually the case that some initial configuration is required to map generation types into something geared towards the audience of the modeler or analyst. Below is a diagram of the mapping flow from model specific generators and types to GAT presentation level types and colors.
 
 ![image info](diagrams/mapping.png)
 
-For example, in a model you may want to distinguish between 2-hour and 4-hour energy storage types, but would like to combine these into an overall storage type. In GAT, you would do this by mapping both the storage duration types to storage, and then assign a corresponding color in GAT's color map. If you don't want to configure the color map, you can map the generation types to a key in the color map, and use NREL's default color scheme.
+For example, in a model you may want to distinguish between 2-hour and 4-hour energy storage types, but would like to combine these into an overall storage type. In GAT, you would do this by mapping both the storage duration types to storage, and then assign a corresponding color in GAT's color map. If you don't want to configure the color map, you can map the generation types to a key in the color map, and use NLR's default color scheme.
 
 More details on configuring GAT can be found [on the Configuring GAT page](api/Configuration/general.md).
 

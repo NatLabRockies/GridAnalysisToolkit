@@ -592,7 +592,7 @@ project_id: my-project
 name: My Project
 tags:
   - transmission
-  - nrel
+  - nlr
   - 2035
   - high-priority
 ```

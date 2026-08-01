@@ -46,19 +46,19 @@ Curtailment is computed as the difference between renewable
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:378: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
     ----- Available Components -----
-    PowerLoad
-    ACBus
-    RenewableDispatch
-    RenewableNonDispatch
-    FixedAdmittance
-    Area
-    ThermalStandard
-    Line
-    VariableReserve
-    TwoTerminalHVDCLine
-    LoadZone
     TapTransformer
+    RenewableDispatch
+    LoadZone
+    VariableReserve
+    Area
+    PowerLoad
+    Line
+    ThermalStandard
     Arc
+    RenewableNonDispatch
+    TwoTerminalHVDCLine
+    ACBus
+    FixedAdmittance
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:500: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
@@ -110,7 +110,7 @@ Curtailment is computed as the difference between renewable
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.426 seconds)
+   **Total running time of the script:** (0 minutes 0.405 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_06_curtailment_annual.py:
