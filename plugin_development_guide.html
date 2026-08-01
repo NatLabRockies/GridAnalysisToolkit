@@ -1,0 +1,1293 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GAT Plugin Development Guide &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'plugin_development_guide';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/plugin_development_guide.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/plugin_development_guide.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/plugin_development_guide.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GAT Plugin Development Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-design-principles">Key Design Principles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-parsers">Simulation Parsers</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#required-interface">Required Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-requirements">Key Requirements</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datetimeindex">1. DatetimeIndex</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#consistent-dataset-keys">2. Consistent Dataset Keys</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-scaling">3. Unit Scaling</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-methods">Optional Methods</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection">Model Selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">Metadata</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-cleanup">Resource Cleanup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-parsers">System Parsers</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Required Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-interface">Dataset Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-categories">Generator Categories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-multi-file-aggregation">Automatic Multi-File Aggregation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-loading">Parallel Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-deduplication">Time-Series Deduplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Model Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">1. Error Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">2. Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-loading">3. Lazy Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-validation">4. Input Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">5. Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-csv-based-simulation-parser">Example 1: CSV-Based Simulation Parser</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-database-simulation-parser">Example 2: Database Simulation Parser</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-multi-model-hdf5-parser">Example 3: Multi-Model HDF5 Parser</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gat-plugin-development-guide">
+<h1>GAT Plugin Development Guide<a class="headerlink" href="#gat-plugin-development-guide" title="Link to this heading">#</a></h1>
+<p>This guide explains how to extend GAT to support new simulation tools and system formats.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overview"><span class="xref myst">Overview</span></a></p></li>
+<li><p><a class="reference internal" href="#simulation-parsers"><span class="xref myst">Simulation Parsers</span></a></p></li>
+<li><p><a class="reference internal" href="#system-parsers"><span class="xref myst">System Parsers</span></a></p></li>
+<li><p><a class="reference internal" href="#automatic-multi-file-aggregation"><span class="xref myst">Automatic Multi-File Aggregation</span></a></p></li>
+<li><p><a class="reference internal" href="#best-practices"><span class="xref myst">Best Practices</span></a></p></li>
+<li><p><a class="reference internal" href="#examples"><span class="xref myst">Examples</span></a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>GAT uses a plugin architecture that allows developers to add support for new simulation tools and system formats without modifying the core codebase. The architecture consists of:</p>
+<ol class="arabic simple">
+<li><p><strong>Base Interfaces</strong>: Abstract classes that define the required API</p></li>
+<li><p><strong>Concrete Implementations</strong>: Plugin implementations for specific tools (Sienna, ReEDS, PLEXOS, etc.)</p></li>
+<li><p><strong>Automatic Aggregation</strong>: GAT handles combining multiple files transparently</p></li>
+</ol>
+<section id="key-design-principles">
+<h3>Key Design Principles<a class="headerlink" href="#key-design-principles" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Single File Focus</strong>: Plugin developers implement parsers for ONE simulation file</p></li>
+<li><p><strong>Consistent Interface</strong>: All parsers expose the same methods (<code class="docutils literal notranslate"><span class="pre">list_datasets()</span></code>, <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code>)</p></li>
+<li><p><strong>Automatic Scaling</strong>: GAT handles multi-file scenarios with parallel loading</p></li>
+<li><p><strong>GIL Avoidance</strong>: Multi-file aggregation uses multiprocessing for true parallelism</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="simulation-parsers">
+<h2>Simulation Parsers<a class="headerlink" href="#simulation-parsers" title="Link to this heading">#</a></h2>
+<p>Simulation parsers read results from power system simulations and provide time-series data.</p>
+<section id="required-interface">
+<h3>Required Interface<a class="headerlink" href="#required-interface" title="Link to this heading">#</a></h3>
+<p>All simulation parsers must inherit from <code class="docutils literal notranslate"><span class="pre">BaseSimulationParser</span></code> and implement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSimulationParser</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MySimulationParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize parser for a single simulation file.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="c1"># Open file, validate, extract metadata</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of available model names.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>  <span class="c1"># or [&quot;ED&quot;, &quot;UC&quot;, &quot;emulation&quot;] for multi-model tools</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return {friendly_name: internal_path} for all datasets.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/generators/power&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;generator_commit&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/generators/status&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;load_served&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/loads/power&quot;</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return dataset as DataFrame with DatetimeIndex.&quot;&quot;&quot;</span>
+        <span class="c1"># Read from file (HDF5, CSV, database, etc.)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_from_file</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="c1"># Ensure datetime index</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+<section id="key-requirements">
+<h3>Key Requirements<a class="headerlink" href="#key-requirements" title="Link to this heading">#</a></h3>
+<section id="datetimeindex">
+<h4>1. DatetimeIndex<a class="headerlink" href="#datetimeindex" title="Link to this heading">#</a></h4>
+<p>All datasets <strong>must</strong> return a pandas DataFrame with a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#                      Gen1  Gen2  Gen3</span>
+<span class="c1"># 2024-01-01 00:00:00  100.0  50.0  75.0</span>
+<span class="c1"># 2024-01-01 01:00:00  110.0  55.0  80.0</span>
+<span class="c1"># 2024-01-01 02:00:00  105.0  52.0  78.0</span>
+</pre></div>
+</div>
+<p>This is critical for automatic time-series aggregation across multiple files.</p>
+</section>
+<section id="consistent-dataset-keys">
+<h4>2. Consistent Dataset Keys<a class="headerlink" href="#consistent-dataset-keys" title="Link to this heading">#</a></h4>
+<p>Use descriptive, stable keys that work across all files:</p>
+<p>✅ <strong>Good</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;generator_dispatch&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;curtailment&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;load_served&quot;</span></code><br />
+❌ <strong>Bad</strong>: <code class="docutils literal notranslate"><span class="pre">&quot;gen_1_power&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;output_file_3&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;data&quot;</span></code></p>
+</section>
+<section id="unit-scaling">
+<h4>3. Unit Scaling<a class="headerlink" href="#unit-scaling" title="Link to this heading">#</a></h4>
+<p>Apply any necessary unit conversions in <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_raw_data</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    
+    <span class="c1"># Convert per-unit to MW</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit_system</span> <span class="o">==</span> <span class="s2">&quot;per_unit&quot;</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_power_mva</span>
+    
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="optional-methods">
+<h3>Optional Methods<a class="headerlink" href="#optional-methods" title="Link to this heading">#</a></h3>
+<section id="model-selection">
+<h4>Model Selection<a class="headerlink" href="#model-selection" title="Link to this heading">#</a></h4>
+<p>If your simulation tool produces multiple model types (e.g., day-ahead, real-time), implement model selection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">selected_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get currently selected model name.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span>
+
+<span class="nd">@selected_model</span><span class="o">.</span><span class="n">setter</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">selected_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set selected model with validation.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">model_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model &#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span> <span class="o">=</span> <span class="n">model_name</span>
+    <span class="c1"># Update internal state to read from correct model</span>
+</pre></div>
+</div>
+</section>
+<section id="metadata">
+<h4>Metadata<a class="headerlink" href="#metadata" title="Link to this heading">#</a></h4>
+<p>Provide useful metadata about the simulation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return simulation metadata.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;start_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-01T00:00:00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;end_time&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-12-31T23:00:00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;resolution&quot;</span><span class="p">:</span> <span class="s2">&quot;1H&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;software&quot;</span><span class="p">:</span> <span class="s2">&quot;MySimTool v2.1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;HiGHS&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="validation">
+<h4>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h4>
+<p>Implement validation to catch common issues:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate file and return warnings.&quot;&quot;&quot;</span>
+    <span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_required_datasets</span><span class="p">():</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Missing required datasets&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_time_gaps</span><span class="p">():</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Time series has gaps&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">warnings</span>
+</pre></div>
+</div>
+</section>
+<section id="resource-cleanup">
+<h4>Resource Cleanup<a class="headerlink" href="#resource-cleanup" title="Link to this heading">#</a></h4>
+<p>If your parser maintains open file handles, implement cleanup:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Close file handles.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_file_handle&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># Bonus: context manager support (inherited from base)</span>
+<span class="k">with</span> <span class="n">MySimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="c1"># File automatically closed</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="system-parsers">
+<h2>System Parsers<a class="headerlink" href="#system-parsers" title="Link to this heading">#</a></h2>
+<p>System parsers read power system topology and component data (generators, loads, buses, etc.).</p>
+<section id="id1">
+<h3>Required Interface<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>All system parsers must inherit from <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> and implement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSystem</span><span class="p">,</span> <span class="n">SystemInfo</span><span class="p">,</span> <span class="n">GeneratorCategory</span><span class="p">,</span> <span class="n">LoadCategory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MySystemParser</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize system parser.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">system_path</span><span class="p">)</span>
+        <span class="c1"># Read and parse system file</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SystemInfo</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return basic system information.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SystemInfo</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Test System&quot;</span><span class="p">,</span>
+            <span class="n">base_power</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>  <span class="c1"># MVA</span>
+            <span class="n">num_generators</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+            <span class="n">num_buses</span><span class="o">=</span><span class="mi">73</span><span class="p">,</span>
+            <span class="n">num_loads</span><span class="o">=</span><span class="mi">42</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_generator_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GeneratorCategory</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of generator categories.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">GeneratorCategory</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">,</span>
+                <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Solar PV&quot;</span><span class="p">,</span>
+                <span class="n">fuel_type</span><span class="o">=</span><span class="s2">&quot;Solar&quot;</span><span class="p">,</span>
+                <span class="n">count</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+                <span class="n">total_capacity</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">,</span>  <span class="c1"># MW</span>
+                <span class="n">is_vre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">is_curtailable</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">),</span>
+            <span class="n">GeneratorCategory</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Gas_CT&quot;</span><span class="p">,</span>
+                <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Gas Combustion Turbine&quot;</span><span class="p">,</span>
+                <span class="n">fuel_type</span><span class="o">=</span><span class="s2">&quot;Natural Gas&quot;</span><span class="p">,</span>
+                <span class="n">prime_mover</span><span class="o">=</span><span class="s2">&quot;CT&quot;</span><span class="p">,</span>
+                <span class="n">count</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                <span class="n">total_capacity</span><span class="o">=</span><span class="mf">1200.0</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_load_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadCategory</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of load categories.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">LoadCategory</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fixed_load&quot;</span><span class="p">,</span>
+                <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Fixed Load&quot;</span><span class="p">,</span>
+                <span class="n">count</span><span class="o">=</span><span class="mi">42</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_generator_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return detailed generator data.&quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_generators</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">category</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">category</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">df</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return detailed load data.&quot;&quot;&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_loads</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">category</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">category</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-interface">
+<h3>Dataset Interface<a class="headerlink" href="#dataset-interface" title="Link to this heading">#</a></h3>
+<p>System parsers automatically support the dataset interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># List available datasets</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
+<span class="c1"># Returns: {&quot;generators&quot;: &quot;generator_data&quot;, &quot;loads&quot;: &quot;load_data&quot;, ...}</span>
+
+<span class="c1"># Get a dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get multiple datasets</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;loads&quot;</span><span class="p">)</span>
+<span class="c1"># Returns: {&quot;generators&quot;: DataFrame, &quot;loads&quot;: DataFrame}</span>
+
+<span class="c1"># Get with filters</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generator-categories">
+<h3>Generator Categories<a class="headerlink" href="#generator-categories" title="Link to this heading">#</a></h3>
+<p>Categories are used for palette generation and visualization. Classify generators based on your platform’s conventions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">GeneratorCategory</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Wind_Offshore&quot;</span><span class="p">,</span>           <span class="c1"># Unique identifier</span>
+    <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Offshore Wind&quot;</span><span class="p">,</span>   <span class="c1"># Human-readable</span>
+    <span class="n">fuel_type</span><span class="o">=</span><span class="s2">&quot;Wind&quot;</span><span class="p">,</span>               <span class="c1"># Fuel classification</span>
+    <span class="n">prime_mover</span><span class="o">=</span><span class="s2">&quot;WT&quot;</span><span class="p">,</span>               <span class="c1"># Prime mover type</span>
+    <span class="n">technology</span><span class="o">=</span><span class="s2">&quot;Type 4&quot;</span><span class="p">,</span>            <span class="c1"># Technology details</span>
+    <span class="n">count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>                        <span class="c1"># Number of units</span>
+    <span class="n">total_capacity</span><span class="o">=</span><span class="mf">800.0</span><span class="p">,</span>           <span class="c1"># Total MW</span>
+    <span class="n">is_vre</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                    <span class="c1"># Variable renewable</span>
+    <span class="n">is_storage</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>               <span class="c1"># Storage flag</span>
+    <span class="n">is_curtailable</span><span class="o">=</span><span class="kc">True</span>             <span class="c1"># Can be curtailed</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="automatic-multi-file-aggregation">
+<h2>Automatic Multi-File Aggregation<a class="headerlink" href="#automatic-multi-file-aggregation" title="Link to this heading">#</a></h2>
+<p>GAT automatically handles combining multiple simulation files through the <code class="docutils literal notranslate"><span class="pre">SimulationAggregator</span></code> class.</p>
+<section id="how-it-works">
+<h3>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Plugin Developer</strong>: Implements parser for <strong>one</strong> file</p></li>
+<li><p><strong>GAT</strong>: Creates aggregator for <strong>multiple</strong> files</p></li>
+<li><p><strong>User</strong>: Gets transparent access to combined data</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single file (plugin developer&#39;s implementation)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">MySimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation_1.h5&quot;</span><span class="p">)</span>
+
+<span class="c1"># Multiple files (GAT&#39;s automatic aggregation)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationAggregator</span>
+
+<span class="n">aggregator</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim_1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim_2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim_3.h5&quot;</span><span class="p">],</span>
+    <span class="n">parser_class</span><span class="o">=</span><span class="n">MySimulationParser</span><span class="p">,</span>
+    <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Use multiprocessing</span>
+<span class="p">)</span>
+
+<span class="c1"># Same interface!</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="n">aggregator</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">aggregator</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="parallel-loading">
+<h3>Parallel Loading<a class="headerlink" href="#parallel-loading" title="Link to this heading">#</a></h3>
+<p>The aggregator uses <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> to avoid Python’s Global Interpreter Lock (GIL):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aggregator</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="n">file_list</span><span class="p">,</span>
+    <span class="n">parser_class</span><span class="o">=</span><span class="n">MySimulationParser</span><span class="p">,</span>
+    <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># Enable parallel loading</span>
+    <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span>            <span class="c1"># Number of processes</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Benefits:</p>
+<ul class="simple">
+<li><p>True parallelism (not limited by GIL)</p></li>
+<li><p>Faster loading for large file sets</p></li>
+<li><p>Automatic fallback to sequential if parallel fails</p></li>
+</ul>
+</section>
+<section id="time-series-deduplication">
+<h3>Time-Series Deduplication<a class="headerlink" href="#time-series-deduplication" title="Link to this heading">#</a></h3>
+<p>When combining multiple files, GAT automatically handles overlapping time periods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get data with merge strategy</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">aggregator</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span>
+    <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">,</span>
+    <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>  <span class="c1"># or &quot;right&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Merge Strategies:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code>: Keep earlier timestamps, remove future overlap (typical for multi-stage simulations)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code>: Keep later timestamps, remove previous overlap (typical for rolling forecasts)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File</span> <span class="mi">1</span><span class="p">:</span> <span class="o">|-----|</span><span class="n">xxxxx</span><span class="o">|</span>              <span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">removed</span><span class="p">)</span>
+<span class="n">File</span> <span class="mi">2</span><span class="p">:</span>       <span class="o">|-----|</span><span class="n">xxxxx</span><span class="o">|</span>
+<span class="n">File</span> <span class="mi">3</span><span class="p">:</span>             <span class="o">|-----|-----|</span>  <span class="p">(</span><span class="n">kept</span><span class="p">)</span>
+
+<span class="n">Result</span><span class="p">:</span> <span class="o">|-----|-----|-----|-----|</span> 
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Model Selection<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Model selection applies to all files in the aggregator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aggregator</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>  <span class="c1"># Sets model for ALL parsers</span>
+
+<span class="c1"># All subsequent operations use the UC model</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">aggregator</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_commit&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<section id="error-handling">
+<h3>1. Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">#</a></h3>
+<p>Provide helpful error messages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_dataset</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not found. Available: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to read &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="logging">
+<h3>2. Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">loguru</span></code> for informative logging:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">loguru</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+
+<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading simulation: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_format</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid file format: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid format&quot;</span><span class="p">)</span>
+    
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">)</span><span class="si">}</span><span class="s2"> models&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="lazy-loading">
+<h3>3. Lazy Loading<a class="headerlink" href="#lazy-loading" title="Link to this heading">#</a></h3>
+<p>Don’t read entire files in <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>. Load data on-demand:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Don&#39;t read data yet!</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="c1"># Load on first access</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_from_file</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="input-validation">
+<h3>4. Input Validation<a class="headerlink" href="#input-validation" title="Link to this heading">#</a></h3>
+<p>Validate inputs early:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_valid_format</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid format: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="testing">
+<h3>5. Testing<a class="headerlink" href="#testing" title="Link to this heading">#</a></h3>
+<p>Test your parser thoroughly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_parser</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">MySimulationParser</span><span class="p">(</span><span class="s2">&quot;test_simulation.h5&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Test interface methods</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    
+    <span class="c1"># Test data retrieval</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span>
+    
+    <span class="c1"># Test with aggregator</span>
+    <span class="n">aggregator</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">&quot;test_1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;test_2.h5&quot;</span><span class="p">],</span>
+        <span class="n">MySimulationParser</span>
+    <span class="p">)</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">aggregator</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">combined</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<section id="example-1-csv-based-simulation-parser">
+<h3>Example 1: CSV-Based Simulation Parser<a class="headerlink" href="#example-1-csv-based-simulation-parser" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSimulationParser</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CSVSimulationParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for CSV-based simulation results.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">NotADirectoryError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not a directory: </span><span class="si">{</span><span class="n">directory_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Find all CSV files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">csv_files</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">stem</span><span class="p">:</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.csv&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List CSV files as datasets.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">csv_files</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read CSV file.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">csv_files</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+        
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">csv_files</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+<section id="example-2-database-simulation-parser">
+<h3>Example 2: Database Simulation Parser<a class="headerlink" href="#example-2-database-simulation-parser" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSimulationParser</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sa</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DatabaseSimulationParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for simulation results stored in a database.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="n">connection_string</span><span class="p">)</span>
+        
+        <span class="c1"># Read available tables</span>
+        <span class="n">inspector</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="n">inspector</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">()</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List database tables as datasets.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">table</span><span class="p">:</span> <span class="n">table</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query database table.&quot;&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> ORDER BY timestamp&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">df</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Close database connection.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="example-3-multi-model-hdf5-parser">
+<h3>Example 3: Multi-Model HDF5 Parser<a class="headerlink" href="#example-3-multi-model-hdf5-parser" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSimulationParser</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiModelParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser supporting multiple model types in one file.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Discover available models</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_models</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="c1"># Set default model</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span>
+    
+    <span class="nd">@selected_model</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">selected_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">model_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model &#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span> <span class="o">=</span> <span class="n">model_name</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List datasets in selected model.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">model_group</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">model_group</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model_group</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">)</span>
+            <span class="p">}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read dataset from selected model.&quot;&quot;&quot;</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+            <span class="n">h5_path</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">h5_path</span> <span class="o">=</span> <span class="n">key</span>
+        
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">h5_path</span><span class="p">][:]</span>
+            
+            <span class="c1"># Get timestamp data</span>
+            <span class="n">timestamps</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_selected_model</span><span class="si">}</span><span class="s2">/timestamps&quot;</span><span class="p">][:]</span>
+            
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p><strong>For Simulation Parsers:</strong></p>
+<ol class="arabic simple">
+<li><p>Inherit from <code class="docutils literal notranslate"><span class="pre">BaseSimulationParser</span></code></p></li>
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">simulation_models</span></code>, <code class="docutils literal notranslate"><span class="pre">list_datasets()</span></code>, <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code></p></li>
+<li><p>Return DataFrames with <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code></p></li>
+<li><p>GAT handles multi-file aggregation automatically</p></li>
+</ol>
+<p><strong>For System Parsers:</strong></p>
+<ol class="arabic simple">
+<li><p>Inherit from <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code></p></li>
+<li><p>Implement system info and category methods</p></li>
+<li><p>Provide generator/load data methods</p></li>
+<li><p>Dataset interface is automatic</p></li>
+</ol>
+<p><strong>Key Benefits:</strong></p>
+<ul class="simple">
+<li><p>Plugin developers only handle single files</p></li>
+<li><p>GAT provides parallel multi-file loading</p></li>
+<li><p>Consistent interface across all tools</p></li>
+<li><p>True parallelism via multiprocessing</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-design-principles">Key Design Principles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-parsers">Simulation Parsers</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#required-interface">Required Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-requirements">Key Requirements</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#datetimeindex">1. DatetimeIndex</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#consistent-dataset-keys">2. Consistent Dataset Keys</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-scaling">3. Unit Scaling</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-methods">Optional Methods</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection">Model Selection</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata">Metadata</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-cleanup">Resource Cleanup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-parsers">System Parsers</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Required Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-interface">Dataset Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generator-categories">Generator Categories</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automatic-multi-file-aggregation">Automatic Multi-File Aggregation</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-loading">Parallel Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-deduplication">Time-Series Deduplication</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Model Selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-handling">1. Error Handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">2. Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-loading">3. Lazy Loading</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-validation">4. Input Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing">5. Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-csv-based-simulation-parser">Example 1: CSV-Based Simulation Parser</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-database-simulation-parser">Example 2: Database Simulation Parser</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-multi-model-hdf5-parser">Example 3: Multi-Model HDF5 Parser</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

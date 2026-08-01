@@ -1,0 +1,824 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Grid Analysis Toolkit &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuring GAT" href="api/Configuration/general.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/index.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/index.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/index.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Grid Analysis Toolkit</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grid Analysis Toolkit</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-objects">Scenario Objects</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parsers">Parsers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reports-experimental">Reports (Experimental)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#project-management-cli-v1-0">Project Management CLI (v1.0)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="grid-analysis-toolkit">
+<h1>Grid Analysis Toolkit<a class="headerlink" href="#grid-analysis-toolkit" title="Link to this heading">#</a></h1>
+<p>The Grid Analysis Toolkit, or GAT, is a python library for providing a simplified and intiuitive interface across multiple Production Cost Modeling and Capacity Expansion Modeling tools related to the Bulk Electrical System.</p>
+<p>GAT is primarily built on top of pandas, numpy and matplotlib. GAT also requires h5py and tables to interface with the common Sienna and H5PLEXOS.jl outputs. Objects and functions are designed to return pandas dataframes or matplotlib axes to allow for further customization.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<p>GAT can be installed via pip.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nlr-gat</span></code></p>
+<p>(The distribution is named <code class="docutils literal notranslate"><span class="pre">nlr-gat</span></code> because <code class="docutils literal notranslate"><span class="pre">gat</span></code> on PyPI is an
+unrelated genomics package; the import package and CLI are still <code class="docutils literal notranslate"><span class="pre">gat</span></code>.)</p>
+<p>Or from GitHub, optionally pinning a release:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/NatLabRockies/GridAnalysisToolkit</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/NatLabRockies/GridAnalysisToolkit&#64;v0.1.0</span></code></p>
+</section>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h2>
+<p>There are many Simulation tools for modeling the Bulk Electrical System, each of which formats the input configuration, and output simulation files differently. However, each tool is ultimately describing the electrical grid in some way. Each tool simulates, describes or parameterizes some or all of the following, usually in a timeseries format.</p>
+<ul class="simple">
+<li><p>Generation by Generator Type</p></li>
+<li><p>Load by electrical buses or area</p></li>
+<li><p>Energy Storage Charging and Discharging</p></li>
+<li><p>Transmission Flow</p></li>
+<li><p>Generator capacities</p></li>
+<li><p>Line and Transformer capacities</p></li>
+<li><p>Renewable Generation Availability</p></li>
+</ul>
+<p>GAT intends to provide a unified API to all these types of datasets, regardless of the underlying format used by the modeling tool. Furthermore, by providing a unified API, GAT provides additional calculations and datasets not always available in each modeling tool.</p>
+<ul class="simple">
+<li><p>Variable Renewable Energy Curtailment</p></li>
+<li><p>Transmission Loading as a percentage of capacity.</p></li>
+<li><p>State of Charge</p></li>
+<li><p>Native Load, Total Load and Net Load (if one is missing)</p></li>
+</ul>
+<p>The power system modeler and/or analyst often needs to aggregate and simplify data for presentation. GAT provides power system specific plotting functions for the following:</p>
+<ul class="simple">
+<li><p>Annual and Monthly System Dispatch</p></li>
+<li><p>Annual Dispatch by Geographic Areas</p></li>
+<li><p>Dispatch during Peak And Minimum Demand Time Periods</p></li>
+<li><p>Curtailment by Technology</p></li>
+<li><p>Transmission Load Duration Curves.</p></li>
+</ul>
+<p>Finally, data analysis and visualization often requires customization to meet project needs. GAT maintains flexiblity by returning pandas dataframes or matplotlib axes that can be further modified to meet the users specific requirements. Each layer of the API is easily accessible if the higher level abstractions fail to meet your needs.</p>
+<ul class="simple">
+<li><p>“The data API is too abstract, I just want to read the raw data” -&gt; Use one of the parser objects.</p></li>
+<li><p>“The data API doesn’t cover a dataset that I need” -&gt; Use a parser object or the internal scenario parser object.</p></li>
+<li><p>“I need plot multiple subplots, some of which aren’t covered by gat.quickplots” -&gt; Mix and Match the quickplots and custom plots since quickplots returns matplotlib axes objects.</p></li>
+<li><p>“I need to make a plot that uses the same color scheme, but is not covered by quickplots” -&gt; The quickplots core plots provide the core styling for dispatch plot order and color scheme, and can be used for plotting multiple scenarios against each other.</p></li>
+</ul>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h2>
+<p>While GAT provides default configurations for Sienna and other NREL tools, it is usually the case that some initial configuration is required to map generation types into something geared towards the audience of the modeler or analyst. Below is a diagram of the mapping flow from model specific generators and types to GAT presentation level types and colors.</p>
+<p><img alt="image info" src="_images/mapping.png" /></p>
+<p>For example, in a model you may want to distinguish between 2-hour and 4-hour energy storage types, but would like to combine these into an overall storage type. In GAT, you would do this by mapping both the storage duration types to storage, and then assign a corresponding color in GAT’s color map. If you don’t want to configure the color map, you can map the generation types to a key in the color map, and use NREL’s default color scheme.</p>
+<p>More details on configuring GAT can be found <a class="reference internal" href="api/Configuration/general.html"><span class="std std-doc">on the Configuring GAT page</span></a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="scenario-objects">
+<h2>Scenario Objects<a class="headerlink" href="#scenario-objects" title="Link to this heading">#</a></h2>
+<p>Scenario Objects are designed to give you a holistic view of Production Cost Model or Capacity Expansion Model simulation. Each Scenario inherits from the BaseScenario by implementing model specific implementations for extracting raw data (e.g. generation or flow) and defining how generators or nodes map to technologies or geographic areas. Once implemented, each model specific object gains access to the base class methods found in BaseScenario. Furthermore, each scenario object implements a set of parsers for gathering model specific raw data, in the case that the bae methods are not sufficient.</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario" title="gat.scenariohandlers.base.BaseScenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseScenario</span></code></a></p></td>
+<td><p>Initialize a scenario object with configuration, system data, and solution data.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/SiennaScenario.html#module-gat.scenariohandlers.sienna" title="gat.scenariohandlers.sienna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sienna</span></code></a></p></td>
+<td><p>Provides a scenario handler for the Sienna simulation platform.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/Plexos.html#module-gat.scenariohandlers.plexos" title="gat.scenariohandlers.plexos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plexos</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/ReEDS.html#module-gat.scenariohandlers.reeds" title="gat.scenariohandlers.reeds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reeds</span></code></a></p></td>
+<td><p>ReEDS Scenario Object  for interfacing with ReEDsScenario across various ReEDS specific CSV files.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html#module-gat.scenariohandlers.multi" title="gat.scenariohandlers.multi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multi</span></code></a></p></td>
+<td><p>Provides a multi-scenario handler for comparing multiple scenarios.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/EGRET.html#module-gat.scenariohandlers.egret" title="gat.scenariohandlers.egret"><code class="xref py py-obj docutils literal notranslate"><span class="pre">egret</span></code></a></p></td>
+<td><p>EGRET - Scenario Object for interfacing with EGRET JSON system and simulation data.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_scenario</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="parsers">
+<h1>Parsers<a class="headerlink" href="#parsers" title="Link to this heading">#</a></h1>
+<p>Parser Objects provide access to raw simulation and system data in the form of dataframes and simple data structures like dictionaries or lists, with minimal data transformation or manipulation.</p>
+<p>It is often the case that Power System simulations are run in parallel across multiple compute nodes, resulting in multiple output files that represent one 8760. Parsers can take a list of h5 files and treat them as one simulation run. When this is the case, the timeseries data are combined by keeping the tail end of the preceding run skipping the head of the following run. This is handled automatically in the Sienna and Plexos parsers.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/Parsers/Sienna.html#module-gat.datahelpers.sienna" title="gat.datahelpers.sienna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sienna</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">parsers</span></code></p></td>
+<td><p>Functions for parsing PLEXOS h5 files to produce generation, availability, load and line flow datasets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plotting">
+<h1>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">#</a></h1>
+<p>GAT provides capabilities for plotting generation stacks and transmission related plots. These are intended to do most of the heavy lifting in terms of stack order and color schemes, while maintaining the flexibility to adjust, modify and add to the created plots.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="reports-experimental">
+<h1>Reports (Experimental)<a class="headerlink" href="#reports-experimental" title="Link to this heading">#</a></h1>
+<p>GAT provides command-line reporting framework based on configuration files. You can initialize and run
+reporting configurations using commands like <code class="docutils literal notranslate"><span class="pre">gat</span> <span class="pre">init</span> <span class="pre">single</span> <span class="pre">--help</span></code> and <code class="docutils literal notranslate"><span class="pre">gat</span> <span class="pre">run</span> <span class="pre">single</span> <span class="pre">--help</span></code>. Reports are generated using a combination of functions found in the <a class="reference internal" href="#"><span class="xref myst">Scenario Plots</span></a> with output saved to a directory or packaged into a <strong>powerpoint</strong> presentation. Users can override default parameters to tune plots to their needs as well as omit plots.</p>
+<p>Users may also extend GAT with custom plots — see <a class="reference internal" href="extending_plots.html"><span class="std std-doc">Custom plots and the
+reporting framework</span></a> for the <code class="docutils literal notranslate"><span class="pre">&#64;plot_function</span></code>
+decorator, the two-tier plot API, and a worked example.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="project-management-cli-v1-0">
+<h1>Project Management CLI (v1.0)<a class="headerlink" href="#project-management-cli-v1-0" title="Link to this heading">#</a></h1>
+<p>GAT v1.0 introduces a comprehensive project management system for organizing your analysis work. Projects are self-contained directories with YAML configuration files that can be shared across teams using git.</p>
+<p><strong>Key Features:</strong></p>
+<ul class="simple">
+<li><p>Initialize projects with standard directory structure</p></li>
+<li><p>Add scenarios (Sienna, ReEDS, Plexos) via CLI</p></li>
+<li><p>Share projects via git repositories</p></li>
+<li><p>User-level project references for easy access</p></li>
+<li><p>Support for palettes, pipelines, and notebooks</p></li>
+</ul>
+<p><strong>Quick Start:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new project</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span>
+
+<span class="c1"># Add a scenario</span>
+gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span>base_case<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/results.h5
+
+<span class="c1"># List projects</span>
+gat<span class="w"> </span>project<span class="w"> </span>list
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="python-api">
+<h1>Python API<a class="headerlink" href="#python-api" title="Link to this heading">#</a></h1>
+<p>GAT provides a simple Python API for loading and working with projects, scenarios, and palettes in scripts and notebooks.</p>
+<p><strong>Key Features:</strong></p>
+<ul class="simple">
+<li><p>Load projects, scenarios, and palettes with smart defaults</p></li>
+<li><p>Informative logging to guide usage</p></li>
+<li><p>Convenience functions for common workflows</p></li>
+<li><p>Handle default resolution automatically</p></li>
+</ul>
+<p><strong>Quick Start:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gat</span>
+
+<span class="c1"># Load with defaults</span>
+<span class="n">scenario</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">project</span> <span class="o">=</span> <span class="n">gat</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c1"># Load specific resources</span>
+<span class="n">scenario</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">project</span> <span class="o">=</span> <span class="n">gat</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+    <span class="n">project</span><span class="o">=</span><span class="s2">&quot;my-analysis&quot;</span><span class="p">,</span>
+    <span class="n">scenario</span><span class="o">=</span><span class="s2">&quot;base_2035&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;renewable_focus&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Suppress verbose messages</span>
+<span class="n">scenario</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">project</span> <span class="o">=</span> <span class="n">gat</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h1>
+<p>GAT v1.0 introduces a duckdb-backed engine (<code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>) that materializes
+power-system data into queryable tables. The architecture pages document the
+contract for adding new tools and the migration path from the legacy
+pandas-based handlers.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="api/Configuration/general.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuring GAT</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grid Analysis Toolkit</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-objects">Scenario Objects</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parsers">Parsers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting">Plotting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reports-experimental">Reports (Experimental)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#project-management-cli-v1-0">Project Management CLI (v1.0)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">Python API</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">Architecture</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

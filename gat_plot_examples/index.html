@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gat_plot_examples/index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mean Hourly Dispatch Profile" href="05_dispatch_mean_hourly.html" />
+    <link rel="prev" title="Reporting Plots" href="../api/Plots/scenario.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/gat_plot_examples/index.rst?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/gat_plot_examples/index.rst" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gat_plot_examples/index.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p># Gallery</p>
+<p>Working examples of GAT’s plotting functions, each driven by an
+in-repo fixture so you can run them locally without provisioning a
+project.</p>
+<p>## Where the data comes from</p>
+<p>Most examples use the Sienna RTS-GMLC fixture at
+<cite>example_data/sienna/v4/</cite>. It’s a one-week unit-commitment run on the
+modified RTS-GMLC test case, generated by the Dockerized
+<cite>PowerSimulations.jl</cite> pipeline at <cite>docker/sienna/</cite>. To regenerate:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">make</span> <span class="pre">sienna-fixture-v4</span>
+<span class="pre">`</span></code></p>
+<p>The transmission example (<cite>09_transmission_loading.py</cite>) uses the Plexos
+fixture at <cite>example_data/plexos/</cite> because the Sienna fixture is built
+with <cite>CopperPlatePowerModel</cite> and therefore has no line-flow data.</p>
+<p>## Running an example</p>
+<p>The examples are plain Python scripts. From <cite>docs/gat_examples/</cite>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python</span> <span class="pre">01_dispatch_annual_system.py</span>
+<span class="pre">`</span></code></p>
+<p>Or open in Jupyter and step through the cells. They each instantiate a
+scenario directly and pass it to a <cite>gat.quickplots</cite> function.</p>
+<p>## Note on construction</p>
+<p>The examples instantiate <cite>SiennaScenario</cite> / <cite>PlexosScenario</cite> directly
+because they’re path-based demos. Production code should use
+<cite>gat.load(…)</cite> to obtain a scenario object via the supported v1 entry
+point — see [Python API: Loading Projects and
+Scenarios](../python_api_load.md).</p>
+<div id='sg-tag-list' class='sphx-glr-tag-list'></div><div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The average dispatch shape over a 24-hour day, computed by grouping the timeseries by hour-of-day and taking the mean. Useful for characterizing typical daily ramps (morning load pickup, solar midday, evening peak)."><img alt="" src="../_images/sphx_glr_05_dispatch_mean_hourly_thumb.png" />
+<p><a class="reference internal" href="05_dispatch_mean_hourly.html"><span class="doc">Mean Hourly Dispatch Profile</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Mean Hourly Dispatch Profile</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Faceted view: one annual stack subplot per area in the system. Each facet shows the same generation-by-tech stack as the system-wide view, restricted to a single area."><img alt="" src="../_images/sphx_glr_03_dispatch_area_facets_thumb.png" />
+<p><a class="reference internal" href="03_dispatch_area_facets.html"><span class="doc">Per-Area Dispatch Facets</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Per-Area Dispatch Facets</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Stacked monthly totals of generation by technology. Useful for spotting seasonality in dispatch (e.g., gas peaking in summer, hydro spring runoff) without the high-frequency noise of an hourly view."><img alt="" src="../_images/sphx_glr_02_dispatch_monthly_system_thumb.png" />
+<p><a class="reference internal" href="02_dispatch_monthly_system.html"><span class="doc">Monthly System Dispatch</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Monthly System Dispatch</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Installed capacity by technology, sourced directly from the system definition (not the simulation results). This is a useful sanity-check view: what&#x27;s actually in the model before any dispatch happens."><img alt="" src="../_images/sphx_glr_07_capacity_overview_thumb.png" />
+<p><a class="reference internal" href="07_capacity_overview.html"><span class="doc">Generation Capacity Overview</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Generation Capacity Overview</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Side-by-side stacked-area views around the timestamps of system-wide peak and minimum demand. Each subplot shows a ±3-day window centered on the event so you can see the dispatch ramp into and out of the peak/trough."><img alt="" src="../_images/sphx_glr_04_dispatch_window_peak_min_thumb.png" />
+<p><a class="reference internal" href="04_dispatch_window_peak_min.html"><span class="doc">Peak and Minimum Demand Windows</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Peak and Minimum Demand Windows</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Stacked time series of curtailed VRE energy by technology. The annual view shows total curtailed MWh; the monthly view shows seasonality."><img alt="" src="../_images/sphx_glr_06_curtailment_annual_thumb.png" />
+<p><a class="reference internal" href="06_curtailment_annual.html"><span class="doc">Curtailment — Annual and Monthly</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Curtailment — Annual and Monthly</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A stacked area plot of system-wide generation by technology over the fixture&#x27;s full horizon, with the load curve overlaid."><img alt="" src="../_images/sphx_glr_01_dispatch_annual_system_thumb.png" />
+<p><a class="reference internal" href="01_dispatch_annual_system.html"><span class="doc">Annual System Dispatch Stack</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Annual System Dispatch Stack</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Two complementary views of the load shape:"><img alt="" src="../_images/sphx_glr_08_load_heatmap_thumb.png" />
+<p><a class="reference internal" href="08_load_heatmap.html"><span class="doc">Load Heatmap and Duration Curve</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Load Heatmap and Duration Curve</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Two transmission views:"><img alt="" src="../_images/sphx_glr_09_transmission_loading_thumb.png" />
+<p><a class="reference internal" href="09_transmission_loading.html"><span class="doc">Transmission Line Loading and Utilization (Plexos)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Transmission Line Loading and Utilization (Plexos)</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-footer sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/d8faf36699ded806bd6c5df001d1ed9f/gat_plot_examples_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">gat_plot_examples_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/88b724c15c2ce7e28b99f96a18faa4ef/gat_plot_examples_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">gat_plot_examples_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../api/Plots/scenario.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Reporting Plots</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="05_dispatch_mean_hourly.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mean Hourly Dispatch Profile</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BaseSystem Architecture &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'architecture/base_system';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="v1 migration pattern: wrapping a tool for GATDatabase" href="v1_migration_pattern.html" />
+    <link rel="prev" title="Sienna scaling and raw dataset access" href="../sienna_scaling.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/architecture/base_system.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/architecture/base_system.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/architecture/base_system.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>BaseSystem Architecture</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components">Core Components</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basesystem-abstract-class">1. BaseSystem Abstract Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-models">2. Data Models</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#systeminfo">SystemInfo</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#generatorcategory">GeneratorCategory</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loadcategory">LoadCategory</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#siennasystem-implementation">3. SiennaSystem Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-principles">Design Principles</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#separation-of-concerns">1. Separation of Concerns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platform-independence">2. Platform Independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardized-output">3. Standardized Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extensibility">4. Extensibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-siennasystemparser">Comparison with SiennaSystemParser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-patterns">Usage Patterns</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-1-system-inspection">Pattern 1: System Inspection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-2-palette-generation">Pattern 2: Palette Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-3-data-analysis">Pattern 3: Data Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-4-validation">Pattern 4: Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extensions">Future Extensions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-for-additional-platforms">Support for Additional Platforms</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reedssystem-planned">ReedsSystem (Planned)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossystem-planned">PlexosSystem (Planned)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-methods">Additional Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-strategy">Testing Strategy</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-tests">Unit Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-tests">Integration Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixture-based-testing">Fixture-Based Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-implementation-authors">For Implementation Authors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-consumers">For Consumers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="basesystem-architecture">
+<h1>BaseSystem Architecture<a class="headerlink" href="#basesystem-architecture" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> abstraction provides a unified interface for reading system files from different simulation platforms (Sienna, ReEDS, Plexos, etc.). This abstraction enables:</p>
+<ul class="simple">
+<li><p><strong>Palette auto-generation</strong>: Automatically create palette configurations from system metadata</p></li>
+<li><p><strong>Platform independence</strong>: Write code that works across different simulation platforms</p></li>
+<li><p><strong>Consistent data access</strong>: Standardized API for accessing generator categories, classifications, and metadata</p></li>
+<li><p><strong>Extensibility</strong>: Easy to add support for new simulation platforms</p></li>
+</ul>
+</section>
+<section id="architecture-diagram">
+<h2>Architecture Diagram<a class="headerlink" href="#architecture-diagram" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌─────────────────────────────────────────────────────────────┐
+│                     Application Layer                       │
+│  (PaletteGenerator, CLI commands, plotting functions)       │
+└────────────────────────────┬────────────────────────────────┘
+                             │
+                             │ uses
+                             ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   BaseSystem (Abstract)                      │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │ - get_system_info() -&gt; SystemInfo                     │  │
+│  │ - list_generator_categories() -&gt; List[GeneratorCategory]│
+│  │ - list_load_categories() -&gt; List[LoadCategory]        │  │
+│  │ - get_generator_data() -&gt; DataFrame                   │  │
+│  │ - get_load_data() -&gt; DataFrame                        │  │
+│  │ - get_vre_categories() -&gt; List[str]                   │  │
+│  │ - get_storage_categories() -&gt; List[str]               │  │
+│  │ - validate() -&gt; List[str]                             │  │
+│  └───────────────────────────────────────────────────────┘  │
+└────────────────────────────┬────────────────────────────────┘
+                             │
+                             │ implements
+                             ▼
+┌──────────────────┬──────────────────┬──────────────────────┐
+│                  │                  │                      │
+│  SiennaSystem    │  ReedsSystem     │  PlexosSystem        │
+│  (Implemented)   │  (Future)        │  (Future)            │
+│                  │                  │                      │
+└──────────────────┴──────────────────┴──────────────────────┘
+</pre></div>
+</div>
+</section>
+<section id="core-components">
+<h2>Core Components<a class="headerlink" href="#core-components" title="Link to this heading">#</a></h2>
+<section id="basesystem-abstract-class">
+<h3>1. BaseSystem Abstract Class<a class="headerlink" href="#basesystem-abstract-class" title="Link to this heading">#</a></h3>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">gat/datahelpers/base_system.py</span></code></p>
+<p>The abstract base class defines the interface that all system parsers must implement:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BaseSystem</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for system file parsers.&quot;&quot;&quot;</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SystemInfo</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get basic system information.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_generator_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GeneratorCategory</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List all generator categories in the system.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_load_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadCategory</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List all load categories in the system.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_generator_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed generator data.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed load data.&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</section>
+<section id="data-models">
+<h3>2. Data Models<a class="headerlink" href="#data-models" title="Link to this heading">#</a></h3>
+<section id="systeminfo">
+<h4>SystemInfo<a class="headerlink" href="#systeminfo" title="Link to this heading">#</a></h4>
+<p>Basic metadata about a power system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SystemInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">base_power</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># MVA base</span>
+    <span class="n">data_format_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">num_generators</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">num_buses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">num_loads</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</section>
+<section id="generatorcategory">
+<h4>GeneratorCategory<a class="headerlink" href="#generatorcategory" title="Link to this heading">#</a></h4>
+<p>Information about a generator category/type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">GeneratorCategory</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>                              <span class="c1"># Category name</span>
+    <span class="n">display_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>     <span class="c1"># Human-readable name</span>
+    <span class="n">fuel_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>        <span class="c1"># Fuel type</span>
+    <span class="n">prime_mover</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>      <span class="c1"># Prime mover type</span>
+    <span class="n">technology</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>       <span class="c1"># Technology classification</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>                         <span class="c1"># Number of generators</span>
+    <span class="n">total_capacity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Total capacity in MW</span>
+    <span class="n">is_vre</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>                   <span class="c1"># Variable Renewable Energy</span>
+    <span class="n">is_storage</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>               <span class="c1"># Storage flag</span>
+    <span class="n">is_curtailable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>           <span class="c1"># Can be curtailed</span>
+</pre></div>
+</div>
+</section>
+<section id="loadcategory">
+<h4>LoadCategory<a class="headerlink" href="#loadcategory" title="Link to this heading">#</a></h4>
+<p>Information about load categories:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LoadCategory</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">display_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">is_flexible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>              <span class="c1"># Flexible/dispatchable</span>
+    <span class="n">is_storage_charging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Storage charging load</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_demand</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>   <span class="c1"># Total demand in MW</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="siennasystem-implementation">
+<h3>3. SiennaSystem Implementation<a class="headerlink" href="#siennasystem-implementation" title="Link to this heading">#</a></h3>
+<p>Location: <code class="docutils literal notranslate"><span class="pre">gat/datahelpers/sienna_system.py</span></code></p>
+<p>Concrete implementation for Sienna/PowerSystems.jl JSON files:</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Parses Sienna JSON system files</p></li>
+<li><p>Extracts generator metadata (fuel type, prime mover, technology)</p></li>
+<li><p>Builds categories from component types and attributes</p></li>
+<li><p>Identifies VRE technologies (Solar, Wind, etc.)</p></li>
+<li><p>Identifies storage technologies (Battery, Pumped Hydro)</p></li>
+<li><p>Returns standardized DataFrames for generator and load data</p></li>
+</ul>
+<p><strong>Category Extraction Logic</strong>:</p>
+<ol class="arabic simple">
+<li><p>Group generators by component type + fuel + prime mover</p></li>
+<li><p>Calculate total capacity per category</p></li>
+<li><p>Classify as VRE based on technology patterns</p></li>
+<li><p>Classify as storage based on component type</p></li>
+<li><p>Mark curtailable resources (typically VRE)</p></li>
+</ol>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;path/to/system.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get system info</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># List categories</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> units, </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get detailed data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity&#39;</span><span class="p">,</span> <span class="s1">&#39;is_vre&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="design-principles">
+<h2>Design Principles<a class="headerlink" href="#design-principles" title="Link to this heading">#</a></h2>
+<section id="separation-of-concerns">
+<h3>1. Separation of Concerns<a class="headerlink" href="#separation-of-concerns" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>BaseSystem</strong>: Defines the interface and common functionality</p></li>
+<li><p><strong>Concrete implementations</strong>: Handle platform-specific file formats</p></li>
+<li><p><strong>PaletteGenerator</strong>: Uses BaseSystem to generate palettes, platform-agnostic</p></li>
+<li><p><strong>CLI/Application</strong>: Interacts only with the abstraction</p></li>
+</ul>
+</section>
+<section id="platform-independence">
+<h3>2. Platform Independence<a class="headerlink" href="#platform-independence" title="Link to this heading">#</a></h3>
+<p>Code that uses <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> works with any implementation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_system</span><span class="p">(</span><span class="n">system</span><span class="p">:</span> <span class="n">BaseSystem</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Works with any BaseSystem implementation.&quot;&quot;&quot;</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
+    <span class="n">vre</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_vre_categories</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">info</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">vre</span>
+
+<span class="c1"># Works with Sienna</span>
+<span class="n">sienna_sys</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">analyze_system</span><span class="p">(</span><span class="n">sienna_sys</span><span class="p">)</span>
+
+<span class="c1"># Will work with ReEDS (future)</span>
+<span class="n">reeds_sys</span> <span class="o">=</span> <span class="n">ReedsSystem</span><span class="p">(</span><span class="s2">&quot;reeds_output/&quot;</span><span class="p">)</span>
+<span class="n">analyze_system</span><span class="p">(</span><span class="n">reeds_sys</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="standardized-output">
+<h3>3. Standardized Output<a class="headerlink" href="#standardized-output" title="Link to this heading">#</a></h3>
+<p>All implementations return the same data structures:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SystemInfo</span></code> for metadata</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GeneratorCategory</span></code> for category information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> for detailed data with standard columns</p></li>
+</ul>
+</section>
+<section id="extensibility">
+<h3>4. Extensibility<a class="headerlink" href="#extensibility" title="Link to this heading">#</a></h3>
+<p>Adding support for a new platform:</p>
+<ol class="arabic simple">
+<li><p>Create new class inheriting from <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code></p></li>
+<li><p>Implement required abstract methods</p></li>
+<li><p>Handle platform-specific file formats internally</p></li>
+<li><p>Return standardized data structures</p></li>
+<li><p>No changes needed to consuming code</p></li>
+</ol>
+</section>
+</section>
+<section id="comparison-with-siennasystemparser">
+<h2>Comparison with SiennaSystemParser<a class="headerlink" href="#comparison-with-siennasystemparser" title="Link to this heading">#</a></h2>
+<p>The new <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> abstraction improves upon <code class="docutils literal notranslate"><span class="pre">SiennaSystemParser</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>SiennaSystemParser</p></th>
+<th class="head"><p>BaseSystem + SiennaSystem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Scope</strong></p></td>
+<td><p>Sienna-only</p></td>
+<td><p>Multi-platform</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Interface</strong></p></td>
+<td><p>Sienna-specific methods</p></td>
+<td><p>Standardized abstract interface</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Categories</strong></p></td>
+<td><p>Limited category extraction</p></td>
+<td><p>Rich category metadata with classifications</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Type hints</strong></p></td>
+<td><p>Partial</p></td>
+<td><p>Complete with Pydantic models</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Documentation</strong></p></td>
+<td><p>Basic</p></td>
+<td><p>Comprehensive with examples</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Validation</strong></p></td>
+<td><p>Minimal</p></td>
+<td><p>Built-in validation with warnings</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Testing</strong></p></td>
+<td><p>Limited</p></td>
+<td><p>Comprehensive test coverage</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Use case</strong></p></td>
+<td><p>Direct data access</p></td>
+<td><p>Palette generation, analysis, visualization</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Migration Path</strong>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">SiennaSystemParser</span></code> is retained for backward compatibility. New code should use <code class="docutils literal notranslate"><span class="pre">SiennaSystem</span></code>.</p>
+</section>
+<section id="usage-patterns">
+<h2>Usage Patterns<a class="headerlink" href="#usage-patterns" title="Link to this heading">#</a></h2>
+<section id="pattern-1-system-inspection">
+<h3>Pattern 1: System Inspection<a class="headerlink" href="#pattern-1-system-inspection" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Basic info</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;System: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Categories</span>
+<span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cat</span><span class="o">.</span><span class="n">is_vre</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  → VRE technology&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pattern-2-palette-generation">
+<h3>Pattern 2: Palette Generation<a class="headerlink" href="#pattern-2-palette-generation" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gat.palette_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaletteGenerator</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Palette&quot;</span><span class="p">,</span>
+    <span class="n">simulation_type</span><span class="o">=</span><span class="s2">&quot;sienna&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pattern-3-data-analysis">
+<h3>Pattern 3: Data Analysis<a class="headerlink" href="#pattern-3-data-analysis" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get all generators as DataFrame</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
+
+<span class="c1"># Analyze VRE capacity</span>
+<span class="n">vre_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_vre&#39;</span><span class="p">]]</span>
+<span class="n">vre_capacity</span> <span class="o">=</span> <span class="n">vre_df</span><span class="p">[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total VRE capacity: </span><span class="si">{</span><span class="n">vre_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+
+<span class="c1"># Analyze by fuel type</span>
+<span class="n">capacity_by_fuel</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;fuel_type&#39;</span><span class="p">)[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">capacity_by_fuel</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pattern-4-validation">
+<h3>Pattern 4: Validation<a class="headerlink" href="#pattern-4-validation" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">warnings</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">warnings</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System validation warnings:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ⚠ </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ System validation passed&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="future-extensions">
+<h2>Future Extensions<a class="headerlink" href="#future-extensions" title="Link to this heading">#</a></h2>
+<section id="support-for-additional-platforms">
+<h3>Support for Additional Platforms<a class="headerlink" href="#support-for-additional-platforms" title="Link to this heading">#</a></h3>
+<section id="reedssystem-planned">
+<h4>ReedsSystem (Planned)<a class="headerlink" href="#reedssystem-planned" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ReedsSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for ReEDS output files.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reeds_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">solve_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reeds_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">reeds_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solve_year</span> <span class="o">=</span> <span class="n">solve_year</span>
+        <span class="c1"># Load ReEDS data from CSV files</span>
+</pre></div>
+</div>
+</section>
+<section id="plexossystem-planned">
+<h4>PlexosSystem (Planned)<a class="headerlink" href="#plexossystem-planned" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PlexosSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for Plexos solution files.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solution_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">solution_path</span><span class="p">)</span>
+        <span class="c1"># Load Plexos XML/database</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-methods">
+<h3>Additional Methods<a class="headerlink" href="#additional-methods" title="Link to this heading">#</a></h3>
+<p>Potential additions to <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_bus_data()</span></code>: Bus/node information</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_branch_data()</span></code>: Transmission line data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_zone_data()</span></code>: Zone/region aggregations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_time_series_metadata()</span></code>: Available time series</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export_to_format()</span></code>: Convert between formats</p></li>
+</ul>
+</section>
+</section>
+<section id="testing-strategy">
+<h2>Testing Strategy<a class="headerlink" href="#testing-strategy" title="Link to this heading">#</a></h2>
+<section id="unit-tests">
+<h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Link to this heading">#</a></h3>
+<p>Test each implementation independently:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_sienna_system_info</span><span class="p">():</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">info</span><span class="o">.</span><span class="n">num_generators</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">info</span><span class="o">.</span><span class="n">base_power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_generator_categories</span><span class="p">():</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="integration-tests">
+<h3>Integration Tests<a class="headerlink" href="#integration-tests" title="Link to this heading">#</a></h3>
+<p>Test with PaletteGenerator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_palette_generation</span><span class="p">():</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+    <span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">display_categories</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+<section id="fixture-based-testing">
+<h3>Fixture-Based Testing<a class="headerlink" href="#fixture-based-testing" title="Link to this heading">#</a></h3>
+<p>Use synthetic system files for testing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_system</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create minimal valid system for testing.&quot;&quot;&quot;</span>
+    <span class="n">system_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;data_format_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.0.0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;base_power&quot;</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+            <span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="c1"># Test generators</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1"># Save to temp file and return path</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<section id="for-implementation-authors">
+<h3>For Implementation Authors<a class="headerlink" href="#for-implementation-authors" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Follow the interface</strong>: Implement all abstract methods</p></li>
+<li><p><strong>Return standard structures</strong>: Use <code class="docutils literal notranslate"><span class="pre">SystemInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">GeneratorCategory</span></code>, etc.</p></li>
+<li><p><strong>Handle errors gracefully</strong>: Raise meaningful exceptions</p></li>
+<li><p><strong>Document platform specifics</strong>: Note any limitations or special cases</p></li>
+<li><p><strong>Validate input</strong>: Check file format and raise clear errors</p></li>
+<li><p><strong>Test thoroughly</strong>: Cover edge cases and malformed data</p></li>
+</ol>
+</section>
+<section id="for-consumers">
+<h3>For Consumers<a class="headerlink" href="#for-consumers" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Use the abstraction</strong>: Write code against <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code>, not concrete implementations</p></li>
+<li><p><strong>Handle validation warnings</strong>: Check <code class="docutils literal notranslate"><span class="pre">validate()</span></code> output</p></li>
+<li><p><strong>Check for missing data</strong>: Not all fields are available in all platforms</p></li>
+<li><p><strong>Use type hints</strong>: Leverage Pydantic models for validation</p></li>
+<li><p><strong>Test with multiple platforms</strong>: Ensure code works across implementations</p></li>
+</ol>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../palette_generation.html"><span class="std std-doc">Palette Generation Guide</span></a></p></li>
+<li><p><a class="reference internal" href="#../palette.md"><span class="xref myst">Palette Model Reference</span></a></p></li>
+<li><p><a class="reference internal" href="#../api/"><span class="xref myst">API Documentation</span></a></p></li>
+<li><p><a class="reference internal" href="#../testing.md"><span class="xref myst">Testing Guide</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../sienna_scaling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sienna scaling and raw dataset access</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="v1_migration_pattern.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-diagram">Architecture Diagram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-components">Core Components</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basesystem-abstract-class">1. BaseSystem Abstract Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-models">2. Data Models</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#systeminfo">SystemInfo</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#generatorcategory">GeneratorCategory</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loadcategory">LoadCategory</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#siennasystem-implementation">3. SiennaSystem Implementation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-principles">Design Principles</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#separation-of-concerns">1. Separation of Concerns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platform-independence">2. Platform Independence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardized-output">3. Standardized Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extensibility">4. Extensibility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-siennasystemparser">Comparison with SiennaSystemParser</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-patterns">Usage Patterns</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-1-system-inspection">Pattern 1: System Inspection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-2-palette-generation">Pattern 2: Palette Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-3-data-analysis">Pattern 3: Data Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-4-validation">Pattern 4: Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#future-extensions">Future Extensions</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-for-additional-platforms">Support for Additional Platforms</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reedssystem-planned">ReedsSystem (Planned)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossystem-planned">PlexosSystem (Planned)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-methods">Additional Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-strategy">Testing Strategy</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-tests">Unit Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-tests">Integration Tests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fixture-based-testing">Fixture-Based Testing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-implementation-authors">For Implementation Authors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-consumers">For Consumers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

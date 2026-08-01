@@ -1,0 +1,933 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>v1 migration pattern: wrapping a tool for GATDatabase &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'architecture/v1_migration_pattern';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Custom plots and the reporting framework" href="../extending_plots.html" />
+    <link rel="prev" title="BaseSystem Architecture" href="base_system.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/architecture/v1_migration_pattern.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/architecture/v1_migration_pattern.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/architecture/v1_migration_pattern.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>v1 migration pattern: wrapping a tool for GATDatabase</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-contract">The contract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-plexos-poc-walked-end-to-end">The Plexos POC, walked end-to-end</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossystem"><code class="docutils literal notranslate"><span class="pre">PlexosSystem</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossimulation"><code class="docutils literal notranslate"><span class="pre">PlexosSimulation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-it-end-to-end">Driving it end-to-end</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-test">Parity test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-third-tool-and-a-shortcut-for-already-relational-sources">A third tool, and a shortcut for already-relational sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-legacy-handler-that-speaks-both-formats">A legacy handler that speaks both formats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-to-apply-when-adding-a-new-tool">Pattern to apply when adding a new tool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-skip-a-step">When to skip a step</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-reading">Related reading</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="v1-migration-pattern-wrapping-a-tool-for-gatdatabase">
+<h1>v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code><a class="headerlink" href="#v1-migration-pattern-wrapping-a-tool-for-gatdatabase" title="Link to this heading">#</a></h1>
+<p>This page documents the pattern for getting a power-system tool’s data into
+GAT’s v1 duckdb-backed pipeline (<code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>). Use it when adding support
+for a new tool, or when migrating an existing legacy scenario handler from
+the pandas/h5py path to the v1 path.</p>
+<p>The Plexos POC (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos.py</span></code></a>,
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_v1.py</span></code></a>,
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/tests/handlers/test_plexos_v1_migration.py"><code class="docutils literal notranslate"><span class="pre">tests/handlers/test_plexos_v1_migration.py</span></code></a>) is the worked
+example. The Sienna implementation
+(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/sienna.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/sienna.py</span></code></a>,
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/sienna_v1.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/sienna_v1.py</span></code></a>) is the second reference point;
+read both if you’re adding a third tool.</p>
+<section id="the-contract">
+<h2>The contract<a class="headerlink" href="#the-contract" title="Link to this heading">#</a></h2>
+<p>The v1 architecture has three pieces:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              ┌─────────────────────┐
+              │  BaseSystem (your   │
+              │  tool wraps it)    ─┼─── default CategoryMap[s]
+              │                     │
+              │  list_datasets()    │── DatasetInfo[]
+              │  get_dataset(name) ─┼─── pd.DataFrame
+              └──────────┬──────────┘
+                         │
+                         │  ingest_system()
+                         ▼
+              ┌─────────────────────┐
+              │   GATDatabase       │── query_grouped(schema, dataset, group_by)
+              │   (DuckDB engine)   │
+              └──────────▲──────────┘
+                         │
+                         │  ingest_simulation()
+                         │
+              ┌──────────┴──────────┐
+              │  BaseSimulation     │
+              │  (your tool wraps) │── DatasetInfo[]
+              │                     │
+              │  list_datasets()    │── (raw + composed)
+              │  get_dataset(name) ─┼─── pd.DataFrame
+              └─────────────────────┘    (timestamp × entity)
+</pre></div>
+</div>
+<p>Three things to implement:</p>
+<ol class="arabic simple">
+<li><p><strong>A <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> subclass</strong> that exposes generators/loads/lines as
+datasets and provides default <code class="docutils literal notranslate"><span class="pre">CategoryMap</span></code>s for the relations needed
+for <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">gen_area</span></code>, <code class="docutils literal notranslate"><span class="pre">gen_tech</span></code>).</p></li>
+<li><p><strong>A <code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code> subclass</strong> that exposes raw simulation datasets
+(timestamp × entity) and at least one composed dataset (the union you
+want to be able to group by).</p></li>
+<li><p><strong>Smoke + parity tests</strong> that ingest into <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>, run
+<code class="docutils literal notranslate"><span class="pre">query_grouped</span></code>, and confirm the result matches the legacy pandas path
+within tolerance.</p></li>
+</ol>
+</section>
+<section id="the-plexos-poc-walked-end-to-end">
+<h2>The Plexos POC, walked end-to-end<a class="headerlink" href="#the-plexos-poc-walked-end-to-end" title="Link to this heading">#</a></h2>
+<section id="plexossystem">
+<h3><code class="docutils literal notranslate"><span class="pre">PlexosSystem</span></code><a class="headerlink" href="#plexossystem" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos.py</span></code> wraps the existing <code class="docutils literal notranslate"><span class="pre">PlexosParser</span></code>. Two things it
+exposes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">list_datasets()</span></code> returns <code class="docutils literal notranslate"><span class="pre">[]</span></code> for now (POC scope — no system component
+tables ingested yet; Plexos relations are sufficient for the migration
+POC).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_default_category_maps()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">gen_area</span></code> <code class="docutils literal notranslate"><span class="pre">CategoryMap</span></code>
+populated from <code class="docutils literal notranslate"><span class="pre">parser.get_metadata(&quot;metadata/relations/regions_generators&quot;,</span> <span class="pre">reverse=True)</span></code>. Optionally a <code class="docutils literal notranslate"><span class="pre">gen_tech</span></code> map if a tech-simplified mapping
+was passed in.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.categories</span><span class="w"> </span><span class="kn">import</span> <span class="n">CategoryMap</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PlexosSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DatasetInfo</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_category_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">CategoryMap</span><span class="p">]:</span>
+        <span class="n">gen_area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">(</span>
+            <span class="s2">&quot;metadata/relations/regions_generators&quot;</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">CategoryMap</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;gen_area&quot;</span><span class="p">,</span>
+            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Generator → region/area&quot;</span><span class="p">,</span>
+            <span class="n">mapping</span><span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">gen_area</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+        <span class="p">)]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">CategoryMap</span></code> supports three sources: in-memory <code class="docutils literal notranslate"><span class="pre">mapping</span></code>, an external
+<code class="docutils literal notranslate"><span class="pre">mapping_file</span></code> (CSV/Excel), or a <code class="docutils literal notranslate"><span class="pre">geometry_file</span></code> for spatial joins. The
+POC uses the in-memory dict form.</p>
+</section>
+<section id="plexossimulation">
+<h3><code class="docutils literal notranslate"><span class="pre">PlexosSimulation</span></code><a class="headerlink" href="#plexossimulation" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_v1.py</span></code> exposes one raw and one composed dataset:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PlexosSimulation</span><span class="p">(</span><span class="n">BaseSimulation</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DatasetInfo</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">DatasetInfo</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;generation_raw&quot;</span><span class="p">,</span>
+                <span class="n">kind</span><span class="o">=</span><span class="n">DatasetKind</span><span class="o">.</span><span class="n">RAW_SIMULATION</span><span class="p">,</span>
+                <span class="n">entity_column</span><span class="o">=</span><span class="s2">&quot;entity_id&quot;</span><span class="p">,</span>
+                <span class="o">...</span>
+            <span class="p">),</span>
+            <span class="n">DatasetInfo</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;generation&quot;</span><span class="p">,</span>
+                <span class="n">kind</span><span class="o">=</span><span class="n">DatasetKind</span><span class="o">.</span><span class="n">COMPOSED</span><span class="p">,</span>
+                <span class="n">entity_column</span><span class="o">=</span><span class="s2">&quot;entity_id&quot;</span><span class="p">,</span>
+                <span class="n">source_datasets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;generation_raw&quot;</span><span class="p">],</span>
+                <span class="o">...</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="c1"># Plexos parser returns entity-rows × timestamp-cols with a</span>
+        <span class="c1"># MultiIndex (generator, category) on the rows. Transpose to the</span>
+        <span class="c1"># v1 contract (timestamp-rows × entity-cols) and flatten the index</span>
+        <span class="c1"># to just the generator name.</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">get_h5dataset</span><span class="p">(</span><span class="s2">&quot;ST&quot;</span><span class="p">,</span> <span class="s2">&quot;interval&quot;</span><span class="p">,</span> <span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;Generation&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="p">):</span>
+            <span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">raw</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;DATETIME&quot;</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Orientation matters.</strong> The contract is timestamp-rows × entity-cols, with
+a <code class="docutils literal notranslate"><span class="pre">DatetimeIndex</span></code>. <code class="docutils literal notranslate"><span class="pre">GATDatabase.ingest_simulation</span></code> calls
+<code class="docutils literal notranslate"><span class="pre">_prepare_sim_dataframe</span></code> which converts the index to an ISO string column
+named <code class="docutils literal notranslate"><span class="pre">datetime</span></code> and casts floats to f32. Composed datasets are then built
+by UNPIVOTing the raw tables and PIVOTing back as entity-rows ×
+timestamp-cols (for efficient GROUP BY across many timestamps).</p>
+</section>
+<section id="driving-it-end-to-end">
+<h3>Driving it end-to-end<a class="headerlink" href="#driving-it-end-to-end" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.backends</span><span class="w"> </span><span class="kn">import</span> <span class="n">GATDatabase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gat.systems</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlexosSystem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlexosSimulation</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">GATDatabase</span><span class="p">()</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">PlexosSystem</span><span class="p">(</span><span class="n">solution_dir</span><span class="o">=</span><span class="s2">&quot;example_data/plexos&quot;</span><span class="p">)</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">PlexosSimulation</span><span class="p">(</span><span class="n">solution_dir</span><span class="o">=</span><span class="s2">&quot;example_data/plexos&quot;</span><span class="p">)</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">ingest_system</span><span class="p">(</span><span class="s2">&quot;plexos&quot;</span><span class="p">,</span> <span class="n">system</span><span class="p">)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">ingest_simulation</span><span class="p">(</span><span class="s2">&quot;plexos&quot;</span><span class="p">,</span> <span class="n">sim</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cmap</span> <span class="ow">in</span> <span class="n">system</span><span class="o">.</span><span class="n">get_default_category_maps</span><span class="p">():</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">register_category_map</span><span class="p">(</span><span class="s2">&quot;plexos&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
+
+<span class="c1"># Area-aggregated generation, summed across all timestamps:</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query_grouped</span><span class="p">(</span><span class="s2">&quot;plexos&quot;</span><span class="p">,</span> <span class="s2">&quot;generation&quot;</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gen_area&quot;</span><span class="p">])</span>
+<span class="c1"># → wide DataFrame: gen_area | t0 | t1 | … | tN</span>
+</pre></div>
+</div>
+</section>
+<section id="parity-test">
+<h3>Parity test<a class="headerlink" href="#parity-test" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tests/handlers/test_plexos_v1_migration.py::test_v1_area_aggregation_matches_legacy</span></code>
+asserts that the duckdb path produces the same area totals as the legacy
+<code class="docutils literal notranslate"><span class="pre">PlexosScenario.get_generation()</span></code> aggregated by area, within <code class="docutils literal notranslate"><span class="pre">rel=1e-4</span></code>.
+This is the load-bearing test — every <code class="docutils literal notranslate"><span class="pre">get_*</span></code> method migrated from the
+legacy handler should add a similar parity check before flipping its
+implementation to use duckdb.</p>
+</section>
+</section>
+<section id="a-third-tool-and-a-shortcut-for-already-relational-sources">
+<h2>A third tool, and a shortcut for already-relational sources<a class="headerlink" href="#a-third-tool-and-a-shortcut-for-already-relational-sources" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/systems/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/systems/plexos_duckdb.py</span></code></a> /
+<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/simulations/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/simulations/plexos_duckdb.py</span></code></a> is a second Plexos
+backend, alongside the H5-based POC above. It ingests native PLEXOS
+<code class="docutils literal notranslate"><span class="pre">Solution.zip</span></code> files (not h5plexos-converted <code class="docutils literal notranslate"><span class="pre">.h5</span></code>) by shelling out to the
+optional <a class="reference external" href="https://github.com/epri-dev/plexos2duckdb"><code class="docutils literal notranslate"><span class="pre">plexos2duckdb</span></code></a> tool
+(<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nlr-gat[plexos-duckdb]</span></code> — a Rust CLI, beta as of this writing).</p>
+<p>Quickest way to try it — <code class="docutils literal notranslate"><span class="pre">Scenario.from_plexos_duckdb</span></code> builds
+<code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSystem</span></code> + <code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSimulation</span></code> + <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code> and ingests
+in one call:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scenario</span>
+
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">Scenario</span><span class="o">.</span><span class="n">from_plexos_duckdb</span><span class="p">(</span><span class="s2">&quot;/path/to/Solution.zip&quot;</span><span class="p">)</span>
+<span class="n">scenario</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;generation&quot;</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;gen_area&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>By default this only ingests what the <code class="docutils literal notranslate"><span class="pre">generation</span></code> composition needs
+(one raw report table), not the 100+ report tables a real solution can
+expose — pass <code class="docutils literal notranslate"><span class="pre">full_ingest=True</span></code> to pull everything, but expect it to be
+slow (minutes on a multi-thousand-generator solution) and to hit the
+identifier-quoting bug below on any property with a special character in
+its name (real example: PLEXOS’s “Start &amp; Shutdown Cost”).</p>
+<p>The interesting bit for future plugin authors: <code class="docutils literal notranslate"><span class="pre">plexos2duckdb</span></code>’s output is
+<em>already</em> a DuckDB file with a <code class="docutils literal notranslate"><span class="pre">report</span></code> schema — one view per
+<code class="docutils literal notranslate"><span class="pre">(Phase,</span> <span class="pre">Period,</span> <span class="pre">Collection,</span> <span class="pre">Property)</span></code> triple, timestamp + entity-name +
+value columns. So instead of parsing into pandas and letting
+<code class="docutils literal notranslate"><span class="pre">GATDatabase.ingest_simulation</span></code> do the transpose, <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code> runs a
+<code class="docutils literal notranslate"><span class="pre">PIVOT</span></code> directly against the source connection
+(<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/datahelpers/plexos_duckdb.py"><code class="docutils literal notranslate"><span class="pre">gat/datahelpers/plexos_duckdb.py</span></code></a>) and only
+crosses into pandas at the very end via <code class="docutils literal notranslate"><span class="pre">.fetchdf()</span></code>. Same
+<code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code>/<code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code> contract as every other backend — the
+shortcut is internal to <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code>, not a new interface.</p>
+<p><strong>Multi-file overlap is a shared primitive, not a per-backend concern.</strong>
+Before this backend, GAT had <em>three</em> independent implementations of
+“combine multiple time-ordered files/blocks, earlier one wins”: Sienna’s
+<code class="docutils literal notranslate"><span class="pre">SimulationAggregator._combine_frames</span></code>, the legacy Plexos h5 path’s
+<code class="docutils literal notranslate"><span class="pre">gat.datahelpers.parsers.combine_frames_skip_prev</span></code>, and (briefly, during
+this backend’s first pass) a bespoke SQL version here. They’d drifted —
+<code class="docutils literal notranslate"><span class="pre">combine_frames_skip_prev</span></code> has a documented quirk where its output isn’t
+re-sorted chronologically if the input list wasn’t already in order (see
+<code class="docutils literal notranslate"><span class="pre">tests/datahelpers/test_combine_frames.py</span></code>), which surfaced as a real
+~9% generation under-count when a 12-month real fixture exposed it.</p>
+<p>The fix: <code class="docutils literal notranslate"><span class="pre">gat.simulations.utils.combine_overlapping_frames</span></code> is now the one
+canonical function — sort input frames by first timestamp, dedupe via
+<code class="docutils literal notranslate"><span class="pre">dedup_slices</span></code>, concatenate, sort the result. <code class="docutils literal notranslate"><span class="pre">SimulationAggregator.</span> <span class="pre">_combine_frames</span></code> is a thin wrapper over it. <code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSource.pivot_wide</span></code>
+uses it too: each attached file gets pivoted <strong>independently</strong>
+(<code class="docutils literal notranslate"><span class="pre">_pivot_one_file</span></code> — genuinely “parse one file, nothing else”) into its
+own timestamp × entity DataFrame, and only those per-file DataFrames get
+handed to <code class="docutils literal notranslate"><span class="pre">combine_overlapping_frames</span></code>. <code class="docutils literal notranslate"><span class="pre">combine_frames_skip_prev</span></code> itself
+hasn’t been migrated yet (it’s mid-investigation for the under-count bug;
+migrating it is the natural follow-up once that’s root-caused) — new
+backends should use <code class="docutils literal notranslate"><span class="pre">combine_overlapping_frames</span></code> directly rather than
+that one.</p>
+<p>Composed datasets are also expressed the same way Sienna does it: a
+<code class="docutils literal notranslate"><span class="pre">{composed_name:</span> <span class="pre">[glob_patterns]}</span></code> dict resolved against raw dataset names.
+That resolution logic (<code class="docutils literal notranslate"><span class="pre">resolve_compositions</span></code>) was extracted from
+<code class="docutils literal notranslate"><span class="pre">SiennaSimulation</span></code> into <code class="docutils literal notranslate"><span class="pre">gat/simulations/utils.py</span></code> so both backends (and any
+future one) share it instead of reimplementing fnmatch-against-raw-names
+each time.</p>
+</section>
+<section id="a-legacy-handler-that-speaks-both-formats">
+<h2>A legacy handler that speaks both formats<a class="headerlink" href="#a-legacy-handler-that-speaks-both-formats" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">PlexosScenario</span></code> (<a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/scenariohandlers/plexos.py"><code class="docutils literal notranslate"><span class="pre">gat/scenariohandlers/plexos.py</span></code></a>) now
+detects its input format and routes internally to one of two engines —
+the legacy pandas/h5py <code class="docutils literal notranslate"><span class="pre">PlexosParser</span></code> for h5plexos-converted <code class="docutils literal notranslate"><span class="pre">.h5</span></code> files
+(unchanged), or <code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSystem</span></code>/<code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSimulation</span></code> for native
+PLEXOS <code class="docutils literal notranslate"><span class="pre">Solution.zip</span></code>/<code class="docutils literal notranslate"><span class="pre">.duckdb</span></code> files. Same class, same public API either
+way — <code class="docutils literal notranslate"><span class="pre">BaseScenario</span></code>’s higher-level methods (<code class="docutils literal notranslate"><span class="pre">get_system_dispatch()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">get_area_dispatch()</span></code>, curtailment, peak stats, line loading) work
+unmodified on top of whichever engine is active:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlexosScenario</span>
+
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">PlexosScenario</span><span class="p">(</span><span class="s2">&quot;/path/to/Solution.zip&quot;</span><span class="p">)</span>   <span class="c1"># duckdb backend</span>
+<span class="c1"># scenario = PlexosScenario(&quot;/path/to/h5_dir&quot;)       # h5 backend, unchanged</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_system_dispatch</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is a variant of step 7 below (“flip the legacy method’s
+implementation to delegate to the v1 path”) — gated on input format
+rather than a hard cutover, since native <code class="docutils literal notranslate"><span class="pre">.zip</span></code> and h5plexos <code class="docutils literal notranslate"><span class="pre">.h5</span></code> are
+different upstream artifacts that must both keep working. Detection lives
+in <code class="docutils literal notranslate"><span class="pre">_resolve_plexos_backend_and_files</span></code> (a free function, independently
+tested in <code class="docutils literal notranslate"><span class="pre">tests/handlers/test_plexos_backend_detection.py</span></code>): explicit
+file paths resolve regardless of extension and are classified by it;
+directories/globs retry under <code class="docutils literal notranslate"><span class="pre">*.zip</span></code>/<code class="docutils literal notranslate"><span class="pre">*.duckdb</span></code> patterns only if the
+default <code class="docutils literal notranslate"><span class="pre">*.h5</span></code> pattern found nothing. Every abstract method branches
+<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">self._backend</span> <span class="pre">==</span> <span class="pre">&quot;duckdb&quot;:</span> <span class="pre">...</span> <span class="pre">else:</span> <span class="pre">&lt;existing</span> <span class="pre">h5</span> <span class="pre">code,</span> <span class="pre">untouched&gt;</span></code> —
+the h5 branch is never touched, so the regression snapshots in
+<code class="docutils literal notranslate"><span class="pre">tests/handlers/test_plexos_regression.py</span></code> gate zero <code class="docutils literal notranslate"><span class="pre">--force-regen</span></code>.</p>
+<p>The duckdb branch talks straight to <code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSystem</span></code>/
+<code class="docutils literal notranslate"><span class="pre">PlexosDuckDBSimulation</span></code> — never <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>/<code class="docutils literal notranslate"><span class="pre">Scenario</span></code> — which sidesteps
+the identifier-quoting concern entirely (that bug lives in <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code>’s
+view-registration path).</p>
+<p><strong>A real-data surprise worth remembering</strong>: PLEXOS <code class="docutils literal notranslate"><span class="pre">Storage</span></code>-class objects
+looked, at first, like h5plexos’s “batteries” group (which the legacy path
+unions additively into <code class="docutils literal notranslate"><span class="pre">generation</span></code>/<code class="docutils literal notranslate"><span class="pre">gen_area</span></code> — see <code class="docutils literal notranslate"><span class="pre">gat/systems/</span> <span class="pre">plexos.py</span></code>). They’re not. Verified against a real converted solution:
+<code class="docutils literal notranslate"><span class="pre">Storage</span></code> objects are named <code class="docutils literal notranslate"><span class="pre">&lt;generator&gt;_head</span></code>/<code class="docutils literal notranslate"><span class="pre">&lt;generator&gt;_tail</span></code>,
+children of their <code class="docutils literal notranslate"><span class="pre">Generator</span></code> (not <code class="docutils literal notranslate"><span class="pre">Region</span></code>) via <code class="docutils literal notranslate"><span class="pre">Head</span> <span class="pre">Storage</span></code>/
+<code class="docutils literal notranslate"><span class="pre">Tail</span> <span class="pre">Storage</span></code> membership collections, and their <code class="docutils literal notranslate"><span class="pre">Generation</span></code> is
+bit-identical to the parent <code class="docutils literal notranslate"><span class="pre">Generator</span></code>’s own <code class="docutils literal notranslate"><span class="pre">Generation</span></code> — internal
+reservoir bookkeeping for battery-capable generators, not a separate
+generation source. Unioning it in would have double-counted. Only
+<code class="docutils literal notranslate"><span class="pre">Storages__Pump_Load</span></code> (charging) is genuinely separate information, and
+only its <code class="docutils literal notranslate"><span class="pre">_head</span></code> column carries a real value. Moral: h5plexos and
+plexos2duckdb convert the <em>same</em> underlying PLEXOS solution but don’t
+necessarily share a data model — verify against real data before porting
+a union/aggregation pattern from one to the other, don’t assume it
+transfers.</p>
+</section>
+<section id="pattern-to-apply-when-adding-a-new-tool">
+<h2>Pattern to apply when adding a new tool<a class="headerlink" href="#pattern-to-apply-when-adding-a-new-tool" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Step</p></th>
+<th class="head"><p>What to do</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>List the raw datasets your tool emits (e.g. one per component type, one per output variable).</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Decide which composed unions you need (<code class="docutils literal notranslate"><span class="pre">generation</span></code>, <code class="docutils literal notranslate"><span class="pre">load</span></code>, <code class="docutils literal notranslate"><span class="pre">line_flow</span></code>, …). Compositions are just a list of source dataset names; <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code> materializes them.</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Implement <code class="docutils literal notranslate"><span class="pre">BaseSimulation.list_datasets()</span></code> and <code class="docutils literal notranslate"><span class="pre">get_dataset(name)</span></code> returning pandas DataFrames in the <strong>timestamp-rows × entity-cols</strong> orientation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Implement <code class="docutils literal notranslate"><span class="pre">BaseSystem.get_default_category_maps()</span></code> for the relations needed for <code class="docutils literal notranslate"><span class="pre">GROUP</span> <span class="pre">BY</span></code>. Start with <code class="docutils literal notranslate"><span class="pre">gen_area</span></code>; add <code class="docutils literal notranslate"><span class="pre">gen_tech</span></code>, <code class="docutils literal notranslate"><span class="pre">gen_fuel</span></code>, etc. as needed.</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Smoke-test: <code class="docutils literal notranslate"><span class="pre">db.ingest_system</span> <span class="pre">+</span> <span class="pre">db.ingest_simulation</span> <span class="pre">+</span> <span class="pre">db.list_tables</span> <span class="pre">+</span> <span class="pre">db.query_grouped</span></code>. Iterate until the round-trip works.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Parity-test against the legacy handler’s equivalent method. Use <code class="docutils literal notranslate"><span class="pre">pytest.approx(...,</span> <span class="pre">rel=1e-4)</span></code> as a starting tolerance; tighten if your tool is deterministic.</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Once parity holds, flip the legacy method’s implementation to delegate to the v1 path. The regression snapshot tests (<code class="docutils literal notranslate"><span class="pre">test_*_regression.py</span></code>) gate the change.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="when-to-skip-a-step">
+<h2>When to skip a step<a class="headerlink" href="#when-to-skip-a-step" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>No legacy parity test target:</strong> if you’re adding support for a tool
+GAT didn’t have before, skip step 6 — there’s nothing to compare against.
+Use <code class="docutils literal notranslate"><span class="pre">test_v1_pipeline_ingests_and_groups</span></code> (smoke) as your only test;
+add snapshots once the output stabilizes.</p></li>
+<li><p><strong>No clean composition:</strong> if your tool’s data is already aggregated in a
+way that doesn’t fit the raw-then-composed model, expose it as a single
+raw dataset and use <code class="docutils literal notranslate"><span class="pre">query()</span></code> (raw SQL) instead of <code class="docutils literal notranslate"><span class="pre">query_grouped</span></code> for
+one-off needs. The composition story is a convenience; not every dataset
+needs to fit it.</p></li>
+</ul>
+</section>
+<section id="related-reading">
+<h2>Related reading<a class="headerlink" href="#related-reading" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="../sienna_scaling.html"><span class="std std-doc">Sienna scaling and raw dataset access</span></a> — how
+<code class="docutils literal notranslate"><span class="pre">base_power</span></code> is resolved across the legacy and v1 paths.</p></li>
+<li><p><a class="reference internal" href="../legacy_handler_deprecation.html"><span class="std std-doc">Legacy scenario handler deprecation</span></a>
+— the user-facing migration story.</p></li>
+<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/interfaces.py"><code class="docutils literal notranslate"><span class="pre">gat.interfaces</span></code></a> — the <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> / <code class="docutils literal notranslate"><span class="pre">BaseSimulation</span></code>
+abstract classes with full docstrings.</p></li>
+<li><p><a class="reference external" href="https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/gat/backends/duckdb_backend.py"><code class="docutils literal notranslate"><span class="pre">gat.backends.GATDatabase</span></code></a> — the duckdb engine.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="base_system.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">BaseSystem Architecture</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../extending_plots.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Custom plots and the reporting framework</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-contract">The contract</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-plexos-poc-walked-end-to-end">The Plexos POC, walked end-to-end</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossystem"><code class="docutils literal notranslate"><span class="pre">PlexosSystem</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plexossimulation"><code class="docutils literal notranslate"><span class="pre">PlexosSimulation</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#driving-it-end-to-end">Driving it end-to-end</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parity-test">Parity test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-third-tool-and-a-shortcut-for-already-relational-sources">A third tool, and a shortcut for already-relational sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-legacy-handler-that-speaks-both-formats">A legacy handler that speaks both formats</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-to-apply-when-adding-a-new-tool">Pattern to apply when adding a new tool</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-skip-a-step">When to skip a step</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#related-reading">Related reading</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

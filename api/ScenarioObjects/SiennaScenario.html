@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sienna &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/ScenarioObjects/SiennaScenario';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PLEXOS" href="Plexos.html" />
+    <link rel="prev" title="Base" href="BaseScenario.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="BaseScenario.html">Base</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/api/ScenarioObjects/SiennaScenario.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/api/ScenarioObjects/SiennaScenario.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/api/ScenarioObjects/SiennaScenario.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Sienna</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario"><code class="docutils literal notranslate"><span class="pre">SiennaScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.area"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.area</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.copy"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.from_simulation_models()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.generator_technology_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.generator_technology_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_interchange"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_area_interchange()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_availability()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_gen_area_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_gen_area_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_generation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_rating_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_line_rating_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load_area_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_load_area_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_raw_dataset"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_raw_dataset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_system_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.to_multiscenario"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.to_multiscenario()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gat.scenariohandlers.sienna">
+<span id="sienna"></span><h1>Sienna<a class="headerlink" href="#module-gat.scenariohandlers.sienna" title="Link to this heading">#</a></h1>
+<p>Provides a scenario handler for the Sienna simulation platform.</p>
+<p>This module defines the SiennaScenario class, which provides methods for
+accessing and processing data from Sienna system json files and simulation h5 files.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.sienna.</span></span><span class="sig-name descname"><span class="pre">SiennaScenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario" title="Link to this definition">#</a></dt>
+<dd><p>Class for providing holistic access to Sienna system and simulation data
+found in JSON and h5 files respectively</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>simulation_files</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – List([str, path]) - A path or list of paths to the simulation h5 files produced by a Sienna simulation.</p></li>
+<li><p><strong>system_files</strong> – [str, path] - A path or str to the Sienna system JSON file.</p></li>
+<li><p><strong>system_file</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>config</strong> (<em>ScenarioConfig</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>)</p></li>
+<li><p><strong>solution_data</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>metadata_file</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<section id="internals-properties">
+<h2>Internals Properties<a class="headerlink" href="#internals-properties" title="Link to this heading">#</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">self.parser<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <cite>SimulationAggregator(parser_class=SiennaSimulationParser)</cite> (multi-file) or a single <cite>SiennaSimulationParser</cite> for one h5 file.</p>
+</dd>
+<dt class="field-even">self.system<span class="colon">:</span></dt>
+<dd class="field-even"><p>A SiennaSystemParser(system_file) for parsing the Sienna system JSON file.</p>
+</dd>
+<dt class="field-odd">self.config<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A mutable configuration object that tells the handler where to look for certain types of data.</p>
+</dd>
+<dt class="field-even">self.unit_base_value<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Sienna System base unit. Acts as a scaling multiplier for all the timeseries and capacity data. (See Sienna Documentation for more details)</p>
+</dd>
+<dt class="field-odd">self.unit_system<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Natural or Per-Unit</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.area">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">area</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.area" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">&quot;area&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Display label for the aggregation column (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selected_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.copy" title="Link to this definition">#</a></dt>
+<dd><p>Create a copy of this scenario with independent configuration and parser.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>selected_model<span class="classifier">str, optional</span></dt><dd><p>Model to select in the new scenario’s parser. If None, uses current selected_model.</p>
+</dd>
+<dt>display_name<span class="classifier">str, optional</span></dt><dd><p>Display name for the new scenario. If None, uses current display_name.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>SiennaScenario</dt><dd><p>New scenario instance with independent configuration and parser</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>selected_model</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>display_name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#gat.scenariohandlers.sienna.SiennaScenario" title="gat.scenariohandlers.sienna.SiennaScenario"><em>SiennaScenario</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_simulation_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models" title="Link to this definition">#</a></dt>
+<dd><p>Create multiple SiennaScenario objects, one for each simulation model in the h5 files.</p>
+<section id="id1">
+<h3>Parameters:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>simulation_files<span class="classifier">str or list of str</span></dt><dd><p>Path to simulation output data or list of paths to h5 files</p>
+</dd>
+<dt>system_file<span class="classifier">str, optional</span></dt><dd><p>Path to system data file (Sienna JSON file)</p>
+</dd>
+<dt>config<span class="classifier">ScenarioConfig, optional</span></dt><dd><p>Base configuration object for all scenarios</p>
+</dd>
+<dt>pattern<span class="classifier">str, optional</span></dt><dd><p>Glob pattern to use when searching for files (default: “<a href="#id2"><span class="problematic" id="id3">*</span></a>.h5”)</p>
+</dd>
+</dl>
+</section>
+<section id="id4">
+<h3>Returns:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>Dict[str, SiennaScenario]</dt><dd><p>Dictionary mapping simulation model names to scenario objects</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>simulation_files</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>]</em>)</p></li>
+<li><p><strong>system_file</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>config</strong> (<em>ScenarioConfig</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>)</p></li>
+<li><p><strong>solution_data</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Dict</em>[str, <a class="reference internal" href="#gat.scenariohandlers.sienna.SiennaScenario" title="gat.scenariohandlers.sienna.SiennaScenario"><em>SiennaScenario</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.generator_technology_map">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">generator_technology_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.generator_technology_map" title="Link to this definition">#</a></dt>
+<dd><p>Creates the generator-&gt;technology mapping by parsing the system data using SiennaSystemParser.</p>
+<p>For thermal standards technology = <strong>prime_mover_type + ext[‘fuel’]</strong></p>
+<p>All other components in the self.config.generation_components list use <strong>prime_mover_type</strong> only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of generator by id as keys and technology type as values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_area_interchange">
+<span class="sig-name descname"><span class="pre">get_area_interchange</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_interchange" title="Link to this definition">#</a></dt>
+<dd><p>Parses the Area Interchange data found across multiple files using the
+SiennaSystemAggregator.get_dataset(“FlowActivePowerVariable__AreaInterchange”).</p>
+<p>dataset lookup value can be overridden with SiennaScenario.config.interchange_path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries dataframe of flow across interchanges of the default Areas in
+the underlying Sienna system.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_area_unserved">
+<span class="sig-name descname"><span class="pre">get_area_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Not Implemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_availability">
+<span class="sig-name descname"><span class="pre">get_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_availability" title="Link to this definition">#</a></dt>
+<dd><p><strong>Sienna Dataset: ActivePowerTimeSeriesParameter__RenewableDispatch</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries dataframe of RenewableDispatch Availability.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_gen_area_map">
+<span class="sig-name descname"><span class="pre">get_gen_area_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_gen_area_map" title="Link to this definition">#</a></dt>
+<dd><p>Creates the generator-&gt;area relationship using the SiennaSystemParser.get_bus_area_relation()
+and component-&gt;node relationships.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of Generator Name -&gt; Geographic Area.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_generation">
+<span class="sig-name descname"><span class="pre">get_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation" title="Link to this definition">#</a></dt>
+<dd><p>Parses and Aggregates the generation data across multiple simulation files.</p>
+<p>Uses the internal SiennaSimulation Aggregator and reads all datasets that start with “ActivePowerVariable*”.</p>
+<p>Combines all the datasets and returns a dataframe scaled by <em>unit_base_value</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries Dataframe of generation by generator id/name.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_generation_capacity">
+<span class="sig-name descname"><span class="pre">get_generation_capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation_capacity" title="Link to this definition">#</a></dt>
+<dd><p>Combines the base_power*rating of values of Sienna components found in self.config.generation_components</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dataframe of aggregated generation capacity by Simplified Technogogy across each area.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_line_flow">
+<span class="sig-name descname"><span class="pre">get_line_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_flow" title="Link to this definition">#</a></dt>
+<dd><p>Parses and Aggregates the Line Flow data across multiple files by using the
+SiennaSystemAggregator.get_dataset(“FlowActivePowerVariable__Line”)</p>
+<p>Values are scaled by <em>unit_base_value</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries dataframe of line flow scaled by unit base value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_line_rating_map">
+<span class="sig-name descname"><span class="pre">get_line_rating_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_rating_map" title="Link to this definition">#</a></dt>
+<dd><p>Parses the line capacity by reading the SiennaSystemParser.get_component_data(“Line”)
+and scaling the rating by <em>unit_base_value</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of Line Id -&gt; Line Capacity</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_load">
+<span class="sig-name descname"><span class="pre">get_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load" title="Link to this definition">#</a></dt>
+<dd><p><strong>Sienna Dataset: ActivePowerTimeSeriesParameter__StandardLoad</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries Dataframe of the Standard Load dataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_load_area_map">
+<span class="sig-name descname"><span class="pre">get_load_area_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area_column</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load_area_map" title="Link to this definition">#</a></dt>
+<dd><p>Creates the load bus-&gt;area relationship using the internal <strong>SiennaSystemParser</strong></p>
+<ol class="arabic simple">
+<li><p>Creates the load-&gt;node relationship using SiennaSystemParser.get_component_bus_relation for the <strong>PowerLoad</strong> component.</p></li>
+<li><p>Creats the node-&gt;area relationship using the SiennaSystemParser.get_bus_area_relation()</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of Load bus name -&gt; geographic area.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_production_cost">
+<span class="sig-name descname"><span class="pre">get_production_cost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_production_cost" title="Link to this definition">#</a></dt>
+<dd><p>Combines the cost expressions and and ActivePower Variables found in
+the self.config.cost_paths dand self.config.generation_paths to get the Production cost.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries DataFrame of production cost by generator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_raw_dataset">
+<span class="sig-name descname"><span class="pre">get_raw_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_raw_dataset" title="Link to this definition">#</a></dt>
+<dd><p>Return an h5 dataset as an unscaled DataFrame.</p>
+<p><code class="docutils literal notranslate"><span class="pre">key</span></code> may be a short alias (matched against the parser’s
+<code class="docutils literal notranslate"><span class="pre">list_datasets()</span></code>) or a full h5 path. Returns the values exactly
+as stored on disk — no base_power scaling applied. Use the high-level
+<code class="docutils literal notranslate"><span class="pre">get_*</span></code> methods (<code class="docutils literal notranslate"><span class="pre">get_generation</span></code>, <code class="docutils literal notranslate"><span class="pre">get_load</span></code>, etc.) if you want
+scaled MW values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_storage_charging">
+<span class="sig-name descname"><span class="pre">get_storage_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_storage_charging" title="Link to this definition">#</a></dt>
+<dd><p><strong>Sienna Dataset: ActivePowerInVariable%</strong></p>
+<p>Creates the storage charging dataframe by finding any dataset with ActivePowerInVariable* pattern.
+Includes a combination of Battery Charging or Pump Load.</p>
+<p>Values are scaled by <strong>unit_base_value</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries Dataframe of charging load.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_system_dispatch">
+<span class="sig-name descname"><span class="pre">get_system_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_charging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_dispatch" title="Link to this definition">#</a></dt>
+<dd><p>Gets the dispatch data for the entire system, optionally including load, use, and charging information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_load</strong> – Boolean indicating whether to include load in the dispatch data.</p></li>
+<li><p><strong>include_use</strong> – Boolean indicating whether to include use (e.g., unserved energy) in the dispatch data.</p></li>
+<li><p><strong>include_charging</strong> – Boolean indicating whether to include charging data in the dispatch data.</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to the parent class’s get_system_dispatch method.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame containing the dispatch data for the entire system.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_system_unserved">
+<span class="sig-name descname"><span class="pre">get_system_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Gets the system-wide unserved energy balance for a copper plate Sienna model.</p>
+<p>Sums the total energy balance across the system for each timestep.
+Only returns the negative balances as absolute values, otherwise 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Series</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.get_unserved">
+<span class="sig-name descname"><span class="pre">get_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.get_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Not Implemented</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.sienna.SiennaScenario.to_multiscenario">
+<span class="sig-name descname"><span class="pre">to_multiscenario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.sienna.SiennaScenario.to_multiscenario" title="Link to this definition">#</a></dt>
+<dd><p>Create a MultiScenario from all simulation models in this scenario’s h5 files.</p>
+<section id="id5">
+<h3>Returns:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>MultiScenario</dt><dd><p>MultiScenario object with scenarios for each simulation model</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.scenariohandlers.multi.MultiScenario"><em>MultiScenario</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="BaseScenario.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Base</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Plexos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PLEXOS</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario"><code class="docutils literal notranslate"><span class="pre">SiennaScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.area"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.area</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.copy"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.copy()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.from_simulation_models()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.generator_technology_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.generator_technology_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_interchange"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_area_interchange()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_availability()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_gen_area_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_gen_area_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_generation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_line_rating_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_line_rating_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_load_area_map"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_load_area_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_raw_dataset"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_raw_dataset()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_system_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_system_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.get_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.sienna.SiennaScenario.to_multiscenario"><code class="docutils literal notranslate"><span class="pre">SiennaScenario.to_multiscenario()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

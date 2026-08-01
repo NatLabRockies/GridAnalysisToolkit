@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Multi-Scenario Objects &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/ScenarioObjects/MultiScenario';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="EGRET" href="EGRET.html" />
+    <link rel="prev" title="ReEDS" href="ReEDS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/api/ScenarioObjects/MultiScenario.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/api/ScenarioObjects/MultiScenario.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/api/ScenarioObjects/MultiScenario.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Multi-Scenario Objects</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommendations">Recommendations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-a-multiscenario-object">Initializing a MultiScenario Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2">Option 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-gat.scenariohandlers.multi">API</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario"><code class="docutils literal notranslate"><span class="pre">MultiScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.add_scenario"><code class="docutils literal notranslate"><span class="pre">MultiScenario.add_scenario()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_charging"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_charging()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_dispatch"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_dispatch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_availability()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generation()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generators_tech"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generators_tech()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_load"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_load()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_unserved()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="multi-scenario-objects">
+<h1>Multi-Scenario Objects<a class="headerlink" href="#multi-scenario-objects" title="Link to this heading">#</a></h1>
+<p>The purpose of the MultiScenario object is to facilitate data management across a multitude of scenarios while maintaining the familiar BaseScenario api. The primary difference being that an additional
+index level is added to each output frame.</p>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">#</a></h2>
+<p>This object is particularly useful in the following situations:</p>
+<ul class="simple">
+<li><p>Comparing a translation from a Capacity Expansion Model to a Production Cost Model using a tool like R2X</p></li>
+<li><p>Comparing multiple simulation runs of the same Production Cost Model with slight changes like N-m contingency analysis, or techno-economic tradeoff analysis.</p></li>
+</ul>
+</section>
+<section id="recommendations">
+<h2>Recommendations<a class="headerlink" href="#recommendations" title="Link to this heading">#</a></h2>
+<p>It is recommended that individual Scenario Objects share a common TechnologyMapping and Area set. This way the data returned is well aligned for comparisons. For multi-year scenarios of the same/similar model,
+it is recommended to use a single scenario object and aggregate across multiple years by passing multiple simulation files representing those years.</p>
+</section>
+<section id="initializing-a-multiscenario-object">
+<h2>Initializing a MultiScenario Object<a class="headerlink" href="#initializing-a-multiscenario-object" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScenario</span>
+
+<span class="c1"># the keys will override the display_name of each scenario.</span>
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">({</span><span class="s2">&quot;reeds&quot;</span><span class="p">:</span><span class="n">reeds_scenario</span><span class="p">,</span> <span class="s2">&quot;sienna&quot;</span><span class="p">:</span><span class="n">sienna_scenario</span><span class="p">})</span>
+
+<span class="n">ms</span><span class="o">.</span><span class="n">get_generation_capacity</span><span class="p">()</span> <span class="c1"># returns capacity by area</span>
+</pre></div>
+</div>
+</section>
+<section id="option-2">
+<h2>Option 2<a class="headerlink" href="#option-2" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScenario</span>
+
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">()</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">add_scenario</span><span class="p">(</span><span class="s2">&quot;reeds&quot;</span><span class="p">,</span> <span class="n">rscen2</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-gat.scenariohandlers.multi">
+<span id="api"></span><h2>API<a class="headerlink" href="#module-gat.scenariohandlers.multi" title="Link to this heading">#</a></h2>
+<p>Provides a multi-scenario handler for comparing multiple scenarios.</p>
+<p>This module defines the MultiScenario class, which provides methods for
+accessing and processing data from multiple scenario objects at once,
+presenting the combined data in a single DataFrame with an additional
+‘Scenario’ index level.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.multi.</span></span><span class="sig-name descname"><span class="pre">MultiScenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenarios</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario" title="Link to this definition">#</a></dt>
+<dd><p>Class for handling multiple scenarios with a familiar API.</p>
+<p>This class aggregates data from multiple <cite>BaseScenario</cite> objects, allowing for
+comparative analysis across different scenarios. Methods in this class mirror
+those in <cite>BaseScenario</cite> but return DataFrames that include a ‘Scenario’
+level in the column index to distinguish data from different scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenarios</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="BaseScenario.html#gat.scenariohandlers.base.BaseScenario" title="gat.scenariohandlers.base.BaseScenario"><em>BaseScenario</em></a><em>]</em>) – A dictionary mapping a display name (str) to a scenario object (BaseScenario).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.add_scenario">
+<span class="sig-name descname"><span class="pre">add_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.add_scenario" title="Link to this definition">#</a></dt>
+<dd><p>Adds a scenario to the MultiScenario object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scenario_obj</strong> (<a class="reference internal" href="BaseScenario.html#gat.scenariohandlers.base.BaseScenario" title="gat.scenariohandlers.base.BaseScenario"><em>BaseScenario</em></a>) – The scenario object to add.</p></li>
+<li><p><strong>display_name</strong> (<em>str</em><em> | </em><em>None</em>) – Optional name to identify the scenario. If not provided, uses scenario’s display_name.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_area_charging">
+<span class="sig-name descname"><span class="pre">get_area_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_area_charging" title="Link to this definition">#</a></dt>
+<dd><p>Gets area charging data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of area charging data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_area_dispatch">
+<span class="sig-name descname"><span class="pre">get_area_dispatch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_area_dispatch" title="Link to this definition">#</a></dt>
+<dd><p>Gets area dispatch data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of area dispatch data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_area_unserved">
+<span class="sig-name descname"><span class="pre">get_area_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_area_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Gets area unserved energy data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of area unserved energy data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_availability">
+<span class="sig-name descname"><span class="pre">get_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_availability" title="Link to this definition">#</a></dt>
+<dd><p>Gets availability data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of availability data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_generation">
+<span class="sig-name descname"><span class="pre">get_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_generation" title="Link to this definition">#</a></dt>
+<dd><p>Gets generation data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of generation data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_generation_capacity">
+<span class="sig-name descname"><span class="pre">get_generation_capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_generation_capacity" title="Link to this definition">#</a></dt>
+<dd><p>Gets generation capacity data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of generation capacity data for all scenarios, with ‘Scenario’
+as an additional column.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_generators_tech">
+<span class="sig-name descname"><span class="pre">get_generators_tech</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_generators_tech" title="Link to this definition">#</a></dt>
+<dd><p>Gets generation data with technology information for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of generation data with technology for all scenarios,
+with an added ‘Scenario’ level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_line_flow">
+<span class="sig-name descname"><span class="pre">get_line_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_line_flow" title="Link to this definition">#</a></dt>
+<dd><p>Gets line flow data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of line flow data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_load">
+<span class="sig-name descname"><span class="pre">get_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_load" title="Link to this definition">#</a></dt>
+<dd><p>Gets load data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of load data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_production_cost">
+<span class="sig-name descname"><span class="pre">get_production_cost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_production_cost" title="Link to this definition">#</a></dt>
+<dd><p>Gets production cost data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of production cost data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_storage_charging">
+<span class="sig-name descname"><span class="pre">get_storage_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_storage_charging" title="Link to this definition">#</a></dt>
+<dd><p>Gets storage charging data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of storage charging data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_system_dispatch">
+<span class="sig-name descname"><span class="pre">get_system_dispatch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_system_dispatch" title="Link to this definition">#</a></dt>
+<dd><p>Gets system dispatch data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of system dispatch data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.multi.MultiScenario.get_unserved">
+<span class="sig-name descname"><span class="pre">get_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.multi.MultiScenario.get_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Gets unserved energy data for all scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A DataFrame of unserved energy data for all scenarios, with an added ‘Scenario’
+level in the column index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ReEDS.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ReEDS</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="EGRET.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">EGRET</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommendations">Recommendations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initializing-a-multiscenario-object">Initializing a MultiScenario Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#option-2">Option 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-gat.scenariohandlers.multi">API</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario"><code class="docutils literal notranslate"><span class="pre">MultiScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.add_scenario"><code class="docutils literal notranslate"><span class="pre">MultiScenario.add_scenario()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_charging"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_charging()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_dispatch"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_dispatch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_availability()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generation()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_generators_tech"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_generators_tech()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_load"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_load()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.multi.MultiScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">MultiScenario.get_unserved()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1170 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Base &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="../../_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/ScenarioObjects/BaseScenario';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sienna" href="SiennaScenario.html" />
+    <link rel="prev" title="Saving and Loading Scenario Configurations" href="../Configuration/scenario_config.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/api/ScenarioObjects/BaseScenario.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/api/ScenarioObjects/BaseScenario.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/api/ScenarioObjects/BaseScenario.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Base</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario"><code class="docutils literal notranslate"><span class="pre">BaseScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.area"><code class="docutils literal notranslate"><span class="pre">BaseScenario.area</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.display_name"><code class="docutils literal notranslate"><span class="pre">BaseScenario.display_name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.from_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.from_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.gen_area_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.gen_area_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.generator_technology_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.generator_technology_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_curtailment_aggregates"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_curtailment_aggregates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_dispatch"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_load"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_tech_aggregates"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_tech_aggregates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_availability()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_availability_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_availability_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_curtailment"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_curtailment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_flow"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_gen_and_curtailment"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_gen_and_curtailment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generators_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generators_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_congestion_hours"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_congestion_hours()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_loading"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_loading()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_utilization"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_utilization()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_load"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_peak_stats"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_peak_stats()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_production_cost_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_system_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_system_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.line_rating_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.line_rating_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.load_area_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.load_area_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.load_includes_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.load_includes_charging</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.save_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.save_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.tech_simple"><code class="docutils literal notranslate"><span class="pre">BaseScenario.tech_simple</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.to_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.to_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.calc_curtailment"><code class="docutils literal notranslate"><span class="pre">calc_curtailment()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.fill_missing_loads"><code class="docutils literal notranslate"><span class="pre">fill_missing_loads()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.get_peak_stats"><code class="docutils literal notranslate"><span class="pre">get_peak_stats()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.load_map"><code class="docutils literal notranslate"><span class="pre">load_map()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-gat.scenariohandlers.base">
+<span id="base"></span><h1>Base<a class="headerlink" href="#module-gat.scenariohandlers.base" title="Link to this heading">#</a></h1>
+<p>The Base Scenario Object Class. Do not import directly. Base class provides higher level aggregations for concrete classes that implement the core data extraction methods.</p>
+<p>&#64;author: Micah Webb</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.base.</span></span><span class="sig-name descname"><span class="pre">BaseScenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tech_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gen_area_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_area_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_rating_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.h5'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario" title="Link to this definition">#</a></dt>
+<dd><p>Initialize a scenario object with configuration, system data, and solution data.</p>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
+<dl class="simple">
+<dt>simulation_files<span class="classifier">str or list of str, optional</span></dt><dd><p>Path to simulation output data or directory containing such data.
+Can be a single file path, list of file paths, or a directory path.</p>
+</dd>
+<dt>tech_map<span class="classifier">dict, optional</span></dt><dd><p>Mapping from generator IDs to technology types.</p>
+</dd>
+<dt>gen_area_map<span class="classifier">dict, optional</span></dt><dd><p>Mapping from generator IDs to geographic areas.</p>
+</dd>
+<dt>load_area_map<span class="classifier">dict, optional</span></dt><dd><p>Mapping from load IDs to geographic areas.</p>
+</dd>
+<dt>line_rating_map<span class="classifier">dict, optional</span></dt><dd><p>Mapping from line IDs to line capacities.</p>
+</dd>
+<dt>config<span class="classifier">ScenarioConfig, optional</span></dt><dd><p>Configuration object for the scenario.</p>
+</dd>
+<dt>system_data<span class="classifier">str, optional</span></dt><dd><p>Path to system data file (e.g., Sienna JSON or Plexos XML).</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.area">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">area</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.area" title="Link to this definition">#</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">&quot;area&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Display label for the aggregation column (default</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.display_name">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">display_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.display_name" title="Link to this definition">#</a></dt>
+<dd><p>Get the display name for this scenario</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.from_config">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.h5'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.from_config" title="Link to this definition">#</a></dt>
+<dd><p>Create a scenario from a configuration file or object.</p>
+<section id="id1">
+<h3>Parameters:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>config_path<span class="classifier">str or ScenarioConfig</span></dt><dd><p>Path to config file or config object</p>
+</dd>
+<dt>system_path<span class="classifier">str, optional</span></dt><dd><p>Override system path in config</p>
+</dd>
+<dt>simulation_paths<span class="classifier">str or list of str, optional</span></dt><dd><p>Override simulation paths in config</p>
+</dd>
+<dt>display_name<span class="classifier">str, optional</span></dt><dd><p>Override display name in config</p>
+</dd>
+<dt>pattern<span class="classifier">str, optional</span></dt><dd><p>Glob pattern for finding solution files</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>BaseScenario</dt><dd><p>Initialized scenario object</p>
+</dd>
+</dl>
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config_path</strong> (<em>str</em><em> | </em><em>ScenarioConfig</em>)</p></li>
+<li><p><strong>system_path</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>simulation_paths</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>display_name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.gen_area_map">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">gen_area_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.gen_area_map" title="Link to this definition">#</a></dt>
+<dd><p>Mapping of generator name → area. Populated from solution
+metadata at construction; can be overridden post-hoc.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.generator_technology_map">
+<span class="property"><span class="k"><span class="pre">abstract</span></span><span class="w"> </span><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">generator_technology_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.generator_technology_map" title="Link to this definition">#</a></dt>
+<dd><p>Abstract property representing the generation id to the technology name found in the underlying model.
+This property function should make no attempt to translate technology names into display names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_charging">
+<span class="sig-name descname"><span class="pre">get_area_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_charging" title="Link to this definition">#</a></dt>
+<dd><p>Aggregates the Energy Storage Charging by Area for each storage type (Pump Load, Battery Charging)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em> | NotImplementedError</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_curtailment_aggregates">
+<span class="sig-name descname"><span class="pre">get_area_curtailment_aggregates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_curtailment_aggregates" title="Link to this definition">#</a></dt>
+<dd><p>Gets the curtailment aggregated for each available technology category and area</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_dispatch">
+<span class="sig-name descname"><span class="pre">get_area_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_charging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_dispatch" title="Link to this definition">#</a></dt>
+<dd><p>Gets interval generation, load, charging and unserved energy aggregated by technology and area</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_load</strong> – boolean (whether to include load, skipped if not implemented)</p></li>
+<li><p><strong>include_use</strong> – boolean (whether to include unserved energy, skipped if not implemented)</p></li>
+<li><p><strong>include_charging</strong> – boolean (whether to include storage charging, skipped if not implemented)</p></li>
+<li><p><strong>**kwargs</strong> – <p>Arguments passed to get_area_load</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries DataFrame of generation, load, unserved energy and charging aggregated by technology and area.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_load">
+<span class="sig-name descname"><span class="pre">get_area_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_load" title="Link to this definition">#</a></dt>
+<dd><p>Gets the aggregated interval Load by Area</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_tech_aggregates">
+<span class="sig-name descname"><span class="pre">get_area_tech_aggregates</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_tech_aggregates" title="Link to this definition">#</a></dt>
+<dd><p>Gets the aggregated interval generation and curtailment by each area and technology</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_area_unserved">
+<span class="sig-name descname"><span class="pre">get_area_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_area_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Gets the Unserved Energy Aggregated by Area</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_availability">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_availability" title="Link to this definition">#</a></dt>
+<dd><p>Abstract Method to be implemented by model specific classes to return VRE availability by generator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_availability_tech">
+<span class="sig-name descname"><span class="pre">get_availability_tech</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simplify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_availability_tech" title="Link to this definition">#</a></dt>
+<dd><p>Gets the availability for each generator and includes the technology type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_curtailment">
+<span class="sig-name descname"><span class="pre">get_curtailment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_curtailment" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the curtailment for each generator based on which technologies are configured as curtailable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries Dataframe of curtailment for each generator.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_flow">
+<span class="sig-name descname"><span class="pre">get_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_flow" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated: Use Line flow instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_gen_and_curtailment">
+<span class="sig-name descname"><span class="pre">get_gen_and_curtailment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_gen_and_curtailment" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries Datafrom of generation and curtailment for each generator</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_generation">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_generation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_generation" title="Link to this definition">#</a></dt>
+<dd><p>Abstract Method to be implemented by model specific classes to return generation by generator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_generation_capacity">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_generation_capacity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_generation_capacity" title="Link to this definition">#</a></dt>
+<dd><p>Abstract Method to be implemented by model specific classes to return generation capacity.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_generators_tech">
+<span class="sig-name descname"><span class="pre">get_generators_tech</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_generators_tech" title="Link to this definition">#</a></dt>
+<dd><p>Returns a Dataframe with a column for each generator along with technology category</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_line_congestion_hours">
+<span class="sig-name descname"><span class="pre">get_line_congestion_hours</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_line_congestion_hours" title="Link to this definition">#</a></dt>
+<dd><p>Calculates a boolean flag for each hour and line congested</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_line_flow">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_line_flow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_line_flow" title="Link to this definition">#</a></dt>
+<dd><p>Abstract function implemented by concrete classes to enable transmission specific calculations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_line_loading">
+<span class="sig-name descname"><span class="pre">get_line_loading</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_line_loading" title="Link to this definition">#</a></dt>
+<dd><p>Gets the line loading as a % of the lines capacity.
+Line Capacity is stored in based on _line_rating_map</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_line_utilization">
+<span class="sig-name descname"><span class="pre">get_line_utilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[99,</span> <span class="pre">95,</span> <span class="pre">90,</span> <span class="pre">75]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_line_utilization" title="Link to this definition">#</a></dt>
+<dd><p>Calculates a flag for each hour on whether the line is overloaded by 75, 90, 95, or 99 percent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>threshold</strong> – List(float) - list of loading thresholds to determine if utilization is above or below.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe with boolean flags for each timestamp that is over the threshold.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_load">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_load</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_load" title="Link to this definition">#</a></dt>
+<dd><p>Abstract Method to be implemented by model specific classes to return load by node or area.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_peak_stats">
+<span class="sig-name descname"><span class="pre">get_peak_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">winter_months</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">12]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_peak_stats" title="Link to this definition">#</a></dt>
+<dd><p>Gets the timestamp for winter and summer peaks for Net Load and Total Load.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>winter_months</strong> – The months defined as winter months to separate winter and summer peaks.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dataframe of winter summer peak/min load stats.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_production_cost">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_production_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost" title="Link to this definition">#</a></dt>
+<dd><p>Abstract function implemented by concrete classes to enable cost specific aggregations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>zone</strong> (<em>str</em><em> | </em><em>None</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_production_cost_tech">
+<span class="sig-name descname"><span class="pre">get_production_cost_tech</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost_tech" title="Link to this definition">#</a></dt>
+<dd><p>Gets the production cost aggregated by technology.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Production cost timeseries with generation technology.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_storage_charging">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_storage_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_storage_charging" title="Link to this definition">#</a></dt>
+<dd><p>Abstract function implemented by concrete classes to enable charging specific aggregations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_system_charging">
+<span class="sig-name descname"><span class="pre">get_system_charging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_system_charging" title="Link to this definition">#</a></dt>
+<dd><p>Gets interval storage charging aggregated by technology for the entire system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Timeseries DataFrame of storage charging aggregated by technology.
+Returns None if charging data is not available.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>DataFrame</em> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_system_dispatch">
+<span class="sig-name descname"><span class="pre">get_system_dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_charging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_system_dispatch" title="Link to this definition">#</a></dt>
+<dd><p>Gets interval generation, load, charging and unserved energy aggregated by technology for the entire system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_load</strong> – boolean (whether to include load, skipped if not implemented)</p></li>
+<li><p><strong>include_use</strong> – boolean (whether to include unserved energy, skipped if not implemented)</p></li>
+<li><p><strong>include_charging</strong> – boolean (whether to include storage charging, skipped if not implemented)</p></li>
+<li><p><strong>**kwargs</strong> – <p>Arguments passed to get_area_load</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Timeseries DataFrame of generation, load, unserved energy and charging aggregated by technology and area.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.get_unserved">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_unserved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.get_unserved" title="Link to this definition">#</a></dt>
+<dd><p>Abstract Method to be implemented by model specific classes to return unserved energy by node or area.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.line_rating_map">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">line_rating_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.line_rating_map" title="Link to this definition">#</a></dt>
+<dd><p>Mapping of line name → rating in MW.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.load_area_map">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_area_map</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.load_area_map" title="Link to this definition">#</a></dt>
+<dd><p>Mapping of load/node name → area.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.load_includes_charging">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">load_includes_charging</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.load_includes_charging" title="Link to this definition">#</a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">get_load()</span></code> already includes storage charging.</p>
+<p>When True, the dispatch frame’s load column is aliased as
+“Total Demand”; when False (the default), it’s “Native Demand”
+and storage charging is added separately by <cite>fill_missing_loads</cite>.
+Backed by <code class="docutils literal notranslate"><span class="pre">ScenarioConfig.load_includes_charging</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.save_config">
+<span class="sig-name descname"><span class="pre">save_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.save_config" title="Link to this definition">#</a></dt>
+<dd><p>Save current configuration to a file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.tech_simple">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">tech_simple</span></span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.tech_simple" title="Link to this definition">#</a></dt>
+<dd><p>A dictionary/map that maps model specific technology names to simplified technology names for further aggregation and presentation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.BaseScenario.to_config">
+<span class="sig-name descname"><span class="pre">to_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.BaseScenario.to_config" title="Link to this definition">#</a></dt>
+<dd><p>Create a ScenarioConfig object from the current scenario</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>ScenarioConfig</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>simulation_files</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>tech_map</strong> (<em>dict</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>gen_area_map</strong> (<em>dict</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>load_area_map</strong> (<em>dict</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>line_rating_map</strong> (<em>dict</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>config</strong> (<em>ScenarioConfig</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>system_data</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>pattern</strong> (<em>str</em>)</p></li>
+<li><p><strong>solution_data</strong> (<em>str</em><em> | </em><em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.calc_curtailment">
+<span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.base.</span></span><span class="sig-name descname"><span class="pre">calc_curtailment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen_tech</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avail_tech</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.calc_curtailment" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the curtailment for generator technologies that fall under gc.config.curtailable_tech</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.fill_missing_loads">
+<span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.base.</span></span><span class="sig-name descname"><span class="pre">fill_missing_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dispatch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charging</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_includes_charging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.fill_missing_loads" title="Link to this definition">#</a></dt>
+<dd><p>Calculates missing load values of a dispatch dataframe if only Native Load or Total Load are present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dispatch</strong> (<em>DataFrame</em>)</p></li>
+<li><p><strong>charging</strong> (<em>DataFrame</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.get_peak_stats">
+<span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.base.</span></span><span class="sig-name descname"><span class="pre">get_peak_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dispatch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">winter_months</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">12]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.get_peak_stats" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the peak/min total and net load, split by winter and summer months</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dispatch</strong> – A dataframe with aggregate generation and load by technology and load type.</p></li>
+<li><p><strong>winter_months</strong> – The month numbers to designate as winter months. Defaults to [1,2,12] (Jan, Feb, Dec)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe of peak/min timestamps and corresponding load/net load, and vre values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>DataFrame</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gat.scenariohandlers.base.load_map">
+<span class="sig-prename descclassname"><span class="pre">gat.scenariohandlers.base.</span></span><span class="sig-name descname"><span class="pre">load_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gat.scenariohandlers.base.load_map" title="Link to this definition">#</a></dt>
+<dd><p>Loads a dictionary/mapping from a JSON file or dictionary.</p>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Configuration/scenario_config.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Saving and Loading Scenario Configurations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SiennaScenario.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sienna</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario"><code class="docutils literal notranslate"><span class="pre">BaseScenario</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.area"><code class="docutils literal notranslate"><span class="pre">BaseScenario.area</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.display_name"><code class="docutils literal notranslate"><span class="pre">BaseScenario.display_name</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.from_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.from_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.gen_area_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.gen_area_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.generator_technology_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.generator_technology_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_curtailment_aggregates"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_curtailment_aggregates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_dispatch"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_load"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_tech_aggregates"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_tech_aggregates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_area_unserved"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_area_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_availability"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_availability()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_availability_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_availability_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_curtailment"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_curtailment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_flow"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_gen_and_curtailment"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_gen_and_curtailment()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generation"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generation_capacity"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generation_capacity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_generators_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_generators_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_congestion_hours"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_congestion_hours()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_flow"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_flow()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_loading"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_loading()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_line_utilization"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_line_utilization()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_load"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_load()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_peak_stats"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_peak_stats()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_production_cost()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_production_cost_tech"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_production_cost_tech()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_storage_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_storage_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_system_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_system_charging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_system_dispatch"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_system_dispatch()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.get_unserved"><code class="docutils literal notranslate"><span class="pre">BaseScenario.get_unserved()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.line_rating_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.line_rating_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.load_area_map"><code class="docutils literal notranslate"><span class="pre">BaseScenario.load_area_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.load_includes_charging"><code class="docutils literal notranslate"><span class="pre">BaseScenario.load_includes_charging</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.save_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.save_config()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.tech_simple"><code class="docutils literal notranslate"><span class="pre">BaseScenario.tech_simple</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.BaseScenario.to_config"><code class="docutils literal notranslate"><span class="pre">BaseScenario.to_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.calc_curtailment"><code class="docutils literal notranslate"><span class="pre">calc_curtailment()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.fill_missing_loads"><code class="docutils literal notranslate"><span class="pre">fill_missing_loads()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.get_peak_stats"><code class="docutils literal notranslate"><span class="pre">get_peak_stats()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gat.scenariohandlers.base.load_map"><code class="docutils literal notranslate"><span class="pre">load_map()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

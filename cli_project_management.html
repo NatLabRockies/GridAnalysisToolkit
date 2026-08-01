@@ -1,0 +1,1309 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Project Management (v1.0) &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cli_project_management';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CLI Quick Reference" href="cli_quick_reference.html" />
+    <link rel="prev" title="GAT Command Line Interface" href="api/cli/commands.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/blob/main/docs/source/cli_project_management.md?plain=1" target="_blank"
+   class="btn btn-sm btn-source-file-button dropdown-item"
+   title="Show source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">Show source</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/NREL/GAT/edit/main/docs/source/cli_project_management.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cli_project_management.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Project Management (v1.0)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commands">Commands</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-a-project">Initialize a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-an-existing-project">Add an Existing Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-projects">List Projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-project-details">Show Project Details</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-default-project">Set Default Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-management">Scenario Management</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-scenario">Add a Scenario</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#list-scenarios">List Scenarios</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-scenario-details">Show Scenario Details</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-scenario">Remove a Scenario</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-project">Remove a Project</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-files">Configuration Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-configuration-gat-project-yaml">Project Configuration (<code class="docutils literal notranslate"><span class="pre">gat-project.yaml</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-configuration-scenarios-yaml">Scenario Configuration (<code class="docutils literal notranslate"><span class="pre">scenarios/*.yaml</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-project-reference-config-gat-projects-yaml">User Project Reference (<code class="docutils literal notranslate"><span class="pre">~/.config/gat/projects/*.yaml</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#team-collaboration">Team Collaboration</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-a-project">Sharing a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-shared-project">Using a Shared Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborating">Collaborating</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-organization">Project Organization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions">Naming Conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure">File Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-v0-x">Migration from v0.x</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced Usage</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-environments">Multiple Environments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-metadata">Custom Metadata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tags-for-organization">Tags for Organization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-not-found">Project not found</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-not-found-warning">Path not found warning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-already-exists">Scenario already exists</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="project-management-v1-0">
+<h1>Project Management (v1.0)<a class="headerlink" href="#project-management-v1-0" title="Link to this heading">#</a></h1>
+<p>GAT v1.0 introduces a comprehensive project management system that uses the filesystem and git for collaboration. Projects are self-contained directories with YAML configuration files that can be shared across teams. The CLI provides hierarchical subcommands for intuitive scenario and palette management.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p>The project management system uses a two-tier architecture:</p>
+<ol class="arabic simple">
+<li><p><strong>User Metadata</strong> (<code class="docutils literal notranslate"><span class="pre">~/.config/gat/</span></code>) - Lightweight references to projects on your system</p></li>
+<li><p><strong>Project Directories</strong> - Self-contained project folders (can be anywhere, typically git repositories)</p></li>
+</ol>
+<p>This design allows teams to share projects via git while keeping user-specific settings separate.</p>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new project</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis Project&quot;</span>
+
+<span class="c1"># Add a scenario</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base_case<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/results.h5
+
+<span class="c1"># List all scenarios across all projects</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list
+
+<span class="c1"># List scenarios in a specific project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list<span class="w"> </span>my-analysis
+
+<span class="c1"># Show project details</span>
+gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+</section>
+<section id="project-structure">
+<h2>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading">#</a></h2>
+<p>When you initialize a project, GAT creates this directory structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>my-project/
+├── gat-project.yaml          # Project configuration
+├── scenarios/                # Scenario configurations
+│   └── base_case.yaml
+├── palettes/                 # Visualization palettes
+│   └── default.yaml
+├── pipelines/                # Analysis pipelines
+├── notebooks/                # Jupyter notebooks
+├── outputs/                  # Generated plots (not tracked in git)
+├── .gat-cache/              # Cached data (not tracked in git)
+├── .gitignore
+└── README.md
+</pre></div>
+</div>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">#</a></h2>
+<section id="initialize-a-project">
+<h3>Initialize a Project<a class="headerlink" href="#initialize-a-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span><span class="o">[</span>PATH<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Creates a new GAT project with the standard directory structure.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PATH</span></code> - Directory path for the project (default: current directory)</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--name</span> <span class="pre">TEXT</span></code> - Project name (defaults to directory name)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--description</span> <span class="pre">TEXT</span></code> - Project description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gat-version</span> <span class="pre">TEXT</span></code> - Required GAT version (default: 1.0.0)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-palettes</span></code> - Don’t copy user palettes into project</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-add</span></code> - Don’t add project to user metadata</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--set-default</span></code> - Set as default project</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize in current directory</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.
+
+<span class="c1"># Initialize in new directory with name</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span>
+
+<span class="c1"># Initialize and set as default</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--set-default
+</pre></div>
+</div>
+</section>
+<section id="add-an-existing-project">
+<h3>Add an Existing Project<a class="headerlink" href="#add-an-existing-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>PATH<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Adds an existing project to your user metadata. This creates a lightweight reference that points to the project directory.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PATH</span></code> - Path to existing project directory</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--id</span> <span class="pre">TEXT</span></code> - Project ID (defaults to directory name)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--set-default</span></code> - Set as default project</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a local project</span>
+gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>./my-project
+
+<span class="c1"># Add and set as default</span>
+gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>./my-project<span class="w"> </span>--set-default
+
+<span class="c1"># Add with custom ID</span>
+gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>./my-project<span class="w"> </span>--id<span class="w"> </span>my_proj
+</pre></div>
+</div>
+</section>
+<section id="list-projects">
+<h3>List Projects<a class="headerlink" href="#list-projects" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Lists all projects from your user metadata.</p>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose,</span> <span class="pre">-v</span></code> - Show detailed information</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compact listing</span>
+gat<span class="w"> </span>project<span class="w"> </span>list
+
+<span class="c1"># Detailed listing</span>
+gat<span class="w"> </span>project<span class="w"> </span>list<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</section>
+<section id="show-project-details">
+<h3>Show Project Details<a class="headerlink" href="#show-project-details" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>PROJECT_ID
+</pre></div>
+</div>
+<p>Displays detailed information about a project including scenarios, palettes, and configuration.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PROJECT_ID</span></code> - Project identifier</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+</section>
+<section id="set-default-project">
+<h3>Set Default Project<a class="headerlink" href="#set-default-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>set-default<span class="w"> </span>PROJECT_ID
+</pre></div>
+</div>
+<p>Sets a project as the default. Commands that accept <code class="docutils literal notranslate"><span class="pre">--project</span></code> will use the default if not specified.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PROJECT_ID</span></code> - Project identifier</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>set-default<span class="w"> </span>my-analysis
+
+<span class="c1"># Now you can omit --project in other commands</span>
+gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--system<span class="w"> </span>sys.json<span class="w"> </span>--simulation<span class="w"> </span>results.h5
+</pre></div>
+</div>
+</section>
+<section id="scenario-management">
+<h3>Scenario Management<a class="headerlink" href="#scenario-management" title="Link to this heading">#</a></h3>
+<p>GAT provides hierarchical subcommands for scenario management under <code class="docutils literal notranslate"><span class="pre">gat</span> <span class="pre">project</span> <span class="pre">scenario</span></code>.</p>
+<section id="add-a-scenario">
+<h4>Add a Scenario<a class="headerlink" href="#add-a-scenario" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>TYPE<span class="w"> </span>SCENARIO_ID<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Adds a scenario configuration to a project.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TYPE</span></code> - Scenario type: <code class="docutils literal notranslate"><span class="pre">sienna</span></code>, <code class="docutils literal notranslate"><span class="pre">reeds</span></code>, or <code class="docutils literal notranslate"><span class="pre">plexos</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SCENARIO_ID</span></code> - Unique identifier for the scenario</p></li>
+</ul>
+<p><strong>Common Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--name</span> <span class="pre">TEXT</span></code> - Scenario name (defaults to ID)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--description</span> <span class="pre">TEXT</span></code> - Scenario description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">TEXT</span></code> - Project ID (uses default if not specified)</p></li>
+</ul>
+<p><strong>Sienna Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--system</span> <span class="pre">TEXT</span></code> - Path to system JSON file (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--simulation</span> <span class="pre">TEXT</span></code> - Path to simulation HDF5 file (required, can specify multiple)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--metadata</span> <span class="pre">TEXT</span></code> - Path to GAT metadata JSON file</p></li>
+</ul>
+<p><strong>ReEDS Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--path</span> <span class="pre">TEXT</span></code> - Path to ReEDS output directory (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--solve-year</span> <span class="pre">INTEGER</span></code> - Solve year to analyze</p></li>
+</ul>
+<p><strong>Plexos Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--solution</span> <span class="pre">TEXT</span></code> - Path to Plexos solution file (required)</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a Sienna scenario</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base_2035<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/results.h5
+
+<span class="c1"># Add a Sienna scenario with multiple simulation files</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>multi_week<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/week1.h5<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/week2.h5<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/week3.h5
+
+<span class="c1"># Add with description</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>high_load<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">&quot;High Load Scenario&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Sensitivity with 10% load increase&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/high_load.h5
+
+<span class="c1"># Add a ReEDS scenario</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>reeds<span class="w"> </span>reeds_2035<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--path<span class="w"> </span>../reeds_output<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--solve-year<span class="w"> </span><span class="m">2035</span>
+
+<span class="c1"># Add to specific project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--project<span class="w"> </span>my_other_project<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>../data/results.h5
+</pre></div>
+</div>
+<p><strong>Note:</strong> All paths are automatically resolved to absolute paths when adding scenarios, ensuring clarity about which files are being used regardless of your current working directory.</p>
+</section>
+<section id="list-scenarios">
+<h4>List Scenarios<a class="headerlink" href="#list-scenarios" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>PROJECT_ID<span class="o">]</span>
+</pre></div>
+</div>
+<p>Lists scenarios across all projects or in a specific project.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PROJECT_ID</span></code> - (Optional) Project identifier. If omitted, lists scenarios from all projects.</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List scenarios across all projects</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list
+
+<span class="c1"># List scenarios in specific project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+<p><strong>Output (all projects):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">My</span> <span class="n">Analysis</span> <span class="p">(</span><span class="n">my</span><span class="o">-</span><span class="n">analysis</span><span class="p">):</span>
+  <span class="n">base_2035</span>            <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">Base</span> <span class="mi">2035</span> <span class="n">Scenario</span>
+  <span class="n">high_renewable</span>       <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">High</span> <span class="n">Renewable</span> <span class="n">Scenario</span>
+
+<span class="n">Planning</span> <span class="n">Study</span> <span class="p">(</span><span class="n">planning</span><span class="p">):</span>
+  <span class="n">reeds_2050</span>           <span class="p">[</span><span class="n">reeds</span><span class="p">]</span> <span class="n">ReEDS</span> <span class="mi">2050</span> <span class="n">Scenario</span>
+  <span class="n">plexos_base</span>          <span class="p">[</span><span class="n">plexos</span><span class="p">]</span> <span class="n">Plexos</span> <span class="n">Base</span> <span class="n">Case</span>
+
+<span class="n">Total</span> <span class="n">scenarios</span><span class="p">:</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p><strong>Output (specific project):</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scenarios</span> <span class="ow">in</span> <span class="s1">&#39;My Analysis&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">base_2035</span>            <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">Base</span> <span class="mi">2035</span> <span class="n">Scenario</span>
+  <span class="n">high_renewable</span>       <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">High</span> <span class="n">Renewable</span> <span class="n">Scenario</span>
+</pre></div>
+</div>
+</section>
+<section id="show-scenario-details">
+<h4>Show Scenario Details<a class="headerlink" href="#show-scenario-details" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>show<span class="w"> </span>SCENARIO_ID<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Displays detailed information about a specific scenario including paths and validation.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SCENARIO_ID</span></code> - Scenario identifier</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">TEXT</span></code> - Project ID (uses default if not specified)</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show scenario in default project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>show<span class="w"> </span>base_2035
+
+<span class="c1"># Show scenario in specific project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>show<span class="w"> </span>base_2035<span class="w"> </span>--project<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Scenario: base_2035
+Name:        Base 2035 Scenario
+Type:        sienna
+Description: Baseline scenario for 2035 analysis
+Created:     2024-01-15 10:30
+Updated:     2024-01-20 14:45
+
+Paths:
+  System:      ✓ /data/shared/systems/base_2035.json
+  Simulations: (2 file(s))
+    - ✓ /data/shared/results/week1.h5
+    - ✓ /data/shared/results/week2.h5
+
+✓ All paths validated
+</pre></div>
+</div>
+</section>
+<section id="remove-a-scenario">
+<h4>Remove a Scenario<a class="headerlink" href="#remove-a-scenario" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>remove<span class="w"> </span>SCENARIO_ID<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Removes a scenario from a project. This deletes the scenario configuration file but does not delete the underlying data files.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SCENARIO_ID</span></code> - Scenario identifier</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--project</span> <span class="pre">TEXT</span></code> - Project ID (uses default if not specified)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--yes,</span> <span class="pre">-y</span></code> - Skip confirmation prompt</p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove with confirmation</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>remove<span class="w"> </span>old_scenario
+
+<span class="c1"># Remove without confirmation</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>remove<span class="w"> </span>old_scenario<span class="w"> </span>--yes
+
+<span class="c1"># Remove from specific project</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>remove<span class="w"> </span>old_scenario<span class="w"> </span>--project<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+</section>
+</section>
+<section id="remove-a-project">
+<h3>Remove a Project<a class="headerlink" href="#remove-a-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w"> </span>PROJECT_ID<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Removes a project from your user metadata. <strong>This does not delete the project directory</strong>, only the reference to it.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PROJECT_ID</span></code> - Project identifier</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--yes,</span> <span class="pre">-y</span></code> - Skip confirmation prompt</p></li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w"> </span>my-analysis
+gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w"> </span>old-project<span class="w"> </span>--yes
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading">#</a></h2>
+<section id="project-configuration-gat-project-yaml">
+<h3>Project Configuration (<code class="docutils literal notranslate"><span class="pre">gat-project.yaml</span></code>)<a class="headerlink" href="#project-configuration-gat-project-yaml" title="Link to this heading">#</a></h3>
+<p>The main project configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Analysis Project</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Comprehensive power system analysis</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
+<span class="nt">gat_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-15T10:30:00Z&#39;</span>
+<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-22T15:00:00Z&#39;</span>
+
+<span class="nt">default_scenario</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base_case</span>
+<span class="nt">default_palette</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+
+<span class="nt">contributors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alice Smith</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bob Jones</span>
+
+<span class="nt">repository_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@github.com:team/my-project.git</span>
+
+<span class="nt">settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./outputs</span>
+<span class="w">  </span><span class="nt">cache_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./.gat-cache</span>
+<span class="w">  </span><span class="nt">default_output_format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">png</span>
+</pre></div>
+</div>
+</section>
+<section id="scenario-configuration-scenarios-yaml">
+<h3>Scenario Configuration (<code class="docutils literal notranslate"><span class="pre">scenarios/*.yaml</span></code>)<a class="headerlink" href="#scenario-configuration-scenarios-yaml" title="Link to this heading">#</a></h3>
+<p>Individual scenario configurations:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Base Case 2035</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Base scenario for 2035 analysis</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sienna</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;2035&#39;</span>
+
+<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-15T10:30:00Z&#39;</span>
+<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-20T14:00:00Z&#39;</span>
+
+<span class="nt">system_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/systems/2035_base.json</span>
+<span class="nt">simulation_paths</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/results/week1.h5</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/results/week2.h5</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/results/week3.h5</span>
+<span class="nt">metadata_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/gat_metadata.json</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> All paths in scenario configs are stored as absolute filesystem paths. When adding scenarios via the CLI, relative paths are automatically resolved to absolute paths based on your current working directory.</p>
+</section>
+<section id="user-project-reference-config-gat-projects-yaml">
+<h3>User Project Reference (<code class="docutils literal notranslate"><span class="pre">~/.config/gat/projects/*.yaml</span></code>)<a class="headerlink" href="#user-project-reference-config-gat-projects-yaml" title="Link to this heading">#</a></h3>
+<p>Lightweight references in user metadata:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-analysis</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Analysis Project</span>
+<span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/projects/my-analysis</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power system analysis</span>
+<span class="nt">remote_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@github.com:team/my-analysis.git</span>
+<span class="nt">last_accessed</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-22T15:00:00Z&#39;</span>
+<span class="nt">is_default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transmission</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">planning</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="team-collaboration">
+<h2>Team Collaboration<a class="headerlink" href="#team-collaboration" title="Link to this heading">#</a></h2>
+<p>Projects are designed to be shared via git:</p>
+<section id="sharing-a-project">
+<h3>Sharing a Project<a class="headerlink" href="#sharing-a-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize project</span>
+<span class="nb">cd</span><span class="w"> </span>my-analysis
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Team Analysis&quot;</span>
+
+<span class="c1"># Add scenarios and palettes</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span>--system<span class="w"> </span>../data/sys.json<span class="w"> </span>--simulation<span class="w"> </span>../data/sim.h5
+
+<span class="c1"># Initialize git and push</span>
+git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial project setup&quot;</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:team/my-analysis.git
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</section>
+<section id="using-a-shared-project">
+<h3>Using a Shared Project<a class="headerlink" href="#using-a-shared-project" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>git@github.com:team/my-analysis.git
+<span class="nb">cd</span><span class="w"> </span>my-analysis
+
+<span class="c1"># Add to your GAT projects</span>
+gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span>--set-default
+
+<span class="c1"># Now you can work with the project</span>
+gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>my-analysis
+</pre></div>
+</div>
+</section>
+<section id="collaborating">
+<h3>Collaborating<a class="headerlink" href="#collaborating" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pull latest changes</span>
+<span class="nb">cd</span><span class="w"> </span>my-analysis
+git<span class="w"> </span>pull
+
+<span class="c1"># Make your changes</span>
+gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>sensitivity<span class="w"> </span>--system<span class="w"> </span>../data/sys.json<span class="w"> </span>--simulation<span class="w"> </span>../data/sens.h5
+
+<span class="c1"># Commit and push</span>
+git<span class="w"> </span>add<span class="w"> </span>scenarios/sensitivity.yaml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add sensitivity scenario&quot;</span>
+git<span class="w"> </span>push
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<section id="project-organization">
+<h3>Project Organization<a class="headerlink" href="#project-organization" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Keep data separate</strong> - Store large data files outside the project directory and use relative paths</p></li>
+<li><p><strong>Use git</strong> - Version control your project configuration and analysis code</p></li>
+<li><p><strong>Document scenarios</strong> - Use descriptive names and descriptions for scenarios</p></li>
+<li><p><strong>Share palettes</strong> - Copy user palettes into projects for team consistency</p></li>
+</ol>
+</section>
+<section id="naming-conventions">
+<h3>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Project IDs</strong>: Use lowercase with hyphens or underscores (e.g., <code class="docutils literal notranslate"><span class="pre">ntp-base</span></code>, <code class="docutils literal notranslate"><span class="pre">wecc_2035</span></code>)</p></li>
+<li><p><strong>Scenario IDs</strong>: Use descriptive names with underscores (e.g., <code class="docutils literal notranslate"><span class="pre">base_case</span></code>, <code class="docutils literal notranslate"><span class="pre">high_load</span></code>, <code class="docutils literal notranslate"><span class="pre">sensitivity_1</span></code>)</p></li>
+<li><p><strong>Palette names</strong>: Use descriptive names (e.g., <code class="docutils literal notranslate"><span class="pre">renewable_focus</span></code>, <code class="docutils literal notranslate"><span class="pre">presentation</span></code>)</p></li>
+</ul>
+</section>
+<section id="file-structure">
+<h3>File Structure<a class="headerlink" href="#file-structure" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>workspace/
+├── my-analysis/              # GAT project (git repo)
+│   ├── gat-project.yaml
+│   ├── scenarios/
+│   │   ├── base_case.yaml   # Contains absolute paths to data
+│   │   └── high_load.yaml
+│   └── ...
+└── data/                     # Data directory (not in git)
+    ├── systems/
+    │   └── 2035_base.json
+    └── results/
+        ├── week1.h5
+        └── week2.h5
+</pre></div>
+</div>
+<p>Keep data files separate from projects. When adding scenarios, paths are automatically resolved to absolute paths, making it clear which files are being used.</p>
+</section>
+</section>
+<section id="migration-from-v0-x">
+<h2>Migration from v0.x<a class="headerlink" href="#migration-from-v0-x" title="Link to this heading">#</a></h2>
+<p>If you’re using the old data sources approach, you can migrate by:</p>
+<ol class="arabic">
+<li><p><strong>Create a project</strong> for each data source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Project&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Add scenarios</strong> from your old data sources:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--system<span class="w"> </span>/path/to/old/system.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--simulation<span class="w"> </span>/path/to/old/results.h5
+</pre></div>
+</div>
+</li>
+<li><p><strong>List all scenarios</strong> to verify:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>list
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="advanced-usage">
+<h2>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Link to this heading">#</a></h2>
+<section id="multiple-environments">
+<h3>Multiple Environments<a class="headerlink" href="#multiple-environments" title="Link to this heading">#</a></h3>
+<p>Projects can specify their own virtual environment:</p>
+<p>Edit <code class="docutils literal notranslate"><span class="pre">gat-project.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">venv</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.venv</span>
+<span class="w">  </span><span class="nt">python_version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="w">  </span><span class="nt">requirements</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pandas&gt;=2.0</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matplotlib&gt;=3.5</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom-extension==0.1.0</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-metadata">
+<h3>Custom Metadata<a class="headerlink" href="#custom-metadata" title="Link to this heading">#</a></h3>
+<p>Projects support arbitrary metadata through YAML:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># gat-project.yaml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Project</span>
+<span class="nt">custom_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom_value</span>
+<span class="nt">team_settings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">slack_channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#grid-analysis&quot;</span>
+<span class="w">  </span><span class="nt">meeting_day</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Tuesday&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tags-for-organization">
+<h3>Tags for Organization<a class="headerlink" href="#tags-for-organization" title="Link to this heading">#</a></h3>
+<p>Use tags in project references for organization:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># ~/.config/gat/projects/my-project.yaml</span>
+<span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-project</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Project</span>
+<span class="nt">tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transmission</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nrel</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2035</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-priority</span>
+</pre></div>
+</div>
+<p>Then filter in your workflows or scripts.</p>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
+<section id="project-not-found">
+<h3>Project not found<a class="headerlink" href="#project-not-found" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>my-project
+Error:<span class="w"> </span>Project<span class="w"> </span><span class="s1">&#39;my-project&#39;</span><span class="w"> </span>not<span class="w"> </span>found
+</pre></div>
+</div>
+<p><strong>Solution:</strong> Add the project to your user metadata:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>/path/to/my-project
+</pre></div>
+</div>
+</section>
+<section id="path-not-found-warning">
+<h3>Path not found warning<a class="headerlink" href="#path-not-found-warning" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gat<span class="w"> </span>project<span class="w"> </span>list
+my-project<span class="w">    </span>My<span class="w"> </span>Project<span class="w">    </span>✗<span class="w"> </span>missing
+</pre></div>
+</div>
+<p><strong>Solution:</strong> The project directory has been moved or deleted. Either:</p>
+<ol class="arabic">
+<li><p>Move it back to the original location</p></li>
+<li><p>Remove and re-add with new path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w"> </span>my-project
+gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>/new/path/to/my-project
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="scenario-already-exists">
+<h3>Scenario already exists<a class="headerlink" href="#scenario-already-exists" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="nb">test</span><span class="w"> </span>...
+Error:<span class="w"> </span>Scenario<span class="w"> </span>already<span class="w"> </span>exists:<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<p><strong>Solution:</strong> Use a different scenario ID or remove the existing one first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>remove<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/Configuration/general.html"><span class="std std-doc">Configuration</span></a> - GAT configuration and mapping</p></li>
+<li><p><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html"><span class="std std-doc">Scenario Objects</span></a> - Using scenarios in Python</p></li>
+<li><p><a class="reference internal" href="api/Configuration/colors.html"><span class="std std-doc">Palettes</span></a> - Visualization palettes</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="api/cli/commands.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GAT Command Line Interface</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cli_quick_reference.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">CLI Quick Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-structure">Project Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commands">Commands</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-a-project">Initialize a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-an-existing-project">Add an Existing Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-projects">List Projects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#show-project-details">Show Project Details</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-default-project">Set Default Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-management">Scenario Management</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-scenario">Add a Scenario</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#list-scenarios">List Scenarios</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#show-scenario-details">Show Scenario Details</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-scenario">Remove a Scenario</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-a-project">Remove a Project</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration-files">Configuration Files</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-configuration-gat-project-yaml">Project Configuration (<code class="docutils literal notranslate"><span class="pre">gat-project.yaml</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-configuration-scenarios-yaml">Scenario Configuration (<code class="docutils literal notranslate"><span class="pre">scenarios/*.yaml</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-project-reference-config-gat-projects-yaml">User Project Reference (<code class="docutils literal notranslate"><span class="pre">~/.config/gat/projects/*.yaml</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#team-collaboration">Team Collaboration</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharing-a-project">Sharing a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-shared-project">Using a Shared Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collaborating">Collaborating</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best Practices</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-organization">Project Organization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-conventions">Naming Conventions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file-structure">File Structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-v0-x">Migration from v0.x</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-usage">Advanced Usage</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-environments">Multiple Environments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-metadata">Custom Metadata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tags-for-organization">Tags for Organization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting">Troubleshooting</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-not-found">Project not found</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#path-not-found-warning">Path not found warning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-already-exists">Scenario already exists</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See Also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

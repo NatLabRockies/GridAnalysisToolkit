@@ -1,0 +1,2324 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+
+    <script src="_static/documentation_options.js?v=c35a45bd"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/sg-tags.js?v=d80f6fa4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.0.post7+g67d81979e" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Grid Analysis Toolkit 0.0.post7+g67d81979e documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/general.html">Configuring GAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/technology_area.html">Updating Technology and Area Relationships</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/colors.html">Color Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Configuration/scenario_config.html">Saving and Loading Scenario Configurations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Scenario Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/BaseScenario.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/SiennaScenario.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/EGRET.html">EGRET</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Sienna.html">Sienna</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Parsers/Plexos.html">PLEXOS</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Plotting Functions</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/dispatch.html">Dispatch Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/transmission.html">Transmission Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/Plots/scenario.html">Reporting Plots</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Gallery</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html">Mean Hourly Dispatch Profile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html">Per-Area Dispatch Facets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/02_dispatch_monthly_system.html">Monthly System Dispatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html">Generation Capacity Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html">Peak and Minimum Demand Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html">Curtailment — Annual and Monthly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization (Plexos)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api/cli/commands.html">GAT Command Line Interface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Project Management (v1.0)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cli_project_management.html">Project Management (v1.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_quick_reference.html">CLI Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_commands.html">CLI Command Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migration_v1.html">Migrating to GAT v1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_handler_deprecation.html">Legacy scenario handler deprecation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api_load.html">Python API: Loading Projects and Scenarios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sienna_scaling.html">Sienna scaling and raw dataset access</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="architecture/base_system.html">BaseSystem Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/v1_migration_pattern.html">v1 migration pattern: wrapping a tool for <code class="docutils literal notranslate"><span class="pre">GATDatabase</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending_plots.html">Custom plots and the reporting framework</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#Symbols"><strong>Symbols</strong></a>
+ | <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ 
+</div>
+<h2 id="Symbols">Symbols</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --backend
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-b">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --db
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-db">gat-server-start command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --debug
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-debug">gat command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --default-palette
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-default-palette">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --description
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-description">gat-project-init command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-description">gat-project-palette-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-description">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-description">gat-sources-add-plexos command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-description">gat-sources-add-reeds command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-description">gat-sources-add-sienna command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --edit
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-edit">gat-config command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --format
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-format">gat-query command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --gat-version
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-gat-version">gat-project-init command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --handler
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-h">gat-push command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --host
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-host">gat-server-start command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --id
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-id">gat-project-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --list
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-l">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --metadata
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-metadata">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --name
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-name">gat-project-init command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-name">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --no-add
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-no-add">gat-project-init command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --no-palettes
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-no-palettes">gat-project-init command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --output
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-o">gat-run-report command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --path
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-path">gat-config command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-path">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-path">gat-sources-add-reeds command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --port
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-p">gat-server-start command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --print-summary
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-print-summary">gat-project-palette-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --project
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-p">gat-plot command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-project">gat-project-palette-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-list-project">gat-project-palette-list command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-project">gat-project-palette-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-show-project">gat-project-palette-show command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-project">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-project">gat-project-scenario-discover-datasets command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-project">gat-project-scenario-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-show-project">gat-project-scenario-show command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --refresh
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-projects-list-refresh">gat-projects-list command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --save
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-save">gat-project-scenario-discover-datasets command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --scenario
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-s">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --server
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-server">gat-plot command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-server">gat-push command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-server">gat-query command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-scenarios-server">gat-scenarios command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-status-server">gat-server-status command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --set-default
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-set-default">gat-project-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-set-default">gat-project-init command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --show
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-show">gat-config command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --simulation
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-simulation">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-simulation">gat-push command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --simulation-path
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-simulation-path">gat-sources-add-sienna command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --simulation-type
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-simulation-type">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --solution
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-solution">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --solution-path
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-solution-path">gat-sources-add-plexos command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --solve-year
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-solve-year">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-solve-year">gat-sources-add-reeds command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --system
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-system">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-system">gat-push command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --system-path
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-system-path">gat-sources-add-sienna command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --token
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-token">gat-server-start command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --type
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-init-report-type">gat-init-report command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --verbose
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-v">gat command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-list-v">gat-project-list command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-v">gat-project-show command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --version
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-version">gat command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --yes
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-y">gat-project-palette-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-y">gat-project-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-y">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-y">gat-project-scenario-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-y">gat-sources-remove command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -b
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-b">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -h
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-h">gat-push command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -l
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-l">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -o
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-o">gat-run-report command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -p
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-p">gat-plot command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-p">gat-server-start command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -s
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-s">gat-plot command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -v
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-v">gat command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-list-v">gat-project-list command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-v">gat-project-show command line option</a>
+</li>
+      </ul></li>
+      <li>
+    -y
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-y">gat-project-palette-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-y">gat-project-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-y">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-y">gat-project-scenario-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-y">gat-sources-remove command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.add_scenario">add_scenario() (gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.area">area (gat.scenariohandlers.base.BaseScenario property)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.area">(gat.scenariohandlers.sienna.SiennaScenario property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario">BaseScenario (class in gat.scenariohandlers.base)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.calc_curtailment">calc_curtailment() (in module gat.scenariohandlers.base)</a>
+</li>
+      <li>
+    CONFIG_PATH
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-arg-CONFIG_PATH">gat-run-report command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/scenario.html#gat.quickplots.generation_plots.convert_units">convert_units() (in module gat.quickplots.generation_plots)</a>
+</li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.copy">copy() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/scenario.html#gat.registry.discover_all_plots">discover_all_plots() (in module gat.registry)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.registry.discover_external_plots">discover_external_plots() (in module gat.registry)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/scenario.html#gat.registry.discover_internal_plots">discover_internal_plots() (in module gat.registry)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.display_name">display_name (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario">EGRETScenario (class in gat.scenariohandlers.egret)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.facet_dispatch_windows">facet_dispatch_windows() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.fill_missing_loads">fill_missing_loads() (in module gat.scenariohandlers.base)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.from_config">from_config() (gat.scenariohandlers.base.BaseScenario class method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models">from_simulation_models() (gat.scenariohandlers.sienna.SiennaScenario class method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    gat command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-debug">--debug</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-v">--verbose</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-version">--version</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-v">-v</a>
+</li>
+      </ul></li>
+      <li>
+    gat-config command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-edit">--edit</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-path">--path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-config-show">--show</a>
+</li>
+      </ul></li>
+      <li>
+    gat-init-report command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-init-report-type">--type</a>
+</li>
+      </ul></li>
+      <li>
+    gat-plot command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-b">--backend</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-l">--list</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-p">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-s">--scenario</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-server">--server</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-b">-b</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-l">-l</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-p">-p</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-s">-s</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-add command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-id">--id</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-set-default">--set-default</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-init command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-gat-version">--gat-version</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-name">--name</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-no-add">--no-add</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-no-palettes">--no-palettes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-set-default">--set-default</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-arg-PATH">PATH</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-list command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-list-v">--verbose</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-list-v">-v</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-palette-add command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-print-summary">--print-summary</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-arg-PALETTE_NAME">PALETTE_NAME</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-palette-list command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-list-project">--project</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-palette-remove command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-y">--yes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-y">-y</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-arg-PALETTE_NAME">PALETTE_NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-palette-show command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-show-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-show-arg-PALETTE_NAME">PALETTE_NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-remove command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-y">--yes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-y">-y</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-arg-PROJECT_ID">PROJECT_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-scenario-add command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-default-palette">--default-palette</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-metadata">--metadata</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-name">--name</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-path">--path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-simulation">--simulation</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-simulation-type">--simulation-type</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-solution">--solution</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-solve-year">--solve-year</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-system">--system</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-y">--yes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-y">-y</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-arg-SCENARIO_TYPE">SCENARIO_TYPE</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-scenario-discover-datasets command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-save">--save</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-scenario-list command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-list-arg-PROJECT_ID">PROJECT_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-scenario-remove command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-y">--yes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-y">-y</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-scenario-show command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-show-project">--project</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-show-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-set-default command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-set-default-arg-PROJECT_ID">PROJECT_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-project-show command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-v">--verbose</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-v">-v</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-arg-PROJECT_ID">PROJECT_ID</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-arg-SCENARIO_ID">SCENARIO_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-projects-list command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-projects-list-refresh">--refresh</a>
+</li>
+      </ul></li>
+      <li>
+    gat-projects-show command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-projects-show-arg-PROJECT_ID">PROJECT_ID</a>
+</li>
+      </ul></li>
+      <li>
+    gat-push command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-h">--handler</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-server">--server</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-simulation">--simulation</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-system">--system</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-h">-h</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-arg-PROJECT">PROJECT</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-arg-SCENARIO">SCENARIO</a>
+</li>
+      </ul></li>
+      <li>
+    gat-query command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-format">--format</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-server">--server</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-PROJECT">PROJECT</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-SCENARIO">SCENARIO</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-SQL">SQL</a>
+</li>
+      </ul></li>
+      <li>
+    gat-run-report command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-o">--output</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-o">-o</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-run-report-arg-CONFIG_PATH">CONFIG_PATH</a>
+</li>
+      </ul></li>
+      <li>
+    gat-scenarios command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-scenarios-server">--server</a>
+</li>
+      </ul></li>
+      <li>
+    gat-server-start command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-db">--db</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-host">--host</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-p">--port</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-token">--token</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-start-p">-p</a>
+</li>
+      </ul></li>
+      <li>
+    gat-server-status command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-server-status-server">--server</a>
+</li>
+      </ul></li>
+      <li>
+    gat-sources-add-plexos command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-solution-path">--solution-path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-sources-add-reeds command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-path">--path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-solve-year">--solve-year</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-sources-add-sienna command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-description">--description</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-simulation-path">--simulation-path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-system-path">--system-path</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    gat-sources-remove command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-y">--yes</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-y">-y</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat-sources-show command line option
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-show-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    gat.config
+
+      <ul>
+        <li><a href="api/Configuration/general.html#module-gat.config">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.datahelpers.sienna
+
+      <ul>
+        <li><a href="api/Parsers/Sienna.html#module-gat.datahelpers.sienna">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.quickplots.dispatch
+
+      <ul>
+        <li><a href="api/Plots/dispatch.html#module-gat.quickplots.dispatch">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.quickplots.generation_plots
+
+      <ul>
+        <li><a href="api/Plots/scenario.html#module-gat.quickplots.generation_plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.quickplots.system_plots
+
+      <ul>
+        <li><a href="api/Plots/scenario.html#module-gat.quickplots.system_plots">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.quickplots.transmission
+
+      <ul>
+        <li><a href="api/Plots/transmission.html#module-gat.quickplots.transmission">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.registry
+
+      <ul>
+        <li><a href="api/Plots/scenario.html#module-gat.registry">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.base
+
+      <ul>
+        <li><a href="api/ScenarioObjects/BaseScenario.html#module-gat.scenariohandlers.base">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.egret
+
+      <ul>
+        <li><a href="api/ScenarioObjects/EGRET.html#module-gat.scenariohandlers.egret">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.multi
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#module-gat.scenariohandlers.multi">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.plexos
+
+      <ul>
+        <li><a href="api/ScenarioObjects/Plexos.html#module-gat.scenariohandlers.plexos">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.reeds
+
+      <ul>
+        <li><a href="api/ScenarioObjects/ReEDS.html#module-gat.scenariohandlers.reeds">module</a>
+</li>
+      </ul></li>
+      <li>
+    gat.scenariohandlers.sienna
+
+      <ul>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#module-gat.scenariohandlers.sienna">module</a>
+</li>
+      </ul></li>
+      <li><a href="api/Configuration/general.html#gat.config.gatConfig">gatConfig (class in gat.config)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.gen_area_map">gen_area_map (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.generate_gen_area_map">generate_gen_area_map() (gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.generate_line_rating_map">generate_line_rating_map() (gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.generate_map">generate_map() (gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.generator_technology_map">generator_technology_map (gat.scenariohandlers.base.BaseScenario property)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.generator_technology_map">(gat.scenariohandlers.plexos.PlexosScenario property)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.generator_technology_map">(gat.scenariohandlers.reeds.ReEDsScenario property)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.generator_technology_map">(gat.scenariohandlers.sienna.SiennaScenario property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_charging">get_area_charging() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_area_charging">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_curtailment_aggregates">get_area_curtailment_aggregates() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_dispatch">get_area_dispatch() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_area_dispatch">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_area_dispatch">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_area_interchange">get_area_interchange() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_load">get_area_load() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_area_load">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_tech_aggregates">get_area_tech_aggregates() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_area_unserved">get_area_unserved() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_area_unserved">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_area_unserved">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.get_attributes">get_attributes() (gat.datahelpers.sienna.SiennaH5Parser method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_availability">get_availability() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_availability">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_availability">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_availability">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_availability">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_availability_tech">get_availability_tech() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_availability_tech">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.get_bus_area_relation">get_bus_area_relation() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.get_component">get_component() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.get_component_bus_relation">get_component_bus_relation() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.get_component_data">get_component_data() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_curtailment">get_curtailment() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.get_dataset">get_dataset() (gat.datahelpers.sienna.SiennaH5Parser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.get_decision_model_base_power">get_decision_model_base_power() (gat.datahelpers.sienna.SiennaH5Parser method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_flow">get_flow() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_gen_and_curtailment">get_gen_and_curtailment() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_gen_and_curtailment">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.get_gen_area_map">get_gen_area_map() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_gen_area_map">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.get_gen_tech_map">get_gen_tech_map() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_generation">get_generation() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_generation">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_generation">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_generation">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_generation">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_generation_capacity">get_generation_capacity() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_generation_capacity">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_generation_capacity">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_generation_capacity">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_generation_capacity">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.get_generator_dataframe">get_generator_dataframe() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.get_generator_map">get_generator_map() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_generators_tech">get_generators_tech() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_generators_tech">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_generators_tech">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_installed_capacity">get_installed_capacity() (gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_ivrt">get_ivrt() (gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_congestion_hours">get_line_congestion_hours() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_flow">get_line_flow() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_line_flow">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_line_flow">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_line_flow">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_line_flow">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_loading">get_line_loading() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_line_rating_map">get_line_rating_map() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_utilization">get_line_utilization() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_load">get_load() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_load">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_load">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_load">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_load">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_load_area_map">get_load_area_map() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_peak_stats">get_peak_stats() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.get_peak_stats">(in module gat.scenariohandlers.base)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_plexos_h5map">get_plexos_h5map() (gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.registry.get_plot_function">get_plot_function() (in module gat.registry)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.registry.get_plot_names">get_plot_names() (in module gat.registry)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.registry.get_plots">get_plots() (in module gat.registry)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_production_cost">get_production_cost() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_production_cost">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_production_cost">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_production_cost">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_production_cost">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_production_cost_tech">get_production_cost_tech() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.get_raw_dataset">get_raw_dataset() (gat.datahelpers.sienna.SiennaH5Parser method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_raw_dataset">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.get_raw_generators">get_raw_generators() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_regional_curtailment">get_regional_curtailment() (gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_storage_charging">get_storage_charging() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_storage_charging">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_storage_charging">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_storage_charging">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_storage_charging">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_system_charging">get_system_charging() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_system_dispatch">get_system_dispatch() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_system_dispatch">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_system_dispatch">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_system_unserved">get_system_unserved() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_unserved">get_unserved() (gat.scenariohandlers.base.BaseScenario method)</a>
+
+      <ul>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_unserved">(gat.scenariohandlers.multi.MultiScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.get_unserved">(gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario.get_unserved">(gat.scenariohandlers.reeds.ReEDsScenario method)</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.get_unserved">(gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.line_rating_map">line_rating_map (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.list_component_types">list_component_types() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser.list_components">list_components() (gat.datahelpers.sienna.SiennaSystemParser method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.list_datasets">list_datasets() (gat.datahelpers.sienna.SiennaH5Parser method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/EGRET.html#gat.scenariohandlers.egret.EGRETScenario.list_simulation_files">list_simulation_files() (gat.scenariohandlers.egret.EGRETScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.load_area_map">load_area_map (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.load_includes_charging">load_includes_charging (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.load_map">load_map() (in module gat.scenariohandlers.base)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/scenario.html#gat.quickplots.system_plots.map_system_capacity">map_system_capacity() (in module gat.quickplots.system_plots)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaModelConfig.model_config">model_config (gat.datahelpers.sienna.SiennaModelConfig attribute)</a>
+
+      <ul>
+        <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSimulationConfig.model_config">(gat.datahelpers.sienna.SiennaSimulationConfig attribute)</a>
+</li>
+      </ul></li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api/Configuration/general.html#module-gat.config">gat.config</a>
+</li>
+        <li><a href="api/Parsers/Sienna.html#module-gat.datahelpers.sienna">gat.datahelpers.sienna</a>
+</li>
+        <li><a href="api/Plots/dispatch.html#module-gat.quickplots.dispatch">gat.quickplots.dispatch</a>
+</li>
+        <li><a href="api/Plots/scenario.html#module-gat.quickplots.generation_plots">gat.quickplots.generation_plots</a>
+</li>
+        <li><a href="api/Plots/scenario.html#module-gat.quickplots.system_plots">gat.quickplots.system_plots</a>
+</li>
+        <li><a href="api/Plots/transmission.html#module-gat.quickplots.transmission">gat.quickplots.transmission</a>
+</li>
+        <li><a href="api/Plots/scenario.html#module-gat.registry">gat.registry</a>
+</li>
+        <li><a href="api/ScenarioObjects/BaseScenario.html#module-gat.scenariohandlers.base">gat.scenariohandlers.base</a>
+</li>
+        <li><a href="api/ScenarioObjects/EGRET.html#module-gat.scenariohandlers.egret">gat.scenariohandlers.egret</a>
+</li>
+        <li><a href="api/ScenarioObjects/MultiScenario.html#module-gat.scenariohandlers.multi">gat.scenariohandlers.multi</a>
+</li>
+        <li><a href="api/ScenarioObjects/Plexos.html#module-gat.scenariohandlers.plexos">gat.scenariohandlers.plexos</a>
+</li>
+        <li><a href="api/ScenarioObjects/ReEDS.html#module-gat.scenariohandlers.reeds">gat.scenariohandlers.reeds</a>
+</li>
+        <li><a href="api/ScenarioObjects/SiennaScenario.html#module-gat.scenariohandlers.sienna">gat.scenariohandlers.sienna</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario">MultiScenario (class in gat.scenariohandlers.multi)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    NAME
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-plot-arg-NAME">gat-plot command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-plexos-arg-NAME">gat-sources-add-plexos command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-reeds-arg-NAME">gat-sources-add-reeds command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-add-sienna-arg-NAME">gat-sources-add-sienna command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-remove-arg-NAME">gat-sources-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-sources-show-arg-NAME">gat-sources-show command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    PALETTE_NAME
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-arg-PALETTE_NAME">gat-project-palette-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-remove-arg-PALETTE_NAME">gat-project-palette-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-show-arg-PALETTE_NAME">gat-project-palette-show command line option</a>
+</li>
+      </ul></li>
+      <li>
+    PATH
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-add-arg-PATH">gat-project-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-init-arg-PATH">gat-project-init command line option</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario">PlexosScenario (class in gat.scenariohandlers.plexos)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_annual_area_curtailment_stack">plot_annual_area_curtailment_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_annual_area_dispatch_stack">plot_annual_area_dispatch_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_annual_system_curtailment_stack">plot_annual_system_curtailment_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_annual_system_dispatch_stack">plot_annual_system_dispatch_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_dispatch_stack_bar">plot_dispatch_stack_bar() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_flow">plot_flow() (in module gat.quickplots.transmission)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.registry.plot_function">plot_function() (in module gat.registry)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.quickplots.system_plots.plot_generation_capacities">plot_generation_capacities() (in module gat.quickplots.system_plots)</a>
+</li>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_hourly_box_monthly">plot_hourly_box_monthly() (in module gat.quickplots.transmission)</a>
+</li>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_hourly_boxplot">plot_hourly_boxplot() (in module gat.quickplots.transmission)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_lines_utilization">plot_lines_utilization() (in module gat.quickplots.transmission)</a>
+</li>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_loading_ranked">plot_loading_ranked() (in module gat.quickplots.transmission)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_min_demand_window">plot_min_demand_window() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.quickplots.generation_plots.plot_minmax_area_demand_windows">plot_minmax_area_demand_windows() (in module gat.quickplots.generation_plots)</a>
+</li>
+      <li><a href="api/Plots/scenario.html#gat.quickplots.generation_plots.plot_minmax_system_demand_windows">plot_minmax_system_demand_windows() (in module gat.quickplots.generation_plots)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_monthly_system_curtailment_stack">plot_monthly_system_curtailment_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_monthly_system_dispatch_stack">plot_monthly_system_dispatch_stack() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_peak_demand_window">plot_peak_demand_window() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li><a href="api/Plots/transmission.html#gat.quickplots.transmission.plot_ranked_series">plot_ranked_series() (in module gat.quickplots.transmission)</a>
+</li>
+      <li><a href="api/Plots/dispatch.html#gat.quickplots.dispatch.plot_stacked_area_window">plot_stacked_area_window() (in module gat.quickplots.dispatch)</a>
+</li>
+      <li>
+    PROJECT
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-arg-PROJECT">gat-push command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-PROJECT">gat-query command line option</a>
+</li>
+      </ul></li>
+      <li>
+    PROJECT_ID
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-remove-arg-PROJECT_ID">gat-project-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-list-arg-PROJECT_ID">gat-project-scenario-list command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-set-default-arg-PROJECT_ID">gat-project-set-default command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-arg-PROJECT_ID">gat-project-show command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-projects-show-arg-PROJECT_ID">gat-projects-show command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/ReEDS.html#gat.scenariohandlers.reeds.ReEDsScenario">ReEDsScenario (class in gat.scenariohandlers.reeds)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.save_config">save_config() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li>
+    SCENARIO
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-push-arg-SCENARIO">gat-push command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-SCENARIO">gat-query command line option</a>
+</li>
+      </ul></li>
+      <li>
+    SCENARIO_ID
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-palette-add-arg-SCENARIO_ID">gat-project-palette-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-arg-SCENARIO_ID">gat-project-scenario-add command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-discover-datasets-arg-SCENARIO_ID">gat-project-scenario-discover-datasets command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-remove-arg-SCENARIO_ID">gat-project-scenario-remove command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-show-arg-SCENARIO_ID">gat-project-scenario-show command line option</a>
+</li>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-show-arg-SCENARIO_ID">gat-project-show command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    SCENARIO_TYPE
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-project-scenario-add-arg-SCENARIO_TYPE">gat-project-scenario-add command line option</a>
+</li>
+      </ul></li>
+      <li><a href="api/ScenarioObjects/Plexos.html#gat.scenariohandlers.plexos.PlexosScenario.set_area_map">set_area_map() (gat.scenariohandlers.plexos.PlexosScenario method)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser">SiennaH5Parser (class in gat.datahelpers.sienna)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaModelConfig">SiennaModelConfig (class in gat.datahelpers.sienna)</a>
+</li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario">SiennaScenario (class in gat.scenariohandlers.sienna)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSimulationConfig">SiennaSimulationConfig (class in gat.datahelpers.sienna)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaSystemParser">SiennaSystemParser (class in gat.datahelpers.sienna)</a>
+</li>
+      <li>
+    SQL
+
+      <ul>
+        <li><a href="api/cli/commands.html#cmdoption-gat-query-arg-SQL">gat-query command line option</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.tech_simple">tech_simple (gat.scenariohandlers.base.BaseScenario property)</a>
+</li>
+      <li><a href="api/Parsers/Sienna.html#gat.datahelpers.sienna.SiennaH5Parser.timestamps">timestamps (gat.datahelpers.sienna.SiennaH5Parser property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.to_config">to_config() (gat.scenariohandlers.base.BaseScenario method)</a>
+</li>
+      <li><a href="api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.to_multiscenario">to_multiscenario() (gat.scenariohandlers.sienna.SiennaScenario method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Micah Webb
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Alliance for Energy Innovation, LLC.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
