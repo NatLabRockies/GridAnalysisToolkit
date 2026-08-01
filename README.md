@@ -1,5 +1,11 @@
 # GAT - Grid Analysis Toolkit
 
+[![tests](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/tests.yml)
+[![docs](https://github.com/NatLabRockies/GridAnalysisToolkit/actions/workflows/sphinx.yml/badge.svg)](https://natlabrockies.github.io/GridAnalysisToolkit/)
+[![PyPI](https://img.shields.io/pypi/v/nlr-gat)](https://pypi.org/project/nlr-gat/)
+[![Python](https://img.shields.io/pypi/pyversions/nlr-gat)](https://pypi.org/project/nlr-gat/)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](LICENSE)
+
 A toolkit for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
 
 GAT aims to provide simplified access to PCM and CEM results in a standard format while also allowing raw data access to underlying datasets specific to the model.
