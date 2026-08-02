@@ -1,5 +1,5 @@
 .PHONY: test fixture-deck fixture-deck-sienna fixture-deck-all regen-snapshots \
-        sienna-image-v4 sienna-image-v5 sienna-fixture-v4 sienna-fixture-v4-multi sienna-fixture-v5
+        sienna-image-v4 sienna-image-v5 sienna-fixture-v4 sienna-fixture-v4-multi sienna-fixture-v5 sienna-fixture-pjm5
 
 PYTHON ?= python
 UV ?= uv
@@ -46,4 +46,15 @@ sienna-fixture-v4-multi: sienna-image-v4
 sienna-fixture-v5: sienna-image-v5
 	mkdir -p $(SIENNA_OUT_V5)
 	docker run --rm -v "$(PWD)/$(SIENNA_OUT_V5):/output" gat-sienna:v5
+
+# PJM 5-bus long-horizon fixture (issue #18): same image as v4, selected
+# via SIM_SYSTEM=pjm5 — two synthetic zones, synthetic annual profiles.
+# Default SIM_STEPS=365 for the annual solve; override for smoke tests,
+# e.g. `make sienna-fixture-pjm5 SIM_STEPS=3`.
+SIM_STEPS ?= 365
+SIENNA_OUT_PJM5 := example_data/sienna/pjm5
+sienna-fixture-pjm5: sienna-image-v4
+	mkdir -p $(SIENNA_OUT_PJM5)
+	docker run --rm -e SIM_SYSTEM=pjm5 -e SIM_STEPS=$(SIM_STEPS) \
+		-v "$(PWD)/$(SIENNA_OUT_PJM5):/output" gat-sienna:v4
 
