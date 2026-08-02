@@ -172,6 +172,16 @@ jobs:
           key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
           fail-on-cache-miss: true
 
+      # pjm5 is best-effort here: tests that use it skip when absent, and
+      # no committed baselines depend on its bytes — so a cache miss is a
+      # skip, not a failure. The cache is populated by sphinx.yml's
+      # build-on-miss or a deliberate refresh run.
+      - name: Restore sienna pjm5 fixture from cache (best effort)
+        uses: actions/cache/restore@v4
+        with:
+          path: example_data/sienna/pjm5
+          key: sienna-pjm5-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
+
       # Sienna's UC solve isn't bit-deterministic run-to-run (MIP tie-
       # breaking among equally-optimal dispatch solutions), so a fresh
       # local `make sienna-fixture-v4` won't reproduce the exact fixture
@@ -192,4 +202,5 @@ jobs:
           GAT_PLEXOS_FIXTURE: ${{ github.workspace }}/example_data/plexos
           GAT_SIENNA_V4_FIXTURE: ${{ github.workspace }}/example_data/sienna/v4
           GAT_SIENNA_V5_FIXTURE: ${{ github.workspace }}/example_data/sienna/v5
+          GAT_SIENNA_PJM5_FIXTURE: ${{ github.workspace }}/example_data/sienna/pjm5
         run: pytest tests/ -v

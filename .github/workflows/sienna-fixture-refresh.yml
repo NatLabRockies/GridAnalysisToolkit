@@ -45,6 +45,7 @@ on:
         options:
           - v4
           - v5
+          - pjm5
 
 permissions:
   contents: read
@@ -76,7 +77,8 @@ jobs:
         id: vars
         run: |
           version="${{ inputs.version }}"
-          number="${version#v}"
+          # pjm5 shares the v4 image; only the SIM_SYSTEM env differs.
+          if [ "$version" = "pjm5" ]; then number="4"; else number="${version#v}"; fi
           key="sienna-${version}-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}"
           {
             echo "number=${number}"
@@ -106,13 +108,17 @@ jobs:
           build-args: SIENNA_VERSION=${{ steps.vars.outputs.number }}
           tags: gat-sienna:${{ inputs.version }}
           load: true
-          cache-from: type=gha,scope=sienna-docker-${{ inputs.version }}
-          cache-to: type=gha,mode=max,scope=sienna-docker-${{ inputs.version }}
+          # Scope layer cache by the underlying SIENNA_VERSION number so
+          # pjm5 (which shares the v4 image) reuses v4's warm layers.
+          cache-from: type=gha,scope=sienna-docker-v${{ steps.vars.outputs.number }}
+          cache-to: type=gha,mode=max,scope=sienna-docker-v${{ steps.vars.outputs.number }}
 
       - name: Generate sienna fixture data
         run: |
           mkdir -p "${{ steps.vars.outputs.out_dir }}"
-          docker run --rm \
+          extra_env=""
+          if [ "${{ inputs.version }}" = "pjm5" ]; then extra_env="-e SIM_SYSTEM=pjm5 -e SIM_STEPS=365"; fi
+          docker run --rm $extra_env \
             -v "${{ github.workspace }}/${{ steps.vars.outputs.out_dir }}:/output" \
             gat-sienna:${{ inputs.version }}
 
