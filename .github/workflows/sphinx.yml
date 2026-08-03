@@ -29,12 +29,19 @@ jobs:
           path: example_data/sienna/v4
           key: sienna-v4-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
 
+      - name: Restore sienna pjm5 fixture cache
+        id: pjm5-cache
+        uses: actions/cache@v4
+        with:
+          path: example_data/sienna/pjm5
+          key: sienna-pjm5-${{ hashFiles('docker/sienna/Dockerfile', 'docker/sienna/*.toml', 'docker/sienna/generate.jl') }}
+
       - name: Set up Docker Buildx
-        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        if: steps.fixture-cache.outputs.cache-hit != 'true' || steps.pjm5-cache.outputs.cache-hit != 'true'
         uses: docker/setup-buildx-action@v3
 
       - name: Build sienna Docker image (with layer cache)
-        if: steps.fixture-cache.outputs.cache-hit != 'true'
+        if: steps.fixture-cache.outputs.cache-hit != 'true' || steps.pjm5-cache.outputs.cache-hit != 'true'
         uses: docker/build-push-action@v6
         with:
           context: docker/sienna
@@ -52,11 +59,29 @@ jobs:
             -v "${{ github.workspace }}/example_data/sienna/v4:/output" \
             gat-sienna:v4
 
+      # The pjm5 annual solve is tiny (~3 min locally at 5 buses), so unlike
+      # v4 it is safe to build-on-miss here — no committed regression
+      # baselines depend on its exact bytes.
+      - name: Generate sienna pjm5 fixture data
+        if: steps.pjm5-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p example_data/sienna/pjm5
+          docker run --rm -e SIM_SYSTEM=pjm5 -e SIM_STEPS=365 \
+            -v "${{ github.workspace }}/example_data/sienna/pjm5:/output" \
+            gat-sienna:v4
+
       - name: Upload sienna v4 fixture artifact
         uses: actions/upload-artifact@v4
         with:
           name: sienna-v4-fixture-docs
           path: example_data/sienna/v4/
+          retention-days: 1
+
+      - name: Upload sienna pjm5 fixture artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sienna-pjm5-fixture-docs
+          path: example_data/sienna/pjm5/
           retention-days: 1
 
   build:
@@ -84,6 +109,12 @@ jobs:
         with:
           name: sienna-v4-fixture-docs
           path: example_data/sienna/v4
+
+      - name: Download sienna pjm5 fixture artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sienna-pjm5-fixture-docs
+          path: example_data/sienna/pjm5
 
       - name: Build HTML
         run: sphinx-build -b html docs/source docs/build/html

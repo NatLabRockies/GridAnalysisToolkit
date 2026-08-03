@@ -195,6 +195,26 @@ def sienna_v5_fixture_root() -> Path:
 
 
 @pytest.fixture(scope="session")
+def sienna_pjm5_fixture_root() -> Path:
+    """PJM 5-bus long-horizon fixture (`make sienna-fixture-pjm5`).
+
+    Resolution: GAT_SIENNA_PJM5_FIXTURE env var, else
+    example_data/sienna/pjm5. Best-effort in CI — populated by
+    sphinx.yml's build-on-miss or a deliberate refresh run; tests
+    skip when absent.
+    """
+    env = os.environ.get("GAT_SIENNA_PJM5_FIXTURE")
+    candidates = []
+    if env:
+        candidates.append(Path(env))
+    candidates.append(REPO_ROOT / "example_data" / "sienna" / "pjm5")
+    for c in candidates:
+        if (c / "sys.json").is_file() and (c / "simulation_store.h5").is_file():
+            return c
+    pytest.skip("sienna pjm5 fixture not available — run `make sienna-fixture-pjm5`")
+
+
+@pytest.fixture(scope="session")
 def sienna_v4_scenario(sienna_v4_fixture_root):
     from gat.scenariohandlers import SiennaScenario
 
