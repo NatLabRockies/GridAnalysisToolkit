@@ -73,6 +73,7 @@ class SiennaScenario(BaseScenario):
         files = []
 
         if isinstance(solution_data, str):
+            solution_data = os.path.expanduser(solution_data)
             if os.path.isdir(solution_data):
                 # Non-recursive search for files matching pattern in the directory
                 files = [file for file in glob(os.path.join(solution_data, pattern))]
@@ -87,6 +88,7 @@ class SiennaScenario(BaseScenario):
             # For lists, expand any glob patterns
             expanded_files = []
             for item in solution_data:
+                item = os.path.expanduser(item)
                 if os.path.isfile(item):
                     expanded_files.append(os.path.normpath(item))
                 elif "*" in item:

@@ -279,50 +279,6 @@ class BaseScenario(ABC):
     _expected_model_type = None
     _solution_file_pattern = "*.h5"  # works for both Sienna and Plexos
 
-    def _find_solution_files(
-        self, solution_data: Union[str, List[str]], pattern: str = "*.h5"
-    ) -> List[str]:
-        """
-        Default implementation to find solution files based on pattern.
-        Subclasses can override this to provide model-specific file discovery logic.
-
-        Parameters:
-        -----------
-        solution_data : str or list of str
-            Path to solution data or list of paths
-        pattern : str, optional
-            Glob pattern to use when searching for files (default: "*.h5")
-              Returns:
-        --------
-        List[str]
-            List of file paths to solution files
-        """
-        # Implementation is provided later in this file
-        files = []
-
-        if isinstance(solution_data, str):
-            if os.path.isdir(solution_data):
-                # Search for files matching pattern in the directory (non-recursive)
-                files = [file for file in glob(os.path.join(solution_data, pattern))]
-                files.sort()
-            elif os.path.isfile(solution_data):
-                files = [os.path.normpath(solution_data)]
-            elif "*" in solution_data:
-                # If solution_data itself is a glob pattern
-                files = [file for file in glob(solution_data)]
-                files.sort()
-        elif isinstance(solution_data, list):
-            # For lists, keep all files but expand any glob patterns
-            expanded_files = []
-            for item in solution_data:
-                if os.path.isfile(item):
-                    expanded_files.append(os.path.normpath(item))
-                elif "*" in item:
-                    expanded_files.extend([file for file in glob(item)])
-            files = expanded_files
-
-        return files
-
     def __init__(
         self,
         simulation_files: Optional[Union[str, List[str]]] = None,
@@ -564,7 +520,11 @@ class BaseScenario(ABC):
         Parameters:
         -----------
         solution_data : str or list of str
-            Path to solution data or list of paths
+            Path to solution data or list of paths. ``~`` is expanded to
+            the user's home directory (shells do this automatically, but
+            Python's os.path functions do not — a literal ``"~/..."``
+            string passed programmatically, e.g. from a REPL or script,
+            would otherwise silently resolve to zero files).
         pattern : str, optional
             Glob pattern to use when searching for files (default: "*.h5")
 
@@ -576,6 +536,7 @@ class BaseScenario(ABC):
         files = []
 
         if isinstance(solution_data, str):
+            solution_data = os.path.expanduser(solution_data)
             if os.path.isdir(solution_data):
                 # Search for files matching pattern in the directory (non-recursive)
                 files = [file for file in glob(os.path.join(solution_data, pattern))]
@@ -590,6 +551,7 @@ class BaseScenario(ABC):
             # For lists, keep all files but expand any glob patterns
             expanded_files = []
             for item in solution_data:
+                item = os.path.expanduser(item)
                 if os.path.isfile(item):
                     expanded_files.append(os.path.normpath(item))
                 elif "*" in item:

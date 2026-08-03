@@ -16,42 +16,6 @@ from typing import Union, List
 class ReEDsScenario(BaseScenario):
     _expected_model_type = "reeds"
 
-    def _find_solution_files(
-        self, solution_data: Union[str, List[str]], pattern: str = "*"
-    ) -> List[str]:
-        """
-        ReEDS-specific implementation that just stores the directory path.
-
-        Parameters:
-        -----------
-        solution_data : str or list of str
-            Path to solution data directory
-        pattern : str, optional
-            Not used for ReEDS
-
-        Returns:
-        --------
-        List[str]
-            The directory path as a single-item list
-        """
-        if isinstance(solution_data, str):
-            if os.path.isdir(solution_data):
-                # If it's the outputs directory or contains one, normalize it
-                if os.path.basename(solution_data) == "outputs":
-                    return os.path.normpath(solution_data)
-                elif os.path.exists(os.path.join(solution_data, "outputs")):
-                    return os.path.normpath(solution_data)
-                else:
-                    return os.path.normpath(solution_data)
-        elif isinstance(solution_data, list):
-            # If it's a list, return the first directory
-            for item in solution_data:
-                if os.path.isdir(item):
-                    return os.path.normpath(item)
-
-        # Return empty list if no valid directory found
-        return []
-
     def __init__(
         self,
         simulation_files=None,
@@ -164,6 +128,7 @@ class ReEDsScenario(BaseScenario):
             The directory path as a single-item list
         """
         if isinstance(solution_data, str):
+            solution_data = os.path.expanduser(solution_data)
             if os.path.isdir(solution_data):
                 # If it's the outputs directory or contains one, normalize it
                 if os.path.basename(solution_data) == "outputs":
@@ -175,6 +140,7 @@ class ReEDsScenario(BaseScenario):
         elif isinstance(solution_data, list):
             # If it's a list, return the first directory
             for item in solution_data:
+                item = os.path.expanduser(item)
                 if os.path.isdir(item):
                     return os.path.normpath(item)
 
