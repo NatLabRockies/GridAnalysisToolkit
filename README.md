@@ -14,6 +14,18 @@ GAT aims to provide simplified access to PCM and CEM results in a standard forma
 
 For plotting, GAT defaults to standard National Lab of the Rockies (NLR) color schemes and standard styles while allowing customization.
 
+> [!WARNING]
+> GAT's public API is still evolving. Expect breaking changes between
+> releases before v1.0 — pin an exact version (e.g. `nlr-gat==0.1.0`) if
+> you need stability.
+
+> [!WARNING]
+> Support for PLEXOS solution files produced by **H5PLEXOS.jl** (`.h5`)
+> will be removed in **v0.2.0**. Load native PLEXOS `Solution.zip` files
+> through the DuckDB-backed engine instead: install with
+> `pip install "nlr-gat[plexos-duckdb]"` and pass the `.zip` path
+> directly to `PlexosScenario` — backend selection is automatic.
+
 ## Installation
 
 It is recommended to create a virtual environment for installing GAT.
