@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Grid Analysis Toolkit &#8212; Grid Analysis Toolkit 0.1.0.post20+g452e1f9dc documentation</title>
+    <title>Grid Analysis Toolkit &#8212; Grid Analysis Toolkit 0.1.0.post26+g176fd8e9d documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=f35dcf33"></script>
+    <script src="_static/documentation_options.js?v=2d62d11a"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -58,7 +58,7 @@
     <link rel="next" title="Configuring GAT" href="api/Configuration/general.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.0.post20+g452e1f9dc" />
+  <meta name="docsearch:version" content="0.1.0.post26+g176fd8e9d" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -185,7 +185,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post20+g452e1f9dc documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post26+g176fd8e9d documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -211,7 +211,6 @@
 <li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/Plexos.html">PLEXOS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/ReEDS.html">ReEDS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html">Multi-Scenario Objects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/ScenarioObjects/EGRET.html">EGRET</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Parser Objects</span></p>
 <ul class="nav bd-sidenav">
@@ -494,13 +493,56 @@
   <section class="tex2jax_ignore mathjax_ignore" id="grid-analysis-toolkit">
 <h1>Grid Analysis Toolkit<a class="headerlink" href="#grid-analysis-toolkit" title="Link to this heading">#</a></h1>
 <p>The Grid Analysis Toolkit, or GAT, is a python library for providing a simplified and intiuitive interface across multiple Production Cost Modeling and Capacity Expansion Modeling tools related to the Bulk Electrical System.</p>
-<p>GAT is primarily built on top of pandas, numpy and matplotlib. GAT also requires h5py and tables to interface with the common Sienna and H5PLEXOS.jl outputs. Objects and functions are designed to return pandas dataframes or matplotlib axes to allow for further customization.</p>
+<p>GAT is primarily built on top of pandas and numpy. Objects and functions are designed to return pandas dataframes or matplotlib axes to allow for further customization.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>GAT can be installed via pip.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">nlr-gat</span></code></p>
 <p>(The distribution is named <code class="docutils literal notranslate"><span class="pre">nlr-gat</span></code> because <code class="docutils literal notranslate"><span class="pre">gat</span></code> on PyPI is an
 unrelated genomics package; the import package and CLI are still <code class="docutils literal notranslate"><span class="pre">gat</span></code>.)</p>
+<p>The bare install pulls in only the format-agnostic core — no scenario
+handler is usable yet. Each format has its own extra, so you only install
+the (often large, native-code) dependencies you actually need:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Extra</p></th>
+<th class="head"><p>Adds</p></th>
+<th class="head"><p>Installs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sienna</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SiennaScenario</span></code></p></td>
+<td><p>h5py, polars, geopandas</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plexos</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PlexosScenario</span></code> (both backends, for now — H5PLEXOS.jl <code class="docutils literal notranslate"><span class="pre">.h5</span></code> support ends in v0.2.0)</p></td>
+<td><p>h5py, duckdb, plexos2duckdb</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reeds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ReEDsScenario</span></code></p></td>
+<td><p><em>(base deps only)</em></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plots</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gat.quickplots</span></code> / the <code class="docutils literal notranslate"><span class="pre">.plot</span></code> property on any scenario</p></td>
+<td><p>matplotlib (+ PySide6 on macOS)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">server</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gat.server</span></code></p></td>
+<td><p>fastapi, uvicorn, duckdb, pyarrow</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">client</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gat.client</span></code></p></td>
+<td><p>httpx, pyarrow</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
+<td><p>everything above</p></td>
+<td><p>—</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;nlr-gat[sienna,plots]&quot;</span></code></p>
 <p>Or from GitHub, optionally pinning a release:</p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/NatLabRockies/GridAnalysisToolkit</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/NatLabRockies/GridAnalysisToolkit&#64;v0.1.0</span></code></p>
@@ -588,14 +630,6 @@ unrelated genomics package; the import package and CLI are still <code class="do
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/MultiScenario.html#module-gat.scenariohandlers.multi" title="gat.scenariohandlers.multi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multi</span></code></a></p></td>
 <td><p>Provides a multi-scenario handler for comparing multiple scenarios.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/ScenarioObjects/EGRET.html#module-gat.scenariohandlers.egret" title="gat.scenariohandlers.egret"><code class="xref py py-obj docutils literal notranslate"><span class="pre">egret</span></code></a></p></td>
-<td><p>EGRET - Scenario Object for interfacing with EGRET JSON system and simulation data.</p></td>
 </tr>
 </tbody>
 </table>
