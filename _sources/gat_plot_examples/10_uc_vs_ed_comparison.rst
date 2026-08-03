@@ -353,7 +353,7 @@ emulated one. Same MultiScenario pattern, different pair.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.973 seconds)
+   **Total running time of the script:** (0 minutes 1.928 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_10_uc_vs_ed_comparison.py:

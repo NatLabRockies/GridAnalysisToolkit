@@ -44,17 +44,17 @@ Useful for comparing resource mix across regions in a multi-area model
 
     /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:510: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:510: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:523: UserWarning: No matching datasets found for ['ActivePowerInVariable*'], consider updating the configuration.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:525: UserWarning: No matching datasets found for ['ActivePowerInVariable*'], consider updating the configuration.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:706: UserWarning: Unable to create storage load timeseries data, additional calculated loads may not be available.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:708: UserWarning: Unable to create storage load timeseries data, additional calculated loads may not be available.
       warnings.warn(
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerOutVariable*, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:510: UserWarning: Could not find dataset with pattern ActivePowerOutVariable*, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:508: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:510: UserWarning: Could not find dataset with pattern ActivePowerTimeSeriesParameter__StandardLoad, consider updating the configuration or removing this pattern to avoid a warning.
       warnings.warn(message, UserWarning)
 
 
@@ -89,7 +89,7 @@ Useful for comparing resource mix across regions in a multi-area model
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.386 seconds)
+   **Total running time of the script:** (0 minutes 0.416 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_03_dispatch_area_facets.py:
