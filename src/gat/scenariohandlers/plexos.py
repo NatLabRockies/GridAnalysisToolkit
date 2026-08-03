@@ -209,6 +209,18 @@ class PlexosScenario(BaseScenario):
         self._backend, self._solution_files = _resolve_plexos_backend_and_files(
             self._find_solution_files, simulation_files, pattern
         )
+        if simulation_files and not self._solution_files:
+            # Fail loudly here, with the input that didn't resolve, instead
+            # of silently proceeding with self.parser = None and deferring
+            # to a confusing AttributeError deep in generator_technology_map
+            # or another property that assumes a parser exists.
+            raise FileNotFoundError(
+                f"No PLEXOS solution files found for {simulation_files!r} "
+                "(checked for .h5, .zip, and .duckdb). Verify the path "
+                "exists — note that '~' is expanded, but shell globs and "
+                "environment variables written literally in a Python "
+                "string are not."
+            )
         if self._solution_files:
             self.config.simulation_paths = self._solution_files
 
