@@ -1,5 +1,48 @@
 # Changelog
 
+## [v0.1.1] - Unreleased
+
+First changelog entry since the public release split — entries before
+this point (including the "v1.0.0" one below) are from GAT's internal
+pre-OSS versioning and don't correspond to a published PyPI release.
+Public releases are versioned from `v0.1.0` onward.
+
+### Changed — breaking
+
+- **Install extras split by format.** `pip install nlr-gat` alone now
+  installs only the format-agnostic core — no scenario handler is
+  usable until you also install `sienna`, `plexos`, and/or `reeds`
+  (plus `plots` for `gat.quickplots`). Previously every dependency
+  (h5py, geopandas, duckdb, polars, matplotlib, pyarrow) was installed
+  unconditionally. See the README's install table, or use
+  `pip install "nlr-gat[all]"` to keep the old everything-installed
+  behavior.
+
+### Fixed
+
+- **`PlexosScenario`/`SiennaScenario`/`ReEDsScenario` silently failed to
+  resolve `~`-prefixed paths.** `os.path.isdir`/`isfile`/`glob` never
+  expand `~` — a literal `"~/..."` string resolved to zero files, and
+  `PlexosScenario` then crashed later with a confusing, unrelated
+  `AttributeError` instead of a clear error. Fixed in every
+  `_find_solution_files` implementation; `PlexosScenario` now raises
+  `FileNotFoundError` immediately, naming the input, when nothing
+  resolves.
+- Two dead, shadowed `_find_solution_files` method definitions removed
+  (`base.py`, `reeds.py` each defined the method twice in one class).
+
+### Deprecated
+
+- Support for PLEXOS solution files produced by H5PLEXOS.jl (`.h5`)
+  will be removed in **v0.2.0**. Load native PLEXOS `Solution.zip`
+  files through the DuckDB-backed engine instead
+  (`pip install "nlr-gat[plexos]"`).
+
+### Removed
+
+- `EGRETScenario` and its documentation page — unmaintained, zero test
+  coverage, and no consumers beyond its own module.
+
 ## [v1.0.0] - 2026-05-29
 
 ### Fixed
