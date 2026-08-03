@@ -1,20 +1,73 @@
 name: release
 
+# Automated release flow modeled on NatLabRockies/R2X's release-please
+# setup, adapted for a single package with no static version string to
+# bump (GAT uses setuptools_scm — the version is derived entirely from
+# git tags at build time, hence release-type "simple" below rather than
+# "python": there's no `version = "x.y.z"` line for release-please to
+# edit).
+#
+# Flow:
+#   1. Every push to main: release-please looks at conventional-commit
+#      messages since the last release and keeps a standing "chore:
+#      release vX.Y.Z" PR open, auto-updating docs/source/CHANGELOG.md
+#      as more commits land. Merging that PR is the only manual step.
+#   2. The moment that PR merges, release-please creates the git tag
+#      and GitHub Release (release_created=true) — no one runs `git tag`
+#      by hand anymore.
+#   3. build + publish-pypi then run exactly as before, gated on
+#      release_created instead of a tag-push event.
+#
+# workflow_dispatch is kept as a manual escape hatch to rebuild/republish
+# the current tag if a step needs re-running (publish-pypi's
+# skip-existing: true makes this safe to re-trigger).
+
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
-  build:
+  release-please:
+    name: release-please
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - name: Run release-please
+        id: rp
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
+          target-branch: main
 
+  build:
+    name: Build distribution
+    needs: [release-please]
+    if: |
+      always() && (
+        (github.event_name == 'push' && needs.release-please.outputs.release_created == 'true') ||
+        github.event_name == 'workflow_dispatch'
+      )
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ needs.release-please.outputs.tag_name || github.ref }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v4
@@ -27,9 +80,11 @@ jobs:
       - name: Build sdist and wheel
         run: uv build
 
-      - name: Upload release assets
+      - name: Attach dists to the GitHub release
+        if: needs.release-please.outputs.release_created == 'true'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
           files: |
             dist/nlr_gat-*.whl
             dist/nlr_gat-*.tar.gz
@@ -41,16 +96,21 @@ jobs:
           path: dist/
 
   # Publishes via PyPI Trusted Publishing (OIDC) — no API token is stored
-  # in the repo. One-time setup on PyPI is required before the first run:
-  # add a "pending publisher" for the project name `nlr-gat` with
-  # owner NatLabRockies, repository GridAnalysisToolkit, workflow
-  # release.yml, and environment pypi
+  # in the repo. One-time setup on PyPI: a "pending publisher" for
+  # project name `nlr-gat`, owner NatLabRockies, repository
+  # GridAnalysisToolkit, workflow release.yml, environment pypi
   # (https://pypi.org/manage/account/publishing/).
   # The `pypi` GitHub environment is created automatically on first use;
   # protection rules (required reviewers) can be added to it in repo
   # Settings → Environments to gate publishes.
   publish-pypi:
-    needs: build
+    name: Publish to PyPI
+    needs: [release-please, build]
+    if: |
+      always() && needs.build.result == 'success' && (
+        (github.event_name == 'push' && needs.release-please.outputs.release_created == 'true') ||
+        github.event_name == 'workflow_dispatch'
+      )
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -67,3 +127,5 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true

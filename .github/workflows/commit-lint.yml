@@ -1,0 +1,49 @@
+name: commit-lint
+
+# Enforces Conventional Commits, modeled on NatLabRockies/R2X's
+# commit.yaml. This is what makes release-please (release.yml) work at
+# all — it computes version bumps and changelog sections by parsing
+# commit-message prefixes (feat/fix/docs/...), so an unprefixed commit
+# is silently invisible to it rather than an error.
+#
+# Informational only for now: these checks aren't in the branch
+# protection ruleset's required-checks list, so they don't block
+# merging. Add them there if you want it enforced rather than
+# best-effort.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint-commit-messages:
+    name: lint commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
+      - uses: astral-sh/setup-uv@v4
+      - name: Commitizen check
+        run: uvx --from commitizen cz check --rev-range HEAD^!
+
+  lint-pr-title:
+    # Squash-merges use the PR title as the final commit message, so
+    # this is what release-please actually sees for a squashed PR —
+    # lint it the same way as individual commits.
+    name: lint PR title
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

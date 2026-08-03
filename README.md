@@ -130,6 +130,10 @@ If you plan to contribute to documentation, install the documentation dependenci
 
 `pip install -e ".[dev,doc]"`
 
+Commit messages and PR titles should follow [Conventional Commits](https://www.conventionalcommits.org/)
+(`feat: ...`, `fix: ...`, `docs: ...`, etc.) — releases are generated
+automatically from these (see `.github/workflows/release.yml`).
+
 ## Building the documentation
 
 After installing the doc dependencies:
