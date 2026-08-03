@@ -96,7 +96,7 @@ further analysis.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.209 seconds)
+   **Total running time of the script:** (0 minutes 0.164 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_07_capacity_overview.py:
