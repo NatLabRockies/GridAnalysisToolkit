@@ -100,7 +100,7 @@ generator output, etc.).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.275 seconds)
+   **Total running time of the script:** (0 minutes 0.257 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_08_load_heatmap.py:

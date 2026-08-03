@@ -90,7 +90,7 @@ the same call works against full-year fixtures.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.281 seconds)
+   **Total running time of the script:** (0 minutes 0.260 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_02_dispatch_monthly_system.py:
