@@ -22,6 +22,7 @@ from typing import TYPE_CHECKING, List, Optional, Union
 import geopandas as gpd
 import h5py
 import pandas as pd
+from loguru import logger
 from pydantic import BaseModel
 
 from gat.datahelpers.parsers import combine_frames_skip_prev
@@ -379,9 +380,7 @@ class SiennaSystemParser:
                 f"{component_type} was not found. Use one of the following components"
             )
             warnings.warn(message, UserWarning)
-            print("----- Available Components -----", file=sys.stderr)
-            for c in self.list_components():
-                print(c, file=sys.stderr)
+            logger.debug("Available components: {}", sorted(self.list_components()))
             return None
         except Exception as e:
             print(f"An unhandled exception has occurred in get_component: {e}")
@@ -449,9 +448,7 @@ class SiennaSystemParser:
                 f"{component_type} was not found in the list of components. Use one of the following",
                 UserWarning,
             )
-            print("----- Available Components -----", sys.stderr)
-            for c in self.list_components():
-                print(c, file=sys.stderr)
+            logger.debug("Available components: {}", sorted(self.list_components()))
             return None
         except Exception as e:
             print(
