@@ -5,7 +5,7 @@ import warnings
 from typing import List, Optional, Union, Dict
 import os
 from gat.models.scenario import ScenarioConfig, TechnologyMapping, load_config
-from gat.quickplots.utils import random_color
+from gat.colors import random_color
 from gat.datahelpers.h5Parsers import PlexosParser
 
 # Extensions routed to the v1 duckdb-backed engine — native PLEXOS

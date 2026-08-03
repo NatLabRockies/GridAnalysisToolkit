@@ -46,18 +46,6 @@ sienna_standard_map = {
 }
 
 
-egret_map_simple = {
-    "Oil": "Oil",
-    "NG": "Gas",
-    "Coal": "Coal",
-    "Solar": "PV",
-    "Wind": "Wind",
-    "Sync_Cond": "Other",
-    "Nuclear": "Nuclear",
-    "Hydro": "Hydro",
-}
-
-
 plexos_map_simple = {
     "ReEDS_battery": "Storage",
     "ReEDS_biopower": "Biopower",

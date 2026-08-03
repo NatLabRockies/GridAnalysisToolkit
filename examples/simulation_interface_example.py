@@ -24,7 +24,7 @@ import pandas as pd
 from loguru import logger
 
 # Import system interfaces
-from gat.datahelpers import SiennaSystem
+from gat.datahelpers.sienna_system import SiennaSystem
 
 # Import simulation interfaces
 from gat.simulations import (

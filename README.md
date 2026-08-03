@@ -23,8 +23,8 @@ For plotting, GAT defaults to standard National Lab of the Rockies (NLR) color s
 > Support for PLEXOS solution files produced by **H5PLEXOS.jl** (`.h5`)
 > will be removed in **v0.2.0**. Load native PLEXOS `Solution.zip` files
 > through the DuckDB-backed engine instead: install with
-> `pip install "nlr-gat[plexos-duckdb]"` and pass the `.zip` path
-> directly to `PlexosScenario` — backend selection is automatic.
+> `pip install "nlr-gat[plexos]"` and pass the `.zip` path directly to
+> `PlexosScenario` — backend selection is automatic.
 
 ## Installation
 
@@ -50,6 +50,31 @@ Install the latest release from PyPI:
 > an unrelated genomics package. The import package and CLI are still `gat`,
 > which also means `nlr-gat` cannot share an environment with that
 > genomics package.
+
+### Choosing extras
+
+The bare install above pulls in only the format-agnostic core — no
+scenario handler is usable yet. Each simulation/model format has its own
+extra, so you only install the (often large, native-code) dependencies
+you actually need:
+
+| Extra | Adds | Installs |
+|---|---|---|
+| `sienna` | `SiennaScenario` | h5py, polars, geopandas |
+| `plexos` | `PlexosScenario` (both backends, for now — see the H5PLEXOS.jl deprecation notice above) | h5py, duckdb, plexos2duckdb |
+| `reeds` | `ReEDsScenario` | *(base deps only)* |
+| `plots` | `gat.quickplots` / the `.plot` property on any scenario | matplotlib (+ PySide6 on macOS) |
+| `server` | `gat.server` (the data server) | fastapi, uvicorn, duckdb, pyarrow |
+| `client` | `gat.client` (remote scenario access) | httpx, pyarrow |
+| `all` | everything above | — |
+
+Combine as needed, e.g.:
+
+`pip install "nlr-gat[sienna,plots]"`
+
+`pip install "nlr-gat[plexos,server]"`
+
+`pip install "nlr-gat[all]"`
 
 Or install from GitHub — the latest, a specific release, or a branch:
 
@@ -82,11 +107,10 @@ Highest-traffic doc pages (also readable directly in the repo):
 
 `example_data/` is gitignored — the binaries are too large to track
 in-tree. Sienna fixtures regenerate via `make sienna-fixture-v4`
-(requires Docker; see `docker/sienna/README.md`). For Plexos, point
-the `GAT_PLEXOS_FIXTURE` environment variable at a directory of
-`.h5` solution files of your own. For the `plexos2duckdb`-backed
-backend (`pip install nlr-gat[plexos-duckdb]`), point
-`GAT_PLEXOS_ZIP_FIXTURE` at a native PLEXOS `Solution.zip` instead.
+(requires Docker; see `docker/sienna/README.md`). For Plexos (`pip
+install nlr-gat[plexos]`), point the `GAT_PLEXOS_FIXTURE` environment
+variable at a directory of `.h5` solution files of your own, or
+`GAT_PLEXOS_ZIP_FIXTURE` at a native PLEXOS `Solution.zip`.
 
 ## Contributing
 
