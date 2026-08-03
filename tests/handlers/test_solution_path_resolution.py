@@ -63,9 +63,7 @@ class TestBaseScenarioTildeExpansion:
     def test_tilde_in_list(self, fake_home):
         f1 = _touch(fake_home / "a.h5")
         f2 = _touch(fake_home / "b.h5")
-        resolved = BaseScenario._find_solution_files(
-            None, ["~/a.h5", "~/b.h5"], "*.h5"
-        )
+        resolved = BaseScenario._find_solution_files(None, ["~/a.h5", "~/b.h5"], "*.h5")
         assert sorted(resolved) == sorted([f1, f2])
 
 
