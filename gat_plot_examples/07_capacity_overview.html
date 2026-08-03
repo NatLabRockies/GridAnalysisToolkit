@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Generation Capacity Overview &#8212; Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</title>
+    <title>Generation Capacity Overview &#8212; Grid Analysis Toolkit 0.1.0.post10+g83c05cc8f documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=aaa5af38"></script>
+    <script src="../_static/documentation_options.js?v=26a7ddc1"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Monthly System Dispatch" href="02_dispatch_monthly_system.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.0.post6+gea77ec293" />
+  <meta name="docsearch:version" content="0.1.0.post10+g83c05cc8f" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -180,7 +180,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post10+g83c05cc8f documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -230,6 +230,13 @@
 <li class="toctree-l1"><a class="reference internal" href="01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="09_transmission_loading.html">Transmission Line Loading and Utilization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_uc_vs_ed_comparison.html">Model vs Model: UC, ED, and Emulator from One Store</a></li>
+
+
+
+
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
 <ul class="nav bd-sidenav">
@@ -467,102 +474,18 @@ view: what’s actually in the model before any dispatch happens.</p>
 <p><cite>plot_generation_capacities</cite> returns <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">ax,</span> <span class="pre">dataframe)</span></code> so you
 can both render the chart and access the underlying capacity table for
 further analysis.</p>
-<img src="../_images/sphx_glr_07_capacity_overview_001.png" srcset="../_images/sphx_glr_07_capacity_overview_001.png" alt="Generation Capacity" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
+<img src="../_images/sphx_glr_07_capacity_overview_001.png" srcset="../_images/sphx_glr_07_capacity_overview_001.png" alt="Generation Capacity" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: StandardLoad was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroDispatch was not found. Use one of the following components
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroDispatch was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroPumpedStorage was not found. Use one of the following components
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroPumpedStorage was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: ThermalMultiStart was not found. Use one of the following components
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: ThermalMultiStart was not found. Use one of the following components
   warnings.warn(message, UserWarning)
------ Available Components -----
-RenewableNonDispatch
-LoadZone
-RenewableDispatch
-FixedAdmittance
-ACBus
-Area
-VariableReserve
-TwoTerminalHVDCLine
-ThermalStandard
-Arc
-PowerLoad
-TapTransformer
-Line
 generation capacity — 3 rows of capacity data
 Technology         Coal       Gas-CC  ...     Nuclear       PV
 Area                                  ...
@@ -597,7 +520,7 @@ Area                                  ...
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.209 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.215 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gat-plot-examples-07-capacity-overview-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/82196095d21366ec3f5aab781eda7c52/07_capacity_overview.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">07_capacity_overview.ipynb</span></code></a></p>

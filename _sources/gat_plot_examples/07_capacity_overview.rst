@@ -43,102 +43,18 @@ further analysis.
 
  .. code-block:: none
 
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: EnergyReservoirStorage was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroDispatch was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroDispatch was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroEnergyReservoir was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: HydroPumpedStorage was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: HydroPumpedStorage was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: ThermalMultiStart was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: ThermalMultiStart was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
     generation capacity — 3 rows of capacity data
     Technology         Coal       Gas-CC  ...     Nuclear       PV
     Area                                  ...                     
@@ -180,7 +96,7 @@ further analysis.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.209 seconds)
+   **Total running time of the script:** (0 minutes 0.215 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_07_capacity_overview.py:

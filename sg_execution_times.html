@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Computation times &#8212; Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</title>
+    <title>Computation times &#8212; Grid Analysis Toolkit 0.1.0.post10+g83c05cc8f documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=aaa5af38"></script>
+    <script src="_static/documentation_options.js?v=26a7ddc1"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.0.post6+gea77ec293" />
+  <meta name="docsearch:version" content="0.1.0.post10+g83c05cc8f" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -180,7 +180,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post6+gea77ec293 documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.0.post10+g83c05cc8f documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -230,6 +230,13 @@
 <li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html">Annual System Dispatch Stack</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html">Transmission Line Loading and Utilization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html">Load Heatmap and Duration Curve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gat_plot_examples/10_uc_vs_ed_comparison.html">Model vs Model: UC, ED, and Emulator from One Store</a></li>
+
+
+
+
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using the Reporting CLI</span></p>
 <ul class="nav bd-sidenav">
@@ -456,7 +463,7 @@
                   
   <section id="computation-times">
 <span id="sphx-glr-sg-execution-times"></span><h1>Computation times<a class="headerlink" href="#computation-times" title="Link to this heading">#</a></h1>
-<p><strong>00:03.128</strong> total execution time for 9 files <strong>from all galleries</strong>:</p>
+<p><strong>00:05.168</strong> total execution time for 10 files <strong>from all galleries</strong>:</p>
 <div class="docutils container">
 <style scoped>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -477,40 +484,44 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html#sphx-glr-gat-plot-examples-04-dispatch-window-peak-min-py"><span class="std std-ref">Peak and Minimum Demand Windows</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/04_dispatch_window_peak_min.py</span></code>)</p></td>
-<td><p>00:00.645</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/10_uc_vs_ed_comparison.html#sphx-glr-gat-plot-examples-10-uc-vs-ed-comparison-py"><span class="std std-ref">Model vs Model: UC, ED, and Emulator from One Store</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/10_uc_vs_ed_comparison.py</span></code>)</p></td>
+<td><p>00:01.973</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html#sphx-glr-gat-plot-examples-06-curtailment-annual-py"><span class="std std-ref">Curtailment — Annual and Monthly</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/06_curtailment_annual.py</span></code>)</p></td>
-<td><p>00:00.411</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/04_dispatch_window_peak_min.html#sphx-glr-gat-plot-examples-04-dispatch-window-peak-min-py"><span class="std std-ref">Peak and Minimum Demand Windows</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/04_dispatch_window_peak_min.py</span></code>)</p></td>
+<td><p>00:00.662</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html#sphx-glr-gat-plot-examples-03-dispatch-area-facets-py"><span class="std std-ref">Per-Area Dispatch Facets</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/03_dispatch_area_facets.py</span></code>)</p></td>
-<td><p>00:00.383</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/06_curtailment_annual.html#sphx-glr-gat-plot-examples-06-curtailment-annual-py"><span class="std std-ref">Curtailment — Annual and Monthly</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/06_curtailment_annual.py</span></code>)</p></td>
+<td><p>00:00.419</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html#sphx-glr-gat-plot-examples-09-transmission-loading-py"><span class="std std-ref">Transmission Line Loading and Utilization</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/09_transmission_loading.py</span></code>)</p></td>
-<td><p>00:00.348</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/03_dispatch_area_facets.html#sphx-glr-gat-plot-examples-03-dispatch-area-facets-py"><span class="std std-ref">Per-Area Dispatch Facets</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/03_dispatch_area_facets.py</span></code>)</p></td>
+<td><p>00:00.386</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html#sphx-glr-gat-plot-examples-05-dispatch-mean-hourly-py"><span class="std std-ref">Mean Hourly Dispatch Profile</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/05_dispatch_mean_hourly.py</span></code>)</p></td>
-<td><p>00:00.327</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/09_transmission_loading.html#sphx-glr-gat-plot-examples-09-transmission-loading-py"><span class="std std-ref">Transmission Line Loading and Utilization</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/09_transmission_loading.py</span></code>)</p></td>
+<td><p>00:00.359</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/05_dispatch_mean_hourly.html#sphx-glr-gat-plot-examples-05-dispatch-mean-hourly-py"><span class="std std-ref">Mean Hourly Dispatch Profile</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/05_dispatch_mean_hourly.py</span></code>)</p></td>
+<td><p>00:00.336</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html#sphx-glr-gat-plot-examples-08-load-heatmap-py"><span class="std std-ref">Load Heatmap and Duration Curve</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/08_load_heatmap.py</span></code>)</p></td>
+<td><p>00:00.275</p></td>
 <td><p>0.0</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/01_dispatch_annual_system.html#sphx-glr-gat-plot-examples-01-dispatch-annual-system-py"><span class="std std-ref">Annual System Dispatch Stack</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/01_dispatch_annual_system.py</span></code>)</p></td>
-<td><p>00:00.270</p></td>
+<td><p>00:00.274</p></td>
 <td><p>0.0</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/02_dispatch_monthly_system.html#sphx-glr-gat-plot-examples-02-dispatch-monthly-system-py"><span class="std std-ref">Monthly System Dispatch</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/02_dispatch_monthly_system.py</span></code>)</p></td>
-<td><p>00:00.269</p></td>
+<td><p>00:00.270</p></td>
 <td><p>0.0</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/08_load_heatmap.html#sphx-glr-gat-plot-examples-08-load-heatmap-py"><span class="std std-ref">Load Heatmap and Duration Curve</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/08_load_heatmap.py</span></code>)</p></td>
-<td><p>00:00.267</p></td>
-<td><p>0.0</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html#sphx-glr-gat-plot-examples-07-capacity-overview-py"><span class="std std-ref">Generation Capacity Overview</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/07_capacity_overview.py</span></code>)</p></td>
-<td><p>00:00.209</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gat_plot_examples/07_capacity_overview.html#sphx-glr-gat-plot-examples-07-capacity-overview-py"><span class="std std-ref">Generation Capacity Overview</span></a> (<code class="docutils literal notranslate"><span class="pre">../gat_examples/07_capacity_overview.py</span></code>)</p></td>
+<td><p>00:00.215</p></td>
 <td><p>0.0</p></td>
 </tr>
 </tbody>

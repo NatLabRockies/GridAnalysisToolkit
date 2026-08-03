@@ -205,6 +205,23 @@ Scenarios](../python_api_load.md).
     </div>
 
 
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Sienna fixture&#x27;s simulation store contains three models solved in sequence — unit commitment (UC), economic dispatch (ED, with UC commitments fed forward), and an Emulator stage. from_simulation_models splits the store into a scenario per model, and MultiScenario puts them behind one API with Scenario as the outer column level — the same machinery GAT uses to compare scenarios across tools.">
+
+.. only:: html
+
+  .. image:: /gat_plot_examples/images/thumb/sphx_glr_10_uc_vs_ed_comparison_thumb.png
+    :alt:
+
+  :doc:`/gat_plot_examples/10_uc_vs_ed_comparison`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Model vs Model: UC, ED, and Emulator from One Store</div>
+    </div>
+
+
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -224,6 +241,7 @@ Scenarios](../python_api_load.md).
    /gat_plot_examples/01_dispatch_annual_system
    /gat_plot_examples/09_transmission_loading
    /gat_plot_examples/08_load_heatmap
+   /gat_plot_examples/10_uc_vs_ed_comparison
 
 
 .. only:: html

@@ -48,22 +48,8 @@ API is shared across scenario types.
 
  .. code-block:: none
 
-    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:381: UserWarning: StandardLoad was not found. Use one of the following components
+    /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/datahelpers/sienna.py:382: UserWarning: StandardLoad was not found. Use one of the following components
       warnings.warn(message, UserWarning)
-    ----- Available Components -----
-    RenewableNonDispatch
-    LoadZone
-    RenewableDispatch
-    FixedAdmittance
-    ACBus
-    Area
-    VariableReserve
-    TwoTerminalHVDCLine
-    ThermalStandard
-    Arc
-    PowerLoad
-    TapTransformer
-    Line
     calculating loading
     calculating loading
     formatting dataframe
@@ -112,7 +98,7 @@ API is shared across scenario types.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.348 seconds)
+   **Total running time of the script:** (0 minutes 0.359 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_09_transmission_loading.py:
