@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 from gat import __version__
 from gat.config import config as gc
-from gat.quickplots.utils import random_color, standard_color_dict
+from gat.colors import random_color, standard_color_dict
 
 from .base import DatasetConfig, Technology
 from .lookups import FileAreaLookup, GeoAreaLookup, SiennaAreaLookup
@@ -251,7 +251,6 @@ class ScenarioConfig(BaseModel):
 
     def init_technologies(self, initial_map: Dict[str, str]):
         from gat.config import config as gc
-        from gat.quickplots.utils import random_color, standard_color_dict
 
         technologies = {}
         for name, alias in initial_map.items():

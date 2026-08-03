@@ -2,7 +2,7 @@
 
 The Grid Analysis Toolkit, or GAT, is a python library for providing a simplified and intiuitive interface across multiple Production Cost Modeling and Capacity Expansion Modeling tools related to the Bulk Electrical System.
 
-GAT is primarily built on top of pandas, numpy and matplotlib. GAT also requires h5py and tables to interface with the common Sienna and H5PLEXOS.jl outputs. Objects and functions are designed to return pandas dataframes or matplotlib axes to allow for further customization.
+GAT is primarily built on top of pandas and numpy. Objects and functions are designed to return pandas dataframes or matplotlib axes to allow for further customization.
 
 ## Installation
 
@@ -12,6 +12,22 @@ GAT can be installed via pip.
 
 (The distribution is named `nlr-gat` because `gat` on PyPI is an
 unrelated genomics package; the import package and CLI are still `gat`.)
+
+The bare install pulls in only the format-agnostic core — no scenario
+handler is usable yet. Each format has its own extra, so you only install
+the (often large, native-code) dependencies you actually need:
+
+| Extra | Adds | Installs |
+|---|---|---|
+| `sienna` | `SiennaScenario` | h5py, polars, geopandas |
+| `plexos` | `PlexosScenario` (both backends, for now — H5PLEXOS.jl `.h5` support ends in v0.2.0) | h5py, duckdb, plexos2duckdb |
+| `reeds` | `ReEDsScenario` | *(base deps only)* |
+| `plots` | `gat.quickplots` / the `.plot` property on any scenario | matplotlib (+ PySide6 on macOS) |
+| `server` | `gat.server` | fastapi, uvicorn, duckdb, pyarrow |
+| `client` | `gat.client` | httpx, pyarrow |
+| `all` | everything above | — |
+
+`pip install "nlr-gat[sienna,plots]"`
 
 Or from GitHub, optionally pinning a release:
 
@@ -123,13 +139,6 @@ Scenario Objects are designed to give you a holistic view of Production Cost Mod
 .. autosummary::
    :nosignatures:
 
-   ~gat.scenariohandlers.egret
-```
-
-```{eval-rst}
-.. autosummary::
-   :nosignatures:
-
    ~gat.scenariohandlers.file_scenario
 ```
 
@@ -142,7 +151,6 @@ api/ScenarioObjects/SiennaScenario.md
 api/ScenarioObjects/Plexos.md
 api/ScenarioObjects/ReEDS.md
 api/ScenarioObjects/MultiScenario.md
-api/ScenarioObjects/EGRET.md
 
 
 ```

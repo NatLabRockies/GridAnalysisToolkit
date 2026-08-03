@@ -11,22 +11,19 @@ description = "Grid Analysis Toolkit - A module for PCM/CEM data analysis."
 dynamic = ["version"]
 readme = "README.md"
 requires-python = ">=3.10"
+# Deliberately minimal — GAT's own code is a thin, format-agnostic API on
+# top of format-specific parsers (Sienna, PLEXOS, ReEDS, ...), each with
+# its own heavy native-code dependencies (h5py, geopandas, duckdb, polars,
+# matplotlib+Qt). Install only what you need via extras below, e.g.
+# `pip install nlr-gat[sienna]` or `pip install nlr-gat[plexos,plots]`.
 dependencies = [
     "numpy",
     "pandas>=2.1.0",
-    "h5py",
-    "tables",
-    "matplotlib",
     "pydantic",
     "click>=8.1.0",
     "loguru>=0.7.3",
     "pyyaml>=6.0.2",
-    "geopandas>=1.1.1",
-    "duckdb>=1.4.0",
-    "polars>=1.0",
     "orjson>=3.9.0",
-    "pyarrow>=14.0",
-    "PySide6; sys_platform == 'darwin'",
 ]
 license = {file = "LICENSE"}
 authors = [
@@ -108,6 +105,12 @@ dev = [
    "isort>=5.0.0",
    "mypy>=0.910",
    "pylint>=2.5.0",
+   # The full test suite exercises every format's handler, so dev needs
+   # every format extra — this is deliberately NOT just base deps (see
+   # issue #23: `pip install -e ".[dev,reports]"` never installing
+   # plexos-duckdb meant the whole dual-backend PLEXOS suite silently
+   # skipped or errored in CI and for every contributor, indefinitely).
+   "nlr-gat[sienna,plexos,reeds,plots]",
 ]
 doc = [
     "sphinx",
@@ -129,13 +132,60 @@ server = [
     "fastapi>=0.100",
     "uvicorn>=0.20",
     "python-multipart>=0.0.6",
+    "duckdb>=1.4.0",
+    "pyarrow>=14.0",
 ]
 client = [
     "httpx>=0.24",
+    "pyarrow>=14.0",
 ]
 reports = [
     "python-pptx>=1.0.2",
 ]
+
+# --- Format-specific extras ---
+# Each installs exactly what that format's scenario handler needs; gat's
+# import graph is lazy (gat.scenariohandlers, gat.simulations, gat.systems
+# only import a given format's module on first access), so installing one
+# never requires another format's dependencies.
+
+# Sienna/PowerSimulations.jl HDF5 output.
+sienna = [
+    "h5py",
+    "polars>=1.0",
+    "geopandas>=1.1.1",
+]
+
+# PLEXOS. Installs both backends "for now": h5py for H5PLEXOS.jl-converted
+# .h5 files (see the README deprecation notice — h5 support ends in
+# v0.2.0) and duckdb + plexos2duckdb for native Solution.zip files, which
+# will become the sole PLEXOS path once h5 support is removed.
+plexos = [
+    "h5py",
+    "duckdb>=1.4.0",
+    "plexos2duckdb>=0.1.0b11,<0.2.0",
+]
+# Deprecated alias for the plexos2duckdb-only slice of the `plexos` extra
+# above — kept for anyone who already scripted this exact extra name.
 plexos-duckdb = [
     "plexos2duckdb>=0.1.0b11,<0.2.0",
+]
+
+# ReEDS. Its scenario handler needs nothing beyond the base dependencies
+# today; declared explicitly so `pip install nlr-gat[reeds]` is valid and
+# self-documenting, and so it has somewhere to grow into.
+reeds = []
+
+# gat.quickplots (matplotlib-based plotting). Independent of source
+# format — needed by any handler's .plot property or the standalone
+# quickplots functions, not by data loading itself.
+plots = [
+    "matplotlib",
+    "PySide6; sys_platform == 'darwin'",
+]
+
+# Convenience bundle: everything above, for users who don't want to think
+# about which extras they need.
+all = [
+    "nlr-gat[sienna,plexos,reeds,plots,server,client,reports,interactive]",
 ]

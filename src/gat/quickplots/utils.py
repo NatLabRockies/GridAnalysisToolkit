@@ -5,7 +5,6 @@ import matplotlib.font_manager as fm
 import matplotlib.patches as mpatches
 import pandas as pd
 import numpy as np
-import random
 import calendar
 from .config import standard_color_dict
 import gat.config as gc
@@ -14,12 +13,12 @@ from typing import Dict, List
 from math import sqrt, ceil
 from loguru import logger
 
+# random_color moved to gat.colors (dependency-free); re-exported here
+# under its original name for backward compatibility.
+from gat.colors import random_color  # noqa: F401
+
 color_map = {}
 month_map = {index: month for index, month in enumerate(calendar.month_name) if month}
-
-
-def random_color():
-    return "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
 
 
 def set_colormap(custom_colors):
@@ -161,9 +160,7 @@ def order_columns_colors(columns, load_cols=None):
         col for col in columns if col not in columns_ordered + load_cols
     ] + [col for col in columns_ordered if col in columns]
     sub_colors = [
-        "#" + "".join([random.choice("0123456789ABCDEF") for j in range(6)])
-        for col in columns
-        if col not in columns_ordered + load_cols
+        random_color() for col in columns if col not in columns_ordered + load_cols
     ] + [temp_colors[col] for col in columns_ordered if col in columns]
 
     return sub_cols_ordered, sub_colors

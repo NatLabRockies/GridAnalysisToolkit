@@ -626,8 +626,7 @@ class BaseScenario(ABC):
     def to_config(self) -> ScenarioConfig:
         """Create a ScenarioConfig object from the current scenario"""
         from gat.models.scenario import TechnologyMapping
-        from gat.quickplots.config import standard_color_dict
-        from gat.quickplots.utils import random_color
+        from gat.colors import random_color, standard_color_dict
         from gat.config import config as gc
 
         # Create mappings from tech_simple

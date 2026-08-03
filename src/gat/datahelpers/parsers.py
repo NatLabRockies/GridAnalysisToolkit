@@ -12,8 +12,14 @@ import numpy as np
 import os
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from glob import iglob
-import h5py
 from loguru import logger
+
+# h5py is deliberately NOT imported at module level: this module is
+# reached from BaseScenario.__init__ for every handler (Sienna, PLEXOS,
+# ReEDS, ...) via `from gat.datahelpers.parsers import *`, but most of
+# its functions are plain pandas utilities that don't touch h5 at all.
+# Each h5-touching function below imports h5py locally instead, so
+# constructing e.g. a ReEDsScenario never requires h5py to be installed.
 
 
 def decode_value(input):
@@ -95,6 +101,7 @@ def combine_frames_skip_prev(frames: pd.DataFrame) -> pd.DataFrame:
 
 
 def read_h5_data(file_path, key):
+    import h5py
 
     with h5py.File(file_path, "r") as h5data:
 
@@ -108,6 +115,7 @@ def extract_h5_group(
     Extracts and h5 group of datasets from a single h5 file
     Expects and h5 file that was generated from an xml Plexos Solution
     """
+    import h5py
 
     with h5py.File(file_path, "r") as h5data:
 
@@ -328,6 +336,7 @@ def agg_plexos_parallel(
 
 
 def parse_h5_map(file_path, metadata_path, reverse=False):
+    import h5py
 
     with h5py.File(file_path) as h5data:
 

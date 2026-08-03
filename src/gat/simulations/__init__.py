@@ -39,25 +39,47 @@ Example:
         parser_class=SiennaSimulationParser
     )
     data = aggregator.get_dataset("generator_dispatch")
+
+Every name below is lazily imported on first access — constructing a
+PlexosSimulation, for instance, never touches Sienna's h5py/polars
+dependencies, and vice versa.
 """
 
-# Base classes for plugin development
-from .base import BaseSimulationParser
-from .generic_aggregator import SimulationAggregator
+_SIENNA_NAMES = {
+    "SiennaModelConfig",
+    "SiennaSimulationConfig",
+    "SiennaSimulationParser",
+}
+_UTILS_NAMES = {"block_combination_strategy", "dedup_slices", "resolve_compositions"}
 
-# Sienna-specific implementations
-from .sienna import (
-    SiennaModelConfig,
-    SiennaSimulationConfig,
-    SiennaSimulationParser,
-)
 
-# Plexos-specific implementations
-from .plexos_duckdb import PlexosDuckDBSimulation
-from .plexos_v1 import PlexosSimulation
+def __getattr__(name):
+    if name == "BaseSimulationParser":
+        from .base import BaseSimulationParser
 
-# Utilities
-from .utils import block_combination_strategy, dedup_slices, resolve_compositions
+        return BaseSimulationParser
+    elif name == "SimulationAggregator":
+        from .generic_aggregator import SimulationAggregator
+
+        return SimulationAggregator
+    elif name in _SIENNA_NAMES:
+        from . import sienna
+
+        return getattr(sienna, name)
+    elif name == "PlexosDuckDBSimulation":
+        from .plexos_duckdb import PlexosDuckDBSimulation
+
+        return PlexosDuckDBSimulation
+    elif name == "PlexosSimulation":
+        from .plexos_v1 import PlexosSimulation
+
+        return PlexosSimulation
+    elif name in _UTILS_NAMES:
+        from . import utils
+
+        return getattr(utils, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = [
     # Base classes
