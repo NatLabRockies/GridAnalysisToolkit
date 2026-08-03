@@ -102,7 +102,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e ".[doc,reports]"
+          # all: autodoc imports every scenario handler module directly
+          # (gat.scenariohandlers.plexos, .reeds, .sienna, ...) to pull
+          # docstrings, and the gallery examples construct SiennaScenario
+          # + call gat.quickplots — doc/reports alone no longer installs
+          # any of that (see #23). Using `all` rather than naming exact
+          # extras so this doesn't silently break again the next time a
+          # doc page or example touches a format not currently covered.
+          pip install -e ".[doc,reports,all]"
 
       - name: Download sienna v4 fixture artifact
         uses: actions/download-artifact@v4
