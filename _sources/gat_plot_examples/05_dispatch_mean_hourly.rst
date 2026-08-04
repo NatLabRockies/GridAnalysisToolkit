@@ -87,7 +87,7 @@ midday, evening peak).
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.373 seconds)
+   **Total running time of the script:** (0 minutes 0.328 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_05_dispatch_mean_hourly.py:
