@@ -97,7 +97,7 @@ labelled ``"Native Demand"`` by default — set
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.447 seconds)
+   **Total running time of the script:** (0 minutes 0.564 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_04_dispatch_window_peak_min.py:

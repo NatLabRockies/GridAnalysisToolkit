@@ -96,7 +96,7 @@ Curtailment is computed as the difference between renewable
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.268 seconds)
+   **Total running time of the script:** (0 minutes 0.350 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_06_curtailment_annual.py:
