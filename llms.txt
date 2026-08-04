@@ -1,0 +1,40 @@
+# GAT (Grid Analysis Toolkit)
+
+> A format-agnostic Python API for reading Production Cost Model (PCM)
+> and Capacity Expansion Model (CEM) simulation outputs — Sienna
+> (PowerSimulations.jl), PLEXOS, and ReEDS today — into pandas
+> DataFrames, without needing to know each format's native file layout.
+> Distributed on PyPI as `nlr-gat` (import as `gat`); source at
+> https://github.com/NatLabRockies/GridAnalysisToolkit.
+
+GAT's public API is still evolving pre-1.0 — pin an exact version if you
+need stability. The base package installs almost nothing; each simulation
+format is an opt-in extra so you only pull in the native-code
+dependencies (h5py, duckdb, geopandas, polars) that format needs, e.g.
+`pip install "nlr-gat[sienna]"` or `pip install "nlr-gat[plexos,plots]"`.
+
+## Getting started
+
+- [Installation and extras table](https://github.com/NatLabRockies/GridAnalysisToolkit#installation): which `pip install "nlr-gat[...]"` extra to use for Sienna, PLEXOS, ReEDS, plotting, server/client, or all of the above
+- [Quickstart: scenarios and palettes](scenario_quickstart.html): load a scenario and pull your first dispatch/capacity results
+- [Python API: gat.load(...)](python_api_load.html): the top-level entry point for constructing a scenario from a path
+
+## Format-specific guides
+
+- [Sienna scaling and raw dataset access](sienna_scaling.html): base-power scaling rules and how to reach unscaled h5 datasets directly
+- [Legacy scenario handler deprecation](legacy_handler_deprecation.html): what changed, what's deprecated (H5PLEXOS.jl `.h5` support, removed in v0.2.0), and migration paths
+
+## Extending GAT
+
+- [Custom plots and the reporting framework](extending_plots.html): the `@plot_function` decorator and how quickplots/reports are assembled
+- [v1 architecture & migration pattern](architecture/v1_migration_pattern.html): the `BaseSystem`/`BaseSimulation` interfaces new format backends implement
+
+## Reference
+
+- [Changelog](https://github.com/NatLabRockies/GridAnalysisToolkit/blob/main/docs/source/CHANGELOG.md): version history, generated from Conventional Commits
+- [PyPI package](https://pypi.org/project/nlr-gat/)
+- [Issue tracker](https://github.com/NatLabRockies/GridAnalysisToolkit/issues)
+
+## Optional
+
+- [Migrating from v0.x to v1.0](migration_v1.html): only relevant if you're upgrading an existing integration
