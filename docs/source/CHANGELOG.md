@@ -1,6 +1,6 @@
 # Changelog
 
-## [v0.1.1] - Unreleased
+## [0.1.1](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.0...nlr-gat-v0.1.1) (2026-08-04)
 
 First changelog entry since the public release split — entries before
 this point (including the "v1.0.0" one below) are from GAT's internal
