@@ -29,10 +29,28 @@ license = {file = "LICENSE"}
 authors = [
    {name = "Micah Webb", email = "micah.webb@nlr.gov"},
 ]
+keywords = [
+   "power systems",
+   "grid analysis",
+   "production cost model",
+   "capacity expansion model",
+   "PCM",
+   "CEM",
+   "PLEXOS",
+   "Sienna",
+   "PowerSimulations.jl",
+   "ReEDS",
+   "energy modeling",
+]
 classifiers = [
    "Programming Language :: Python :: 3",
+   "Programming Language :: Python :: 3.10",
+   "Programming Language :: Python :: 3.11",
+   "Programming Language :: Python :: 3.12",
    "License :: OSI Approved :: BSD License",
    "Operating System :: OS Independent",
+   "Intended Audience :: Science/Research",
+   "Topic :: Scientific/Engineering",
 ]
 [project.scripts]
 gat="gat.cli:cli"
