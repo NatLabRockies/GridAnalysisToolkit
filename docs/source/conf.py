@@ -59,6 +59,10 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+# Copied verbatim to the site root (unlike html_static_path, which nests
+# under /_static/) so llms.txt is served at the conventional
+# https://<docs-site>/llms.txt location — see llmstxt.org.
+html_extra_path = ["_llms_root"]
 
 source_suffix = {
     ".rst": "restructuredtext",
