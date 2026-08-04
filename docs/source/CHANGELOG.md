@@ -2,60 +2,6 @@
 
 ## [0.1.1](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.0...nlr-gat-v0.1.1) (2026-08-04)
 
-
-### Features
-
-* per-format install extras (nlr-gat[sienna|plexos|reeds|...]) ([3fa7d90](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/3fa7d90acc2b94768fc708f9296e88a74f3ffaff))
-* PJM 5-bus long-horizon fixture (SIM_SYSTEM=pjm5) ([6c9d379](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/6c9d37964f01dfa9c3872d3581d184dbfea94a51))
-* solve the sienna fixture with DCPPowerModel to produce line flows ([d2da7fe](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/d2da7fe1019b5b4422099b4151cd83cfa10a52ec)), closes [#4](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/4)
-
-
-### Bug Fixes
-
-* add pyarrow to the plexos extra (needed by the duckdb engine) ([d4818ec](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/d4818ec752d913476dba324a52eb5eaf90a2912b))
-* enable balance slacks for the DCP network model ([a2db2eb](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/a2db2ebae1698228099253c0fc179a75dd77e1ce))
-* expand '~' in solution-file paths; fail clearly when nothing resolves ([9eac893](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/9eac8938bc2c3cdc80de437e37db356e8884bcdc)), closes [#25](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/25)
-* route component-list diagnostics through the logger ([fa7f159](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/fa7f15998860196ef2f07861ee25ddafb6ec94f3))
-
-
-### Refactoring
-
-* adopt src layout (gat/ -&gt; src/gat/) ([1840f76](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/1840f761aed265fca1589293fee6114af34c5484))
-
-
-### Documentation
-
-* add API-stability and H5PLEXOS.jl deprecation warning boxes to README ([407ea72](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/407ea72c0828bb319850ae3236ccc5fd7e521799))
-* add model-vs-model comparison gallery example (UC / ED / Emulator) ([e1f9b84](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/e1f9b84946ea0a0071779a04c36e864d1f0693c4))
-* add status badges to README ([d6e1c24](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/d6e1c24c7735f02691a99c5b7496d4bf8ffae380))
-* add v0.1.1 changelog entry ([bfe5754](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/bfe5754bb005baeed8844887b38e96a7b9e99291))
-* consistent Toolkit branding and lab naming; disclaimer section ([3c62084](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/3c62084bbae9610f88ee295d53a4330a95f4a75e))
-* guard Plexos gallery example when no fixture is available ([b48b4cf](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/b48b4cf3155575053f32a646b2e09906dcbfaed8))
-* README warning boxes — API stability + H5PLEXOS.jl deprecation ([b1353f4](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/b1353f4a1a103f3fa17eb1e3c54f59101b0fa9cb))
-* update repository URLs after rename to GridAnalysisToolkit ([d993fcf](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/d993fcf957aa9cb10fb6dc111d565862a18f0d30))
-
-
-### CI/CD
-
-* automated releases via release-please (modeled on R2X) ([2fd9724](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/2fd972451d23d0a71546035bac40a85e9e6c9dab))
-* automated releases via release-please (modeled on R2X) ([2eea598](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/2eea5984e4a841b63f7c5e1eeab197e698919e9d))
-* enforce black formatting and minimal ruff lint gate ([2158ccf](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/2158ccf055d656128261f97963992a2cdb5c12e3)), closes [#2](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/2)
-* exclude README from the sienna fixture cache key ([f9f8b5d](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/f9f8b5d37e576a4b7e25ec578c19bd72c66c2c2b))
-* install the 'all' extra for the Sphinx docs build ([bbc1172](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/bbc1172c2fdb86ab2c5fdb2da44cde91640b0bcb))
-* publish to PyPI via trusted publishing on release ([4653d0e](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/4653d0e3dc1b72700b6a8e06c0fd00525f8f7f4b))
-
-
-### Tests
-
-* regenerate baselines against main's refreshed fixture cache ([8a86c3a](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/8a86c3ace49978d8ccb218248e426b3e857badd7))
-* regenerate baselines against the DCP-solved fixture ([509ebcc](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/509ebcc01179e2cf233fd0e044d8bf45f9a115a1))
-* regenerate sienna v4 baselines against the public repo's CI fixture ([e9d1a59](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/e9d1a593e4e366778fffa53184d305a5bc72fbdb))
-* regenerate sienna v4 baselines against the refreshed CI fixture ([e4b1dcb](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/e4b1dcb5819c73a108776c7b9def1c4bf31c1682))
-* regenerate v4 baselines against main's refreshed fixture cache ([452e1f9](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/452e1f9dcb65a9c0c57d6a29b7e1962f531740c6))
-* regenerate v4 baselines against this PR's fixture build ([4f7616a](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/4f7616a30a071241e6821cefcacaadff63da7f8c))
-
-## [v0.1.1] - Unreleased
-
 First changelog entry since the public release split — entries before
 this point (including the "v1.0.0" one below) are from GAT's internal
 pre-OSS versioning and don't correspond to a published PyPI release.
