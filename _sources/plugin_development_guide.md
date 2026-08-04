@@ -18,7 +18,7 @@ This guide explains how to extend GAT to support new simulation tools and system
 GAT uses a plugin architecture that allows developers to add support for new simulation tools and system formats without modifying the core codebase. The architecture consists of:
 
 1. **Base Interfaces**: Abstract classes that define the required API
-2. **Concrete Implementations**: Plugin implementations for specific tools (Sienna, ReEDS, PLEXOS, etc.)
+2. **Concrete Implementations**: Plugin implementations for specific tools (Sienna, ReEDS™, PLEXOS, etc.)
 3. **Automatic Aggregation**: GAT handles combining multiple files transparently
 
 ### Key Design Principles

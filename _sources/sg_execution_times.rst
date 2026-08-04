@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.439** total execution time for 10 files **from all galleries**:
+**00:03.461** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -33,32 +33,32 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gat_plot_examples_10_uc_vs_ed_comparison.py` (``../gat_examples/10_uc_vs_ed_comparison.py``)
-     - 00:01.679
+     - 00:01.307
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_04_dispatch_window_peak_min.py` (``../gat_examples/04_dispatch_window_peak_min.py``)
-     - 00:00.564
+     - 00:00.439
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_06_curtailment_annual.py` (``../gat_examples/06_curtailment_annual.py``)
-     - 00:00.350
+     - 00:00.269
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``../gat_examples/03_dispatch_area_facets.py``)
-     - 00:00.335
+     - 00:00.263
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_05_dispatch_mean_hourly.py` (``../gat_examples/05_dispatch_mean_hourly.py``)
-     - 00:00.327
+     - 00:00.255
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_09_transmission_loading.py` (``../gat_examples/09_transmission_loading.py``)
-     - 00:00.306
-     - 0.0
-   * - :ref:`sphx_glr_gat_plot_examples_01_dispatch_annual_system.py` (``../gat_examples/01_dispatch_annual_system.py``)
-     - 00:00.233
+     - 00:00.239
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_02_dispatch_monthly_system.py` (``../gat_examples/02_dispatch_monthly_system.py``)
-     - 00:00.232
+     - 00:00.187
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_08_load_heatmap.py` (``../gat_examples/08_load_heatmap.py``)
-     - 00:00.231
+     - 00:00.179
+     - 0.0
+   * - :ref:`sphx_glr_gat_plot_examples_01_dispatch_annual_system.py` (``../gat_examples/01_dispatch_annual_system.py``)
+     - 00:00.179
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_07_capacity_overview.py` (``../gat_examples/07_capacity_overview.py``)
-     - 00:00.182
+     - 00:00.142
      - 0.0

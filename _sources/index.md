@@ -231,7 +231,7 @@ GAT v1.0 introduces a comprehensive project management system for organizing you
 
 **Key Features:**
 - Initialize projects with standard directory structure
-- Add scenarios (Sienna, ReEDS, Plexos) via CLI
+- Add scenarios (Sienna, ReEDS™, Plexos) via CLI
 - Share projects via git repositories
 - User-level project references for easy access
 - Support for palettes, pipelines, and notebooks

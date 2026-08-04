@@ -44,7 +44,7 @@ First, see what data sources you have configured:
 gat sources list
 ```
 
-This shows your existing Sienna, ReEDS, or Plexos data sources.
+This shows your existing Sienna, ReEDS™, or Plexos data sources.
 
 ### Step 2: Create Projects from Data Sources
 

@@ -119,7 +119,7 @@ Extracts information from Sienna JSON system files:
 gat project add-palette my_palette sienna_scenario
 ```
 
-### ReEDS (Future)
+### ReEDS™ (Future)
 
 Support for ReEDS system files is planned for a future release.
 

@@ -158,7 +158,7 @@ The `load()` function returns a tuple of three objects:
 ### 1. Scenario Object
 A scenario handler instance for interacting with simulation data:
 - `SiennaScenario` for Sienna simulations
-- `ReEDsScenario` for ReEDS simulations
+- `ReEDsScenario` for ReEDS™ simulations
 - `PlexosScenario` for Plexos simulations
 
 **Usage:**

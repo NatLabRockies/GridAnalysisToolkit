@@ -197,7 +197,7 @@ Adds a scenario configuration to a project.
 - `--simulation TEXT` - Path to simulation HDF5 file (required, can specify multiple)
 - `--metadata TEXT` - Path to GAT metadata JSON file
 
-**ReEDS Options:**
+**ReEDS™ Options:**
 - `--path TEXT` - Path to ReEDS output directory (required)
 - `--solve-year INTEGER` - Solve year to analyze
 
