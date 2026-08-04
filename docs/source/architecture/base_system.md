@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `BaseSystem` abstraction provides a unified interface for reading system files from different simulation platforms (Sienna, ReEDS, Plexos, etc.). This abstraction enables:
+The `BaseSystem` abstraction provides a unified interface for reading system files from different simulation platforms (Sienna, ReEDS™, Plexos, etc.). This abstraction enables:
 
 - **Palette auto-generation**: Automatically create palette configurations from system metadata
 - **Platform independence**: Write code that works across different simulation platforms

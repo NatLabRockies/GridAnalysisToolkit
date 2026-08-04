@@ -2,7 +2,7 @@
 
 > A format-agnostic Python API for reading Production Cost Model (PCM)
 > and Capacity Expansion Model (CEM) simulation outputs — Sienna
-> (PowerSimulations.jl), PLEXOS, and ReEDS today — into pandas
+> (PowerSimulations.jl), PLEXOS, and ReEDS™ today — into pandas
 > DataFrames, without needing to know each format's native file layout.
 > Distributed on PyPI as `nlr-gat` (import as `gat`); source at
 > https://github.com/NatLabRockies/GridAnalysisToolkit.

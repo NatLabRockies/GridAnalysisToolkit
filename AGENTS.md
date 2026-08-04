@@ -7,7 +7,7 @@ If you're looking for how to *use* GAT as a library, see the
 ## What this is
 
 GAT (`nlr-gat` on PyPI) is a format-agnostic API over grid-model
-simulation outputs (Sienna, PLEXOS, ReEDS), with a thin core and
+simulation outputs (Sienna, PLEXOS, ReEDS™), with a thin core and
 per-format extras so consumers only install the native-code dependencies
 (h5py, duckdb, geopandas, polars, matplotlib) their format actually needs.
 
