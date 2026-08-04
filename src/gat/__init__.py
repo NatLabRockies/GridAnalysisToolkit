@@ -2,6 +2,8 @@
 GAT - Grid Analysis Toolkit
 
 A toolkit for wrangling data for Bulk Grid Dispatch and Transmission Analysis.
+
+Docs: https://natlabrockies.github.io/GridAnalysisToolkit/
 """
 
 __author__ = "Micah Webb"

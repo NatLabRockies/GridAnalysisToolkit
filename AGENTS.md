@@ -74,6 +74,11 @@ make regen-snapshots
 - **No static version string.** GAT uses `setuptools_scm` — version is
   derived from git tags at build time (`dynamic = ["version"]` in
   `pyproject.toml`). Never hand-edit a version number anywhere.
+- **Keep `docs/source/_llms_root/llms.txt` in sync.** It's a hand-written
+  pointer list for agents helping *end users* of `nlr-gat`, not
+  auto-generated from the toctree — if you add, remove, or rename a
+  doc page, or ship a capability significant enough to belong in a
+  quickstart, update it in the same PR.
 
 ## Release process
 
