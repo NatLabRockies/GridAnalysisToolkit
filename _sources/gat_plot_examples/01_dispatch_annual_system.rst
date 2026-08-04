@@ -93,7 +93,7 @@ Wind, etc.) and stacked from the bottom up; the line on top is the load.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.235 seconds)
+   **Total running time of the script:** (0 minutes 0.267 seconds)
 
 
 .. _sphx_glr_download_gat_plot_examples_01_dispatch_annual_system.py:
