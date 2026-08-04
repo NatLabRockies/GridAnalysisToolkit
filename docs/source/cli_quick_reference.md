@@ -84,7 +84,7 @@ gat project add-scenario sienna multi_week \
     --simulation ../data/week3.h5
 ```
 
-### Add ReEDS Scenario
+### Add ReEDS™ Scenario
 
 ```bash
 gat project add-scenario reeds SCENARIO_ID \

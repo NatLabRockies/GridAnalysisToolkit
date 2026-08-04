@@ -121,7 +121,7 @@ See [v1 migration pattern](architecture/v1_migration_pattern.md).
 - `gat project scenario list` lists all scenarios across all projects or
   filters by a specific project ID
 - User metadata system for lightweight project references
-- Support for Sienna, ReEDS, and Plexos scenarios
+- Support for Sienna, ReEDS™, and Plexos scenarios
 
 #### Simulation and system abstraction
 

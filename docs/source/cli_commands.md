@@ -236,7 +236,7 @@ gat project scenario add TYPE SCENARIO_ID [OPTIONS]
 - `--simulation TEXT` - Path to simulation HDF5 (required, repeatable)
 - `--metadata TEXT` - Path to GAT metadata JSON
 
-**ReEDS Options:**
+**ReEDS™ Options:**
 - `--path TEXT` - Path to ReEDS output directory (required)
 - `--solve-year INTEGER` - Solve year to analyze
 
