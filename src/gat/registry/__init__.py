@@ -25,22 +25,23 @@ _loaded_modules: Set[str] = set()
 def plot_function(
     scenario_type: Optional[str] = "BaseScenario", plot_type: Optional[str] = "system"
 ):
-    """
-    Decorator to register a function as a plot function for GAT.
+    """Decorator to register a function as a plot function for GAT.
 
     Args:
-        scenario_type: The type of scenario this plot works with (e.g., "BaseScenario", "SiennaScenario")
-                      Defaults to "BaseScenario" which means it works with any scenario.
-
-        plot_type: The type of plot. o
+        scenario_type: The type of scenario this plot works with
+            (e.g., ``BaseScenario``, ``SiennaScenario``). Defaults to
+            ``BaseScenario`` (works with any scenario).
+        plot_type: The type of plot (for example ``system`` or ``transmission``).
 
     Returns:
-        The decorated function
+        The decorated function.
 
     Example:
-        @plot_function("MultiScenario", "system")
-        def plot_generation_capacities(multi_scenario, **kwargs):
-            ...
+        .. code-block:: python
+
+            @plot_function("MultiScenario", "system")
+            def plot_generation_capacities(multi_scenario, **kwargs):
+                ...
     """
 
     def decorator(func: Callable) -> Callable:

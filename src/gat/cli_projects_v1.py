@@ -581,64 +581,22 @@ def add_scenario(
     solve_year: int,
     solution: str,
 ):
-    """
-    Add a scenario to a project with automatic path resolution.
+    """Add a scenario to a project with automatic path resolution.
 
-    Creates a YAML scenario configuration file in the project's scenarios/ directory.
+    Creates a YAML scenario configuration file in the project's scenarios/
+    directory. Paths may be relative (to the current directory) or absolute;
+    all paths are resolved to absolute filesystem paths for storage.
 
-    Paths can be relative (to current directory) or absolute. All paths are resolved
-    to absolute filesystem paths for storage.
+    For Sienna scenarios, ``--simulation-type`` (UC, ED, PF, ...) creates a
+    single scenario for that type. When omitted, each simulation type found in
+    the file becomes its own scenario (for example ``base_2035_UC``).
 
-    For Sienna scenarios:
-    - If --simulation-type is specified (e.g., UC, ED, PF), creates a single scenario
-      for that specific simulation type
-    - If --simulation-type is NOT specified, auto-discovers all simulation types in the
-      file and creates separate scenarios for each (e.g., base_2035_UC, base_2035_ED)
+    Example::
 
-    Examples:
-
-        # Add a Sienna scenario for a specific simulation type
         gat project scenario add sienna base_2035 \
             --system ../data/system.json \
             --simulation ../data/results.h5 \
             --simulation-type UC
-
-        # Auto-discover all simulation types (creates multiple scenarios)
-        gat project scenario add sienna base_2035 \
-            --system ../data/system.json \
-            --simulation ../data/results.h5
-        # This might create: base_2035_UC, base_2035_ED, base_2035_PF
-
-        # Add a Sienna scenario with absolute paths
-        gat project scenario add sienna base_2035 \
-            --system /full/path/to/system.json \
-            --simulation /full/path/to/results.h5 \
-            --simulation-type UC
-
-        # Add a Sienna scenario with multiple simulation files
-        gat project scenario add sienna multi_week \
-            --system ../data/system.json \
-            --simulation ../data/week1.h5 \
-            --simulation ../data/week2.h5 \
-            --simulation-type UC
-
-        # Add a Sienna scenario using a glob pattern
-        gat project scenario add sienna weekly \
-            --system ../data/system.json \
-            --simulation "../data/week*.h5" \
-            --simulation-type UC
-
-        # Add a ReEDS scenario
-        gat project scenario add reeds reeds_2035 \
-            --path ../reeds_output \
-            --solve-year 2035
-
-        # Add to specific project
-        gat project scenario add sienna test \
-            --project my_project \
-            --system ../data/system.json \
-            --simulation ../data/results.h5 \
-            --simulation-type ED
     """
     from pathlib import Path
 
