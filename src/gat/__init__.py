@@ -15,6 +15,35 @@ except ImportError:
     __version__ = "unknown"
 
 
+def _configure_default_logging() -> None:
+    """Mirror the CLI's quiet-by-default logging (see logging_config.py's
+    setup_cli_logging) for plain ``import gat`` usage -- notebooks and
+    scripts otherwise inherit loguru's untouched default sink, which
+    shows every DEBUG-level call across the codebase, not just the
+    handful that matter interactively.
+
+    Only acts if loguru is still at its pristine, single-default-handler
+    state, so a caller's own logger.add(...)/logger.remove() (before or
+    instead of importing gat) is never clobbered. warnings.warn(...) --
+    the channel GAT uses for user-actionable notices like unmapped
+    technologies -- is untouched either way.
+    """
+    try:
+        from loguru import logger
+
+        handlers = logger._core.handlers
+        if len(handlers) == 1 and 0 in handlers:
+            import sys
+
+            logger.remove()
+            logger.add(sys.stderr, level="WARNING")
+    except Exception:
+        pass
+
+
+_configure_default_logging()
+
+
 # Lazy imports - these are loaded only when accessed
 def __getattr__(name):
     """Lazy import mechanism for heavy modules."""
