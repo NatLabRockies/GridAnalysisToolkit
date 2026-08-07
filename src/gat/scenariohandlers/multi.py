@@ -104,6 +104,7 @@ class MultiScenario:
             Combined DataFrame with scenario as an additional index level
         """
         frames = []
+        frame_names = []
         for display_name, sobj in self.scenarios.items():
             # Get the method from the scenario object
             method = getattr(sobj, method_name)
@@ -138,6 +139,7 @@ class MultiScenario:
                     result_df.columns = new_columns
 
                 frames.append(result_df)
+                frame_names.append(display_name)
             else:
                 import warnings
 
@@ -157,6 +159,32 @@ class MultiScenario:
                 except (ValueError, TypeError):
                     # If conversion fails, keep original index
                     pass
+
+                # pd.concat(axis=1) unions each scenario's index, silently
+                # introducing NaN rows for any scenario missing a timestamp
+                # the others have -- e.g. scenarios covering different date
+                # ranges or resolutions. Flag it rather than let it show up
+                # only as unexplained NaNs downstream.
+                misaligned = [
+                    (name, df.index.min(), df.index.max(), len(df))
+                    for name, df in zip(frame_names, frames)
+                    if len(df) != len(result)
+                ]
+                if misaligned:
+                    import warnings
+
+                    details = "; ".join(
+                        f"'{name}' has {n} timestamps ({start} to {end})"
+                        for name, start, end, n in misaligned
+                    )
+                    warnings.warn(
+                        f"Scenarios have misaligned time ranges for "
+                        f"'{method_name}' -- {details}; the combined result "
+                        f"has {len(result)} timestamps, so scenarios that "
+                        f"don't cover the full range will have NaN there. "
+                        f"Check that scenarios represent the same period/"
+                        f"resolution before comparing."
+                    )
 
             return result
         else:

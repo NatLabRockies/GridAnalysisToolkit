@@ -133,7 +133,10 @@ class TechnologyMapping(BaseModel):
                     display_order = 0  # Default to bottom
                     curtailable = model_technology in gc.curtailable_tech
                     warnings.warn(
-                        f"Technology '{model_technology}' not found in standard mappings. Assigning random color."
+                        f"Technology '{model_technology}' not found in standard mappings "
+                        f"and no fuzzy match was found either. Assigning a random color -- "
+                        f"define an explicit mapping via config technology_mappings to set "
+                        f"a stable display name/color for it."
                     )
 
         return cls(
