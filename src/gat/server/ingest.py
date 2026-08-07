@@ -251,16 +251,15 @@ def _create_parser(
             raise ValueError("sienna handler requires simulation_paths")
 
         system = SiennaSystem(system_path)
-        # SiennaSimulation takes a single path; use first file
-        sim_path = (
-            simulation_paths[0]
-            if isinstance(simulation_paths, list)
-            else simulation_paths
-        )
         # ``model`` becomes ``selected_model`` inside the parser, which
         # decides which group of HDF5 datasets get exposed.
         sienna_model = None if model in (None, "default") else model
-        simulation = SiennaSimulation(sim_path, simulation=sienna_model)
+        # from_paths handles both a single path and multiple partition
+        # files (combined into one logical simulation) -- previously this
+        # silently dropped every file after the first.
+        simulation = SiennaSimulation.from_paths(
+            simulation_paths, simulation=sienna_model
+        )
         return system, simulation
 
     elif handler == "reeds":
@@ -281,14 +280,19 @@ def _create_parser(
         return system, simulation
 
     elif handler == "plexos":
-        from gat.systems.plexos import PlexosSystem
-        from gat.simulations.plexos import PlexosSimulation
+        # gat.systems.plexos / gat.simulations.plexos (the legacy H5
+        # backend's would-be v1 wrappers) never existed as modules -- this
+        # branch has always raised ImportError. Use the duckdb backend,
+        # which already reads native PLEXOS Solution.zip/.duckdb files
+        # directly and needs no separate system file.
+        from gat.systems.plexos_duckdb import PlexosDuckDBSystem
+        from gat.simulations.plexos_duckdb import PlexosDuckDBSimulation
 
         if not simulation_paths:
             raise ValueError("plexos handler requires simulation_paths")
 
-        system = PlexosSystem()  # Plexos may not have a separate system file
-        simulation = PlexosSimulation(simulation_paths)
+        system = PlexosDuckDBSystem(simulation_paths)
+        simulation = PlexosDuckDBSimulation.from_paths(simulation_paths)
         return system, simulation
 
     else:
