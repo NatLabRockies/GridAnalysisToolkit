@@ -76,3 +76,56 @@ def test_three_frames_chained_overlap_right():
     out = combine_overlapping_frames([a, b, c], merge_strategy="right")
     # Earlier frame wins at each seam: 01-03 from a, 01-05 from b.
     assert out["v"].tolist() == [1, 2, 3, 4, 98, 6, 7]
+
+
+def test_earlier_wins_later_wins_aliases_match_right_left():
+    """ "earlier_wins"/"later_wins" are the canonical names for "right"/
+    "left" -- same result either way."""
+    a = _ts_frame(["2020-01-01", "2020-01-02", "2020-01-03"], [1, 2, 3])
+    b = _ts_frame(["2020-01-03", "2020-01-04", "2020-01-05"], [99, 4, 5])
+    assert combine_overlapping_frames([a, b], merge_strategy="earlier_wins").equals(
+        combine_overlapping_frames([a, b], merge_strategy="right")
+    )
+    assert combine_overlapping_frames([a, b], merge_strategy="later_wins").equals(
+        combine_overlapping_frames([a, b], merge_strategy="left")
+    )
+
+
+def test_gap_between_partitions_passes_through_untouched():
+    """A real gap (not just non-overlapping/adjacent) between partitions
+    isn't synthesized or filled -- it just passes through in the index."""
+    a = _ts_frame(["2020-01-01", "2020-01-02"], [1, 2])
+    b = _ts_frame(["2020-01-10", "2020-01-11"], [10, 11])
+    out = combine_overlapping_frames([a, b])
+    assert out["v"].tolist() == [1, 2, 10, 11]
+    assert out.index.tolist() == [
+        pd.Timestamp("2020-01-01"),
+        pd.Timestamp("2020-01-02"),
+        pd.Timestamp("2020-01-10"),
+        pd.Timestamp("2020-01-11"),
+    ]
+
+
+def test_differing_columns_unions_with_nan_fill():
+    """Frames with different column sets union (outer join) rather than
+    silently dropping a column or raising."""
+    a = _ts_frame(["2020-01-01", "2020-01-02"], [1, 2])
+    b = _ts_frame(["2020-01-03", "2020-01-04"], [3, 4])
+    b["w"] = [30, 40]
+    out = combine_overlapping_frames([a, b])
+    assert set(out.columns) == {"v", "w"}
+    assert out["v"].tolist() == [1, 2, 3, 4]
+    assert pd.isna(out.loc[pd.Timestamp("2020-01-01"), "w"])
+    assert out.loc[pd.Timestamp("2020-01-03"), "w"] == 30
+
+
+def test_timezone_mismatch_raises_clearly():
+    """Combining a tz-naive frame with a tz-aware one raises a clear error
+    rather than silently misbehaving -- the comparison during sorting
+    fails before the broad except-and-fallback in the try block below it
+    ever gets a chance to swallow it."""
+    a = _ts_frame(["2020-01-01", "2020-01-02"], [1, 2])
+    b_idx = pd.DatetimeIndex(["2020-01-03", "2020-01-04"], tz="UTC")
+    b = pd.DataFrame({"v": [3, 4]}, index=b_idx)
+    with pytest.raises(TypeError):
+        combine_overlapping_frames([a, b])
