@@ -38,9 +38,11 @@ def plot_function(
         The decorated function
 
     Example:
-        @plot_function("MultiScenario", "system")
-        def plot_generation_capacities(multi_scenario, **kwargs):
-            ...
+        ::
+
+            @plot_function("MultiScenario", "system")
+            def plot_generation_capacities(multi_scenario, **kwargs):
+                ...
     """
 
     def decorator(func: Callable) -> Callable:

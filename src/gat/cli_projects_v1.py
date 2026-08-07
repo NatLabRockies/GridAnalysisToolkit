@@ -590,6 +590,7 @@ def add_scenario(
     to absolute filesystem paths for storage.
 
     For Sienna scenarios:
+
     - If --simulation-type is specified (e.g., UC, ED, PF), creates a single scenario
       for that specific simulation type
     - If --simulation-type is NOT specified, auto-discovers all simulation types in the
