@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.2](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.1...nlr-gat-v0.1.2) (2026-08-07)
+
+
+### Bug Fixes
+
+* resolve the two docutils ERRORs in the Sphinx build ([#3](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/3)) ([#39](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/39)) ([5c590b1](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/5c590b1cd2e0bd1e40e05ff3fe58b81bd6c74257))
+
+
+### Documentation
+
+* add AGENTS.md and llms.txt for agent discoverability ([f28b205](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/f28b2058666c4994def4c94d72850ca92194c99e))
+* add AGENTS.md and llms.txt, tighten PyPI discoverability metadata ([5eb9e3f](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/5eb9e3ff90a3c79ccbca6558e8507017d4ca94b4))
+* instruct agents to keep llms.txt in sync; link docs from package docstring ([f080f35](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/f080f355847f033ff29571a2931e3a0832683ba5))
+* keep llms.txt in sync via AGENTS.md; link docs from package docstring ([dee1a08](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/dee1a08419b9fa9686a542a538163bec1807f38b))
+* mark ReEDS with (TM) in PyPI keywords too, for consistency ([e2f8426](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/e2f8426edba58e297bc0d3897c9a9261481a0d61))
+* mark ReEDS with (TM) on first reference ([7eb5e3a](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/7eb5e3aef2122486629a29115de36da81de7f702))
+* mark ReEDS with (TM) on first reference in public-facing docs ([5104979](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/5104979cb02389d715cc43803ab174488241414d))
+
 ## [0.1.1](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.0...nlr-gat-v0.1.1) (2026-08-04)
 
 First changelog entry since the public release split — entries before
