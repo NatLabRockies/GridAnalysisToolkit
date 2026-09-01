@@ -126,7 +126,7 @@ class TestFuzzyTechnologyMapping:
         """A technology with zero token overlap against every standard
         display group must fall through to the original random-color
         behavior, not a spurious fuzzy match."""
-        with pytest.warns(UserWarning, match="Assigning random color"):
+        with pytest.warns(UserWarning, match="Assigning a random color"):
             tech_map = TechnologyMapping.new("MUNICIPAL_WASTE_OT")
         assert tech_map.display_group == "MUNICIPAL_WASTE_OT"
 
