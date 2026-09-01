@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Migrating to GAT v1.0 &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Migrating to GAT v1.0 &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="CLI Command Reference" href="cli_commands.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -603,7 +603,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>list
 <section id="example-sienna-source-project">
 <h4>Example: Sienna Source → Project<a class="headerlink" href="#example-sienna-source-project" title="Link to this heading">#</a></h4>
 <p><strong>Old way (v0.x):</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">&quot;NTP Base&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">"NTP Base"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system-path<span class="w"> </span>./data/system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation-path<span class="w"> </span>./data/results.h5
 </pre></div>
@@ -614,7 +614,7 @@ mkdir<span class="w"> </span>ntp-base
 <span class="nb">cd</span><span class="w"> </span>ntp-base
 
 <span class="c1"># Initialize the project</span>
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;NTP Base&quot;</span><span class="w"> </span>--set-default
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"NTP Base"</span><span class="w"> </span>--set-default
 
 <span class="c1"># Add the scenario</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
@@ -626,7 +626,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span clas
 <section id="example-reeds-source-project">
 <h4>Example: ReEDS Source → Project<a class="headerlink" href="#example-reeds-source-project" title="Link to this heading">#</a></h4>
 <p><strong>Old way (v0.x):</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>reeds<span class="w"> </span><span class="s2">&quot;ReEDS 2035&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>reeds<span class="w"> </span><span class="s2">"ReEDS 2035"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--path<span class="w"> </span>./reeds_output<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solve-year<span class="w"> </span><span class="m">2035</span>
 </pre></div>
@@ -634,7 +634,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span clas
 <p><strong>New way (v1.0):</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>reeds-2035
 <span class="nb">cd</span><span class="w"> </span>reeds-2035
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;ReEDS 2035&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"ReEDS 2035"</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>reeds<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--path<span class="w"> </span>../reeds_output<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solve-year<span class="w"> </span><span class="m">2035</span>
@@ -644,14 +644,14 @@ gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span clas
 <section id="example-plexos-source-project">
 <h4>Example: Plexos Source → Project<a class="headerlink" href="#example-plexos-source-project" title="Link to this heading">#</a></h4>
 <p><strong>Old way (v0.x):</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>plexos<span class="w"> </span><span class="s2">&quot;Summer Peak&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>plexos<span class="w"> </span><span class="s2">"Summer Peak"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solution-path<span class="w"> </span>./solution.xml
 </pre></div>
 </div>
 <p><strong>New way (v1.0):</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>summer-peak
 <span class="nb">cd</span><span class="w"> </span>summer-peak
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Summer Peak&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"Summer Peak"</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>plexos<span class="w"> </span>peak<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solution<span class="w"> </span>../solution.xml
 </pre></div>
@@ -733,7 +733,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ntp-base</span>
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NTP Base</span>
 <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/alice/projects/ntp-base</span>
-<span class="nt">last_accessed</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-22T15:00:00Z&#39;</span>
+<span class="nt">last_accessed</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-22T15:00:00Z'</span>
 <span class="nt">is_default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
@@ -771,11 +771,11 @@ gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w">
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.project_management.manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProjectManager</span>
 
 <span class="c1"># Load project</span>
-<span class="n">project_ref</span> <span class="o">=</span> <span class="n">load_project_ref</span><span class="p">(</span><span class="s1">&#39;my-project&#39;</span><span class="p">)</span>
+<span class="n">project_ref</span> <span class="o">=</span> <span class="n">load_project_ref</span><span class="p">(</span><span class="s1">'my-project'</span><span class="p">)</span>
 <span class="n">manager</span> <span class="o">=</span> <span class="n">ProjectManager</span><span class="p">(</span><span class="n">project_ref</span><span class="o">.</span><span class="n">get_path</span><span class="p">())</span>
 
 <span class="c1"># Load scenario</span>
-<span class="n">scenario_config</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">load_scenario</span><span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">)</span>
+<span class="n">scenario_config</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">load_scenario</span><span class="p">(</span><span class="s1">'base'</span><span class="p">)</span>
 
 <span class="c1"># Use scenario with existing GAT code</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers.sienna</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
@@ -805,7 +805,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w">
 <p><strong>After:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>my-analysis
 <span class="nb">cd</span><span class="w"> </span>my-analysis
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span><span class="w"> </span>--set-default
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis"</span><span class="w"> </span>--set-default
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation<span class="w"> </span>../data/results.h5
@@ -818,7 +818,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span clas
 <p><strong>After:</strong> One project with multiple scenarios:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>comparison-study
 <span class="nb">cd</span><span class="w"> </span>comparison-study
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Comparison Study&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"Comparison Study"</span>
 
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
@@ -841,12 +841,12 @@ gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span clas
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On shared repository</span>
 mkdir<span class="w"> </span>team-analysis
 <span class="nb">cd</span><span class="w"> </span>team-analysis
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Team Analysis&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"Team Analysis"</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-scenario<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span>--system<span class="w"> </span>../data/sys.json<span class="w"> </span>--simulation<span class="w"> </span>../data/sim.h5
 
 git<span class="w"> </span>init
 git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial project&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Initial project"</span>
 git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:team/analysis.git
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 
@@ -864,7 +864,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </
 <h3>Issue: Old commands don’t work<a class="headerlink" href="#issue-old-commands-dont-work" title="Link to this heading">#</a></h3>
 <p><strong>Problem:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>...
-Command<span class="w"> </span><span class="s1">&#39;sources&#39;</span><span class="w"> </span>is<span class="w"> </span>deprecated.<span class="w"> </span>Use<span class="w"> </span><span class="s1">&#39;gat project&#39;</span><span class="w"> </span>instead.
+Command<span class="w"> </span><span class="s1">'sources'</span><span class="w"> </span>is<span class="w"> </span>deprecated.<span class="w"> </span>Use<span class="w"> </span><span class="s1">'gat project'</span><span class="w"> </span>instead.
 </pre></div>
 </div>
 <p><strong>Solution:</strong> Use the new project commands. See the <a class="reference internal" href="cli_quick_reference.html"><span class="std std-doc">Quick Reference</span></a>.</p>
@@ -926,7 +926,7 @@ Command<span class="w"> </span><span class="s1">&#39;sources&#39;</span><span cl
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>my-project
 git<span class="w"> </span>init
 git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial project setup&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Initial project setup"</span>
 </pre></div>
 </div>
 </section>

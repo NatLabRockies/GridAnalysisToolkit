@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Saving and Loading Scenario Configurations &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Saving and Loading Scenario Configurations &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=daecbd94"></script>
+    <script src="../../_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Color Configuration" href="colors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -490,20 +490,20 @@ generally a good idea to update the config to fix those warnings and save a new 
 <h2>Example: Creating a Configuration and reusing it for a new scenario.<a class="headerlink" href="#example-creating-a-configuration-and-reusing-it-for-a-new-scenario" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
 
-<span class="n">sys_file</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;/path/to/system.json&#39;</span>
+<span class="n">sys_file</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'/path/to/system.json'</span>
 <span class="n">scenario1</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span><span class="n">system_file</span><span class="o">=</span><span class="n">sys_file</span><span class="p">)</span>
-<span class="n">scenario1</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span> <span class="c1"># Optional: Defines the area as values coming from the &#39;r&#39; column in the extended attributes</span>
+<span class="n">scenario1</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="s1">'r'</span> <span class="c1"># Optional: Defines the area as values coming from the 'r' column in the extended attributes</span>
 
 <span class="c1"># Update the config object via python or directly edit in the output yaml file.</span>
 <span class="c1">#...</span>
 
-<span class="n">scenario1</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sienna_config.yaml&#39;</span><span class="p">)</span>
+<span class="n">scenario1</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'sienna_config.yaml'</span><span class="p">)</span>
 
 <span class="c1"># For Sienna and Plexos, you can pass a h5 file glob pattern to discover and load relevant simulation files.</span>
-<span class="n">scenario2</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="s1">&#39;sienna_config.yaml&#39;</span><span class="p">,</span>
-    <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Scenario2&quot;</span><span class="p">,</span> <span class="c1"># The name used for system level plots and multi-system, multi-simulation comparisons.</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="s2">&quot;/path/to/system2.json&quot;</span><span class="p">,</span>
-    <span class="n">simulation_paths</span><span class="o">=</span><span class="s2">&quot;/path/to/simulations/*/*.h5&quot;</span><span class="p">)</span>
+<span class="n">scenario2</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="s1">'sienna_config.yaml'</span><span class="p">,</span>
+    <span class="n">display_name</span><span class="o">=</span><span class="s2">"Scenario2"</span><span class="p">,</span> <span class="c1"># The name used for system level plots and multi-system, multi-simulation comparisons.</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="s2">"/path/to/system2.json"</span><span class="p">,</span>
+    <span class="n">simulation_paths</span><span class="o">=</span><span class="s2">"/path/to/simulations/*/*.h5"</span><span class="p">)</span>
 
 <span class="n">scenario2</span><span class="o">.</span><span class="n">get_generation_capacity</span><span class="p">()</span>
 </pre></div>

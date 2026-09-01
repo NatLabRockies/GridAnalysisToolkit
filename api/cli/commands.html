@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>GAT Command Line Interface &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>GAT Command Line Interface &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=daecbd94"></script>
+    <script src="../../_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Model vs Model: UC, ED, and Emulator from One Store" href="../../gat_plot_examples/10_uc_vs_ed_comparison.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -549,14 +549,14 @@
 <h2>Example Run<a class="headerlink" href="#example-run" title="Link to this heading">#</a></h2>
 <p>Runs the system comparison report based on two configuration files, overrides the display name with new names, and applies a filter to consider p61 and p62 as the whole “System”. You can also override
 the s1 and s2 system files with new paths but keeping the rest of the scenario configuations. This will write the results to the <strong>test_output</strong> directory.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>run<span class="w"> </span>multi<span class="w"> </span>--s1-config<span class="o">=</span>/path/to/reeds_config.yaml<span class="w"> </span>--s2-config<span class="o">=</span>/path/to/sienna_config.yaml<span class="w"> </span>--s1-name<span class="o">=</span>reeds_2030<span class="w"> </span>--s2-name<span class="o">=</span>sienna_2030<span class="w"> </span>--area-filter<span class="o">=</span><span class="s2">&quot;p61,p62&quot;</span><span class="w"> </span>--output-path<span class="o">=</span>test_output
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>run<span class="w"> </span>multi<span class="w"> </span>--s1-config<span class="o">=</span>/path/to/reeds_config.yaml<span class="w"> </span>--s2-config<span class="o">=</span>/path/to/sienna_config.yaml<span class="w"> </span>--s1-name<span class="o">=</span>reeds_2030<span class="w"> </span>--s2-name<span class="o">=</span>sienna_2030<span class="w"> </span>--area-filter<span class="o">=</span><span class="s2">"p61,p62"</span><span class="w"> </span>--output-path<span class="o">=</span>test_output
 </pre></div>
 </div>
 </section>
 <section id="example-init-and-run">
 <h2>Example Init and Run<a class="headerlink" href="#example-init-and-run" title="Link to this heading">#</a></h2>
 <p>You can also initialize the global configuration for the report using the init command.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>init<span class="w"> </span>multi<span class="w"> </span>--s1-config<span class="o">=</span>/path/to/reeds_config.yaml<span class="w"> </span>--s2-config<span class="o">=</span>/path/to/sienna_config.yaml<span class="w"> </span>--s1-name<span class="o">=</span>reeds_2030<span class="w"> </span>--s2-name<span class="o">=</span>sienna_2030<span class="w"> </span>--area-filter<span class="o">=</span><span class="s2">&quot;p61,p62&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>init<span class="w"> </span>multi<span class="w"> </span>--s1-config<span class="o">=</span>/path/to/reeds_config.yaml<span class="w"> </span>--s2-config<span class="o">=</span>/path/to/sienna_config.yaml<span class="w"> </span>--s1-name<span class="o">=</span>reeds_2030<span class="w"> </span>--s2-name<span class="o">=</span>sienna_2030<span class="w"> </span>--area-filter<span class="o">=</span><span class="s2">"p61,p62"</span>
 </pre></div>
 </div>
 <p>You can then run against the report config and override the parameters for –{s1/s2}-{config,path,name}.</p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Peak and Minimum Demand Windows &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Peak and Minimum Demand Windows &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=daecbd94"></script>
+    <script src="../_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Generation Capacity Overview" href="07_capacity_overview.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -180,7 +180,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -482,7 +482,7 @@ labelled <code class="docutils literal notranslate"><span class="pre">&quot;Nati
   warnings.warn(message, UserWarning)
 /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:510: UserWarning: Could not find dataset with pattern ActivePowerInVariable*, consider updating the configuration or removing this pattern to avoid a warning.
   warnings.warn(message, UserWarning)
-/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:525: UserWarning: No matching datasets found for [&#39;ActivePowerInVariable*&#39;], consider updating the configuration.
+/home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:525: UserWarning: No matching datasets found for ['ActivePowerInVariable*'], consider updating the configuration.
   warnings.warn(message, UserWarning)
 /home/runner/work/GridAnalysisToolkit/GridAnalysisToolkit/src/gat/scenariohandlers/sienna.py:708: UserWarning: Unable to create storage load timeseries data, additional calculated loads may not be available.
   warnings.warn(
@@ -496,16 +496,16 @@ labelled <code class="docutils literal notranslate"><span class="pre">&quot;Nati
 <div class="line"><br /></div>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gat.quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
 
-<span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">&quot;../../example_data/sienna/v4&quot;</span>
+<span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">"../../example_data/sienna/v4"</span>
 <span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
-    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5&quot;</span><span class="p">,</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json&quot;</span><span class="p">,</span>
+    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5"</span><span class="p">,</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">scenario</span><span class="o">.</span><span class="n">load_includes_charging</span> <span class="o">=</span> <span class="kc">True</span>
 
@@ -520,7 +520,7 @@ labelled <code class="docutils literal notranslate"><span class="pre">&quot;Nati
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.634 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.518 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gat-plot-examples-04-dispatch-window-peak-min-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/8d5e64bbe54dd8f2efe9250670f27643/04_dispatch_window_peak_min.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_dispatch_window_peak_min.ipynb</span></code></a></p>

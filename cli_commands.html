@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CLI Command Reference &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>CLI Command Reference &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="CLI Quick Reference" href="cli_quick_reference.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -601,7 +601,7 @@
 gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.
 
 <span class="c1"># Initialize in new directory</span>
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis"</span>
 
 <span class="c1"># Initialize and set as default</span>
 gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--set-default
@@ -784,8 +784,8 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 
 <span class="c1"># Add with description</span>
 gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>high_load<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--name<span class="w"> </span><span class="s2">&quot;High Load Scenario&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Sensitivity with 10% load increase&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"High Load Scenario"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">"Sensitivity with 10% load increase"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system<span class="w"> </span>./system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation<span class="w"> </span>./results.h5
 
@@ -840,7 +840,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 </pre></div>
 </div>
 <p><strong>Output (specific project):</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scenarios</span> <span class="ow">in</span> <span class="s1">&#39;My Analysis&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scenarios</span> <span class="ow">in</span> <span class="s1">'My Analysis'</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
   <span class="n">base_2035</span>            <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">Base</span> <span class="mi">2035</span> <span class="n">Scenario</span>
   <span class="n">high_renewable</span>       <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">High</span> <span class="n">Renewable</span> <span class="n">Scenario</span>
 </pre></div>
@@ -945,7 +945,7 @@ gat<span class="w"> </span>project<span class="w"> </span>palette<span class="w"
 
 <span class="c1"># With description</span>
 gat<span class="w"> </span>project<span class="w"> </span>palette<span class="w"> </span>add<span class="w"> </span>renewable_focus<span class="w"> </span>base_2035<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Focus on renewable energy sources&quot;</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">"Focus on renewable energy sources"</span>
 
 <span class="c1"># Show detailed summary</span>
 gat<span class="w"> </span>project<span class="w"> </span>palette<span class="w"> </span>add<span class="w"> </span>my_palette<span class="w"> </span>base_2035<span class="w"> </span>--print-summary
@@ -976,7 +976,7 @@ gat<span class="w"> </span>project<span class="w"> </span>palette<span class="w"
 </pre></div>
 </div>
 <p><strong>Output:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Palettes</span> <span class="ow">in</span> <span class="s1">&#39;My Analysis&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Palettes</span> <span class="ow">in</span> <span class="s1">'My Analysis'</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
   <span class="n">default</span>
   <span class="n">renewable_focus</span>
 </pre></div>
@@ -1089,12 +1089,12 @@ gat<span class="w"> </span>project<span class="w"> </span>palette<span class="w"
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single simulation file</span>
-gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">&quot;NTP Base&quot;</span><span class="w"> </span><span class="se">\</span>
+gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">"NTP Base"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system-path<span class="w"> </span>./system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation-path<span class="w"> </span>./results.h5
 
 <span class="c1"># Multiple simulation files</span>
-gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">&quot;Multi-file&quot;</span><span class="w"> </span><span class="se">\</span>
+gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span><span class="s2">"Multi-file"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system-path<span class="w"> </span>./system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation-path<span class="w"> </span>./week1.h5<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation-path<span class="w"> </span>./week2.h5
@@ -1120,7 +1120,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </
 <li><p><code class="docutils literal notranslate"><span class="pre">--description</span> <span class="pre">TEXT</span></code> - Source description</p></li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>reeds<span class="w"> </span><span class="s2">&quot;ReEDS 2035&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>reeds<span class="w"> </span><span class="s2">"ReEDS 2035"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--path<span class="w"> </span>./reeds_outputs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solve-year<span class="w"> </span><span class="m">2035</span>
 </pre></div>
@@ -1144,7 +1144,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </
 <li><p><code class="docutils literal notranslate"><span class="pre">--description</span> <span class="pre">TEXT</span></code> - Source description</p></li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>plexos<span class="w"> </span><span class="s2">&quot;Summer Peak&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </span>plexos<span class="w"> </span><span class="s2">"Summer Peak"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--solution-path<span class="w"> </span>./Model.xml
 </pre></div>
 </div>
@@ -1183,7 +1183,7 @@ gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </
 <li><p><code class="docutils literal notranslate"><span class="pre">NAME</span></code> - Source name</p></li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>show<span class="w"> </span><span class="s2">&quot;NTP Base&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>sources<span class="w"> </span>show<span class="w"> </span><span class="s2">"NTP Base"</span>
 </pre></div>
 </div>
 <p><strong>Output:</strong></p>
@@ -1219,10 +1219,10 @@ gat<span class="w"> </span>sources<span class="w"> </span>add<span class="w"> </
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove with confirmation</span>
-gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w"> </span><span class="s2">&quot;Old Source&quot;</span>
+gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w"> </span><span class="s2">"Old Source"</span>
 
 <span class="c1"># Remove without confirmation</span>
-gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w"> </span><span class="s2">&quot;Old Source&quot;</span><span class="w"> </span>--yes
+gat<span class="w"> </span>sources<span class="w"> </span>remove<span class="w"> </span><span class="s2">"Old Source"</span><span class="w"> </span>--yes
 </pre></div>
 </div>
 </section>

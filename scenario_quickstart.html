@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Scenario Quick Start Guide &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Scenario Quick Start Guide &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -589,10 +589,10 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_scenario</span>
 
 <span class="c1"># Load the UC scenario</span>
-<span class="n">scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;base_2035_UC&quot;</span><span class="p">)</span>
+<span class="n">scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"base_2035_UC"</span><span class="p">)</span>
 
 <span class="c1"># Parser is automatically set to UC</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>No need to manually set <code class="docutils literal notranslate"><span class="pre">selected_model</span></code> anymore!</p>
@@ -611,9 +611,9 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 </pre></div>
 </div>
 <p>Then analyze each independently:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uc</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;workflow_UC&quot;</span><span class="p">)</span>
-<span class="n">ed</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;workflow_ED&quot;</span><span class="p">)</span>
-<span class="n">pf</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;workflow_PF&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uc</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"workflow_UC"</span><span class="p">)</span>
+<span class="n">ed</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"workflow_ED"</span><span class="p">)</span>
+<span class="n">pf</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"workflow_PF"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -625,8 +625,8 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <span class="w">    </span>--simulation<span class="w"> </span>results.h5
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uc_scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;comparison_UC&quot;</span><span class="p">)</span>
-<span class="n">ed_scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">&quot;comparison_ED&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uc_scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"comparison_UC"</span><span class="p">)</span>
+<span class="n">ed_scenario</span> <span class="o">=</span> <span class="n">load_scenario</span><span class="p">(</span><span class="s2">"comparison_ED"</span><span class="p">)</span>
 
 <span class="n">uc_dispatch</span> <span class="o">=</span> <span class="n">uc_scenario</span><span class="o">.</span><span class="n">get_generator_dispatch</span><span class="p">()</span>
 <span class="n">ed_dispatch</span> <span class="o">=</span> <span class="n">ed_scenario</span><span class="o">.</span><span class="n">get_generator_dispatch</span><span class="p">()</span>
@@ -674,11 +674,11 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <section id="whats-in-a-scenario-config">
 <h2>What’s in a Scenario Config?<a class="headerlink" href="#whats-in-a-scenario-config" title="Link to this heading">#</a></h2>
 <p>Each scenario creates a YAML file like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;base</span><span class="nv"> </span><span class="s">2035</span><span class="nv"> </span><span class="s">(UC)&quot;</span>
-<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sienna&quot;</span>
-<span class="nt">system_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/absolute/path/to/system_2035.json&quot;</span>
-<span class="nt">simulation_paths</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/absolute/path/to/results_2035.h5&quot;</span>
-<span class="nt">simulation_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;UC&quot;</span><span class="w">  </span><span class="c1"># &lt;-- New field!</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"base</span><span class="nv"> </span><span class="s">2035</span><span class="nv"> </span><span class="s">(UC)"</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"sienna"</span>
+<span class="nt">system_path</span><span class="p">:</span><span class="w"> </span><span class="s">"/absolute/path/to/system_2035.json"</span>
+<span class="nt">simulation_paths</span><span class="p">:</span><span class="w"> </span><span class="s">"/absolute/path/to/results_2035.h5"</span>
+<span class="nt">simulation_type</span><span class="p">:</span><span class="w"> </span><span class="s">"UC"</span><span class="w">  </span><span class="c1"># &lt;-- New field!</span>
 <span class="nt">default_palette</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </pre></div>
 </div>
@@ -712,8 +712,8 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <p>Not sure what simulation types are in your file?</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.models.project</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenarioConfig</span>
 
-<span class="n">types</span> <span class="o">=</span> <span class="n">SiennaScenarioConfig</span><span class="o">.</span><span class="n">discover_simulations</span><span class="p">(</span><span class="s2">&quot;results.h5&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>  <span class="c1"># [&#39;UC&#39;, &#39;ED&#39;, &#39;PF&#39;]</span>
+<span class="n">types</span> <span class="o">=</span> <span class="n">SiennaScenarioConfig</span><span class="o">.</span><span class="n">discover_simulations</span><span class="p">(</span><span class="s2">"results.h5"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>  <span class="c1"># ['UC', 'ED', 'PF']</span>
 </pre></div>
 </div>
 </section>
@@ -729,7 +729,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <li><p>Check that H5 file exists and is valid</p></li>
 <li><p>Try loading directly:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;results.h5&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"results.h5"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -764,8 +764,8 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <span class="w">    </span>--simulation<span class="w"> </span>results.h5
 
 <span class="c1"># Then in code:</span>
-<span class="nv">scenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>load_scenario<span class="o">(</span><span class="s2">&quot;my_case&quot;</span><span class="o">)</span>
-scenario.parser.selected_model<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;UC&quot;</span><span class="w">  </span><span class="c1"># Manual selection</span>
+<span class="nv">scenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>load_scenario<span class="o">(</span><span class="s2">"my_case"</span><span class="o">)</span>
+scenario.parser.selected_model<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"UC"</span><span class="w">  </span><span class="c1"># Manual selection</span>
 </pre></div>
 </div>
 </section>
@@ -784,7 +784,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <span class="w">    </span>--simulation-type<span class="w"> </span>UC
 
 <span class="c1"># Then in code:</span>
-<span class="nv">scenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>load_scenario<span class="o">(</span><span class="s2">&quot;my_case_UC&quot;</span><span class="o">)</span>
+<span class="nv">scenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>load_scenario<span class="o">(</span><span class="s2">"my_case_UC"</span><span class="o">)</span>
 <span class="c1"># Already configured!</span>
 </pre></div>
 </div>

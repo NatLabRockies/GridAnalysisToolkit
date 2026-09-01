@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Multi-Scenario Objects &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Multi-Scenario Objects &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../../_static/documentation_options.js?v=daecbd94"></script>
+    <script src="../../_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="ReEDS™" href="ReEDS.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -519,7 +519,7 @@ it is recommended to use a single scenario object and aggregate across multiple 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScenario</span>
 
 <span class="c1"># the keys will override the display_name of each scenario.</span>
-<span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">({</span><span class="s2">&quot;reeds&quot;</span><span class="p">:</span><span class="n">reeds_scenario</span><span class="p">,</span> <span class="s2">&quot;sienna&quot;</span><span class="p">:</span><span class="n">sienna_scenario</span><span class="p">})</span>
+<span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">({</span><span class="s2">"reeds"</span><span class="p">:</span><span class="n">reeds_scenario</span><span class="p">,</span> <span class="s2">"sienna"</span><span class="p">:</span><span class="n">sienna_scenario</span><span class="p">})</span>
 
 <span class="n">ms</span><span class="o">.</span><span class="n">get_generation_capacity</span><span class="p">()</span> <span class="c1"># returns capacity by area</span>
 </pre></div>
@@ -530,7 +530,7 @@ it is recommended to use a single scenario object and aggregate across multiple 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandler</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScenario</span>
 
 <span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">()</span>
-<span class="n">ms</span><span class="o">.</span><span class="n">add_scenario</span><span class="p">(</span><span class="s2">&quot;reeds&quot;</span><span class="p">,</span> <span class="n">rscen2</span><span class="p">)</span>
+<span class="n">ms</span><span class="o">.</span><span class="n">add_scenario</span><span class="p">(</span><span class="s2">"reeds"</span><span class="p">,</span> <span class="n">rscen2</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

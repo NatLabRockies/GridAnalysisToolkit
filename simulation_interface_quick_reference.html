@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>GAT Simulation &amp; System Interface - Quick Reference &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>GAT Simulation &amp; System Interface - Quick Reference &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -506,17 +506,17 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="c1"># Open file</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
 
 <span class="c1"># Select model (if multiple exist)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
 <span class="c1"># List available datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="c1"># Returns: {&quot;generator_dispatch&quot;: &quot;/path/to/data&quot;, ...}</span>
+<span class="c1"># Returns: {"generator_dispatch": "/path/to/data", ...}</span>
 
 <span class="c1"># Get a dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 <span class="c1"># Returns: DataFrame with DatetimeIndex</span>
 </pre></div>
 </div>
@@ -527,28 +527,28 @@
 
 <span class="c1"># Create aggregator with parallel loading</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">,</span> <span class="s2">"sim3.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># Use multiprocessing</span>
     <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span>       <span class="c1"># Number of processes</span>
 <span class="p">)</span>
 
 <span class="c1"># Same interface as single parser!</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="merge-strategies-overlapping-time-periods">
 <h2>Merge Strategies (Overlapping Time Periods)<a class="headerlink" href="#merge-strategies-overlapping-time-periods" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Strategy 1: &quot;left&quot; - Keep earlier timestamps</span>
-<span class="c1"># Use for: Sequential simulations where earlier data is &quot;realized&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Strategy 1: "left" - Keep earlier timestamps</span>
+<span class="c1"># Use for: Sequential simulations where earlier data is "realized"</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
-<span class="c1"># Strategy 2: &quot;right&quot; - Keep later timestamps  </span>
+<span class="c1"># Strategy 2: "right" - Keep later timestamps  </span>
 <span class="c1"># Use for: Rolling forecasts where later data is more accurate</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -556,21 +556,21 @@
 <h2>System Data Access<a class="headerlink" href="#system-data-access" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># List available datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="c1"># Returns: {&quot;generators&quot;: &quot;generator_data&quot;, &quot;loads&quot;: &quot;load_data&quot;, ...}</span>
+<span class="c1"># Returns: {"generators": "generator_data", "loads": "load_data", ...}</span>
 
 <span class="c1"># Get dataset</span>
-<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">)</span>
 
 <span class="c1"># Get filtered dataset</span>
-<span class="n">solar</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">)</span>
+<span class="n">solar</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">"Solar_PV"</span><span class="p">)</span>
 
 <span class="c1"># Get multiple datasets</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;loads&quot;</span><span class="p">,</span> <span class="s2">&quot;system_info&quot;</span><span class="p">)</span>
-<span class="c1"># Returns: {&quot;generators&quot;: DataFrame, &quot;loads&quot;: DataFrame, ...}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="s2">"loads"</span><span class="p">,</span> <span class="s2">"system_info"</span><span class="p">)</span>
+<span class="c1"># Returns: {"generators": DataFrame, "loads": DataFrame, ...}</span>
 
 <span class="c1"># Traditional methods still work</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
@@ -591,12 +591,12 @@
     
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>  <span class="c1"># or [&quot;ED&quot;, &quot;UC&quot;] for multi-model</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>  <span class="c1"># or ["ED", "UC"] for multi-model</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/generators/power&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;load_served&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/loads/power&quot;</span>
+            <span class="s2">"generator_dispatch"</span><span class="p">:</span> <span class="s2">"/results/generators/power"</span><span class="p">,</span>
+            <span class="s2">"load_served"</span><span class="p">:</span> <span class="s2">"/results/loads/power"</span>
         <span class="p">}</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -614,26 +614,26 @@
 
 <span class="c1"># Works automatically with generic aggregator!</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1/&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2/&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3/&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1/"</span><span class="p">,</span> <span class="s2">"sim2/"</span><span class="p">,</span> <span class="s2">"sim3/"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">MySimParser</span><span class="p">,</span>  <span class="c1"># Your custom parser</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 
 <span class="c1"># Same interface as built-in parsers</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="context-managers-auto-cleanup">
 <h2>Context Managers (Auto Cleanup)<a class="headerlink" href="#context-managers-auto-cleanup" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single parser</span>
-<span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">)</span>
 <span class="c1"># File automatically closed</span>
 
 <span class="c1"># Aggregator</span>
 <span class="k">with</span> <span class="n">SimulationAggregator</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">ParserClass</span><span class="p">)</span> <span class="k">as</span> <span class="n">agg</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">)</span>
 <span class="c1"># All parsers automatically closed</span>
 </pre></div>
 </div>
@@ -642,11 +642,11 @@
 <h2>Multiple Datasets<a class="headerlink" href="#multiple-datasets" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get multiple at once</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span>
-    <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;generator_commit&quot;</span><span class="p">,</span> 
-    <span class="s2">&quot;curtailment&quot;</span>
+    <span class="s2">"generator_dispatch"</span><span class="p">,</span>
+    <span class="s2">"generator_commit"</span><span class="p">,</span> 
+    <span class="s2">"curtailment"</span>
 <span class="p">)</span>
-<span class="c1"># Returns: {&quot;generator_dispatch&quot;: DataFrame, ...}</span>
+<span class="c1"># Returns: {"generator_dispatch": DataFrame, ...}</span>
 </pre></div>
 </div>
 </section>
@@ -654,12 +654,12 @@
 <h2>Metadata &amp; Validation<a class="headerlink" href="#metadata-validation" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get metadata</span>
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">()</span>
-<span class="c1"># Returns: {&quot;start_time&quot;: &quot;...&quot;, &quot;resolution&quot;: &quot;1H&quot;, ...}</span>
+<span class="c1"># Returns: {"start_time": "...", "resolution": "1H", ...}</span>
 
 <span class="c1"># Validate file</span>
 <span class="n">warnings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -670,46 +670,46 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationAggregator</span><span class="p">,</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="k">with</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day3.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"day1.h5"</span><span class="p">,</span> <span class="s2">"day2.h5"</span><span class="p">,</span> <span class="s2">"day3.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span> <span class="k">as</span> <span class="n">agg</span><span class="p">:</span>
-    <span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+    <span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
     
     <span class="c1"># Get all needed data</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span>
-        <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;generator_commit&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;curtailment&quot;</span>
+        <span class="s2">"generator_dispatch"</span><span class="p">,</span>
+        <span class="s2">"generator_commit"</span><span class="p">,</span>
+        <span class="s2">"curtailment"</span>
     <span class="p">)</span>
     
     <span class="c1"># Process data</span>
-    <span class="n">dispatch</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">]</span>
-    <span class="n">commit</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;generator_commit&quot;</span><span class="p">]</span>
+    <span class="n">dispatch</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"generator_dispatch"</span><span class="p">]</span>
+    <span class="n">commit</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"generator_commit"</span><span class="p">]</span>
     <span class="c1"># ... analysis ...</span>
 </pre></div>
 </div>
 </section>
 <section id="pattern-2-discover-and-explore-datasets">
 <h3>Pattern 2: Discover and Explore Datasets<a class="headerlink" href="#pattern-2-discover-and-explore-datasets" title="Link to this heading">#</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
 
 <span class="c1"># What models are available?</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Models: </span><span class="si">{</span><span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Models: </span><span class="si">{</span><span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Select first model</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># What data is available?</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span><span class="si">}</span><span class="s2"> datasets:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span><span class="si">}</span><span class="s2"> datasets:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  - </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Load and inspect first dataset</span>
 <span class="n">first_key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">first_key</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">first_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">first_key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -719,16 +719,16 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="c1"># Load system</span>
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
-<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">)</span>
 
 <span class="c1"># Load simulation  </span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 
 <span class="c1"># Join on generator names</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">dispatch</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">generators</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">dispatch</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">generators</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'name'</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
@@ -736,15 +736,15 @@
 <section id="error-handling">
 <h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulation file not found&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Simulation file not found"</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid model or dataset: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Invalid model or dataset: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset not found: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset not found: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -764,18 +764,18 @@
 </li>
 <li><p><strong>Get multiple datasets at once</strong> instead of individually:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Good</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">)</span>
 
 <span class="c1"># Less efficient</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span> 
-<span class="n">c</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span> 
+<span class="n">c</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"c"</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p><strong>Use context managers</strong> for automatic cleanup:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">parser</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>

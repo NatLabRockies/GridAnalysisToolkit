@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Palette Generation &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Palette Generation &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -551,7 +551,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 
 <span class="c1"># With custom description</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class="w"> </span>renewable_focus<span class="w"> </span>base_2035<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Emphasizes renewable energy sources&quot;</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">"Emphasizes renewable energy sources"</span>
 
 <span class="c1"># For a specific project</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class="w"> </span>my_palette<span class="w"> </span>base_2035<span class="w"> </span>--project<span class="w"> </span>my_project
@@ -697,7 +697,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <p>Edit the <code class="docutils literal notranslate"><span class="pre">color</span></code> field for any display category:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display_categories</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#FFD700&quot;</span><span class="w">  </span><span class="c1"># Change to your preferred color</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#FFD700"</span><span class="w">  </span><span class="c1"># Change to your preferred color</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar PV</span>
 </pre></div>
 </div>
@@ -707,7 +707,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <p>Change how categories appear in legends:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display_categories</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#FFD700&quot;</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#FFD700"</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar PV and CSP</span><span class="w">  </span><span class="c1"># Custom label</span>
 </pre></div>
 </div>
@@ -741,15 +741,15 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <h3>Generator Overrides<a class="headerlink" href="#generator-overrides" title="Link to this heading">#</a></h3>
 <p>Override specific generators to custom categories:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">generator_overrides</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">generator_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SpecialHydro_1&quot;</span>
-<span class="w">    </span><span class="nt">custom_category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Priority</span><span class="nv"> </span><span class="s">Hydro&quot;</span>
-<span class="w">    </span><span class="nt">display_category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Priority</span><span class="nv"> </span><span class="s">Hydro&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">generator_name</span><span class="p">:</span><span class="w"> </span><span class="s">"SpecialHydro_1"</span>
+<span class="w">    </span><span class="nt">custom_category</span><span class="p">:</span><span class="w"> </span><span class="s">"Priority</span><span class="nv"> </span><span class="s">Hydro"</span>
+<span class="w">    </span><span class="nt">display_category</span><span class="p">:</span><span class="w"> </span><span class="s">"Priority</span><span class="nv"> </span><span class="s">Hydro"</span>
 </pre></div>
 </div>
 <p>Then add the custom display category:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display_categories</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Priority Hydro</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#2E8B57&quot;</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#2E8B57"</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Priority Hydro Resources</span>
 </pre></div>
 </div>
@@ -811,13 +811,13 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 
 <span class="nt">display_categories</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#FFD700&quot;</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#FFD700"</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wind</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#87CEEB&quot;</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#87CEEB"</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wind</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Natural Gas</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#FF6B6B&quot;</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#FF6B6B"</span>
 <span class="w">    </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Natural Gas</span>
 
 <span class="nt">category_mappings</span><span class="p">:</span>
@@ -874,7 +874,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 
 <span class="c1"># With description</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class="w"> </span>renewable_focus<span class="w"> </span>base_2035<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Focus on renewable energy sources&quot;</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">"Focus on renewable energy sources"</span>
 
 <span class="c1"># Show detailed summary</span>
 gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class="w"> </span>my_palette<span class="w"> </span>base_2035<span class="w"> </span>--print-summary
@@ -892,16 +892,16 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.palette_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaletteGenerator</span>
 
 <span class="c1"># Load system file</span>
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;path/to/system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"path/to/system.json"</span><span class="p">)</span>
 
 <span class="c1"># Create generator</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
 
 <span class="c1"># Generate palette</span>
 <span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Palette&quot;</span><span class="p">,</span>
-    <span class="n">simulation_type</span><span class="o">=</span><span class="s2">&quot;sienna&quot;</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Custom palette for my analysis&quot;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"My Palette"</span><span class="p">,</span>
+    <span class="n">simulation_type</span><span class="o">=</span><span class="s2">"sienna"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Custom palette for my analysis"</span>
 <span class="p">)</span>
 
 <span class="c1"># Print summary</span>
@@ -911,8 +911,8 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">palette_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;palettes/my_palette.yaml&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">palette_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="n">palette_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"palettes/my_palette.yaml"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">palette_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
         <span class="n">palette</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">f</span><span class="p">,</span>
@@ -925,18 +925,18 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
 <span class="c1"># Load system</span>
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;path/to/system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"path/to/system.json"</span><span class="p">)</span>
 
 <span class="c1"># Get system info</span>
 <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Buses: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_buses</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Buses: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_buses</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># List generator categories</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> generators, </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  VRE: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">is_vre</span><span class="si">}</span><span class="s2">, Storage: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">is_storage</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> generators, </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  VRE: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">is_vre</span><span class="si">}</span><span class="s2">, Storage: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">is_storage</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Get detailed generator data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
@@ -944,7 +944,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 
 <span class="c1"># Get VRE categories</span>
 <span class="n">vre_cats</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_vre_categories</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VRE categories: </span><span class="si">{</span><span class="n">vre_cats</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"VRE categories: </span><span class="si">{</span><span class="n">vre_cats</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -964,42 +964,42 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyCustomSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for MyCustom simulation platform.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Parser for MyCustom simulation platform."""</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SystemInfo</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract basic system metadata.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Extract basic system metadata."""</span>
         <span class="c1"># Read system file and extract info</span>
         <span class="k">return</span> <span class="n">SystemInfo</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My System&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">"My System"</span><span class="p">,</span>
             <span class="n">num_generators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
             <span class="n">num_buses</span><span class="o">=</span><span class="mi">50</span>
         <span class="p">)</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">list_generator_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GeneratorCategory</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List all generator categories.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List all generator categories."""</span>
         <span class="c1"># Analyze generators and group by category</span>
         <span class="n">categories</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># ... extraction logic ...</span>
         <span class="k">return</span> <span class="n">categories</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">list_load_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadCategory</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List load categories.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List load categories."""</span>
         <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># If not applicable</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_generator_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed generator data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get detailed generator data."""</span>
         <span class="c1"># Return DataFrame with generator metadata</span>
         <span class="k">pass</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed load data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get detailed load data."""</span>
         <span class="k">pass</span>
 </pre></div>
 </div>
 <p>Then use it with the palette generator:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">MyCustomSystem</span><span class="p">(</span><span class="s2">&quot;path/to/system/file&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">MyCustomSystem</span><span class="p">(</span><span class="s2">"path/to/system/file"</span><span class="p">)</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-<span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Palette&quot;</span><span class="p">,</span> <span class="n">simulation_type</span><span class="o">=</span><span class="s2">&quot;mycustom&quot;</span><span class="p">)</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"My Palette"</span><span class="p">,</span> <span class="n">simulation_type</span><span class="o">=</span><span class="s2">"mycustom"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1032,7 +1032,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <h3>3. Share Palettes in Git<a class="headerlink" href="#share-palettes-in-git" title="Link to this heading">#</a></h3>
 <p>Commit palette files to version control:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>palettes/my_palette.yaml
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add palette for renewable scenario&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add palette for renewable scenario"</span>
 </pre></div>
 </div>
 <p>Team members can use the same palette for consistent visualizations.</p>
@@ -1044,7 +1044,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
 
 <span class="c1"># Load palette</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;palettes/my_palette.yaml&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"palettes/my_palette.yaml"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="n">palette</span> <span class="o">=</span> <span class="n">Palette</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 
@@ -1052,7 +1052,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <span class="n">warnings</span> <span class="o">=</span> <span class="n">palette</span><span class="o">.</span><span class="n">validate_stack_order</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">warnings</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1064,7 +1064,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <span class="w">  </span><span class="no">Custom palette for Western Grid analysis.</span>
 <span class="w">  </span>
 <span class="w">  </span><span class="no">Customizations:</span>
-<span class="w">  </span><span class="no">- Hydro cascade grouped as &quot;Priority Hydro&quot;</span>
+<span class="w">  </span><span class="no">- Hydro cascade grouped as "Priority Hydro"</span>
 <span class="w">  </span><span class="no">- Behind-the-meter solar separated from utility solar</span>
 <span class="w">  </span><span class="no">- Custom colors for regional generation</span>
 </pre></div>
@@ -1075,7 +1075,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
 <section id="palette-already-exists">
 <h3>Palette Already Exists<a class="headerlink" href="#palette-already-exists" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">Palette</span> <span class="s1">&#39;my_palette&#39;</span> <span class="n">already</span> <span class="n">exists</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">Palette</span> <span class="s1">'my_palette'</span> <span class="n">already</span> <span class="n">exists</span>
 </pre></div>
 </div>
 <p><strong>Solution</strong>: Use a different name or delete the existing palette:</p>
@@ -1104,9 +1104,9 @@ gat<span class="w"> </span>project<span class="w"> </span>add-palette<span class
 <p><strong>Solution</strong>: Manually edit the palette YAML to assign distinct colors:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">display_categories</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Solar</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#FFD700&quot;</span><span class="w">  </span><span class="c1"># Distinct gold</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#FFD700"</span><span class="w">  </span><span class="c1"># Distinct gold</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wind</span>
-<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#4169E1&quot;</span><span class="w">  </span><span class="c1"># Distinct blue</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">"#4169E1"</span><span class="w">  </span><span class="c1"># Distinct blue</span>
 </pre></div>
 </div>
 </section>

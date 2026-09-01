@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Migration Guide: Simulation and System Interface Refactor &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Migration Guide: Simulation and System Interface Refactor &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -567,15 +567,15 @@ guide are now historical. Use
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available models&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List available models"""</span>
         
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available datasets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List available datasets"""</span>
         
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a dataset&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get a dataset"""</span>
 </pre></div>
 </div>
 </section>
@@ -585,7 +585,7 @@ guide are now historical. Use
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationAggregator</span>
 
 <span class="n">aggregator</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
@@ -600,13 +600,13 @@ guide are now historical. Use
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># New methods on BaseSystem</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseSystem</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List available datasets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List available datasets"""</span>
         
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a dataset&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get a dataset"""</span>
         
     <span class="k">def</span><span class="w"> </span><span class="nf">get_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get multiple datasets&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get multiple datasets"""</span>
 </pre></div>
 </div>
 </section>
@@ -632,7 +632,7 @@ guide are now historical. Use
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationAggregator</span>
 
 <span class="n">aggregator</span> <span class="o">=</span> <span class="n">SiennaSimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3.h5&quot;</span><span class="p">]</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">,</span> <span class="s2">"sim3.h5"</span><span class="p">]</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -640,7 +640,7 @@ guide are now historical. Use
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationAggregator</span><span class="p">,</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="n">aggregator</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">,</span> <span class="s2">"sim3.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Enable parallel loading</span>
 <span class="p">)</span>
@@ -650,25 +650,25 @@ guide are now historical. Use
 <section id="step-3-update-system-data-access-optional">
 <h3>Step 3: Update System Data Access (Optional)<a class="headerlink" href="#step-3-update-system-data-access-optional" title="Link to this heading">#</a></h3>
 <p><strong>Before:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 <span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
 <span class="n">loads</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_load_data</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><strong>After (recommended):</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># New unified interface</span>
-<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
-<span class="n">loads</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;loads&quot;</span><span class="p">)</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">)</span>
+<span class="n">loads</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"loads"</span><span class="p">)</span>
 
 <span class="c1"># Or get multiple at once</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;loads&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="s2">"loads"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>After (compatible):</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Old methods still work</span>
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 <span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
 <span class="n">loads</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_load_data</span><span class="p">()</span>
 </pre></div>
@@ -690,10 +690,10 @@ guide are now historical. Use
 <span class="k">class</span><span class="w"> </span><span class="nc">MyParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;power&quot;</span><span class="p">:</span> <span class="s2">&quot;/results/power&quot;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"power"</span><span class="p">:</span> <span class="s2">"/results/power"</span><span class="p">}</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="c1"># Implementation</span>
@@ -712,15 +712,15 @@ guide are now historical. Use
 
 <span class="c1"># Sienna-specific aggregator</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SiennaSimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day3.h5&quot;</span><span class="p">]</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"day1.h5"</span><span class="p">,</span> <span class="s2">"day2.h5"</span><span class="p">,</span> <span class="s2">"day3.h5"</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># Set model</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
 <span class="c1"># Get data</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>After:</strong></p>
@@ -728,20 +728,20 @@ guide are now historical. Use
 
 <span class="c1"># Generic aggregator with parallel loading</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;day1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;day3.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"day1.h5"</span><span class="p">,</span> <span class="s2">"day2.h5"</span><span class="p">,</span> <span class="s2">"day3.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># NEW: Parallel loading</span>
     <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span>   <span class="c1"># NEW: Control parallelism</span>
 <span class="p">)</span>
 
 <span class="c1"># Set model (same API)</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
 <span class="c1"># Get data (same API)</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
 <span class="n">dispatch</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span>
-    <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">,</span>
-    <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;left&quot;</span>  <span class="c1"># NEW: Control overlap handling</span>
+    <span class="s2">"generator_dispatch"</span><span class="p">,</span>
+    <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">"left"</span>  <span class="c1"># NEW: Control overlap handling</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -751,20 +751,20 @@ guide are now historical. Use
 <p><strong>Before:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;ED&quot;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"ED"</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerTimeSeriesParameter__RenewableDispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerTimeSeriesParameter__RenewableDispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>After:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="c1"># API is unchanged!</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;ED&quot;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"ED"</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerTimeSeriesParameter__RenewableDispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerTimeSeriesParameter__RenewableDispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -773,11 +773,11 @@ guide are now historical. Use
 <p><strong>Before:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># Get data using specific methods</span>
 <span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
-<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">)</span>
+<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s2">"Solar_PV"</span><span class="p">)</span>
 
 <span class="c1"># Get categories</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
@@ -786,25 +786,25 @@ guide are now historical. Use
 <p><strong>After:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># New unified dataset interface</span>
-<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
-<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">)</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">)</span>
+<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">"Solar_PV"</span><span class="p">)</span>
 
 <span class="c1"># Or use specific methods (still work)</span>
 <span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
-<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s2">&quot;Solar_PV&quot;</span><span class="p">)</span>
+<span class="n">solar_gens</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s2">"Solar_PV"</span><span class="p">)</span>
 
 <span class="c1"># Categories unchanged</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
 
 <span class="c1"># NEW: List all available datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
-<span class="c1"># Returns: {&quot;generators&quot;: &quot;generator_data&quot;, &quot;loads&quot;: &quot;load_data&quot;, ...}</span>
+<span class="c1"># Returns: {"generators": "generator_data", "loads": "load_data", ...}</span>
 
 <span class="c1"># NEW: Get multiple datasets at once</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;loads&quot;</span><span class="p">,</span> <span class="s2">&quot;system_info&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="s2">"loads"</span><span class="p">,</span> <span class="s2">"system_info"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -814,12 +814,12 @@ guide are now historical. Use
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
 
 <span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
-    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">],</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="s2">&quot;system.json&quot;</span>
+    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">],</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="s2">"system.json"</span>
 <span class="p">)</span>
 
 <span class="c1"># Access parser</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>After:</strong></p>
@@ -827,13 +827,13 @@ guide are now historical. Use
 
 <span class="c1"># API unchanged - aggregation happens automatically</span>
 <span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
-    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">],</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="s2">&quot;system.json&quot;</span>
+    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">],</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="s2">"system.json"</span>
 <span class="p">)</span>
 
 <span class="c1"># Parser is now using new aggregator internally</span>
 <span class="c1"># (transparent to user)</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -860,18 +860,18 @@ guide are now historical. Use
     
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">simulation_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">list_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;generator_dispatch&quot;</span><span class="p">:</span> <span class="s2">&quot;dispatch.csv&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;generator_commit&quot;</span><span class="p">:</span> <span class="s2">&quot;commit.csv&quot;</span>
+            <span class="s2">"generator_dispatch"</span><span class="p">:</span> <span class="s2">"dispatch.csv"</span><span class="p">,</span>
+            <span class="s2">"generator_commit"</span><span class="p">:</span> <span class="s2">"commit.csv"</span>
         <span class="p">}</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="n">datasets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Dataset '</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">' not found"</span><span class="p">)</span>
         
         <span class="n">file_path</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -881,7 +881,7 @@ guide are now historical. Use
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationAggregator</span>
 
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1/&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2/&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3/&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1/"</span><span class="p">,</span> <span class="s2">"sim2/"</span><span class="p">,</span> <span class="s2">"sim3/"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">MySimParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
@@ -903,13 +903,13 @@ guide are now historical. Use
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="c1"># Don&#39;t store unpickleable objects in __init__</span>
+        <span class="c1"># Don't store unpickleable objects in __init__</span>
 
 <span class="c1"># ❌ Bad - not pickleable</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">BadParser</span><span class="p">(</span><span class="n">BaseSimulationParser</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file_handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>  <span class="c1"># File handles aren&#39;t pickleable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span>  <span class="c1"># File handles aren't pickleable</span>
 </pre></div>
 </div>
 <p><strong>Solution</strong>: Open files in methods, not <code class="docutils literal notranslate"><span class="pre">__init__()</span></code>:</p>
@@ -919,7 +919,7 @@ guide are now historical. Use
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
     
     <span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="c1"># Use file handle here</span>
             <span class="k">pass</span>
 </pre></div>
@@ -949,7 +949,7 @@ guide are now historical. Use
 
 <span class="c1"># Load 10 files in parallel</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;sim_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.h5&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"sim_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.h5"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>      <span class="c1"># Enable parallel loading</span>
     <span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span>       <span class="c1"># Use 4 processes</span>
@@ -962,22 +962,22 @@ guide are now historical. Use
 <h3>2. Merge Strategy Control<a class="headerlink" href="#merge-strategy-control" title="Link to this heading">#</a></h3>
 <p>Control how overlapping time periods are handled:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keep earlier timestamps (typical for multi-stage sims)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
 <span class="c1"># Keep later timestamps (typical for rolling forecasts)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="n">merge_strategy</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="context-manager-support">
 <h3>3. Context Manager Support<a class="headerlink" href="#context-manager-support" title="Link to this heading">#</a></h3>
 <p>Automatic resource cleanup:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">)</span>
 <span class="c1"># File automatically closed</span>
 
 <span class="k">with</span> <span class="n">SimulationAggregator</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">SiennaSimulationParser</span><span class="p">)</span> <span class="k">as</span> <span class="n">agg</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;dispatch&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">)</span>
 <span class="c1"># All parsers automatically closed</span>
 </pre></div>
 </div>
@@ -985,29 +985,29 @@ guide are now historical. Use
 <section id="unified-dataset-interface">
 <h3>4. Unified Dataset Interface<a class="headerlink" href="#unified-dataset-interface" title="Link to this heading">#</a></h3>
 <p>Systems now support the same dataset interface as simulations:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># List available datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
 
 <span class="c1"># Get single dataset</span>
-<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">)</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">)</span>
 
 <span class="c1"># Get multiple datasets</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">&quot;generators&quot;</span><span class="p">,</span> <span class="s2">&quot;loads&quot;</span><span class="p">,</span> <span class="s2">&quot;system_info&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_datasets</span><span class="p">(</span><span class="s2">"generators"</span><span class="p">,</span> <span class="s2">"loads"</span><span class="p">,</span> <span class="s2">"system_info"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="enhanced-metadata">
 <h3>5. Enhanced Metadata<a class="headerlink" href="#enhanced-metadata" title="Link to this heading">#</a></h3>
 <p>Access simulation metadata:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_metadata</span><span class="p">()</span>
 <span class="c1"># {</span>
-<span class="c1">#     &quot;start_time&quot;: &quot;2024-01-01T00:00:00&quot;,</span>
-<span class="c1">#     &quot;end_time&quot;: &quot;2024-12-31T23:00:00&quot;,</span>
-<span class="c1">#     &quot;resolution&quot;: &quot;1H&quot;,</span>
+<span class="c1">#     "start_time": "2024-01-01T00:00:00",</span>
+<span class="c1">#     "end_time": "2024-12-31T23:00:00",</span>
+<span class="c1">#     "resolution": "1H",</span>
 <span class="c1">#     ...</span>
 <span class="c1"># }</span>
 </pre></div>
@@ -1016,11 +1016,11 @@ guide are now historical. Use
 <section id="validation">
 <h3>6. Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h3>
 <p>Check for issues before processing:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span>
 
 <span class="n">warnings</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Warning: </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Legacy scenario handler deprecation &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Legacy scenario handler deprecation &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Migrating to GAT v1.0" href="migration_v1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -508,8 +508,8 @@ point.
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gat</span>
 
 <span class="n">scenario</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">project</span> <span class="o">=</span> <span class="n">gat</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-    <span class="n">project</span><span class="o">=</span><span class="s2">&quot;my-analysis&quot;</span><span class="p">,</span>
-    <span class="n">scenario</span><span class="o">=</span><span class="s2">&quot;base_2035&quot;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="s2">"my-analysis"</span><span class="p">,</span>
+    <span class="n">scenario</span><span class="o">=</span><span class="s2">"base_2035"</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="c1"># Same DataFrame-returning API as before.</span>
@@ -534,9 +534,9 @@ to <code class="docutils literal notranslate"><span class="pre">gat.load()</span
 <code class="docutils literal notranslate"><span class="pre">warnings.simplefilter</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
-    <span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+    <span class="s2">"ignore"</span><span class="p">,</span>
     <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
-    <span class="n">module</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;gat\.scenariohandlers\..*&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="o">=</span><span class="sa">r</span><span class="s2">"gat\.scenariohandlers\..*"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>

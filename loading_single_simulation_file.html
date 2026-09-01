@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Loading a Single Simulation File &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Loading a Single Simulation File &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -57,7 +57,7 @@
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -495,17 +495,17 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="c1"># Load the file</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;/path/to/your/simulation.h5&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"/path/to/your/simulation.h5"</span><span class="p">)</span>
 
 <span class="c1"># Select a model</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
-<span class="c1"># List what&#39;s available</span>
+<span class="c1"># List what's available</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
 <span class="c1"># Get a dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerVariable__ThermalStandard"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -514,14 +514,14 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
 <span class="c1"># 1. Load your simulation file</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;results/simulation_1.h5&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"results/simulation_1.h5"</span><span class="p">)</span>
 
 <span class="c1"># 2. See what models are available</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span><span class="p">)</span>
-<span class="c1"># Output: [&#39;UC&#39;, &#39;ED&#39;, &#39;emulation_model&#39;]</span>
+<span class="c1"># Output: ['UC', 'ED', 'emulation_model']</span>
 
 <span class="c1"># 3. Select the model you want to work with</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
 <span class="c1"># 4. List all available datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
@@ -531,12 +531,12 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 <span class="c1"># 6. Load a specific dataset</span>
-<span class="n">dispatch</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span><span class="p">)</span>
+<span class="n">dispatch</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerVariable__ThermalStandard"</span><span class="p">)</span>
 
 <span class="c1"># 7. Work with the data</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape: </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">dispatch</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Shape: </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Date range: </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generators: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">dispatch</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -545,17 +545,17 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start IPython or Jupyter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">simulation_models</span>  <span class="c1"># See available models</span>
 
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
 
 <span class="c1"># Explore</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>  <span class="c1"># See all dataset names</span>
 
 <span class="c1"># Load some data</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerVariable__ThermalStandard"</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  <span class="c1"># Preview</span>
 <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>  <span class="c1"># Visualize</span>
 </pre></div>
@@ -582,12 +582,12 @@ python<span class="w"> </span>examples/test_simulation_file.py<span class="w"> <
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
 
 <span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
-    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">],</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="s2">&quot;system.json&quot;</span>
+    <span class="n">solution_data</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">],</span>
+    <span class="n">system_file</span><span class="o">=</span><span class="s2">"system.json"</span>
 <span class="p">)</span>
 
 <span class="c1"># Access through scenario</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;generator_dispatch&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"generator_dispatch"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Use when:</strong> You need full analysis with system data, reports, multiple files</p>
@@ -596,10 +596,10 @@ python<span class="w"> </span>examples/test_simulation_file.py<span class="w"> <
 <h3>Direct File Loading (Quick Testing)<a class="headerlink" href="#direct-file-loading-quick-testing" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.simulations</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSimulationParser</span>
 
-<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim1.h5"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerVariable__ThermalStandard"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Use when:</strong> You want to quickly test, explore datasets, or work with a single file</p>
@@ -608,44 +608,44 @@ python<span class="w"> </span>examples/test_simulation_file.py<span class="w"> <
 <section id="common-dataset-names-sienna">
 <h2>Common Dataset Names (Sienna)<a class="headerlink" href="#common-dataset-names-sienna" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thermal generation</span>
-<span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span>
-<span class="s2">&quot;OnVariable__ThermalStandard&quot;</span>
+<span class="s2">"ActivePowerVariable__ThermalStandard"</span>
+<span class="s2">"OnVariable__ThermalStandard"</span>
 
 <span class="c1"># Renewable generation</span>
-<span class="s2">&quot;ActivePowerVariable__RenewableDispatch&quot;</span>
-<span class="s2">&quot;ActivePowerVariable__RenewableFix&quot;</span>
+<span class="s2">"ActivePowerVariable__RenewableDispatch"</span>
+<span class="s2">"ActivePowerVariable__RenewableFix"</span>
 
 <span class="c1"># Hydro</span>
-<span class="s2">&quot;ActivePowerVariable__HydroDispatch&quot;</span>
+<span class="s2">"ActivePowerVariable__HydroDispatch"</span>
 
 <span class="c1"># Storage</span>
-<span class="s2">&quot;ActivePowerVariable__BatteryDischarge&quot;</span>
-<span class="s2">&quot;EnergyVariable__Battery&quot;</span>
+<span class="s2">"ActivePowerVariable__BatteryDischarge"</span>
+<span class="s2">"EnergyVariable__Battery"</span>
 
 <span class="c1"># System</span>
-<span class="s2">&quot;ActivePowerVariable__Load&quot;</span>
-<span class="s2">&quot;ServiceSlackVariable__ReserveUp&quot;</span>
+<span class="s2">"ActivePowerVariable__Load"</span>
+<span class="s2">"ServiceSlackVariable__ReserveUp"</span>
 </pre></div>
 </div>
 </section>
 <section id="finding-dataset-names">
 <h2>Finding Dataset Names<a class="headerlink" href="#finding-dataset-names" title="Link to this heading">#</a></h2>
 <p>If you don’t know the exact dataset names:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;simulation.h5&quot;</span><span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"simulation.h5"</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
 
 <span class="c1"># Get all datasets</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">list_datasets</span><span class="p">()</span>
 
 <span class="c1"># Search for what you need</span>
-<span class="n">thermal</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">&quot;Thermal&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thermal datasets:&quot;</span><span class="p">,</span> <span class="n">thermal</span><span class="p">)</span>
+<span class="n">thermal</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"Thermal"</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Thermal datasets:"</span><span class="p">,</span> <span class="n">thermal</span><span class="p">)</span>
 
-<span class="n">renewable</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">&quot;Renewable&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Renewable datasets:&quot;</span><span class="p">,</span> <span class="n">renewable</span><span class="p">)</span>
+<span class="n">renewable</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"Renewable"</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Renewable datasets:"</span><span class="p">,</span> <span class="n">renewable</span><span class="p">)</span>
 
-<span class="n">power</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">&quot;Power&quot;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Power datasets:&quot;</span><span class="p">,</span> <span class="n">power</span><span class="p">)</span>
+<span class="n">power</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s2">"Power"</span> <span class="ow">in</span> <span class="n">k</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Power datasets:"</span><span class="p">,</span> <span class="n">power</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -656,14 +656,14 @@ python<span class="w"> </span>examples/test_simulation_file.py<span class="w"> <
 
 <span class="c1"># Automatically combines multiple files</span>
 <span class="n">agg</span> <span class="o">=</span> <span class="n">SimulationAggregator</span><span class="p">(</span>
-    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sim1.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim2.h5&quot;</span><span class="p">,</span> <span class="s2">&quot;sim3.h5&quot;</span><span class="p">],</span>
+    <span class="n">file_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">"sim1.h5"</span><span class="p">,</span> <span class="s2">"sim2.h5"</span><span class="p">,</span> <span class="s2">"sim3.h5"</span><span class="p">],</span>
     <span class="n">parser_class</span><span class="o">=</span><span class="n">SiennaSimulationParser</span><span class="p">,</span>
     <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Fast parallel loading</span>
 <span class="p">)</span>
 
 <span class="c1"># Same interface as single file!</span>
-<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">&quot;UC&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;ActivePowerVariable__ThermalStandard&quot;</span><span class="p">)</span>
+<span class="n">agg</span><span class="o">.</span><span class="n">selected_model</span> <span class="o">=</span> <span class="s2">"UC"</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">agg</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"ActivePowerVariable__ThermalStandard"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -672,8 +672,8 @@ python<span class="w"> </span>examples/test_simulation_file.py<span class="w"> <
 <ol class="arabic">
 <li><p><strong>Always select a model first</strong> before calling <code class="docutils literal notranslate"><span class="pre">list_datasets()</span></code> or <code class="docutils literal notranslate"><span class="pre">get_dataset()</span></code></p></li>
 <li><p><strong>Use context managers</strong> for automatic cleanup:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">&quot;sim.h5&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">&quot;...&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">SiennaSimulationParser</span><span class="p">(</span><span class="s2">"sim.h5"</span><span class="p">)</span> <span class="k">as</span> <span class="n">parser</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="s2">"..."</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>

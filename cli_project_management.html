@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Project Management (v1.0) &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>Project Management (v1.0) &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="GAT Command Line Interface" href="api/cli/commands.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -539,7 +539,7 @@
 <section id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new project</span>
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis Project&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis Project"</span>
 
 <span class="c1"># Add a scenario</span>
 gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base_case<span class="w"> </span><span class="se">\</span>
@@ -601,7 +601,7 @@ gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> <
 gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.
 
 <span class="c1"># Initialize in new directory with name</span>
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis"</span>
 
 <span class="c1"># Initialize and set as default</span>
 gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>./my-analysis<span class="w"> </span>--set-default
@@ -737,8 +737,8 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 
 <span class="c1"># Add with description</span>
 gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>high_load<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--name<span class="w"> </span><span class="s2">&quot;High Load Scenario&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--description<span class="w"> </span><span class="s2">&quot;Sensitivity with 10% load increase&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"High Load Scenario"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--description<span class="w"> </span><span class="s2">"Sensitivity with 10% load increase"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--system<span class="w"> </span>../data/system.json<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--simulation<span class="w"> </span>../data/high_load.h5
 
@@ -787,7 +787,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 </pre></div>
 </div>
 <p><strong>Output (specific project):</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scenarios</span> <span class="ow">in</span> <span class="s1">&#39;My Analysis&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Scenarios</span> <span class="ow">in</span> <span class="s1">'My Analysis'</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
   <span class="n">base_2035</span>            <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">Base</span> <span class="mi">2035</span> <span class="n">Scenario</span>
   <span class="n">high_renewable</span>       <span class="p">[</span><span class="n">sienna</span><span class="p">]</span> <span class="n">High</span> <span class="n">Renewable</span> <span class="n">Scenario</span>
 </pre></div>
@@ -891,8 +891,8 @@ gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w">
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Comprehensive power system analysis</span>
 <span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1.0</span>
 <span class="nt">gat_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-15T10:30:00Z&#39;</span>
-<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-22T15:00:00Z&#39;</span>
+<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-15T10:30:00Z'</span>
+<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-22T15:00:00Z'</span>
 
 <span class="nt">default_scenario</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base_case</span>
 <span class="nt">default_palette</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
@@ -918,10 +918,10 @@ gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w">
 <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sienna</span>
 <span class="nt">tags</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;2035&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'2035'</span>
 
-<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-15T10:30:00Z&#39;</span>
-<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-20T14:00:00Z&#39;</span>
+<span class="nt">created_at</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-15T10:30:00Z'</span>
+<span class="nt">updated_at</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-20T14:00:00Z'</span>
 
 <span class="nt">system_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">../data/systems/2035_base.json</span>
 <span class="nt">simulation_paths</span><span class="p">:</span>
@@ -941,7 +941,7 @@ gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w">
 <span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/projects/my-analysis</span>
 <span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Power system analysis</span>
 <span class="nt">remote_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">git@github.com:team/my-analysis.git</span>
-<span class="nt">last_accessed</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2024-01-22T15:00:00Z&#39;</span>
+<span class="nt">last_accessed</span><span class="p">:</span><span class="w"> </span><span class="s">'2024-01-22T15:00:00Z'</span>
 <span class="nt">is_default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">tags</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">transmission</span>
@@ -957,7 +957,7 @@ gat<span class="w"> </span>project<span class="w"> </span>remove<span class="w">
 <h3>Sharing a Project<a class="headerlink" href="#sharing-a-project" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize project</span>
 <span class="nb">cd</span><span class="w"> </span>my-analysis
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Team Analysis&quot;</span>
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--name<span class="w"> </span><span class="s2">"Team Analysis"</span>
 
 <span class="c1"># Add scenarios and palettes</span>
 gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span>--system<span class="w"> </span>../data/sys.json<span class="w"> </span>--simulation<span class="w"> </span>../data/sim.h5
@@ -965,7 +965,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <span class="c1"># Initialize git and push</span>
 git<span class="w"> </span>init
 git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial project setup&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Initial project setup"</span>
 git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:team/my-analysis.git
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 </pre></div>
@@ -996,7 +996,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 
 <span class="c1"># Commit and push</span>
 git<span class="w"> </span>add<span class="w"> </span>scenarios/sensitivity.yaml
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add sensitivity scenario&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add sensitivity scenario"</span>
 git<span class="w"> </span>push
 </pre></div>
 </div>
@@ -1046,7 +1046,7 @@ git<span class="w"> </span>push
 <p>If you’re using the old data sources approach, you can migrate by:</p>
 <ol class="arabic">
 <li><p><strong>Create a project</strong> for each data source:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Project&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Project"</span>
 </pre></div>
 </div>
 </li>
@@ -1072,7 +1072,7 @@ git<span class="w"> </span>push
 <p>Edit <code class="docutils literal notranslate"><span class="pre">gat-project.yaml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">venv</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.venv</span>
-<span class="w">  </span><span class="nt">python_version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.11&#39;</span>
+<span class="w">  </span><span class="nt">python_version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.11'</span>
 <span class="w">  </span><span class="nt">requirements</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pandas&gt;=2.0</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matplotlib&gt;=3.5</span>
@@ -1087,8 +1087,8 @@ git<span class="w"> </span>push
 <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Project</span>
 <span class="nt">custom_field</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom_value</span>
 <span class="nt">team_settings</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">slack_channel</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#grid-analysis&quot;</span>
-<span class="w">  </span><span class="nt">meeting_day</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Tuesday&quot;</span>
+<span class="w">  </span><span class="nt">slack_channel</span><span class="p">:</span><span class="w"> </span><span class="s">"#grid-analysis"</span>
+<span class="w">  </span><span class="nt">meeting_day</span><span class="p">:</span><span class="w"> </span><span class="s">"Tuesday"</span>
 </pre></div>
 </div>
 </section>
@@ -1113,7 +1113,7 @@ git<span class="w"> </span>push
 <section id="project-not-found">
 <h3>Project not found<a class="headerlink" href="#project-not-found" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>gat<span class="w"> </span>project<span class="w"> </span>show<span class="w"> </span>my-project
-Error:<span class="w"> </span>Project<span class="w"> </span><span class="s1">&#39;my-project&#39;</span><span class="w"> </span>not<span class="w"> </span>found
+Error:<span class="w"> </span>Project<span class="w"> </span><span class="s1">'my-project'</span><span class="w"> </span>not<span class="w"> </span>found
 </pre></div>
 </div>
 <p><strong>Solution:</strong> Add the project to your user metadata:</p>

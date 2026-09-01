@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CLI Quick Reference &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>CLI Quick Reference &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="_static/documentation_options.js?v=daecbd94"></script>
+    <script src="_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Project Management (v1.0)" href="cli_project_management.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -547,7 +547,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">--no-palettes</span></code> - Don’t copy user palettes</p></li>
 </ul>
 <p><strong>Examples:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis"</span>
 gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>.<span class="w"> </span>--set-default
 </pre></div>
 </div>
@@ -694,7 +694,7 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <section id="create-new-project-and-add-scenarios">
 <h3>Create New Project and Add Scenarios<a class="headerlink" href="#create-new-project-and-add-scenarios" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Initialize project</span>
-gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;My Analysis&quot;</span><span class="w"> </span>--set-default
+gat<span class="w"> </span>project<span class="w"> </span>init<span class="w"> </span>my-analysis<span class="w"> </span>--name<span class="w"> </span><span class="s2">"My Analysis"</span><span class="w"> </span>--set-default
 
 <span class="c1"># 2. Add scenarios</span>
 gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w"> </span>add<span class="w"> </span>sienna<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
@@ -719,11 +719,11 @@ gat<span class="w"> </span>project<span class="w"> </span>scenario<span class="w
 <span class="nb">cd</span><span class="w"> </span>my-analysis
 git<span class="w"> </span>init
 git<span class="w"> </span>add<span class="w"> </span>.
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial project setup&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Initial project setup"</span>
 git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:team/my-analysis.git
 git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 
-<span class="c1"># Teammate&#39;s machine</span>
+<span class="c1"># Teammate's machine</span>
 git<span class="w"> </span>clone<span class="w"> </span>git@github.com:team/my-analysis.git
 <span class="nb">cd</span><span class="w"> </span>my-analysis
 gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span>--set-default
@@ -890,7 +890,7 @@ gat<span class="w"> </span>project<span class="w"> </span>add<span class="w"> </
 <h2>Error Messages<a class="headerlink" href="#error-messages" title="Link to this heading">#</a></h2>
 <section id="project-not-found">
 <h3>“Project not found”<a class="headerlink" href="#project-not-found" title="Link to this heading">#</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Error:<span class="w"> </span>Project<span class="w"> </span><span class="s1">&#39;my-project&#39;</span><span class="w"> </span>not<span class="w"> </span>found
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Error:<span class="w"> </span>Project<span class="w"> </span><span class="s1">'my-project'</span><span class="w"> </span>not<span class="w"> </span>found
 </pre></div>
 </div>
 <p><strong>Solution:</strong> Add the project first:</p>

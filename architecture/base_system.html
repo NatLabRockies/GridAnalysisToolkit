@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>BaseSystem Architecture &#8212; Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</title>
+    <title>BaseSystem Architecture &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
   
   
   
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=daecbd94"></script>
+    <script src="../_static/documentation_options.js?v=f5ea90ea"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Sienna scaling and raw dataset access" href="../sienna_scaling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post8+g5c590b1cd" />
+  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post8+g5c590b1cd documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -575,31 +575,31 @@
 <p>Location: <code class="docutils literal notranslate"><span class="pre">gat/datahelpers/base_system.py</span></code></p>
 <p>The abstract base class defines the interface that all system parsers must implement:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">BaseSystem</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for system file parsers.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Abstract base class for system file parsers."""</span>
     
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_system_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SystemInfo</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get basic system information.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get basic system information."""</span>
         <span class="k">pass</span>
     
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_generator_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GeneratorCategory</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List all generator categories in the system.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List all generator categories in the system."""</span>
         <span class="k">pass</span>
     
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">list_load_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LoadCategory</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;List all load categories in the system.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""List all load categories in the system."""</span>
         <span class="k">pass</span>
     
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_generator_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed generator data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get detailed generator data."""</span>
         <span class="k">pass</span>
     
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get detailed load data.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Get detailed load data."""</span>
         <span class="k">pass</span>
 </pre></div>
 </div>
@@ -673,20 +673,20 @@
 <li><p>Mark curtailable resources (typically VRE)</p></li>
 </ol>
 <p><strong>Example</strong>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;path/to/system.json&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"path/to/system.json"</span><span class="p">)</span>
 
 <span class="c1"># Get system info</span>
 <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># List categories</span>
 <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> units, </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span><span class="si">}</span><span class="s2"> units, </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
 
 <span class="c1"># Get detailed data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;capacity&#39;</span><span class="p">,</span> <span class="s1">&#39;is_vre&#39;</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'category'</span><span class="p">,</span> <span class="s1">'capacity'</span><span class="p">,</span> <span class="s1">'is_vre'</span><span class="p">]])</span>
 </pre></div>
 </div>
 </section>
@@ -706,18 +706,18 @@
 <h3>2. Platform Independence<a class="headerlink" href="#platform-independence" title="Link to this heading">#</a></h3>
 <p>Code that uses <code class="docutils literal notranslate"><span class="pre">BaseSystem</span></code> works with any implementation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_system</span><span class="p">(</span><span class="n">system</span><span class="p">:</span> <span class="n">BaseSystem</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Works with any BaseSystem implementation.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Works with any BaseSystem implementation."""</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
     <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
     <span class="n">vre</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_vre_categories</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">info</span><span class="p">,</span> <span class="n">categories</span><span class="p">,</span> <span class="n">vre</span>
 
 <span class="c1"># Works with Sienna</span>
-<span class="n">sienna_sys</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">sienna_sys</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 <span class="n">analyze_system</span><span class="p">(</span><span class="n">sienna_sys</span><span class="p">)</span>
 
 <span class="c1"># Will work with ReEDS (future)</span>
-<span class="n">reeds_sys</span> <span class="o">=</span> <span class="n">ReedsSystem</span><span class="p">(</span><span class="s2">&quot;reeds_output/&quot;</span><span class="p">)</span>
+<span class="n">reeds_sys</span> <span class="o">=</span> <span class="n">ReedsSystem</span><span class="p">(</span><span class="s2">"reeds_output/"</span><span class="p">)</span>
 <span class="n">analyze_system</span><span class="p">(</span><span class="n">reeds_sys</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -798,18 +798,18 @@
 <h3>Pattern 1: System Inspection<a class="headerlink" href="#pattern-1-system-inspection" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># Basic info</span>
 <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;System: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"System: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generators: </span><span class="si">{</span><span class="n">info</span><span class="o">.</span><span class="n">num_generators</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Categories</span>
 <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cat</span><span class="o">.</span><span class="n">total_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">cat</span><span class="o">.</span><span class="n">is_vre</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  → VRE technology&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"  → VRE technology"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -818,12 +818,12 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gat.palette_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">PaletteGenerator</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 <span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
 
 <span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;My Palette&quot;</span><span class="p">,</span>
-    <span class="n">simulation_type</span><span class="o">=</span><span class="s2">&quot;sienna&quot;</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"My Palette"</span><span class="p">,</span>
+    <span class="n">simulation_type</span><span class="o">=</span><span class="s2">"sienna"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -832,18 +832,18 @@
 <h3>Pattern 3: Data Analysis<a class="headerlink" href="#pattern-3-data-analysis" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 
 <span class="c1"># Get all generators as DataFrame</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_generator_data</span><span class="p">()</span>
 
 <span class="c1"># Analyze VRE capacity</span>
-<span class="n">vre_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_vre&#39;</span><span class="p">]]</span>
-<span class="n">vre_capacity</span> <span class="o">=</span> <span class="n">vre_df</span><span class="p">[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total VRE capacity: </span><span class="si">{</span><span class="n">vre_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW&quot;</span><span class="p">)</span>
+<span class="n">vre_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'is_vre'</span><span class="p">]]</span>
+<span class="n">vre_capacity</span> <span class="o">=</span> <span class="n">vre_df</span><span class="p">[</span><span class="s1">'capacity'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total VRE capacity: </span><span class="si">{</span><span class="n">vre_capacity</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> MW"</span><span class="p">)</span>
 
 <span class="c1"># Analyze by fuel type</span>
-<span class="n">capacity_by_fuel</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;fuel_type&#39;</span><span class="p">)[</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">capacity_by_fuel</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'fuel_type'</span><span class="p">)[</span><span class="s1">'capacity'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">capacity_by_fuel</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -852,15 +852,15 @@
 <h3>Pattern 4: Validation<a class="headerlink" href="#pattern-4-validation" title="Link to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gat.datahelpers.sienna_system</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaSystem</span>
 
-<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;system.json&quot;</span><span class="p">)</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"system.json"</span><span class="p">)</span>
 <span class="n">warnings</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">warnings</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System validation warnings:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"System validation warnings:"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ⚠ </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  ⚠ </span><span class="si">{</span><span class="n">warning</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ System validation passed&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"✓ System validation passed"</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -872,7 +872,7 @@
 <section id="reedssystem-planned">
 <h4>ReedsSystem (Planned)<a class="headerlink" href="#reedssystem-planned" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ReedsSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for ReEDS output files.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Parser for ReEDS output files."""</span>
     
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reeds_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">solve_year</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reeds_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">reeds_path</span><span class="p">)</span>
@@ -884,7 +884,7 @@
 <section id="plexossystem-planned">
 <h4>PlexosSystem (Planned)<a class="headerlink" href="#plexossystem-planned" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PlexosSystem</span><span class="p">(</span><span class="n">BaseSystem</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parser for Plexos solution files.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Parser for Plexos solution files."""</span>
     
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solution_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">solution_path</span><span class="p">)</span>
@@ -911,13 +911,13 @@
 <h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Link to this heading">#</a></h3>
 <p>Test each implementation independently:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_sienna_system_info</span><span class="p">():</span>
-    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"test_system.json"</span><span class="p">)</span>
     <span class="n">info</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_system_info</span><span class="p">()</span>
     <span class="k">assert</span> <span class="n">info</span><span class="o">.</span><span class="n">num_generators</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="k">assert</span> <span class="n">info</span><span class="o">.</span><span class="n">base_power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_generator_categories</span><span class="p">():</span>
-    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"test_system.json"</span><span class="p">)</span>
     <span class="n">categories</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">list_generator_categories</span><span class="p">()</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">)</span>
@@ -928,9 +928,9 @@
 <h3>Integration Tests<a class="headerlink" href="#integration-tests" title="Link to this heading">#</a></h3>
 <p>Test with PaletteGenerator:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_palette_generation</span><span class="p">():</span>
-    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">&quot;test_system.json&quot;</span><span class="p">)</span>
+    <span class="n">system</span> <span class="o">=</span> <span class="n">SiennaSystem</span><span class="p">(</span><span class="s2">"test_system.json"</span><span class="p">)</span>
     <span class="n">generator</span> <span class="o">=</span> <span class="n">PaletteGenerator</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
-    <span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Test&quot;</span><span class="p">)</span>
+    <span class="n">palette</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Test"</span><span class="p">)</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">palette</span><span class="o">.</span><span class="n">display_categories</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </pre></div>
 </div>
@@ -940,12 +940,12 @@
 <p>Use synthetic system files for testing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">sample_system</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create minimal valid system for testing.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Create minimal valid system for testing."""</span>
     <span class="n">system_data</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;data_format_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.0.0&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;base_power&quot;</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
-            <span class="s2">&quot;components&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"data_format_version"</span><span class="p">:</span> <span class="s2">"3.0.0"</span><span class="p">,</span>
+        <span class="s2">"data"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"base_power"</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+            <span class="s2">"components"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="c1"># Test generators</span>
             <span class="p">]</span>
         <span class="p">}</span>
