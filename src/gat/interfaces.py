@@ -17,6 +17,7 @@ a BaseSystem + BaseSimulation together.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 import pandas as pd
 
@@ -145,3 +146,32 @@ class BaseSimulation(ABC):
         ActivePowerVariable__RenewableDispatch, etc.
         """
         return []
+
+    @classmethod
+    def from_paths(
+        cls, paths: str | Path | list[str | Path], **kwargs
+    ) -> "BaseSimulation":
+        """Construct from one or more partition files (e.g. weekly/monthly
+        chunks of one logical simulation, submitted in parallel) treated
+        as a single combined simulation.
+
+        Default: instantiate ``cls(path, **kwargs)`` once per path and
+        combine their datasets via
+        ``gat.simulations.multi_file.MultiFileSimulation`` — free for any
+        subclass whose constructor takes a single file path, which covers
+        most extensions, without them needing to implement multi-file
+        support themselves.
+
+        Override this when your format combines through a different
+        mechanism than "N single-file objects + pandas concat" — e.g. SQL
+        ATTACH across converted files (see
+        ``PlexosDuckDBSimulation.from_paths``).
+        """
+        path_list = [paths] if isinstance(paths, (str, Path)) else list(paths)
+
+        if len(path_list) == 1:
+            return cls(path_list[0], **kwargs)
+
+        from .simulations.multi_file import MultiFileSimulation
+
+        return MultiFileSimulation(cls, path_list, **kwargs)

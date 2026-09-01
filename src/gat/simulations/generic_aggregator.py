@@ -74,6 +74,7 @@ class SimulationAggregator:
         parser_class: Type[BaseSimulationParser],
         parallel: bool = True,
         max_workers: Optional[int] = None,
+        parser_kwargs: Optional[Dict[str, Any]] = None,
     ):
         """
         Initialize the simulation aggregator.
@@ -83,6 +84,10 @@ class SimulationAggregator:
             parser_class: Parser class to instantiate (must inherit from BaseSimulationParser)
             parallel: Whether to load files in parallel (default: True)
             max_workers: Maximum number of parallel workers (default: CPU count)
+            parser_kwargs: Extra keyword arguments forwarded to
+                ``parser_class(file_path, **parser_kwargs)`` for every file.
+                For parser classes whose constructor needs more than a bare
+                path (default: none).
 
         Raises:
             ValueError: If no valid files provided or parser_class is invalid
@@ -96,6 +101,7 @@ class SimulationAggregator:
         self.parser_class = parser_class
         self.parallel = parallel
         self.max_workers = max_workers or mp.cpu_count()
+        self.parser_kwargs = parser_kwargs or {}
 
         # Validate inputs
         if not self.file_paths:
@@ -144,7 +150,7 @@ class SimulationAggregator:
                 logger.debug(
                     f"Loading file {i + 1}/{len(self.file_paths)}: {file_path.name}"
                 )
-                parser = self.parser_class(str(file_path))  # type: ignore
+                parser = self.parser_class(str(file_path), **self.parser_kwargs)  # type: ignore
                 parsers.append(parser)
             except Exception as e:
                 logger.error(f"Failed to load {file_path}: {e}")
@@ -199,7 +205,7 @@ class SimulationAggregator:
         Returns:
             Initialized parser instance
         """
-        return self.parser_class(file_path)  # type: ignore
+        return self.parser_class(file_path, **self.parser_kwargs)  # type: ignore
 
     def _validate_parsers(self):
         """Validate that all parsers have compatible simulation models."""

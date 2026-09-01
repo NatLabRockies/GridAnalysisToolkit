@@ -31,7 +31,17 @@ if TYPE_CHECKING:
     import polars as pl
 
 
-block_combination_strategy = Literal["left", "right"]
+block_combination_strategy = Literal["left", "right", "earlier_wins", "later_wins"]
+
+# "left"/"right" describe which side gets truncated at the overlap, not
+# which side wins -- confusing enough that multiple docstrings in this
+# module apologize for it. "earlier_wins"/"later_wins" are the canonical,
+# self-documenting names going forward; "left"/"right" stay accepted for
+# backward compatibility with existing call sites.
+_MERGE_STRATEGY_ALIASES = {
+    "earlier_wins": "right",
+    "later_wins": "left",
+}
 
 
 def resolve_compositions(
@@ -81,20 +91,20 @@ def dedup_slices(
 
     See SiennaSimulationParser._get_decision_data() for detailed strategy examples.
     """
-    # Create mapping of block start time to (original_index, block)
-    block_mapping = {}
-    for i, block in enumerate(blocks):
-        start_time = block.min()
-        block_mapping[start_time] = (i, block)
-
-    # Sort blocks by start time
-    sorted_start_times = sorted(block_mapping.keys())
+    # (start_time, original_index, block) triples, sorted by start_time.
+    # A plain dict keyed by start_time would silently clobber one block
+    # whenever two blocks share an identical start timestamp; sort() is
+    # stable, so ties instead keep their original input order.
+    indexed_blocks = sorted(
+        ((block.min(), i, block) for i, block in enumerate(blocks)),
+        key=lambda t: t[0],
+    )
+    sorted_start_times = [t[0] for t in indexed_blocks]
 
     # Create result list in original order
     result = [None] * len(blocks)
 
-    for j, start_time in enumerate(sorted_start_times):
-        original_idx, current_block = block_mapping[start_time]
+    for j, (start_time, original_idx, current_block) in enumerate(indexed_blocks):
 
         if ignore_previous:
             # LEFT strategy: Keep data from current time forward, remove overlap with next block
@@ -130,8 +140,7 @@ def dedup_slices(
             # RIGHT strategy: Remove overlap with previous block, keep data forward
             if j > 0:
                 # Not the first block - find overlap with previous block
-                prev_start_time = sorted_start_times[j - 1]
-                prev_original_idx, prev_block = block_mapping[prev_start_time]
+                _, _, prev_block = indexed_blocks[j - 1]
                 prev_end_time = prev_block.max()
 
                 # Find where previous block ends in current block
@@ -186,8 +195,11 @@ def combine_overlapping_frames(
 
     Args:
         frames: DataFrames to combine, each with a sortable time index.
-        merge_strategy: "right" (earlier wins, default) or "left" (later
-            wins) — see the module docstring for the visual explanation.
+        merge_strategy: "right"/"earlier_wins" (default) or "left"/
+            "later_wins" — "earlier_wins"/"later_wins" are the canonical
+            names (self-documenting); "left"/"right" remain accepted for
+            backward compatibility. See the module docstring for the
+            visual explanation of what gets truncated.
 
     Returns:
         A single combined, chronologically-sorted DataFrame.
@@ -197,6 +209,7 @@ def combine_overlapping_frames(
     if len(frames) == 1:
         return frames[0]
 
+    merge_strategy = _MERGE_STRATEGY_ALIASES.get(merge_strategy, merge_strategy)
     sorted_frames = sorted(frames, key=lambda df: df.index.min())
     ignore_previous = merge_strategy == "left"
 

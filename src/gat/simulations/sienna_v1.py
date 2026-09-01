@@ -89,6 +89,48 @@ class SiennaSimulation(BaseSimulation):
             len(self._get_raw_datasets()),
         )
 
+    @classmethod
+    def from_paths(
+        cls,
+        paths: str | Path | list[str | Path],
+        simulation: str | None = None,
+        **kwargs,
+    ) -> "BaseSimulation":
+        """Override of BaseSimulation.from_paths: the across-file merge
+        direction comes from the selected model's own
+        ``SiennaModelConfig.merge`` (already exposed as
+        ``SiennaSimulationParser.merge_strategy``) rather than
+        ``MultiFileSimulation``'s generic default -- a UC/decision model
+        and an emulation model can legitimately want different behavior
+        at a partition seam, and this reuses the existing per-model
+        setting instead of picking one global default.
+        """
+        path_list = [paths] if isinstance(paths, (str, Path)) else list(paths)
+
+        if len(path_list) == 1:
+            return cls(path_list[0], simulation=simulation, **kwargs)
+
+        from .sienna import SiennaSimulationParser
+
+        # Every partition of one logical simulation shares the same
+        # model, so the first file's config is representative -- this is
+        # a metadata-only read (SiennaSimulationConfig.from_h5_file opens
+        # the file in a `with` block), not a full data parse.
+        probe = SiennaSimulationParser(str(path_list[0]))
+        if simulation is not None:
+            probe.selected_model = simulation
+        merge_strategy = probe.merge_strategy or "earlier_wins"
+
+        from .multi_file import MultiFileSimulation
+
+        return MultiFileSimulation(
+            cls,
+            path_list,
+            merge_strategy=merge_strategy,
+            simulation=simulation,
+            **kwargs,
+        )
+
     @property
     def parser(self) -> object:
         """Access the underlying SiennaSimulationParser for advanced use."""

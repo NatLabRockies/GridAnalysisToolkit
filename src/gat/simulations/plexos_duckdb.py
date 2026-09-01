@@ -85,6 +85,15 @@ class PlexosDuckDBSimulation(BaseSimulation):
             len(self._get_raw_tables()),
         )
 
+    @classmethod
+    def from_paths(cls, paths, **kwargs) -> "PlexosDuckDBSimulation":
+        """Override of BaseSimulation.from_paths: PlexosDuckDBSource already
+        combines multiple files by ATTACHing each as its own DuckDB schema
+        (see gat.datahelpers.plexos_duckdb), so there's no need to route
+        through MultiFileSimulation's per-file-object model — just pass
+        the paths straight through."""
+        return cls(paths, **kwargs)
+
     @property
     def source(self) -> PlexosDuckDBSource:
         """Access the underlying PlexosDuckDBSource for advanced use."""

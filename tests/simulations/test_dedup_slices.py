@@ -67,6 +67,21 @@ def test_three_blocks_unsorted_input_preserves_input_order():
     ]
 
 
+def test_two_blocks_same_start_time_neither_dropped():
+    """Two blocks sharing an identical start timestamp used to silently
+    clobber one entry in a start_time-keyed dict (block_mapping), losing
+    that block's result entirely. Both must now appear, with ties broken
+    by original input order."""
+    a = _series("2020-01-01", "2020-01-02", "2020-01-03")
+    b = _series("2020-01-01", "2020-01-04", "2020-01-05")
+    out_left = dedup_slices([a, b], ignore_previous=True)
+    out_right = dedup_slices([a, b], ignore_previous=False)
+    assert len(out_left) == 2
+    assert None not in out_left
+    assert len(out_right) == 2
+    assert None not in out_right
+
+
 def test_overlap_dedup_for_chained_blocks_left():
     """Chained overlap: A→B→C each overlapping by 1 timestamp."""
     a = _series("2020-01-01", "2020-01-02", "2020-01-03")
