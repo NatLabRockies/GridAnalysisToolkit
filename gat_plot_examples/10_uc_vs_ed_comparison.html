@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Model vs Model: UC, ED, and Emulator from One Store &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
+    <title>Model vs Model: UC, ED, and Emulator from One Store &#8212; Grid Analysis Toolkit 0.1.2.post1+g52c986db2 documentation</title>
   
   
   
@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=f5ea90ea"></script>
+    <script src="../_static/documentation_options.js?v=3df5c01a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Load Heatmap and Duration Curve" href="08_load_heatmap.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
+  <meta name="docsearch:version" content="0.1.2.post1+g52c986db2" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -184,7 +184,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.2.post1+g52c986db2 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -497,56 +497,54 @@ same machinery GAT uses to compare scenarios across tools.</p>
 <p>Shown here, top-down: system stacks and the redispatch delta, then
 per-technology timeseries (solid vs dashed), then a single generator,
 then a single line (ED vs Emulator).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
-<span class="c1"># The fixture has no storage; MultiScenario's pass-through getters use</span>
-<span class="c1"># defaults, so silence the resulting missing-dataset UserWarnings.</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">MultiScenario</span><span class="p">,</span> <span class="n">SiennaScenario</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gat.quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">gat.quickplots.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_colormap</span>
-
-<span class="c1"># GAT's standard technology colors — used for every comparison below so</span>
-<span class="c1"># a technology keeps its identity across panels and against the stacks.</span>
-<span class="n">tech_colors</span> <span class="o">=</span> <span class="n">get_colormap</span><span class="p">()</span>
-
-<span class="c1"># These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via</span>
-<span class="c1"># `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`</span>
-<span class="c1"># instead — see docs/source/python_api_load.md.</span>
-<span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">"../../example_data/sienna/v4"</span>
-<span class="n">scenarios</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="o">.</span><span class="n">from_simulation_models</span><span class="p">(</span>
-    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5"</span><span class="p">,</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"models in store:"</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">scenarios</span><span class="p">))</span>
-
-<span class="c1"># The two optimization stages, behind one MultiScenario API.</span>
-<span class="n">ms</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"UC"</span><span class="p">,</span> <span class="s2">"ED"</span><span class="p">)})</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span><span class="w">
+</span><span class="w">
+</span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ignore</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span><span class="w">
+</span><span class="c1"># The fixture has no storage; MultiScenario's pass-through getters use</span><span class="w">
+</span><span class="c1"># defaults, so silence the resulting missing-dataset UserWarnings.</span><span class="w">
+</span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ignore</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">gat</span><span class="nn">.</span><span class="nn">scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.MultiScenario"><span class="n">MultiScenario</span></a><span class="p">,</span> <span class="n">SiennaScenario</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">gat</span><span class="nn">.</span><span class="nn">quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">gat</span><span class="nn">.</span><span class="nn">quickplots</span><span class="nn">.</span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_colormap</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># GAT's standard technology colors — used for every comparison below so</span><span class="w">
+</span><span class="c1"># a technology keeps its identity across panels and against the stacks.</span><span class="w">
+</span><span class="n">tech_colors</span> <span class="o">=</span> <span class="n">get_colormap</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via</span><span class="w">
+</span><span class="c1"># `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`</span><span class="w">
+</span><span class="c1"># instead — see docs/source/python_api_load.md.</span><span class="w">
+</span><span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s2">../../example_data/sienna/v4</span><span class="s2">&quot;</span><span class="w">
+</span><span class="n">scenarios</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario.from_simulation_models" title="gat.SiennaScenario.from_simulation_models"><span class="n">SiennaScenario</span><span class="o">.</span><span class="n">from_simulation_models</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">models in store:</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># The two optimization stages, behind one MultiScenario API.</span><span class="w">
+</span><a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.MultiScenario"><span class="n">ms</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.MultiScenario"><span class="n">MultiScenario</span></a><span class="p">(</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">}</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>models in store: ['ED', 'UC', 'Emulator']
 </pre></div>
 </div>
 </section>
 <section id="generation-stacks-one-per-model">
 <h1>Generation stacks, one per model<a class="headerlink" href="#generation-stacks-one-per-model" title="Link to this heading">#</a></h1>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dispatch</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="p">(</span><span class="s2">"UC"</span><span class="p">,</span> <span class="s2">"ED"</span><span class="p">)):</span>
-    <span class="n">dispatch</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">get_area_dispatch</span><span class="p">(</span>
-        <span class="n">include_charging</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_use</span><span class="o">=</span><span class="kc">False</span>
-    <span class="p">)</span>
-    <span class="n">qp</span><span class="o">.</span><span class="n">plot_annual_system_dispatch_stack</span><span class="p">(</span><span class="n">dispatch</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> — Generation by Technology"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">dispatch</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="n">dispatch</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">get_area_dispatch</span><span class="p">(</span><span class="w">
+</span>        <span class="n">include_charging</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_use</span><span class="o">=</span><span class="kc">False</span><span class="w">
+</span>    <span class="p">)</span><span class="w">
+</span>    <span class="n">qp</span><span class="o">.</span><span class="n">plot_annual_system_dispatch_stack</span><span class="p">(</span><span class="n">dispatch</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> — Generation by Technology</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_10_uc_vs_ed_comparison_001.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_001.png" alt="UC — Generation by Technology, ED — Generation by Technology" class = "sphx-glr-single-img"/></section>
 <section id="redispatch-delta-ed-minus-uc">
 <h1>Redispatch delta (ED minus UC)<a class="headerlink" href="#redispatch-delta-ed-minus-uc" title="Link to this heading">#</a></h1>
@@ -554,22 +552,21 @@ then a single line (ED vs Emulator).</p>
 negative bars are technologies ED backs down. The deltas are small
 relative to total energy — ED redispatches within UC’s commitments —
 which is exactly what the feedforward is supposed to enforce.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">totals</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"Technology"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dispatch</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-<span class="p">}</span>
-<span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">totals</span><span class="p">[</span><span class="s2">"ED"</span><span class="p">]</span> <span class="o">-</span> <span class="n">totals</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">delta</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"ED − UC energy (MWh)"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Redispatch: where ED deviates from the UC plan"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">totals</span> <span class="o">=</span> <span class="p">{</span><span class="w">
+</span>    <span class="n">name</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">Technology</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dispatch</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">totals</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">totals</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">delta</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">gray</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">delta</span><span class="o">.</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ED − UC energy (MWh)</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Redispatch: where ED deviates from the UC plan</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">black</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_10_uc_vs_ed_comparison_002.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_002.png" alt="Redispatch: where ED deviates from the UC plan" class = "sphx-glr-single-img"/></section>
 <section id="per-technology-timeseries-system-level-solid-uc-dashed-ed">
 <h1>Per-technology timeseries — system level (solid UC, dashed ED)<a class="headerlink" href="#per-technology-timeseries-system-level-solid-uc-dashed-ed" title="Link to this heading">#</a></h1>
@@ -577,60 +574,58 @@ which is exactly what the feedforward is supposed to enforce.</p>
 <code class="docutils literal notranslate"><span class="pre">Scenario</span></code> column level, so slicing out comparable timeseries is a
 groupby away. One color per technology; line style distinguishes the
 model.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ms_dispatch</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">get_area_dispatch</span><span class="p">()</span>
-<span class="n">by_tech</span> <span class="o">=</span> <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s2">"Scenario"</span><span class="p">,</span> <span class="s2">"Technology"</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-
-<span class="n">top_techs</span> <span class="o">=</span> <span class="n">by_tech</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">styles</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"UC"</span><span class="p">:</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"ED"</span><span class="p">:</span> <span class="s2">"--"</span><span class="p">}</span>
-<span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">top_techs</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">styles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">by_tech</span><span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="n">tech</span><span class="p">)],</span>
-            <span class="n">style</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tech</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">),</span>
-            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"UC"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"solid = UC, dashed = ED"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"MW"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"System generation by technology — UC vs ED"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">ms_dispatch</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_area_dispatch" title="gat.MultiScenario.get_area_dispatch"><span class="n">ms</span><span class="o">.</span><span class="n">get_area_dispatch</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">by_tech</span> <span class="o">=</span> <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">Scenario</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">Technology</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="w">
+</span><span class="w">
+</span><span class="n">top_techs</span> <span class="o">=</span> <span class="n">by_tech</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">styles</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="s2">-</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="s2">--</span><span class="s2">&quot;</span><span class="p">}</span><span class="w">
+</span><span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">top_techs</span><span class="p">:</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">styles</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="w">
+</span>            <span class="n">by_tech</span><span class="p">[</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tech</span><span class="p">)</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>            <span class="n">style</span><span class="p">,</span><span class="w">
+</span>            <span class="n">color</span><span class="o">=</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tech</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">gray</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">)</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="w">
+</span>        <span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">solid = UC, dashed = ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">MW</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">System generation by technology — UC vs ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_10_uc_vs_ed_comparison_003.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_003.png" alt="System generation by technology — UC vs ED" class = "sphx-glr-single-img"/></section>
 <section id="per-technology-timeseries-one-region">
 <h1>Per-technology timeseries — one region<a class="headerlink" href="#per-technology-timeseries-one-region" title="Link to this heading">#</a></h1>
 <p>The same comparison scoped to a single area: keep the <code class="docutils literal notranslate"><span class="pre">Area</span></code> level
 before grouping.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="o">=</span> <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s2">"Area"</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">area_by_tech</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">"Area"</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s2">"Scenario"</span><span class="p">,</span> <span class="s2">"Technology"</span><span class="p">])</span>
-    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">T</span>
-<span class="p">)</span>
-<span class="n">area_top</span> <span class="o">=</span> <span class="n">area_by_tech</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">area_top</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">styles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-            <span class="n">area_by_tech</span><span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="n">tech</span><span class="p">)],</span>
-            <span class="n">style</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tech</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">),</span>
-            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"UC"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"solid = UC, dashed = ED"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"MW"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Area </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2"> generation by technology — UC vs ED"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">area</span> <span class="o">=</span> <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Area</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span><span class="n">area_by_tech</span> <span class="o">=</span> <span class="p">(</span><span class="w">
+</span>    <span class="n">ms_dispatch</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">area</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">Area</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">Scenario</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">Technology</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">T</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="n">area_top</span> <span class="o">=</span> <span class="n">area_by_tech</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">area_top</span><span class="p">:</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span> <span class="ow">in</span> <span class="n">styles</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="w">
+</span>            <span class="n">area_by_tech</span><span class="p">[</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tech</span><span class="p">)</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>            <span class="n">style</span><span class="p">,</span><span class="w">
+</span>            <span class="n">color</span><span class="o">=</span><span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tech</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">gray</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tech</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">)</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span><span class="w">
+</span>        <span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">solid = UC, dashed = ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">MW</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="s2">Area </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2"> generation by technology — UC vs ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_10_uc_vs_ed_comparison_004.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_004.png" alt="Area 1 generation by technology — UC vs ED" class = "sphx-glr-single-img"/></section>
 <section id="a-single-generator">
 <h1>A single generator<a class="headerlink" href="#a-single-generator" title="Link to this heading">#</a></h1>
@@ -638,58 +633,56 @@ before grouping.</p>
 every generator under each scenario. Pick the unit whose behavior
 changes most between the models — commitment differences show up as
 a unit running in one model and sitting idle in the other.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gen</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">get_generation</span><span class="p">()</span>
-<span class="n">common</span> <span class="o">=</span> <span class="n">gen</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="s2">"ED"</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="s2">"ED"</span><span class="p">][</span><span class="n">common</span><span class="p">]</span> <span class="o">-</span> <span class="n">gen</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">][</span><span class="n">common</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
-<span class="n">unit</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># Color the unit by its technology so it matches the panels above</span>
-<span class="c1"># (get_generators_tech returns (Technology, Component) columns).</span>
-<span class="n">gen_tech</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s2">"UC"</span><span class="p">]</span><span class="o">.</span><span class="n">get_generators_tech</span><span class="p">()</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">gen_tech</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="n">unit</span><span class="p">]</span>
-<span class="n">unit_tech</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="kc">None</span>
-<span class="n">unit_color</span> <span class="o">=</span> <span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">unit_tech</span><span class="p">,</span> <span class="s2">"#333333"</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gen</span><span class="p">[(</span><span class="s2">"UC"</span><span class="p">,</span> <span class="n">unit</span><span class="p">)],</span> <span class="s2">"-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">unit_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"UC"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gen</span><span class="p">[(</span><span class="s2">"ED"</span><span class="p">,</span> <span class="n">unit</span><span class="p">)],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">unit_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"ED"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"MW"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Generator </span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2"> — largest UC/ED divergence"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="n">gen</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_generation" title="gat.MultiScenario.get_generation"><span class="n">ms</span><span class="o">.</span><span class="n">get_generation</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">common</span> <span class="o">=</span> <span class="n">gen</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="w">
+</span><span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">[</span><span class="n">common</span><span class="p">]</span> <span class="o">-</span> <span class="n">gen</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">[</span><span class="n">common</span><span class="p">]</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">unit</span> <span class="o">=</span> <span class="n">diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Color the unit by its technology so it matches the panels above</span><span class="w">
+</span><span class="c1"># (get_generators_tech returns (Technology, Component) columns).</span><span class="w">
+</span><span class="n">gen_tech</span> <span class="o">=</span> <span class="n">scenarios</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_generators_tech</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">gen_tech</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="n">unit</span><span class="p">]</span><span class="w">
+</span><span class="n">unit_tech</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="kc">None</span><span class="w">
+</span><span class="n">unit_color</span> <span class="o">=</span> <span class="n">tech_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">unit_tech</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">#333333</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">-</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">unit_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">UC</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gen</span><span class="p">[</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">--</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">unit_color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">MW</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="s2">Generator </span><span class="si">{</span><span class="n">unit</span><span class="si">}</span><span class="s2"> — largest UC/ED divergence</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <img src="../_images/sphx_glr_10_uc_vs_ed_comparison_005.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_005.png" alt="Generator 122_WIND_1 — largest UC/ED divergence" class = "sphx-glr-single-img"/></section>
 <section id="a-single-line-ed-vs-emulator">
 <h1>A single line (ED vs Emulator)<a class="headerlink" href="#a-single-line-ed-vs-emulator" title="Link to this heading">#</a></h1>
 <p>For line flows the interesting comparison is the dispatch model
 against the Emulator stage — how the planned flow differs from the
 emulated one. Same MultiScenario pattern, different pair.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ms_flow</span> <span class="o">=</span> <span class="n">MultiScenario</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"ED"</span><span class="p">,</span> <span class="s2">"Emulator"</span><span class="p">)})</span>
-<span class="n">flow</span> <span class="o">=</span> <span class="n">ms_flow</span><span class="o">.</span><span class="n">get_line_flow</span><span class="p">()</span>
-<span class="n">common_lines</span> <span class="o">=</span> <span class="n">flow</span><span class="p">[</span><span class="s2">"ED"</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="s2">"Emulator"</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">line_diff</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="s2">"Emulator"</span><span class="p">][</span><span class="n">common_lines</span><span class="p">]</span> <span class="o">-</span> <span class="n">flow</span><span class="p">[</span><span class="s2">"ED"</span><span class="p">][</span><span class="n">common_lines</span><span class="p">])</span>
-    <span class="o">.</span><span class="n">abs</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
-<span class="p">)</span>
-<span class="n">line_name</span> <span class="o">=</span> <span class="n">line_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flow</span><span class="p">[(</span><span class="s2">"ED"</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)],</span> <span class="s2">"-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#333333"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"ED"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flow</span><span class="p">[(</span><span class="s2">"Emulator"</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#0079C2"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Emulator"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Flow (MW)"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Line </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s2"> — planned (ED) vs emulated flow"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../_images/sphx_glr_10_uc_vs_ed_comparison_006.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_006.png" alt="Line CA-1 — planned (ED) vs emulated flow" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.483 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.MultiScenario"><span class="n">ms_flow</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario" title="gat.MultiScenario"><span class="n">MultiScenario</span></a><span class="p">(</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">scenarios</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">Emulator</span><span class="s2">&quot;</span><span class="p">)</span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="n">flow</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/MultiScenario.html#gat.scenariohandlers.multi.MultiScenario.get_line_flow" title="gat.MultiScenario.get_line_flow"><span class="n">ms_flow</span><span class="o">.</span><span class="n">get_line_flow</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">common_lines</span> <span class="o">=</span> <span class="n">flow</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">Emulator</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="w">
+</span><span class="n">line_diff</span> <span class="o">=</span> <span class="p">(</span><span class="w">
+</span>    <span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">Emulator</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">[</span><span class="n">common_lines</span><span class="p">]</span> <span class="o">-</span> <span class="n">flow</span><span class="p">[</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">[</span><span class="n">common_lines</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="n">line_name</span> <span class="o">=</span> <span class="n">line_diff</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">-</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">#333333</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">ED</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flow</span><span class="p">[</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Emulator</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">line_name</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">--</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">#0079C2</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">Emulator</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Flow (MW)</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="s2">Line </span><span class="si">{</span><span class="n">line_name</span><span class="si">}</span><span class="s2"> — planned (ED) vs emulated flow</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<img src="../_images/sphx_glr_10_uc_vs_ed_comparison_006.png" srcset="../_images/sphx_glr_10_uc_vs_ed_comparison_006.png" alt="Line CA-1 — planned (ED) vs emulated flow" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.213 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gat-plot-examples-10-uc-vs-ed-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/a9b0d37c86b9d6858f98ebf6165855d2/10_uc_vs_ed_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">10_uc_vs_ed_comparison.ipynb</span></code></a></p>

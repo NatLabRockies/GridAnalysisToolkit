@@ -28,6 +28,7 @@ dependencies (h5py, duckdb, geopandas, polars) that format needs, e.g.
 
 - [Custom plots and the reporting framework](extending_plots.html): the `@plot_function` decorator and how quickplots/reports are assembled
 - [v1 architecture & migration pattern](architecture/v1_migration_pattern.html): the `BaseSystem`/`BaseSimulation` interfaces new format backends implement
+- [GridSight extension](https://github.com/NatLabRockies/GridAnalysisToolkit/tree/main/gridsight-ext): `gridsight-gat`, which shows GAT scenarios in the GridSight desktop app and server
 
 ## Reference
 

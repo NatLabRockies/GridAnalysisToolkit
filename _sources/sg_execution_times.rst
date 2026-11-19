@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.111** total execution time for 10 files **from all galleries**:
+**00:03.245** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -33,32 +33,32 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gat_plot_examples_10_uc_vs_ed_comparison.py` (``../gat_examples/10_uc_vs_ed_comparison.py``)
-     - 00:01.483
+     - 00:01.213
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_04_dispatch_window_peak_min.py` (``../gat_examples/04_dispatch_window_peak_min.py``)
-     - 00:00.518
+     - 00:00.399
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_06_curtailment_annual.py` (``../gat_examples/06_curtailment_annual.py``)
-     - 00:00.337
-     - 0.0
-   * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``../gat_examples/03_dispatch_area_facets.py``)
-     - 00:00.335
+     - 00:00.268
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_05_dispatch_mean_hourly.py` (``../gat_examples/05_dispatch_mean_hourly.py``)
-     - 00:00.328
+     - 00:00.250
+     - 0.0
+   * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``../gat_examples/03_dispatch_area_facets.py``)
+     - 00:00.246
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_09_transmission_loading.py` (``../gat_examples/09_transmission_loading.py``)
-     - 00:00.281
-     - 0.0
-   * - :ref:`sphx_glr_gat_plot_examples_02_dispatch_monthly_system.py` (``../gat_examples/02_dispatch_monthly_system.py``)
-     - 00:00.225
+     - 00:00.224
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_01_dispatch_annual_system.py` (``../gat_examples/01_dispatch_annual_system.py``)
-     - 00:00.219
+     - 00:00.174
+     - 0.0
+   * - :ref:`sphx_glr_gat_plot_examples_02_dispatch_monthly_system.py` (``../gat_examples/02_dispatch_monthly_system.py``)
+     - 00:00.172
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_08_load_heatmap.py` (``../gat_examples/08_load_heatmap.py``)
-     - 00:00.217
+     - 00:00.169
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_07_capacity_overview.py` (``../gat_examples/07_capacity_overview.py``)
-     - 00:00.168
+     - 00:00.129
      - 0.0

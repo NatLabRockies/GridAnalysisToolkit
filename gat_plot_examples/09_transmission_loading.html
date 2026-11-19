@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Transmission Line Loading and Utilization &#8212; Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</title>
+    <title>Transmission Line Loading and Utilization &#8212; Grid Analysis Toolkit 0.1.2.post1+g52c986db2 documentation</title>
   
   
   
@@ -33,7 +33,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -44,7 +44,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
-    <script src="../_static/documentation_options.js?v=f5ea90ea"></script>
+    <script src="../_static/documentation_options.js?v=3df5c01a"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -59,7 +59,7 @@
     <link rel="prev" title="Annual System Dispatch Stack" href="01_dispatch_annual_system.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.1.1.post9+g4cdafba25" />
+  <meta name="docsearch:version" content="0.1.2.post1+g52c986db2" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -180,7 +180,7 @@
   
   
   
-    <p class="title logo__title">Grid Analysis Toolkit 0.1.1.post9+g4cdafba25 documentation</p>
+    <p class="title logo__title">Grid Analysis Toolkit 0.1.2.post1+g52c986db2 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -489,40 +489,39 @@ formatting dataframe
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">gat.scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SiennaScenario</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gat.quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span>
-
-<span class="c1"># These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via</span>
-<span class="c1"># `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`</span>
-<span class="c1"># instead — see docs/source/python_api_load.md.</span>
-<span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">"../../example_data/sienna/v4"</span>
-<span class="n">scenario</span> <span class="o">=</span> <span class="n">SiennaScenario</span><span class="p">(</span>
-    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5"</span><span class="p">,</span>
-    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json"</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">loading</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_loading</span><span class="p">()</span>
-<span class="n">utilization</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_line_utilization</span><span class="p">()</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-
-<span class="n">qp</span><span class="o">.</span><span class="n">plot_loading_ranked</span><span class="p">(</span><span class="n">loading</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Line Loading — Ranked"</span><span class="p">)</span>
-
-<span class="n">qp</span><span class="o">.</span><span class="n">plot_lines_utilization</span><span class="p">(</span><span class="n">utilization</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Line Utilization Distribution"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.281 seconds)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span><span class="w">
+</span><span class="w">
+</span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">ignore</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">gat</span><span class="nn">.</span><span class="nn">scenariohandlers</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class reference internal" href="../api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario" title="gat.SiennaScenario"><span class="n">SiennaScenario</span></a><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">gat</span><span class="nn">.</span><span class="nn">quickplots</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qp</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># These examples use the in-repo Sienna RTS-GMLC fixture. Regenerate it via</span><span class="w">
+</span><span class="c1"># `make sienna-fixture-v4`. For project-based workflows, use `gat.load(...)`</span><span class="w">
+</span><span class="c1"># instead — see docs/source/python_api_load.md.</span><span class="w">
+</span><span class="n">sienna_v4</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s2">../../example_data/sienna/v4</span><span class="s2">&quot;</span><span class="w">
+</span><a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario" title="gat.SiennaScenario"><span class="n">scenario</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-class reference internal" href="../api/ScenarioObjects/SiennaScenario.html#gat.scenariohandlers.sienna.SiennaScenario" title="gat.SiennaScenario"><span class="n">SiennaScenario</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">simulation_files</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/simulation_store.h5</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>    <span class="n">system_file</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sienna_v4</span><span class="si">}</span><span class="s2">/sys.json</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">loading</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_loading" title="gat.BaseScenario.get_line_loading"><span class="n">scenario</span><span class="o">.</span><span class="n">get_line_loading</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">utilization</span> <span class="o">=</span> <a class="sphx-glr-backref-module-gat sphx-glr-backref-type-py-method reference internal" href="../api/ScenarioObjects/BaseScenario.html#gat.scenariohandlers.base.BaseScenario.get_line_utilization" title="gat.BaseScenario.get_line_utilization"><span class="n">scenario</span><span class="o">.</span><span class="n">get_line_utilization</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">qp</span><span class="o">.</span><span class="n">plot_loading_ranked</span><span class="p">(</span><span class="n">loading</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Line Loading — Ranked</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">qp</span><span class="o">.</span><span class="n">plot_lines_utilization</span><span class="p">(</span><span class="n">utilization</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Line Utilization Distribution</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.224 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gat-plot-examples-09-transmission-loading-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b723b8f8c28f089c68d3f18f512e916b/09_transmission_loading.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">09_transmission_loading.ipynb</span></code></a></p>
