@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gridsight-gat"
+version = "0.1.0"
+description = "GridSight extension for GAT (Grid Analysis Toolkit) power system simulation results"
+requires-python = ">=3.11"
+dependencies = [
+    "gridsight-sdk",
+    "duckdb>=1.0",
+    "pyarrow",
+    "nlr-gat[sienna,server]",
+]
+
+[tool.uv.sources]
+nlr-gat = { path = "../", editable = true }
+
+[project.entry-points."gridsight.extensions"]
+gat = "gridsight_gat:GATExtension"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gridsight_gat"]
