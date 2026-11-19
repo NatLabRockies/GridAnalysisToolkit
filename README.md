@@ -103,6 +103,20 @@ Highest-traffic doc pages (also readable directly in the repo):
 - [Migrating from v0.x to v1.0](docs/source/migration_v1.md)
 - [Changelog](docs/source/CHANGELOG.md)
 
+## Use with GridSight
+
+[GridSight](https://github.com/NatLabRockies/GridSight) can show GAT
+scenarios as map layers, charts and animated timeseries. The extension
+lives in [`gridsight-ext/`](gridsight-ext/) (package `gridsight-gat`).
+
+- **GridSight desktop:** build the side-load bundle with
+  `make gridsight-bundle`, then pick the zip in GridSight → Settings →
+  "Choose wheel…". See [`gridsight-ext/BUILDING.md`](gridsight-ext/BUILDING.md).
+- **GridSight from source or Docker:** install both packages into the
+  GridSight server environment:
+  `pip install "nlr-gat[sienna,server]" "gridsight-gat @ git+https://github.com/NatLabRockies/GridAnalysisToolkit.git#subdirectory=gridsight-ext"`.
+  GridSight's `scripts/setup-extensions.sh` does this for a sibling clone.
+
 ## Example data
 
 `example_data/` is gitignored — the binaries are too large to track

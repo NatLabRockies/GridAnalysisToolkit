@@ -1,4 +1,4 @@
-.PHONY: test fixture-deck fixture-deck-sienna fixture-deck-all regen-snapshots \
+.PHONY: test gridsight-bundle fixture-deck fixture-deck-sienna fixture-deck-all regen-snapshots \
         sienna-image-v4 sienna-image-v5 sienna-fixture-v4 sienna-fixture-v4-multi sienna-fixture-v5 sienna-fixture-pjm5
 
 PYTHON ?= python
@@ -58,3 +58,15 @@ sienna-fixture-pjm5: sienna-image-v4
 	docker run --rm -e SIM_SYSTEM=pjm5 -e SIM_STEPS=$(SIM_STEPS) \
 		-v "$(PWD)/$(SIENNA_OUT_PJM5):/output" gat-sienna:v4
 
+
+# GridSight extension bundle: nlr-gat + gridsight-gat wheels in one zip that
+# the GridSight desktop app side-loads (Settings -> "Choose wheel..."). See
+# gridsight-ext/BUILDING.md.
+GRIDSIGHT_EXT_VERSION := $(shell grep -m1 '^version' gridsight-ext/pyproject.toml | sed -E 's/.*"([^"]+)".*/\1/')
+gridsight-bundle:
+	rm -rf dist/gridsight-bundle
+	mkdir -p dist/gridsight-bundle
+	$(UV) build --wheel --out-dir dist/gridsight-bundle .
+	$(UV) build --wheel --out-dir dist/gridsight-bundle gridsight-ext
+	rm -f dist/gridsight-gat-bundle-$(GRIDSIGHT_EXT_VERSION).zip
+	cd dist/gridsight-bundle && zip -j ../gridsight-gat-bundle-$(GRIDSIGHT_EXT_VERSION).zip *.whl
