@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.554** total execution time for 10 files **from all galleries**:
+**00:03.301** total execution time for 10 files **from all galleries**:
 
 .. container::
 
@@ -33,32 +33,32 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gat_plot_examples_10_uc_vs_ed_comparison.py` (``../gat_examples/10_uc_vs_ed_comparison.py``)
-     - 00:01.712
+     - 00:01.216
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_04_dispatch_window_peak_min.py` (``../gat_examples/04_dispatch_window_peak_min.py``)
-     - 00:00.552
+     - 00:00.428
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_06_curtailment_annual.py` (``../gat_examples/06_curtailment_annual.py``)
-     - 00:00.370
+     - 00:00.264
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``../gat_examples/03_dispatch_area_facets.py``)
-     - 00:00.347
+     - 00:00.254
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_05_dispatch_mean_hourly.py` (``../gat_examples/05_dispatch_mean_hourly.py``)
-     - 00:00.339
+     - 00:00.248
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_09_transmission_loading.py` (``../gat_examples/09_transmission_loading.py``)
-     - 00:00.319
-     - 0.0
-   * - :ref:`sphx_glr_gat_plot_examples_08_load_heatmap.py` (``../gat_examples/08_load_heatmap.py``)
-     - 00:00.247
+     - 00:00.230
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_02_dispatch_monthly_system.py` (``../gat_examples/02_dispatch_monthly_system.py``)
-     - 00:00.246
+     - 00:00.183
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_01_dispatch_annual_system.py` (``../gat_examples/01_dispatch_annual_system.py``)
-     - 00:00.241
+     - 00:00.177
+     - 0.0
+   * - :ref:`sphx_glr_gat_plot_examples_08_load_heatmap.py` (``../gat_examples/08_load_heatmap.py``)
+     - 00:00.172
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_07_capacity_overview.py` (``../gat_examples/07_capacity_overview.py``)
-     - 00:00.181
+     - 00:00.129
      - 0.0

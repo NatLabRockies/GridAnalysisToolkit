@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.2...nlr-gat-v0.1.3) (2026-11-19)
+
+
+### Features
+
+* add gridsight-ext, the GridSight extension for GAT ([#42](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/42)) ([52c986d](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/52c986db2d2309f5df237417761b3eeda52a20d4))
+
 ## [0.1.2](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.1...nlr-gat-v0.1.2) (2026-09-01)
 
 
