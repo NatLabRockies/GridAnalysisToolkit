@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.3...nlr-gat-v0.1.4) (2026-11-20)
+
+
+### Bug Fixes
+
+* **gridsight-ext:** SQL-safe scenario view names; daily partitions without PIVOT ([#44](https://github.com/NatLabRockies/GridAnalysisToolkit/issues/44)) ([d423e92](https://github.com/NatLabRockies/GridAnalysisToolkit/commit/d423e92555b5c751f1d12a7d230385c20a9ddea6))
+
 ## [0.1.3](https://github.com/NatLabRockies/GridAnalysisToolkit/compare/nlr-gat-v0.1.2...nlr-gat-v0.1.3) (2026-11-19)
 
 
