@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 import logging
 import os
 import threading
@@ -322,6 +323,16 @@ def _schema_name(project: str, scenario: str, model: str) -> str:
     return f"{project}__{scenario}__{model}".replace("-", "_").replace(" ", "_").lower()
 
 
+def _view_prefix(project: str, scenario: str) -> str:
+    """Prefix of the per-scenario DuckDB views (``ext_gat.<prefix>__<table>``).
+
+    Project and scenario names are user text ("Summer peak 2019"), so every
+    character that is not valid in an unquoted SQL identifier becomes ``_``.
+    Unquoted names keep the views usable in chart templates and in SQL that
+    an agent writes."""
+    return re.sub(r"\W", "_", f"{project}_{scenario}")
+
+
 _GAT_DB_RESOLVED: Path | None = None
 
 
@@ -398,6 +409,7 @@ def _gat_db_path() -> str:
 
 
 from gridsight_gat._gateway import _DuckDBGateway
+from ._partitions import transpose_day
 
 
 class GATExtension(GridSightExtensionBase):
@@ -3526,20 +3538,18 @@ class GATExtension(GridSightExtensionBase):
                     f"No data for date {date_str} in {dataset_name}"
                 )
 
-            # Transpose via UNPIVOT + PIVOT
-            unpivot_cols = ", ".join(f'"{c}"' for c in ts_cols)
-            sql = (
-                f"WITH unpivoted AS ("
-                f"  SELECT entity_id, ts AS datetime, CAST(val AS DOUBLE) AS val "
-                f"  FROM gat_db.{schema}.{table_name} "
-                f"  UNPIVOT (val FOR ts IN ({unpivot_cols}))"
-                f"  WHERE ts >= '{date_str}' AND ts < '{date_str}T99'"
-                f") "
-                f"PIVOT unpivoted ON entity_id USING first(val) "
-                f"ORDER BY datetime"
+            # Read the day's columns as stored (entity rows x hour columns)
+            # and transpose in Arrow. A DuckDB UNPIVOT + PIVOT gives the same
+            # table, but pivoting on ~10k entity ids (line flows) allocated
+            # several GB that DuckDB then keeps, so the server's memory grew
+            # from ~0.5 GB to ~7 GB on the first partition request.
+            select_cols = ", ".join(f'CAST("{c}" AS DOUBLE) AS "{c}"' for c in ts_cols)
+            wide = self._db.fetch_arrow(
+                f"SELECT CAST(entity_id AS VARCHAR) AS entity_id, {select_cols} "
+                f"FROM gat_db.{schema}.{table_name}"
             )
 
-            table = self._db.fetch_arrow(sql)
+        table = transpose_day(wide, ts_cols)
 
         # Serialize to Arrow IPC (no lock needed)
         sink = io.BytesIO()
@@ -3644,7 +3654,7 @@ class GATExtension(GridSightExtensionBase):
         # has a chance to issue concurrent gat_db queries.
         for s in scenarios:
             schema = s["schema_name"]
-            prefix = f"{s['project']}_{s['scenario']}".replace("-", "_")
+            prefix = _view_prefix(s["project"], s["scenario"])
             try:
                 self._ensure_catmap_display_group(schema, prefix)
             except Exception as e:
@@ -3656,7 +3666,7 @@ class GATExtension(GridSightExtensionBase):
 
         for s in scenarios:
             schema = s["schema_name"]
-            prefix = f"{s['project']}_{s['scenario']}".replace("-", "_")
+            prefix = _view_prefix(s["project"], s["scenario"])
             gat_tables = self._get_schema_tables(schema)
 
             for table_name in gat_tables:
@@ -3702,7 +3712,7 @@ class GATExtension(GridSightExtensionBase):
         tables: list[AITableSchema] = []
         for s in scenarios:
             schema = s["schema_name"]
-            prefix = f"{s['project']}_{s['scenario']}".replace("-", "_")
+            prefix = _view_prefix(s["project"], s["scenario"])
             gat_tables = self._get_schema_tables(schema)
 
             for table_name in ("generation", "load", "line_flow"):
@@ -3801,7 +3811,7 @@ class GATExtension(GridSightExtensionBase):
 
         for s in scenarios:
             schema = s["schema_name"]
-            prefix = f"{s['project']}_{s['scenario']}".replace("-", "_")
+            prefix = _view_prefix(s["project"], s["scenario"])
             # Track where this scenario's specs start so we can stamp
             # project/scenario on them in one shot at the end (lets the
             # frontend filter the charts menu by active scenario).
