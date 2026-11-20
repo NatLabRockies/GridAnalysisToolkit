@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:04.562** total execution time for 10 files **from gat_plot_examples**:
+**00:04.621** total execution time for 10 files **from gat_plot_examples**:
 
 .. container::
 
@@ -33,31 +33,31 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gat_plot_examples_10_uc_vs_ed_comparison.py` (``10_uc_vs_ed_comparison.py``)
-     - 00:01.700
+     - 00:01.728
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_04_dispatch_window_peak_min.py` (``04_dispatch_window_peak_min.py``)
-     - 00:00.550
+     - 00:00.570
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_06_curtailment_annual.py` (``06_curtailment_annual.py``)
-     - 00:00.375
-     - 0.0
-   * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``03_dispatch_area_facets.py``)
-     - 00:00.354
+     - 00:00.383
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_05_dispatch_mean_hourly.py` (``05_dispatch_mean_hourly.py``)
-     - 00:00.349
+     - 00:00.353
+     - 0.0
+   * - :ref:`sphx_glr_gat_plot_examples_03_dispatch_area_facets.py` (``03_dispatch_area_facets.py``)
+     - 00:00.351
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_09_transmission_loading.py` (``09_transmission_loading.py``)
-     - 00:00.321
+     - 00:00.324
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_02_dispatch_monthly_system.py` (``02_dispatch_monthly_system.py``)
-     - 00:00.245
+     - 00:00.247
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_01_dispatch_annual_system.py` (``01_dispatch_annual_system.py``)
-     - 00:00.244
+     - 00:00.243
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_08_load_heatmap.py` (``08_load_heatmap.py``)
-     - 00:00.243
+     - 00:00.242
      - 0.0
    * - :ref:`sphx_glr_gat_plot_examples_07_capacity_overview.py` (``07_capacity_overview.py``)
      - 00:00.181
